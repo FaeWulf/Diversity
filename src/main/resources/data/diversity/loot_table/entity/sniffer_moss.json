@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:gift",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:small_dripleaf"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:spore_blossom"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:gameplay/sniffer_digging"
+}
