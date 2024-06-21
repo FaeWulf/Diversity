@@ -3,6 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
+repositories {
+    maven { url 'https://maven.nucleoid.xyz' } // You should have it
+}
+
 version = project.mod_version
 group = project.maven_group
 
@@ -18,7 +22,7 @@ loom {
             sourceSet sourceSets.client
         }
     }
-
+    accessWidenerPath = file("src/main/resources/diversity.accesswidener")
 }
 
 dependencies {
@@ -45,6 +49,7 @@ dependencies {
     implementation(include("org.spongepowered:configurate-hocon:4.1.2"))
     implementation(include("org.spongepowered:configurate-core:4.1.2"))
 
+    modImplementation include("eu.pb4:polymer-core:0.9.2+1.21")
 }
 
 processResources {

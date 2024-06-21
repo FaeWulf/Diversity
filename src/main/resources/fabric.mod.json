@@ -30,6 +30,7 @@
       "environment": "client"
     }
   ],
+  "accessWidener": "diversity.accesswidener",
   "custom": {
     "modmenu": {
       "links": {

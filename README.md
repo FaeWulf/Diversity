@@ -2,6 +2,16 @@
     <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true"/>
 </p>
 
+copper bulb 1 tick delay
+lesser enchantment
+spyglass can see waxed block
+rework no skip weather
+trophy banner
+mace can rotate blocks
+bundle can place block
+bundle enchantment
+rabbit eats carrot sauto breed
+
 ---
 
 ## Overview

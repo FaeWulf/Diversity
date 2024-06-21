@@ -35,6 +35,7 @@ public class Diversity implements ModInitializer {
         loadEvent();
     }
 
+
     private void loadCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             ReflectionUtils.invokeMethodOnClasses("faewulf.diversity.command", "register", CommandDispatcher.class, dispatcher);

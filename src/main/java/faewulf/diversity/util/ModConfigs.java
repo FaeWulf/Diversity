@@ -39,7 +39,7 @@ public class ModConfigs {
 
     public static boolean xp_crops = true;
 
-    public static boolean sleep_dont_skip_weather = false;
+    public static int sleep_dont_skip_weather = 0;
 
     public static boolean prevent_tamed_horse_wandering = true;
 

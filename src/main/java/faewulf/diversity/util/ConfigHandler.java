@@ -14,7 +14,7 @@ import static org.spongepowered.configurate.ConfigurationNode.NUMBER_DEF;
 
 public class ConfigHandler {
 
-    private static final int config_version = 1;
+    private static final int config_version = 2;
     private static int version;
     private static final String path = "config/diversity.conf";
 
@@ -39,8 +39,11 @@ public class ConfigHandler {
 
             if (version == NUMBER_DEF || version < config_version) {
                 Diversity.LOGGER.info("Loaded config's version is older than current version, updating...");
+                generateConfig(root);
                 saveConfig();
             }
+
+            parseConfig(root);
 
         } catch (IOException e) {
             System.err.println("An error occurred while loading this configuration: " + e.getMessage());
@@ -71,7 +74,7 @@ public class ConfigHandler {
         ModConfigs.prevent_farmland_trampling = root.node("general").node("prevent_farmLand_trampling").getBoolean(ModConfigs.prevent_farmland_trampling);
         ModConfigs.xp_crops = root.node("general").node("xp_crops").getBoolean(ModConfigs.xp_crops);
         ModConfigs.prevent_setSpawn_onSleep = root.node("general").node("prevent_setSpawnPoint_onSleep").getBoolean(ModConfigs.prevent_setSpawn_onSleep);
-        ModConfigs.sleep_dont_skip_weather = root.node("general").node("sleep_dont_skip_weather").getBoolean(ModConfigs.sleep_dont_skip_weather);
+        ModConfigs.sleep_dont_skip_weather = root.node("general").node("sleep_dont_skip_weather").getInt(ModConfigs.sleep_dont_skip_weather);
         ModConfigs.no_level_limit_anvil = root.node("general").node("no_level_limit_anvil").getBoolean(ModConfigs.no_level_limit_anvil);
         ModConfigs.cauldron_washing_map = root.node("general").node("cauldron_washing_filled_map").getBoolean(ModConfigs.cauldron_washing_map);
         ModConfigs.softer_sweetBery = root.node("general").node("friendlier_sweetBerry_bush").getBoolean(ModConfigs.softer_sweetBery);
@@ -133,7 +136,7 @@ public class ConfigHandler {
                     .comment("Player can shift + rightclick bed to sleep without set spawn point.");
 
             root.node("general").node("sleep_dont_skip_weather").set(ModConfigs.sleep_dont_skip_weather)
-                    .comment("Keep the current weather (except storm) after sleep");
+                    .comment("Keep the current weather after sleep, 0 is disable, 1: don't skip rain only, 2: don't skip rain and thunder (experiment, you can only sleep at night even in thunder)");
 
             root.node("general").node("no_level_limit_anvil").set(ModConfigs.no_level_limit_anvil)
                     .comment("No limit xp on anvil");
