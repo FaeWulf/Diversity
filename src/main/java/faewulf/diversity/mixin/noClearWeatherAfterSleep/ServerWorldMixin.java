@@ -20,9 +20,14 @@ public class ServerWorldMixin {
     @Inject(method = "resetWeather", at = @At("HEAD"), cancellable = true)
     private void resetWeatherMixin(CallbackInfo ci) {
 
-        if (!ModConfigs.sleep_dont_skip_weather)
+        if (ModConfigs.sleep_dont_skip_weather <= 0)
             return;
 
+        //if option is don't skip thunder as well
+        if (ModConfigs.sleep_dont_skip_weather > 1)
+            ci.cancel();
+
+        //normal mode: 1 (don't skip rain only)
         this.worldProperties.setThunderTime(0);
         this.worldProperties.setThundering(false);
         ci.cancel();
