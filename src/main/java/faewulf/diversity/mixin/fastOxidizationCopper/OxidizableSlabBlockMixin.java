@@ -27,7 +27,7 @@ public abstract class OxidizableSlabBlockMixin extends SlabBlock implements Oxid
         if (!ModConfigs.faster_oxidization)
             return;
 
-        if ((CopperUtils.isWaterNearby(pos, world) || world.isRaining()) && random.nextInt(3) == 1) {
+        if ((CopperUtils.isWaterNearby(pos, world) || world.isRaining()) && random.nextInt(10) == 1) {
             world.setBlockState(pos, CopperUtils.tryDegrade(this, state));
             ci.cancel();
         }
