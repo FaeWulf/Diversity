@@ -1,6 +1,7 @@
 package faewulf.diversity.event;
 
 import faewulf.diversity.inter.ICustomBundleItem;
+import faewulf.diversity.util.ModConfigs;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.item.BundleItem;
 import net.minecraft.item.ItemStack;
@@ -10,10 +11,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 
-public class changeBunndleMode {
+public class changeBundleMode {
     static public void run() {
 
         AttackBlockCallback.EVENT.register(((player, world, hand, pos, direction) -> {
+
+            if (!ModConfigs.bundle_place_mode)
+                return ActionResult.PASS;
+
             if (world.isClient)
                 return ActionResult.PASS;
 

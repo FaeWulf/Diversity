@@ -1,5 +1,6 @@
 package faewulf.diversity.mixin.buildingBundle;
 
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BundleItem;
@@ -17,6 +18,10 @@ public abstract class BlockItemMixin extends Item {
 
     @Redirect(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V"))
     public void decrementUnlessCreativeRedirect(ItemStack instance, int amount, LivingEntity entity) {
+
+        if (!ModConfigs.bundle_place_mode)
+            return;
+
         if (instance.getItem() instanceof BundleItem)
             instance.decrement(0);
         else

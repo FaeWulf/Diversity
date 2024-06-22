@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import faewulf.diversity.Diversity;
 import faewulf.diversity.inter.ICustomBundleContentBuilder;
 import faewulf.diversity.inter.ICustomBundleItem;
+import faewulf.diversity.util.ModConfigs;
 import faewulf.diversity.util.converter;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
@@ -30,13 +31,16 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@Mixin(BundleItem.class)
+@Mixin(value = BundleItem.class, priority = 1)
 public abstract class BundleItemMixin extends Item implements ICustomBundleItem {
     public BundleItemMixin(Settings settings) {
         super(settings);
@@ -52,30 +56,44 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return true;
     }
 
+    @ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
+    private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
+
+        ItemEnchantmentsComponent t = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
+
+        AtomicInteger level = new AtomicInteger();
+        t.getEnchantments().forEach(enchantmentRegistryEntry -> {
+            ItemEnchantmentsComponent itemEnchantmentsComponent = EnchantmentHelper.getEnchantments(stack);
+            if (enchantmentRegistryEntry.matchesId(Identifier.of(Diversity.MODID, "capacity"))) {
+                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
+            }
+        });
+
+        return Math.max(value, 64 + 64 * level.get());
+    }
+
     @Inject(method = "onClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/BundleContentsComponent$Builder;add(Lnet/minecraft/item/ItemStack;)I"))
     private void onClickedInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference, CallbackInfoReturnable<Boolean> cir, @Local BundleContentsComponent.Builder builder) {
-        if (player.getWorld().isClient)
-            return;
         ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.getWorld(), stack));
     }
 
     @Inject(method = "onStackClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/BundleContentsComponent$Builder;add(Lnet/minecraft/item/ItemStack;)I"))
     private void onStackClickedInject(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player, CallbackInfoReturnable<Boolean> cir, @Local BundleContentsComponent.Builder builder) {
-        if (player.getWorld().isClient)
-            return;
         ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.getWorld(), stack));
     }
 
     @Inject(method = "onStackClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/BundleContentsComponent$Builder;add(Lnet/minecraft/screen/slot/Slot;Lnet/minecraft/entity/player/PlayerEntity;)I"))
     private void onStackClickedInject2(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player, CallbackInfoReturnable<Boolean> cir, @Local BundleContentsComponent.Builder builder) {
-        if (player.getWorld().isClient)
-            return;
         ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.getWorld(), stack));
     }
 
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(World world, PlayerEntity user, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
+
+        if (!ModConfigs.bundle_place_mode)
+            return;
+
         if (!world.isClient && user instanceof ServerPlayerEntity) {
             if (getMode(user.getStackInHand(hand)) != 0) {
                 syncBundleContents((ServerPlayerEntity) user);
@@ -86,6 +104,10 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
+
+        if (!ModConfigs.bundle_place_mode)
+            return ActionResult.PASS;
+
         World world = context.getWorld();
         PlayerEntity player = context.getPlayer();
 
@@ -101,8 +123,19 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             if (bundle.get(DataComponentTypes.BUNDLE_CONTENTS) instanceof BundleContentsComponent bundleContentsComponent
                     && !bundleContentsComponent.isEmpty()) {
 
+                //get all index that is blockItem
+                List<Integer> blockItemList = new ArrayList<>();
+                for (int i = 0; i < bundleContentsComponent.size(); i++) {
+                    if (bundleContentsComponent.get(i).getItem() instanceof BlockItem) {
+                        blockItemList.add(i);
+                    }
+                }
+
+                if (blockItemList.isEmpty())
+                    return ActionResult.PASS;
+
                 //get indexOfItemInInventory based on mode value, if 2 then choose random, if 1 then choose first indexOfItemInInventory
-                int chosenIndex = getMode(bundle) == 2 ? serverPlayerEntity.getRandom().nextInt(bundleContentsComponent.size()) : 0;
+                int chosenIndex = getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.getFirst();
 
                 //if blockItem
                 if (bundleContentsComponent.get(chosenIndex).getItem() instanceof BlockItem blockItem) {
@@ -125,7 +158,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                         );
                     }
                 }
-
             }
         }
 
