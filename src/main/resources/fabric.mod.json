@@ -21,6 +21,9 @@
     ],
     "client": [
       "faewulf.diversity.DiversityClient"
+    ],
+    "modmenu": [
+      "faewulf.diversity.config.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -30,7 +33,6 @@
       "environment": "client"
     }
   ],
-  "accessWidener": "diversity.accesswidener",
   "custom": {
     "modmenu": {
       "links": {
