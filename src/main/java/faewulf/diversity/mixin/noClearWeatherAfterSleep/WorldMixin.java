@@ -21,8 +21,8 @@ public abstract class WorldMixin {
     @Inject(method = "isDay", at = @At("RETURN"), cancellable = true)
     private void isDayInject(CallbackInfoReturnable<Boolean> cir) {
 
-        //modify sleep behavior for mode 2
-        if (ModConfigs.sleep_dont_skip_weather < 2)
+        //modify sleep behavior only for mode 2
+        if (ModConfigs.sleep_dont_skip_weather != ModConfigs.weatherType.ALL_WEATHER)
             return;
 
         //if night
