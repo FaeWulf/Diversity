@@ -3,6 +3,7 @@
   "package": "faewulf.diversity.mixin.client",
   "compatibilityLevel": "JAVA_21",
   "client": [
+    "noLevelLimitAnvil.AnvilMixin"
   ],
   "injectors": {
     "defaultRequire": 1

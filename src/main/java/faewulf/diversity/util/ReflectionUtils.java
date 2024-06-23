@@ -1,5 +1,6 @@
 package faewulf.diversity.util;
 
+import faewulf.diversity.Diversity;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
@@ -23,6 +24,7 @@ public class ReflectionUtils {
             try {
                 Method method = clazz.getMethod(methodName, parameterType);
                 method.invoke(clazz.getDeclaredConstructor().newInstance(), parameterValue);
+                Diversity.LOGGER.debug("Loaded " + clazz.getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -44,6 +46,7 @@ public class ReflectionUtils {
             try {
                 Method method = clazz.getMethod(methodName);
                 method.invoke(clazz.getDeclaredConstructor().newInstance());
+                Diversity.LOGGER.debug("Loaded " + clazz.getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
