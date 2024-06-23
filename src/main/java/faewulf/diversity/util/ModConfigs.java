@@ -18,9 +18,6 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "Backup Enchantments")
     public static boolean more_enchantment = true;
 
-    @Entry(category = "general", name = "Bundle place function")
-    public static boolean bundle_place_mode = true;
-
     @Entry(category = "general", name = "Bundle's Enchantment")
     public static boolean bundle_enchantment = true;
 
@@ -38,12 +35,6 @@ public class ModConfigs extends MidnightConfig {
 
     @Entry(category = "general", name = "Faster oxidization")
     public static boolean faster_oxidization = true;
-
-    @Entry(category = "general", name = "Waxed copper indicator")
-    public static boolean waxed_copper_indicator = true;
-
-    @Entry(category = "general", name = "Mace rotate blocks")
-    public static boolean mace_rotate_block = true;
 
     @Entry(category = "general", name = "Sneak through sweet berry")
     public static boolean softer_sweetBery = true;
@@ -72,6 +63,25 @@ public class ModConfigs extends MidnightConfig {
 
     @Entry(category = "general", name = "XP crops")
     public static boolean xp_crops = true;
+
+    @Entry(category = "item", name = "Bundle place function")
+    public static boolean bundle_place_mode = true;
+
+    public enum inspectType {
+        ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE
+    }
+
+    @Entry(category = "item", name = "Check Villagers schedule")
+    public static boolean check_villager_schedule = true;
+
+    @Entry(category = "item", name = "Mace rotate blocks")
+    public static boolean mace_rotate_block = true;
+
+    @Entry(category = "item", name = "Spyglass what is that?")
+    public static inspectType spyglass_what_is_that = inspectType.ALL;
+
+    @Entry(category = "item", name = "Waxed copper indicator")
+    public static boolean waxed_copper_indicator = true;
 
     @Entry(category = "entity", name = "Baby nametag")
     public static boolean baby_nametag = true;

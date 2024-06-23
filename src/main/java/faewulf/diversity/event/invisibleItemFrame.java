@@ -1,7 +1,7 @@
 package faewulf.diversity.event;
 
-import faewulf.diversity.Diversity;
 import faewulf.diversity.inter.ICustomItemFrame;
+import faewulf.diversity.util.ModConfigs;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.ItemFrameEntity;
@@ -15,11 +15,11 @@ public class invisibleItemFrame {
     public static void run() {
 
         //if not enable in config file
-        if (!Diversity.configs.invisible_frame)
-            return;
-
 
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
+            if (!ModConfigs.invisible_frame)
+                return ActionResult.PASS;
+
             //if not item frame
             //if not mainhand
             if ((entity.getType() == EntityType.ITEM_FRAME || entity.getType() == EntityType.GLOW_ITEM_FRAME)

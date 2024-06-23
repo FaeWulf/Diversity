@@ -27,10 +27,11 @@ public class putItemIntoBrushableBlocks {
 
     public static void run() {
 
-        if (!ModConfigs.usable_suspicious_block)
-            return;
 
         UseBlockCallback.EVENT.register(((player, world, hand, hitResult) -> {
+
+            if (!ModConfigs.usable_suspicious_block)
+                return ActionResult.PASS;
 
             //first filter
             if (hand.equals(Hand.MAIN_HAND)
