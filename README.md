@@ -2,15 +2,18 @@
     <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true"/>
 </p>
 
-copper bulb 1 tick delay
-lesser enchantment
-spyglass can see waxed block
-rework no skip weather
-trophy banner
-mace can rotate blocks
-bundle can place block
-bundle enchantment
-rabbit eats carrot sauto breed
+copper bulb 1 tick delay -
+lesser enchantment -
+spyglass can see waxed block -
+rework no skip weather -
+trophy banner -
+mace can rotate blocks -
+bundle can place block -
+bundle enchantment -
+rabbit eats carrot auto breed -
+on ground egg will try to hatch chicken after it despawned -
+hud spyglass (noteblock, trailspawner cooldown, sapling, redstone power, xp stored inside furnace) -
+clock can show villager trade time when right-click workstation blocks -
 
 ---
 

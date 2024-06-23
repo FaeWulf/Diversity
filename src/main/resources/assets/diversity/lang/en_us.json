@@ -16,6 +16,8 @@
   "diversity.midnightconfig.rabbit_eat_carrot_crops.tooltip": "Rabbit can breed after eat carrot crops.",
   "diversity.midnightconfig.mace_rotate_block.tooltip": "Use mace (sneaking + right-click) to rotate directional blocks if possible.",
   "diversity.midnightconfig.chicken_egg_despawn_tryhatch.tooltip": "Chicken eggs on ground will try to hatch after it despawned.",
+  "diversity.midnightconfig.check_villager_schedule.tooltip": "Check villager work schedule by holding Clock in hand and right-click any type of workstation block",
+  "diversity.midnightconfig.spyglass_what_is_that.tooltip": "See additional block/entity information with a Spyglass, default radius is 5 blocks, zoom with Spyglass will extend to 32 blocks",
   "diversity.midnightconfig.invisible_frame.tooltip": "Make item frames invisible by shift + right-clicking a non-dyed glass pane into them.\nThey stay invisible when holding an item, otherwise, they emit particles as indicators.",
   "diversity.midnightconfig.faster_oxidization.tooltip": "Copper block and its variations oxidize faster in rain and water.",
   "diversity.midnightconfig.softer_sweetBery.tooltip": "Sneaking through sweet berry bushes.\nWearing pants protects you from sweet berry bush damage.",
@@ -44,7 +46,12 @@
   "diversity.midnightconfig.enum.weatherType.DISABLE": "Disable",
   "diversity.midnightconfig.enum.weatherType.RAIN_ONLY": "Keep rain only",
   "diversity.midnightconfig.enum.weatherType.ALL_WEATHER": "Keep all weathers",
-  "diversity.midnightconfig.category.entity": "Entity related features",
+  "diversity.midnightconfig.enum.inspectType.ALL": "Enable",
+  "diversity.midnightconfig.enum.inspectType.BLOCK_ONLY": "Inspect blocks only",
+  "diversity.midnightconfig.enum.inspectType.ENTITY_ONLY": "Inspect entities only",
+  "diversity.midnightconfig.enum.inspectType.DISABLE": "Disable",
+  "diversity.midnightconfig.category.entity": "Entity features",
   "diversity.midnightconfig.category.general": "General features",
-  "diversity.midnightconfig.category.command": "Commands"
+  "diversity.midnightconfig.category.command": "Commands",
+  "diversity.midnightconfig.category.item": "Item features"
 }
