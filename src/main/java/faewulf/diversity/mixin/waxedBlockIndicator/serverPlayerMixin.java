@@ -1,6 +1,7 @@
 package faewulf.diversity.mixin.waxedBlockIndicator;
 
 import com.mojang.authlib.GameProfile;
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -32,9 +33,6 @@ public abstract class serverPlayerMixin extends PlayerEntity {
     public abstract void sendMessage(Text message);
 
     @Shadow
-    public abstract void playerTick();
-
-    @Shadow
     public abstract void requestTeleportAndDismount(double destX, double destY, double destZ);
 
     public serverPlayerMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
@@ -44,6 +42,8 @@ public abstract class serverPlayerMixin extends PlayerEntity {
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {
 
+        if (!ModConfigs.waxed_copper_indicator)
+            return;
 
         Item handItem = this.getMainHandStack().getItem();
         Item offHandItem = this.getOffHandStack().getItem();
@@ -100,7 +100,6 @@ public abstract class serverPlayerMixin extends PlayerEntity {
                             }
 
                             this.getServerWorld().spawnParticles(ParticleTypes.WAX_ON, x, y, z, 1, 0, 0, 0, 0);
-
                         }
                     }
                 }
