@@ -17,13 +17,14 @@ public class placeWetSpongeBlock {
 
     public static void run() {
 
-        if (!ModConfigs.shulker_label)
-            return;
 
         BlockPlacedCallback.EVENT.register(placeWetSpongeBlock::check);
     }
 
     private static void check(ItemPlacementContext context) {
+
+        if (!ModConfigs.shulker_label)
+            return;
 
         PlayerEntity playerEntity = context.getPlayer();
 

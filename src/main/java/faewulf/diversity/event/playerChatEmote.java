@@ -14,10 +14,10 @@ public class playerChatEmote {
     public static void run() {
 
 
-        if (!ModConfigs.emote)
-            return;
-
         ServerMessageEvents.CHAT_MESSAGE.register(((message, sender, params) -> {
+
+            if (!ModConfigs.emote)
+                return;
 
             World world = sender.getWorld();
 

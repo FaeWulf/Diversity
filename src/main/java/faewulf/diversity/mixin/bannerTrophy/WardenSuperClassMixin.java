@@ -1,6 +1,7 @@
 package faewulf.diversity.mixin.bannerTrophy;
 
 import faewulf.diversity.util.CustomBanner;
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +25,9 @@ public abstract class WardenSuperClassMixin extends Entity implements Attackable
 
     @Inject(method = "onDeath", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/damage/DamageSource;getAttacker()Lnet/minecraft/entity/Entity;"))
     private void onDeathInject(DamageSource damageSource, CallbackInfo ci) {
+
+        if (!ModConfigs.banner_trohpy) return;
+
         if ((Object) this instanceof WardenEntity wardenEntity) {
             ItemStack wardenBanner = CustomBanner.wardenBanner(wardenEntity.getRegistryManager().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
             wardenBanner.setCount(1);

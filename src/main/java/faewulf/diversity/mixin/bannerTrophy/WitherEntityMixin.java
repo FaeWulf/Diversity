@@ -1,6 +1,7 @@
 package faewulf.diversity.mixin.bannerTrophy;
 
 import faewulf.diversity.util.CustomBanner;
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.SkinOverlayOwner;
@@ -25,6 +26,9 @@ public abstract class WitherEntityMixin extends HostileEntity implements SkinOve
 
     @Inject(method = "dropEquipment", at = @At("TAIL"))
     private void dropEquipmentInject(ServerWorld world, DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
+
+        if (!ModConfigs.banner_trohpy) return;
+
         ItemEntity itemEntity = this.dropStack(CustomBanner.witherBanner(this.getRegistryManager().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN)));
         if (itemEntity != null) {
             itemEntity.setCovetedItem();

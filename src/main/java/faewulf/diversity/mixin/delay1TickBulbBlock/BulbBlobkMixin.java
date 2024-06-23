@@ -1,5 +1,6 @@
 package faewulf.diversity.mixin.delay1TickBulbBlock;
 
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BulbBlock;
@@ -24,6 +25,9 @@ public abstract class BulbBlobkMixin extends Block {
 
     @Inject(method = "neighborUpdate", at = @At("HEAD"), cancellable = true)
     private void updatteInject(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify, CallbackInfo ci) {
+        if (!ModConfigs.copper_bulb_tick_delay)
+            return;
+
         world.scheduleBlockTick(pos, world.getBlockState(pos).getBlock(), 1);
         ci.cancel();
     }

@@ -27,13 +27,13 @@ public class explodeSniffer {
 
     public static void run() {
 
-        //if not enable in config file
-        if (!ModConfigs.explosive_sniffer)
-            return;
-
 
         UseEntityCallback.EVENT.register(((player, world, hand, entity, hitResult) -> {
-            //if not item frame
+
+            //if not enable in config file
+            if (!ModConfigs.explosive_sniffer)
+                return ActionResult.PASS;
+
             //if not mainhand
             if ((entity.getType() == EntityType.SNIFFER)
                     && hand == Hand.MAIN_HAND

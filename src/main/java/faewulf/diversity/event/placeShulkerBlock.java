@@ -21,13 +21,14 @@ public class placeShulkerBlock {
 
     public static void run() {
 
-        if (!ModConfigs.shulker_label)
-            return;
 
         BlockPlacedCallback.EVENT.register(placeShulkerBlock::check);
     }
 
     private static void check(ItemPlacementContext context) {
+
+        if (!ModConfigs.shulker_label)
+            return;
 
         PlayerEntity playerEntity = context.getPlayer();
 

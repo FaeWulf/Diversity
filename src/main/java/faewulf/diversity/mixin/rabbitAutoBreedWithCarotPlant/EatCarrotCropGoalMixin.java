@@ -1,5 +1,6 @@
 package faewulf.diversity.mixin.rabbitAutoBreedWithCarotPlant;
 
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.passive.RabbitEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +20,10 @@ public class EatCarrotCropGoalMixin {
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;get(Lnet/minecraft/state/property/Property;)Ljava/lang/Comparable;", shift = At.Shift.AFTER))
     private void tickInject(CallbackInfo ci) {
+
+        if (!ModConfigs.rabbit_eat_carrot_crops)
+            return;
+
         if (!this.rabbit.isBaby()) {
             if (this.rabbit.getBreedingAge() <= 0)
                 this.rabbit.lovePlayer(null);

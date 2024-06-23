@@ -1,6 +1,7 @@
 package faewulf.diversity.mixin.bannerTrophy;
 
 import faewulf.diversity.util.CustomBanner;
+import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonFight;
@@ -32,6 +33,9 @@ public class EnderDragonFightMixin {
     //first dragon only
     @Inject(method = "dragonKilled", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"))
     private void dragonKilledInject1(EnderDragonEntity dragon, CallbackInfo ci) {
+
+        if (!ModConfigs.banner_trohpy) return;
+
         Vec3d pos = this.world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, EndPortalFeature.offsetOrigin(this.origin)).toCenterPos();
 
         ItemStack eggTrophy = CustomBanner.enderEggBanner(dragon.getRegistryManager().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
@@ -43,6 +47,9 @@ public class EnderDragonFightMixin {
 
     @Inject(method = "dragonKilled", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/boss/dragon/EnderDragonFight;generateNewEndGateway()V"))
     private void dragonKilledInject2(EnderDragonEntity dragon, CallbackInfo ci) {
+
+        if (!ModConfigs.banner_trohpy) return;
+
         Vec3d pos = this.world.getTopPosition(Heightmap.Type.MOTION_BLOCKING, EndPortalFeature.offsetOrigin(this.origin)).toCenterPos();
 
         ItemStack eggTrophy = CustomBanner.enderDragonBanner(dragon.getRegistryManager().getWrapperOrThrow(RegistryKeys.BANNER_PATTERN));
