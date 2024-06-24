@@ -286,7 +286,7 @@ Then you can place block that inside the bundle.</p>
 
 ## Usage
 
-Almost all features can be toggle via config file: config/diversity.conf
+Almost all features can be toggle via config file: config/diversity.json
 
 ## Required mods
 
