@@ -2,19 +2,6 @@
     <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true"/>
 </p>
 
-copper bulb 1 tick delay -
-lesser enchantment -
-spyglass can see waxed block -
-rework no skip weather -
-trophy banner -
-mace can rotate blocks -
-bundle can place block -
-bundle enchantment -
-rabbit eats carrot auto breed -
-on ground egg will try to hatch chicken after it despawned -
-hud spyglass (noteblock, trailspawner cooldown, sapling, redstone power, xp stored inside furnace) -
-clock can show villager trade time when right-click workstation blocks -
-
 ---
 
 ## Overview
@@ -22,6 +9,8 @@ clock can show villager trade time when right-click workstation blocks -
 Diversity is a Minecraft Fabric mod that introduces a wide range of features to enhance the gameplay experience. From
 quality of life improvements to new mob behaviors and random sh*t, this mod offers a little bit of everything. The
 mod is designed to work on server-side only installations as well.
+
+**Current feature: 40 (+10 in latest version)**
 
 ## Features
 
@@ -39,6 +28,31 @@ mod is designed to work on server-side only installations as well.
 </details>
 
 ### Quality of Life Improvements
+
+<details>
+  <summary>1 tick delay copper bulbs (Disabled by default)</summary>
+  <p>Make copper bulb block delay 1 tick like in the snapshot.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/1tickdelayBulbBlock-min.gif?raw=true" alt="1tick Delay Bulb">
+</details>
+
+<details>
+  <summary>Backup Enchantments type</summary>
+  <p>Add weaker versions of the four protection enchantments.\nThese provide extra protection with effects identical to the originals but at only 25% of their original power.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/backup_enchantment.png?raw=true" alt="Enchantment Backup preview">
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/backup_enchantment-min.gif?raw=true" alt="Enchantment Backup">
+</details>
+
+<details>
+  <summary>Trophy banners</summary>
+  <p>Add some Ominous banner-like banners as trophy. Obtains via boss drops, Shepherd Villager's gifts (Hero of the Village),...</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/trophyBanner.png?raw=true" alt="Trophy banners">
+</details>
+
+<details>
+  <summary>Bundle enchantments</summary>
+  <p>Add 2 enchantment for bundle (refill and capacity). If mod installed in client-side, slot indicator will calculate correctly.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/bundleEnchantment-min.gif?raw=true" alt="Bundle enchantments">
+</details>
 
 <details>
   <summary>Better enchanting table</summary>
@@ -80,7 +94,8 @@ Shift to rotate item/edit sign.
 
 <details>
   <summary>No xp limit anvil</summary>
-  <p>Removes the "Too Expensive" limitation from anvils. In Client side will still displays the "Too expensive" label, but still functional.</p>
+  <p>Removes the "Too Expensive" limitation from anvils. In Client side will still displays the "Too expensive" label, but still functional. This issue will be fixed if mod also installed in Client-side</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/no_level_limit_anvil.png?raw=true" alt="Anvil client">
 </details>
 
 <details>
@@ -102,8 +117,10 @@ Shift to rotate item/edit sign.
 </details>
 
 <details>
-  <summary>Weather not skipped by sleeping (disable by default)</summary>
-  <p>Sleeping doesn't clear weather (except storm).</p>
+  <summary>(reworked) Weather not skipped by sleeping (disable by default)</summary>
+<p>
+  <br>Sleeping doesn't clear weather.<br>RAIN_ONLY will keep rain only.<br>ALL_WEATHER will keep rain and thunder (this mode will prevent you from sleeping while thundering)
+</p>
 </details>
 
 <details>
@@ -134,6 +151,39 @@ Shift to rotate item/edit sign.
   <summary>4 element painting</summary>
   <p>4 Element 2x2 paintings can now be placed in survival mode.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/elementPaintings.png?raw=true" alt="4 Element Painting">
+</details>
+
+### Item Tweaks
+
+<details>
+  <summary>Bundle can place block</summary>
+  <p>Switch to place mode by holding bundle and shift-leftclick to the ground.
+Then you can place block that inside the bundle.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/bundlePlaceBlocks-min.gif?raw=true" alt="bundlePlaceBlock">
+</details>
+
+<details>
+  <summary>Mace can rotate blocks</summary>
+  <p>Use mace (sneaking + right-click) to rotate directional blocks if possible.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/maceRotateBlocks-min.gif?raw=true" alt="maceRotateBlock">
+</details>
+
+<details>
+  <summary>Spyglass "What is that?"</summary>
+  <p>See additional block/entity information (noteblock, trailspawner cooldown, redstone power, xp stored inside furnace,...) with a Spyglass, default radius is 5 blocks, zoom with Spyglass will extend to 32 blocks</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/spyglassWhatIsThat-min.gif?raw=true" alt="spyglassHUD">
+</details>
+
+<details>
+  <summary>Clock check Villager schedule</summary>
+  <p>Check villager work schedule by holding Clock in hand and right-click any type of workstation block.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/clockCheckSchedule-min.gif?raw=true" alt="clockSchedule">
+</details>
+
+<details>
+  <summary>Waxed blocks detector</summary>
+  <p>Waxed copper blocks will emit particles if holding a spyglass while sneaking.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/waxBlockIndicator-min.gif?raw=true" alt="waxBlockCheck">
 </details>
 
 ### Mob Tweaks and Behaviors
@@ -209,6 +259,17 @@ Shift to rotate item/edit sign.
   <summary>Horse/mule/donkey in boats</summary>
   <p>Horses, donkeys, and mules can fit in boats!</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/horseSitOnBoat.gif?raw=true" alt="Horses in Boats">
+</details>
+
+<details>
+  <summary>Egg auto hatch after despawn</summary>
+  <p>Chicken eggs on ground will try to hatch after it despawned.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/eggOnGroundTryHatch-min.gif?raw=true" alt="Egg hatch despawn">
+</details>
+
+<details>
+  <summary>Rabbit can breed after eat carrot crops.</summary>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/rabbitAutoBreedWithCarrotCrops-min.gif?raw=true" alt="RabbitAutoBreed">
 </details>
 
 ### Commands
