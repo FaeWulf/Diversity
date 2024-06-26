@@ -19,8 +19,10 @@ public abstract class BlockItemMixin extends Item {
     @Redirect(method = "place(Lnet/minecraft/item/ItemPlacementContext;)Lnet/minecraft/util/ActionResult;", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrementUnlessCreative(ILnet/minecraft/entity/LivingEntity;)V"))
     public void decrementUnlessCreativeRedirect(ItemStack instance, int amount, LivingEntity entity) {
 
-        if (!ModConfigs.bundle_place_mode)
+        if (!ModConfigs.bundle_place_mode) {
+            instance.decrementUnlessCreative(amount, entity);
             return;
+        }
 
         if (instance.getItem() instanceof BundleItem)
             instance.decrement(0);
