@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin;
 
 import faewulf.diversity.util.ModConfigs;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.item.ItemStack;
@@ -27,7 +29,17 @@ public abstract class onGroundEggAutoHatch extends Entity implements Ownable {
         if (!ModConfigs.chicken_egg_despawn_tryhatch)
             return;
 
+        if (this.getWorld().isClient)
+            return;
+
         if (this.getStack().getItem() == Items.EGG) {
+
+            BlockState blockState = this.getWorld().getBlockState(this.getBlockPos().down());
+
+            //hatch on haybale only
+            if (blockState.getBlock() != Blocks.HAY_BLOCK)
+                return;
+
             int count = this.getStack().getCount();
             //try hatch
             for (int i = 0; i < count; i++) {
