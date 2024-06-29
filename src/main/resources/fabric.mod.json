@@ -37,7 +37,8 @@
     "modmenu": {
       "links": {
         "modmenu.discord": "https://discord.gg/xZneCTcEvb"
-      }
+      },
+      "update_checker": true
     }
   },
   "depends": {

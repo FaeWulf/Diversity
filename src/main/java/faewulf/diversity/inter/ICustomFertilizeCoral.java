@@ -31,12 +31,11 @@ public interface ICustomFertilizeCoral extends Fertilizable {
 
         RegistryKey<Biome> currentBiome;
 
-        if (world.getBiome(pos).getKey().isPresent())
+        if (world.getBiome(pos).getKey().isPresent()) {
             currentBiome = world.getBiome(pos).getKey().get();
-        else
+        } else
             return false;
 
-        //TODO: insert toggle option check here
         return state.get(CoralParentBlock.WATERLOGGED)
                 && world.getFluidState(pos.up()).isIn(FluidTags.WATER)
                 && currentBiome.equals(BiomeKeys.WARM_OCEAN);

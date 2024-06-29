@@ -10,7 +10,7 @@ Diversity is a Minecraft Fabric mod that introduces a wide range of features to 
 quality of life improvements to new mob behaviors and random sh*t, this mod offers a little bit of everything. The
 mod is designed to work on server-side only installations as well.
 
-**Current feature: 40 (+10 in latest version)**
+**Current feature: 42 (+2 in latest version)**
 
 ## Features
 
@@ -40,6 +40,18 @@ mod is designed to work on server-side only installations as well.
   <p>Add weaker versions of the four protection enchantments.\nThese provide extra protection with effects identical to the originals but at only 25% of their original power.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/backup_enchantment.png?raw=true" alt="Enchantment Backup preview">
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/backup_enchantment-min.gif?raw=true" alt="Enchantment Backup">
+</details>
+
+<details>
+  <summary>Bonemeal Coral fan/block</summary>
+  <p>Coral fans and Coral blocks can be bonemeal (only in warm ocean biome) to grow into coral reef</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/bonemealCoral.gif?raw=true" alt="Bonemeal corals">
+</details>
+
+<details>
+  <summary>Bonemeal Small flowers</summary>
+  <p>Small flowers (except wither rose and torch flower) can be bonemeal to make it spreads around.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/bonemealSmallFlower.gif?raw=true" alt="Bonemeal small flowers">
 </details>
 
 <details>
@@ -262,8 +274,8 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
-  <summary>Egg auto hatch after despawn</summary>
-  <p>Chicken eggs on ground will try to hatch after it despawned.</p>
+  <summary>Egg on haybale auto hatch after despawn</summary>
+  <p>Chicken eggs on haybale will try to hatch after it despawned.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/eggOnGroundTryHatch-min.gif?raw=true" alt="Egg hatch despawn">
 </details>
 

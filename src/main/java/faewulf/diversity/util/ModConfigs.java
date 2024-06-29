@@ -24,6 +24,12 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "Banner trophies")
     public static boolean banner_trohpy = true;
 
+    @Entry(category = "general", name = "Bonemeal small flowers")
+    public static boolean bonemeal_small_flower = true;
+
+    @Entry(category = "general", name = "Bonemeal coral fan/block")
+    public static boolean bonemeal_coral_fan = true;
+
     @Entry(category = "general", name = "Wash filled map with Cauldron")
     public static boolean cauldron_washing_map = true;
 

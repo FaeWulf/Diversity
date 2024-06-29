@@ -5,6 +5,8 @@
   "enchantment.diversity.backup_projectile_protection": "Backup Projectile Protection",
   "enchantment.diversity.backup_refill": "Refill",
   "enchantment.diversity.backup_capacity": "Capacity",
+  "diversity.midnightconfig.bonemeal_small_flower.tooltip": "Small flowers can be bonemeal to spread itself on grass block.",
+  "diversity.midnightconfig.bonemeal_coral_fan.tooltip": "Coral fan/block can be bonemeal to grow into corals (Warm ocean only)",
   "diversity.midnightconfig.permission_enable.tooltip": "Enable this if you want to use with LuckPerms.",
   "diversity.midnightconfig.cauldron_washing_map.tooltip": "Clean filled maps using cauldron.",
   "diversity.midnightconfig.click_through_itemframe.tooltip": "Allows right-clicking through signs and item frames (must holding item) if they are placed on chests, barrels, or shulker boxes (container blocks).\nBehave exactly like normally open container.\nShift to rotate item/edit sign.",
