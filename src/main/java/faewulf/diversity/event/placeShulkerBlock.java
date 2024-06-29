@@ -20,8 +20,6 @@ import net.minecraft.util.math.BlockPos;
 public class placeShulkerBlock {
 
     public static void run() {
-
-
         BlockPlacedCallback.EVENT.register(placeShulkerBlock::check);
     }
 

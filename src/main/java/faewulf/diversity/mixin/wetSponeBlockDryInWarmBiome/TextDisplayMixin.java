@@ -44,7 +44,7 @@ public abstract class TextDisplayMixin extends Entity implements ICustomPseudoEn
             return;
 
         if (this.diversity_pseudoMode == null) {
-            this.discard();
+            //this.discard();
             return;
         }
 
