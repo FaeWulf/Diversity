@@ -23,7 +23,7 @@ public class placeWetSpongeBlock {
 
     private static void check(ItemPlacementContext context) {
 
-        if (!ModConfigs.shulker_label)
+        if (!ModConfigs.wet_sponge_dry_in_warm_biome)
             return;
 
         PlayerEntity playerEntity = context.getPlayer();

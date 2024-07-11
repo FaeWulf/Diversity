@@ -70,6 +70,9 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "XP crops")
     public static boolean xp_crops = true;
 
+    @Entry(category = "general", name = "Wet sponge dry in warm biome")
+    public static boolean wet_sponge_dry_in_warm_biome = true;
+
     @Entry(category = "item", name = "Bundle place function")
     public static boolean bundle_place_mode = true;
 
