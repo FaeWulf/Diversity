@@ -10,7 +10,19 @@ Diversity is a Minecraft Fabric mod that introduces a wide range of features to 
 quality of life improvements to new mob behaviors and random sh*t, this mod offers a little bit of everything. The
 mod is designed to work on server-side only installations as well.
 
-**Current feature: 42 (+2 in latest version)**
+**Current feature: 51 (+9 in latest version)**
+
+### What's new?
+
+- Day counter
+- Wandering trader announcer
+- Trident can call thunderstorm
+- Attack while holding torch will light target on fire
+- Eat Glow Berries gives glow effect
+- Wet sponge will eventually dry in hot biomes
+- Cobblestone generator from lava+water Y-level below 8 will generate deepslate instead
+- Cat has 9 lives (Disable by default)
+- Can't use elytra in rain, water (Disable by default)
 
 ## Features
 
@@ -81,6 +93,18 @@ Shift to rotate item/edit sign.
 </details>
 
 <details>
+  <summary>Day counter</summary>
+  <p>Day counter each day passed</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/day_counter-min.gif?raw=true" alt="Day counter">
+</details>
+
+<details>
+  <summary>Deepslate generator</summary>
+  <p>Deepslate will replace stone and cobble stone if lava + water below y-level 8</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/deepslate_generator-min.gif?raw=true" alt="Deepslate generator">
+</details>
+
+<details>
   <summary>Invisible item frame</summary>
   <p>Make item frames invisible by shift + right-clicking a non-dyed glass pane into them. They stay invisible when holding an item, otherwise, they emit particles as indicators.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/invisibleItemFrame.gif?raw=true" alt="Invisible ItemFrame">
@@ -90,6 +114,11 @@ Shift to rotate item/edit sign.
   <summary>Faster copper block oxidation</summary>
   <p>Copper block and its variations oxidize faster in rain and water.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/fasterOxidization.gif?raw=true" alt="Faster Copper Block Oxidation">
+</details>
+
+<details>
+  <summary>Glow berries gives glow effect</summary>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/glow-berries_glow-min.gif?raw=true" alt="Glow berries give glow effect">
 </details>
 
 <details>
@@ -129,6 +158,12 @@ Shift to rotate item/edit sign.
 </details>
 
 <details>
+  <summary>Torch lights target on fire</summary>
+  <p>If any entity holding torch while holding a torch, soul torch; target will be set on fire.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/torch_fire_attack-min.gif?raw=true" alt="torch_light_fire">
+</details>
+
+<details>
   <summary>(reworked) Weather not skipped by sleeping (disable by default)</summary>
 <p>
   <br>Sleeping doesn't clear weather.<br>RAIN_ONLY will keep rain only.<br>ALL_WEATHER will keep rain and thunder (this mode will prevent you from sleeping while thundering)
@@ -165,6 +200,12 @@ Shift to rotate item/edit sign.
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/elementPaintings.png?raw=true" alt="4 Element Painting">
 </details>
 
+<details>
+  <summary>Wet sponge dries in warm biomes</summary>
+  <p>Wet sponge placed in warm biome will eventually dry out</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/wetsponge_dry_warmbiome-min.gif?raw=true" alt="wetsponge_dries_warmbiomes">
+</details>
+
 ### Item Tweaks
 
 <details>
@@ -193,12 +234,25 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
+  <summary>Trident can call thunderstorm (Heavy inspired by "Storm channeling" of Vanilla Tweaks)</summary>
+  <p>If standing at max y-level and throw a channeling trident (with >50% durability) up to the sky
+ Thunder storm will be summoned, in return trident will lose channeling and all of durability (will not break)</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/trident_call_thunderstorm-min.gif?raw=true" alt="trident_call_thunderstrorm">
+</details>
+
+<details>
   <summary>Waxed blocks detector</summary>
   <p>Waxed copper blocks will emit particles if holding a spyglass while sneaking.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/waxBlockIndicator-min.gif?raw=true" alt="waxBlockCheck">
 </details>
 
 ### Mob Tweaks and Behaviors
+
+<details>
+  <summary>9 lives cat (disable by default)</summary>
+  <p>Cat has 9 lives</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/9_lives_cat-min.gif?raw=true" alt="Cat has 9 lives">
+</details>
 
 <details>
   <summary>Silent nametag</summary>
@@ -268,7 +322,7 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
-  <summary>Horse/mule/donkey in boats</summary>
+  <summary>Horse/mule/donkey/camel in boats</summary>
   <p>Horses, donkeys, and mules can fit in boats!</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/horseSitOnBoat.gif?raw=true" alt="Horses in Boats">
 </details>
@@ -284,6 +338,11 @@ Then you can place block that inside the bundle.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/rabbitAutoBreedWithCarrotCrops-min.gif?raw=true" alt="RabbitAutoBreed">
 </details>
 
+<details>
+  <summary>Wandering trader announcer</summary>
+  <p>Send a message to player when wandering trader appears.</p>
+</details>
+
 ### Commands
 
 <details>
@@ -294,6 +353,14 @@ Then you can place block that inside the bundle.</p>
 <details>
   <summary>/emote</summary>
   <p>Perform sound like meow, purr, purroew, and woof in chat. Inspired by plugin [PlayerMeowing](https://modrinth.com/plugin/playermeowing)</p>
+</details>
+
+### Cursed
+
+<details>
+  <summary>Hydrophobic elytra (disable by default)</summary>
+  <p>Elytra can't be use in rain, or in water.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/cursed/hydrophobic_elytra-min.gif?raw=true" alt="Hydrophobic_elytra">
 </details>
 
 ## Usage
