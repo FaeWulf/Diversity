@@ -46,6 +46,15 @@
   "diversity.midnightconfig.emote.tooltip": "Perform sound like meow, purr, purroew, and woof if chat or via /emote command.",
   "diversity.midnightconfig.slime_chunk_check.tooltip": "Command /slimechunkcheck to check if standing chunk is slime chunk or not.",
   "diversity.midnightconfig.wet_sponge_dry_in_warm_biome .tooltip": "Wet sponge placed in warm biome will eventually dried out.",
+  "diversity.midnightconfig.deepslate_generator.tooltip": "Deepslate will replace stone and cobble stone if lava x water below y-level 8.",
+  "diversity.midnightconfig.day_counter.tooltip": "Day counter for each day passed.",
+  "diversity.midnightconfig.glow_berry_glowing.tooltip": "Eat glow berry will give you glow effect.",
+  "diversity.midnightconfig.torch_burn_target.tooltip": "If any entity holding torch while holding a torch, soul torch; target will be set on fire.",
+  "diversity.midnightconfig.trident_call_thunder.tooltip": "If standing at max y-level and throw a channeling trident (with >50% durability) up to the sky\n Thunder storm will be summoned, in return trident will lose channeling and all of durability (will not break).",
+  "diversity.midnightconfig._9_lives_cat.tooltip": "Cat has 9 lives.",
+  "diversity.midnightconfig.hydrophobic_elytra.tooltip": "Elytra can't be use in rain, or in water.",
+  "diversity.midnightconfig.endstone_is_cheese.tooltip": "Edible end stone.",
+  "diversity.midnightconfig.wandering_trader_announcer.tooltip": "Announce when wandering trader appears.",
   "diversity.midnightconfig.enum.weatherType.DISABLE": "Disable",
   "diversity.midnightconfig.enum.weatherType.RAIN_ONLY": "Keep rain only",
   "diversity.midnightconfig.enum.weatherType.ALL_WEATHER": "Keep all weathers",
@@ -56,5 +65,6 @@
   "diversity.midnightconfig.category.entity": "Entity features",
   "diversity.midnightconfig.category.general": "General features",
   "diversity.midnightconfig.category.command": "Commands",
+  "diversity.midnightconfig.category.cursed": "Cursed",
   "diversity.midnightconfig.category.item": "Item features"
 }

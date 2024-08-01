@@ -24,6 +24,9 @@
     ],
     "modmenu": [
       "faewulf.diversity.config.ModMenuIntegration"
+    ],
+    "preLaunch": [
+      "faewulf.diversity.util.ConfigCaller"
     ]
   },
   "mixins": [
