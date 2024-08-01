@@ -25,7 +25,7 @@ public abstract class babyNameTag extends PathAwareEntity {
         if (this.getCustomName() == null)
             return;
 
-        String name = this.getCustomName().getString();
+        String name = this.getCustomName().getString().toLowerCase();
 
         if (name.contains("baby")) {
             ci.cancel();

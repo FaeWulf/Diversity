@@ -22,7 +22,7 @@ public class silentNameTag {
             if (livingEntity.getCustomName() == null)
                 return;
 
-            String name = livingEntity.getCustomName().getString();
+            String name = livingEntity.getCustomName().getString().toLowerCase();
 
             if (name.contains("silent") || name.contains("shutup")) {
                 ci.cancel();
