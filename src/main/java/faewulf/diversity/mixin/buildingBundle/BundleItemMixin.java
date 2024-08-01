@@ -1,5 +1,6 @@
 package faewulf.diversity.mixin.buildingBundle;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import faewulf.diversity.Diversity;
 import faewulf.diversity.inter.ICustomBundleContentBuilder;
@@ -31,9 +32,7 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
@@ -56,9 +55,9 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return true;
     }
 
-    @ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
+    //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
+    @ModifyExpressionValue(method = "appendTooltip", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 1))
     private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
-
         ItemEnchantmentsComponent t = stack.getOrDefault(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.DEFAULT);
 
         AtomicInteger level = new AtomicInteger();
