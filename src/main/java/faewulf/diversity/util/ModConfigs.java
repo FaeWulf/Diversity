@@ -30,6 +30,15 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "Bonemeal coral fan/block")
     public static boolean bonemeal_coral_fan = true;
 
+    @Entry(category = "general", name = "Day counter")
+    public static boolean day_counter = true;
+
+    @Entry(category = "general", name = "Deepslate generator")
+    public static boolean deepslate_generator = true;
+
+    @Entry(category = "general", name = "Glow berry gives glow effect")
+    public static boolean glow_berry_glowing = true;
+
     @Entry(category = "general", name = "Wash filled map with Cauldron")
     public static boolean cauldron_washing_map = true;
 
@@ -50,6 +59,9 @@ public class ModConfigs extends MidnightConfig {
 
     @Entry(category = "general", name = "Prevent farmland trampling")
     public static boolean prevent_farmland_trampling = true;
+
+    @Entry(category = "general", name = "Torch burns target")
+    public static boolean torch_burn_target = true;
 
     @Entry(category = "general", name = "No set spawn on sleep")
     public static boolean prevent_setSpawn_onSleep = true;
@@ -86,11 +98,17 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "item", name = "Mace rotate blocks")
     public static boolean mace_rotate_block = true;
 
+    @Entry(category = "item", name = "Trident can call thunder strom")
+    public static boolean trident_call_thunder = true;
+
     @Entry(category = "item", name = "Spyglass what is that?")
     public static inspectType spyglass_what_is_that = inspectType.ALL;
 
     @Entry(category = "item", name = "Waxed copper indicator")
     public static boolean waxed_copper_indicator = true;
+
+    @Entry(category = "entity", name = "9 lives cat")
+    public static boolean _9_lives_cat = false;
 
     @Entry(category = "entity", name = "Baby nametag")
     public static boolean baby_nametag = true;
@@ -134,9 +152,19 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "entity", name = "Smaller bee")
     public static boolean smaller_bee = true;
 
+    @Entry(category = "entity", name = "Wandering trader announcer")
+    public static boolean wandering_trader_announcer = true;
+
+    @Entry(category = "cursed", name = "Hydrophobic elytra")
+    public static boolean hydrophobic_elytra = false;
+
+    @Entry(category = "cursed", name = "End stone is cheese")
+    public static boolean endstone_is_cheese = false;
+
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
 
     @Entry(category = "command", name = "Check slime chunk command")
     public static boolean slime_chunk_check = true;
+
 }
