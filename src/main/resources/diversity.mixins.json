@@ -53,7 +53,7 @@
     "featherOnBrush.ParrotEntityMixin",
     "functionalNameTag.babyNameTag",
     "functionalNameTag.silentNameTag",
-    "GlowBerries.FoodComponentsMixin",
+    "GlowBerries.LivingEntityMixin",
     "goldArmorTrimIsAlsoGold.PiglinBrainMixin",
     "increaseStackSize.DataComponentTypesMixin",
     "increaseStackSize.ItemStackMixin",

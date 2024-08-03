@@ -1,6 +1,7 @@
 package faewulf.diversity;
 
 import com.mojang.brigadier.CommandDispatcher;
+import eu.midnightdust.lib.config.MidnightConfig;
 import faewulf.diversity.util.ModConfigs;
 import faewulf.diversity.util.ReflectionUtils;
 import net.fabricmc.api.ModInitializer;
@@ -24,7 +25,7 @@ public class Diversity implements ModInitializer {
         LOGGER.info("Loading...");
 
         //load config
-        //MidnightConfig.init(Diversity.MODID, ModConfigs.class);
+        MidnightConfig.init(Diversity.MODID, ModConfigs.class);
 
         loadCommand();
         loadEvent();
