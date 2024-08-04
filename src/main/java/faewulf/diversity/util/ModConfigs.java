@@ -158,8 +158,8 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "cursed", name = "Hydrophobic elytra")
     public static boolean hydrophobic_elytra = false;
 
-    //@Entry(category = "cursed", name = "End stone is cheese")
-    //public static boolean endstone_is_cheese = false;
+    @Entry(category = "cursed", name = "End stone is cheese")
+    public static boolean endstone_is_cheese = false;
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;

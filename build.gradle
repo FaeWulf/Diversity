@@ -12,6 +12,8 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+
+    maven { url 'https://maven.nucleoid.xyz' }
 }
 
 version = project.mod_version + "+" + project.minecraft_version
@@ -52,6 +54,8 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${project.modmenu_version}")
     //config
     include(modImplementation("maven.modrinth:midnightlib:${project.midnightlib_version}"))
+
+    modImplementation include("eu.pb4:polymer-core:0.9.9+1.21")
 }
 
 processResources {
