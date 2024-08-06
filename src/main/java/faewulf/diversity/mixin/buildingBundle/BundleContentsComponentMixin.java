@@ -44,7 +44,7 @@ public abstract class BundleContentsComponentMixin implements TooltipData {
 
             //example: freeSpace = 60
             //if cobblestone, stack size is 64, itemValue is 1
-            //-> can put 60 / 1 = 60 item into freespace, stack size is 64 then can only put 4
+            //-> can put 60 / 1 = 60 item into freespace, stack size is 64 then can only put 60
 
             //if pearl, stack size is 16, itemValue is 4
             //-> can put 60 / 4 = 15 item into freespace, stack size is 16 then can only put 15

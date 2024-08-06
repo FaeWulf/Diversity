@@ -28,6 +28,7 @@
   },
   "mixins": [
     "diversity.mixins.json",
+    "compat.mixins.json",
     {
       "config": "diversity.client.mixins.json",
       "environment": "client"
