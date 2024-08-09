@@ -36,6 +36,10 @@ public class placeShulkerBlock {
         if (playerEntity.getWorld().isClient)
             return;
 
+        //ignore if sneaking
+        if(playerEntity.isSneaking())
+            return;
+
         ItemStack itemStack = context.getStack();
         BlockPos blockPos = context.getBlockPos();
         ServerWorld serverWorld = (ServerWorld) playerEntity.getWorld();
@@ -48,19 +52,26 @@ public class placeShulkerBlock {
             if (text == null)
                 return;
 
-            DisplayEntity.TextDisplayEntity w = new DisplayEntity.TextDisplayEntity(EntityType.TEXT_DISPLAY, playerEntity.getWorld());
 
-            w.setCustomName(text);
-            w.setCustomNameVisible(true);
+            try {
+                DisplayEntity.TextDisplayEntity w = new DisplayEntity.TextDisplayEntity(EntityType.TEXT_DISPLAY, playerEntity.getWorld());
 
-            ((TextDisplayEntityMixin) w).invokeSetBackground(1174405120);
-            ((DisplayEntityMixin) w).invokeSetBillboardMode(DisplayEntity.BillboardMode.CENTER);
+                w.setCustomName(text);
+                w.setCustomNameVisible(true);
 
-            ((ICustomDisplayEntity) w).setType(1);
+                ((TextDisplayEntityMixin) w).invokeSetBackground(1174405120);
+                ((DisplayEntityMixin) w).invokeSetBillboardMode(DisplayEntity.BillboardMode.CENTER);
 
-            w.setPosition(blockPos.getX() + 0.5f, blockPos.getY() + 0.95f, blockPos.getZ() + 0.5f);
+                ((ICustomDisplayEntity) w).setType(1);
 
-            serverWorld.spawnEntity(w);
+                w.setPosition(blockPos.getX() + 0.5f, blockPos.getY() + 0.95f, blockPos.getZ() + 0.5f);
+
+                serverWorld.spawnEntity(w);
+            }
+            catch (ClassCastException classCastException) {
+                return;
+            }
+
         }
     }
 }
