@@ -192,7 +192,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         if (!isRefilled) {
             itemStacks.remove(index);
-            System.out.println(itemStacks);
+            //System.out.println(itemStacks);
             player.sendMessage(Text.literal("Run out of " + itemStack.getItem().getName().getString()), true);
         }
 
