@@ -55,7 +55,7 @@ dependencies {
     //config
     include(modImplementation("maven.modrinth:midnightlib:${project.midnightlib_version}"))
 
-    modImplementation include("eu.pb4:polymer-core:0.9.9+1.21")
+    modImplementation include("eu.pb4:polymer-core:0.9.10+1.21.1")
 }
 
 processResources {
