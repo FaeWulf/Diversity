@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.fastOxidizationCopper;
 
-import faewulf.diversity.util.CopperUtils;
+//? if >=1.20.4 {
+
+/*import faewulf.diversity.util.CopperUtils;
 import faewulf.diversity.util.ModConfigs;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BulbBlock;
@@ -32,3 +34,5 @@ public abstract class OxidizableBulbBlockMixin extends BulbBlock implements Oxid
         }
     }
 }
+ 
+*///?}

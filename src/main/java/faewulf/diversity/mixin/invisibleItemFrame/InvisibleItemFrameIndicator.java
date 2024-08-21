@@ -1,42 +1,58 @@
 package faewulf.diversity.mixin.invisibleItemFrame;
 
 import faewulf.diversity.inter.ICustomItemFrame;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.decoration.BlockAttachedEntity;
+import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(BlockAttachedEntity.class)
-public class InvisibleItemFrameIndicator {
+@Mixin(AbstractDecorationEntity.class)
+public abstract class InvisibleItemFrameIndicator extends Entity {
+
+    public InvisibleItemFrameIndicator(EntityType<?> type, World world) {
+        super(type, world);
+    }
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        BlockAttachedEntity _this = ((BlockAttachedEntity) (Object) this);
 
-        if (_this.getType() == EntityType.ITEM_FRAME || _this.getType() == EntityType.GLOW_ITEM_FRAME) {
+        if (this.getWorld().isClient)
+            return;
 
-            if (_this.getWorld().isClient)
-                return;
+        if (this.getType() == EntityType.ITEM_FRAME || this.getType() == EntityType.GLOW_ITEM_FRAME) {
 
             //if does't have the require tag
-            if (!((ICustomItemFrame) _this).getIsInvisible())
+            if (!((ICustomItemFrame) this).getIsInvisible())
                 return;
 
+            AbstractDecorationEntity abstractDecorationEntity = ((AbstractDecorationEntity) (Object) this);
+
             //if it is holding item the return
-            if (!((ItemFrameEntity) _this).getHeldItemStack().isEmpty())
+            if (!((ItemFrameEntity) abstractDecorationEntity).getHeldItemStack().isEmpty())
                 return;
 
             Random random = Random.create();
-            Direction direction = ((ItemFrameEntity) _this).getFacing();
-            BlockPos pos = _this.getBlockPos();
+
+            //? if >=1.21 {
+            /*Direction direction = ((ItemFrameEntity) abstractDecorationEntity).getFacing();
+            *///?}
+
+            //? if =1.20.1 {
+            Direction direction = abstractDecorationEntity.getHorizontalFacing();
+            //?}
+
+
+            BlockPos pos = this.getBlockPos();
 
             //each direction follow this formula: <position base value> - <direction value / 2> + 0.5 (center value) + <shift value>
 
@@ -64,7 +80,7 @@ public class InvisibleItemFrameIndicator {
 
 
             if (random.nextInt(40) == 10) {
-                ((ServerWorld) _this.getWorld()).spawnParticles(
+                ((ServerWorld) this.getWorld()).spawnParticles(
                         ParticleTypes.WAX_OFF,
                         d,
                         e,

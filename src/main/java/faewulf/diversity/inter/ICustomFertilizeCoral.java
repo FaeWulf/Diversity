@@ -23,8 +23,13 @@ import java.util.Optional;
 import static net.minecraft.block.Block.NOTIFY_ALL;
 
 public interface ICustomFertilizeCoral extends Fertilizable {
+
     @Override
-    public default boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public default boolean isFertilizable(WorldView world, BlockPos pos, BlockState state
+                                          //? =1.20.1 {
+            , boolean isClient
+                                          //?}
+    ) {
 
         if (!ModConfigs.bonemeal_coral_fan)
             return false;

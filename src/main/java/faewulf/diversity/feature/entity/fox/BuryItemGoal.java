@@ -1,7 +1,6 @@
 package faewulf.diversity.feature.entity.fox;
 
 import faewulf.diversity.inter.entity.ICustomFoxEntity;
-import faewulf.diversity.util.CustomLootTables;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -12,6 +11,7 @@ import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.WorldView;
@@ -67,9 +67,20 @@ public class BuryItemGoal extends MoveToTargetPosGoal {
                 this.fox.getWorld().setBlockState(this.targetPos.down(), susBlock);
                 this.fox.getWorld().emitGameEvent(this.fox, GameEvent.BLOCK_CHANGE, this.targetPos.down());
 
-                this.fox.getWorld().getBlockEntity(targetPos.down(), BlockEntityType.BRUSHABLE_BLOCK).ifPresent(
+                //? >=1.21 {
+                
+                /*this.fox.getWorld().getBlockEntity(targetPos.down(), BlockEntityType.BRUSHABLE_BLOCK).ifPresent(
                         blockEntity -> blockEntity.setLootTable(CustomLootTables.FOX_BURY, this.fox.getRandom().nextLong())
                 );
+                
+                *///?}
+
+                //? =1.20.1 {
+                this.fox.getWorld().getBlockEntity(targetPos.down(), BlockEntityType.BRUSHABLE_BLOCK).ifPresent(
+                        blockEntity -> blockEntity.setLootTable(Identifier.of(Identifier.DEFAULT_NAMESPACE, "entity/fox_bury_behavior"), this.fox.getRandom().nextLong())
+                );
+                //?}
+
 
                 if (type == 1)
                     this.fox.playSound(SoundEvents.BLOCK_SAND_BREAK, 1.0F, 1.0F);

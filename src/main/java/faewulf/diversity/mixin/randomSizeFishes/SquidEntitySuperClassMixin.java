@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.randomSizeFishes;
 
-import faewulf.diversity.inter.entity.ICustomSquidEntity;
+//? if >=1.21 {
+
+/*import faewulf.diversity.inter.entity.ICustomSquidEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.NbtCompound;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,3 +32,5 @@ public class SquidEntitySuperClassMixin {
 
 
 }
+ 
+*///?}

@@ -18,13 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
-
-    @Shadow
-    public abstract void setOnFireForTicks(int ticks);
-
-    @Shadow
-    protected abstract void fall(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition);
-
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
     }
@@ -41,7 +34,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             if (entityAttacker instanceof LivingEntity livingEntity) {
                 livingEntity.getHandItems().forEach(itemStack -> {
                     if (itemStack.getItem() == Items.TORCH || itemStack.getItem() == Items.SOUL_TORCH) {
-                        this.setOnFireForTicks(100);
+                        this.setOnFireFor(5);
                         return;
                     }
                 });

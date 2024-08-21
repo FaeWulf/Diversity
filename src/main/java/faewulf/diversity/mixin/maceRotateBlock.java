@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin;
 
-import faewulf.diversity.util.ModConfigs;
+//? if >=1.21 {
+
+/*import faewulf.diversity.util.ModConfigs;
 import faewulf.diversity.util.getNextBlockState;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -55,3 +57,5 @@ public abstract class maceRotateBlock extends Item {
         return ActionResult.PASS;
     }
 }
+ 
+*///?}

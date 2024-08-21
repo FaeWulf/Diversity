@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.edibleEndStone;
 
-import com.mojang.authlib.GameProfile;
+//? if >=1.20.6 {
+
+/*import com.mojang.authlib.GameProfile;
 import faewulf.diversity.util.ModConfigs;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.FoodComponent;
@@ -35,3 +37,5 @@ public abstract class ServerPlayerMixin extends PlayerEntity {
         }
     }
 }
+ 
+*///?}

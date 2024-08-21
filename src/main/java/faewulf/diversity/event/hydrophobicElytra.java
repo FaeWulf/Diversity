@@ -2,6 +2,7 @@ package faewulf.diversity.event;
 
 import faewulf.diversity.util.ModConfigs;
 import net.fabricmc.fabric.api.entity.event.v1.EntityElytraEvents;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class hydrophobicElytra {
@@ -14,7 +15,13 @@ public class hydrophobicElytra {
 
             if (entity instanceof ServerPlayerEntity serverPlayerEntity) {
                 if (serverPlayerEntity.isFallFlying() &&
-                        (serverPlayerEntity.isInFluid() || serverPlayerEntity.isTouchingWaterOrRain())
+                        (
+                                //? >=1.21
+                                /*serverPlayerEntity.isInFluid()*/
+                                //? =1.20.1
+                                serverPlayerEntity.isSubmergedIn(FluidTags.LAVA)
+                                        || serverPlayerEntity.isTouchingWaterOrRain()
+                        )
                 ) {
                     serverPlayerEntity.stopFallFlying();
                     return true;

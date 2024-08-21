@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.smallerBee;
 
-import faewulf.diversity.util.ModConfigs;
+//? if >=1.21 {
+
+/*import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -35,3 +37,5 @@ public abstract class BeeEntityMixin extends AnimalEntity implements Angerable, 
     }
 
 }
+
+*///?}

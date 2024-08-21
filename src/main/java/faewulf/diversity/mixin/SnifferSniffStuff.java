@@ -81,7 +81,9 @@ public class SnifferSniffStuff implements ICustomSniffer {
                         }
 
                         case typeSnort.REDSTONE -> {
-                            serverWorld.createExplosion(
+                            //? if >=1.21 {
+                            
+                            /*serverWorld.createExplosion(
                                     null,
                                     null,
                                     EXPLOSION_BEHAVIOR,
@@ -95,6 +97,9 @@ public class SnifferSniffStuff implements ICustomSniffer {
                                     ParticleTypes.GUST_EMITTER_LARGE,
                                     SoundEvents.ENTITY_WIND_CHARGE_WIND_BURST
                             );
+                             
+                            *///?}
+                            serverWorld.createExplosion(null, _this.getX(), _this.getY(), _this.getZ(), 2.0f, World.ExplosionSourceType.NONE);
                         }
                     }
 

@@ -93,8 +93,16 @@ public abstract class ServerWorldMixin extends World implements StructureWorldAc
 
                 player.sendMessage(Text.literal(message.substring(0, cut_pos) + "_").formatted(Formatting.GOLD), true);
 
-                if (playSound)
-                    player.playSoundToPlayer(SoundEvents.BLOCK_NOTE_BLOCK_HAT.value(), SoundCategory.PLAYERS, 0.5f, 1.4f);
+                if (playSound) {
+                    //? if >=1.21 {
+                    /*player.playSoundToPlayer(SoundEvents.BLOCK_NOTE_BLOCK_HAT.value(), SoundCategory.PLAYERS, 0.5f, 1.4f);
+                     *///?}
+
+                    //? if =1.20.1 {
+                    player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_HAT.value(), SoundCategory.PLAYERS, 0.5f, 1.4f);
+                    //?}
+                }
+
             }
         }
     }

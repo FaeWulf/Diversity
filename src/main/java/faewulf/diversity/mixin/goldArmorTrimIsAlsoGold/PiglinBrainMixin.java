@@ -1,7 +1,11 @@
 package faewulf.diversity.mixin.goldArmorTrimIsAlsoGold;
 
 import faewulf.diversity.util.ModConfigs;
-import net.minecraft.component.DataComponentTypes;
+
+//? if >=1.21 {
+/*import net.minecraft.component.DataComponentTypes;
+*///?}
+
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.PiglinBrain;
 import net.minecraft.item.ArmorItem;
@@ -14,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(PiglinBrain.class)
 public class PiglinBrainMixin {
 
@@ -23,7 +29,9 @@ public class PiglinBrainMixin {
         if (!ModConfigs.piglin_goldenTrimmedArmor)
             return;
 
-        for (ItemStack itemStack : entity.getAllArmorItems()) {
+        //? if >=1.21 {
+        
+        /*for (ItemStack itemStack : entity.getAllArmorItems()) {
             Item item = itemStack.getItem();
 
             if (item instanceof ArmorItem) {
@@ -34,5 +42,21 @@ public class PiglinBrainMixin {
                 }
             }
         }
+        
+        *///?}
+
+
+        //? if =1.20.1 {
+        for (ItemStack itemStack : entity.getArmorItems()) {
+            Item item = itemStack.getItem();
+            if (item instanceof ArmorItem) {
+                Optional<ArmorTrim> trimData = ArmorTrim.getTrim(entity.getWorld().getRegistryManager(), itemStack);
+                if (trimData.isPresent() && trimData.get().getMaterial().matchesKey(ArmorTrimMaterials.GOLD)) {
+                    cir.setReturnValue(true);
+                    cir.cancel();
+                }
+            }
+        }
+        //?}
     }
 }

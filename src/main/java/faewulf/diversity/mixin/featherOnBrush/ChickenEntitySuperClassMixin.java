@@ -34,7 +34,14 @@ public class ChickenEntitySuperClassMixin {
             if (chickenEntity.isBaby() || !player.isSneaking() || player.getStackInHand(Hand.MAIN_HAND).getItem() != Items.BRUSH)
                 return;
 
-            player.getStackInHand(Hand.MAIN_HAND).damage(1, player, getSlotForHand(Hand.MAIN_HAND));
+            //? if >=1.21 {
+            /*player.getStackInHand(Hand.MAIN_HAND).damage(1, player, getSlotForHand(Hand.MAIN_HAND));
+            *///?}
+
+            //? if =1.20.1 {
+            player.getStackInHand(Hand.MAIN_HAND).damage(1, player, (p) -> p.sendToolBreakStatus(Hand.MAIN_HAND));
+            //?}
+
             chickenEntity.playSound(SoundEvents.ENTITY_ITEM_FRAME_REMOVE_ITEM, 0.8f, 1.0f);
 
             ItemStack drops = new ItemStack(Items.FEATHER);

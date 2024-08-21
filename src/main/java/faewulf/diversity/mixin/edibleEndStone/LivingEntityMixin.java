@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.edibleEndStone;
 
-import faewulf.diversity.util.ModConfigs;
+//? if >=1.20.6 {
+
+/*import faewulf.diversity.util.ModConfigs;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
@@ -40,3 +42,5 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         }
     }
 }
+ 
+*///?}

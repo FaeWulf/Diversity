@@ -1,6 +1,9 @@
 package faewulf.diversity.mixin.randomSizeFishes;
 
-import faewulf.diversity.util.ModConfigs;
+
+//? if >=1.21 {
+
+/*import faewulf.diversity.util.ModConfigs;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.Bucketable;
@@ -78,3 +81,5 @@ public abstract class FishEntityMixin extends WaterCreatureEntity implements Buc
         }
     }
 }
+ 
+*///?}

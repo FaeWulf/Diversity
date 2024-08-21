@@ -5,8 +5,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.ChickenEntity;
+import net.minecraft.entity.projectile.thrown.EggEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -57,14 +60,20 @@ public abstract class onGroundEggAutoHatch extends Entity implements Ownable {
                         if (chickenEntity != null) {
                             chickenEntity.setBreedingAge(-24000);
                             chickenEntity.refreshPositionAndAngles(this.getX(), this.getY(), this.getZ(), this.getYaw(), 0.0F);
-                            if (!chickenEntity.recalculateDimensions(EMPTY_DIMENSIONS)) {
+
+                            //? if >=1.21 {
+                            
+                            /*if (!chickenEntity.recalculateDimensions(EMPTY_DIMENSIONS)) {
                                 break;
                             }
+                            
+                            *///?}
 
                             this.getWorld().spawnEntity(chickenEntity);
-
                         }
                     }
+
+                    this.getWorld().playSound(null, this.getBlockPos(), SoundEvents.ENTITY_TURTLE_EGG_BREAK, SoundCategory.BLOCKS, 1.0F, (1.0F + this.getWorld().getRandom().nextFloat() * 0.2F) * 0.7F);
                 }
             }
         }

@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.delay1TickBulbBlock;
 
-import faewulf.diversity.util.ModConfigs;
+//? if >=1.20.4 {
+
+/*import faewulf.diversity.util.ModConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BulbBlock;
@@ -36,3 +38,5 @@ public abstract class BulbBlobkMixin extends Block {
         this.update(state, world, pos);
     }
 }
+
+*///?}

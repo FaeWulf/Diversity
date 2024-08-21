@@ -17,7 +17,11 @@ public abstract class PlantBlockMixin extends Block implements Fertilizable {
     }
 
     @Override
-    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state) {
+    public boolean isFertilizable(WorldView world, BlockPos pos, BlockState state
+                                  //? =1.20.1 {
+            , boolean isClient
+                                  //?}
+    ) {
 
         if (!ModConfigs.bonemeal_small_flower)
             return false;

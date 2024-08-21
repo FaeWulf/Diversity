@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.increaseStackSize;
 
-import net.minecraft.component.ComponentType;
+//? >=1.21 {
+
+/*import net.minecraft.component.ComponentType;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.dynamic.Codecs;
@@ -32,3 +34,5 @@ public class DataComponentTypesMixin {
         return builder -> builderOperator.apply(builder).codec(Codecs.rangedInt(1, 1024)).packetCodec(PacketCodecs.VAR_INT);
     }
 }
+
+*///?}

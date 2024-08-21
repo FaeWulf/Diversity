@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.buildingBundle;
 
-import net.minecraft.component.type.BundleContentsComponent;
+//? >=1.21
+/*import net.minecraft.component.type.BundleContentsComponent;Token(value=*/
+, type=COMMENT_END)
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.math.Fraction;
 import org.spongepowered.asm.mixin.Mixin;

@@ -64,7 +64,10 @@ public class putItemIntoBrushableBlocks {
 
                     ((ICustomBrushableBlockEntity) brushableBlockEntity).setItem(treasure);
 
-                    mainHand.decrementUnlessCreative(1, player);
+                    if (!player.isCreative()) {
+                        mainHand.decrement(1);
+                    }
+
                     world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_SAND_PLACE, SoundCategory.PLAYERS, 1.0f, 1.0f);
 
                     return ActionResult.SUCCESS;

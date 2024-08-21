@@ -1,7 +1,11 @@
 package faewulf.diversity.mixin.GlowBerries;
 
 import faewulf.diversity.util.ModConfigs;
-import net.minecraft.component.type.FoodComponent;
+
+//? if >=1.21 {
+/*import net.minecraft.component.type.FoodComponent;
+*///?}
+
 import net.minecraft.entity.Attackable;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,7 +31,25 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         super(type, world);
     }
 
-    @Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/component/type/FoodComponent;)V"))
+    //? if =1.20.1 {
+    @Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/entity/LivingEntity;)V"))
+    private void eatFoodInject(World world, ItemStack stack, CallbackInfoReturnable<ItemStack> cir) {
+
+        if (world.isClient)
+            return;
+
+        if (!ModConfigs.glow_berry_glowing)
+            return;
+
+        if (stack.getItem() == Items.GLOW_BERRIES) {
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100));
+        }
+    }
+    //?}
+
+    //? if >=1.21 {
+    
+    /*@Inject(method = "eatFood", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;applyFoodEffects(Lnet/minecraft/component/type/FoodComponent;)V"))
     private void eatFoodInject(World world, ItemStack stack, FoodComponent foodComponent, CallbackInfoReturnable<ItemStack> cir) {
 
         if (world.isClient)
@@ -40,4 +62,6 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 100));
         }
     }
+     
+    *///?}
 }

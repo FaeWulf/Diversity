@@ -62,10 +62,11 @@ public class explodeSniffer {
                     else if (item == Items.GUNPOWDER)
                         ((ICustomSniffer) entity).setSnortType(typeSnort.GUN_POWDER);
 
+                    if (!player.isCreative()) {
+                        player.getStackInHand(hand).decrement(1);
+                    }
 
-                    player.getStackInHand(hand).decrementUnlessCreative(1, player);
                     entity.playSound(SoundEvents.ITEM_BONE_MEAL_USE, 1.0f, 1.0f);
-
                     return ActionResult.SUCCESS;
                 }
             }

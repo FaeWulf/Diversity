@@ -15,9 +15,6 @@ public abstract class WorldMixin {
     @Shadow
     public abstract long getTimeOfDay();
 
-    @Shadow
-    public abstract BrewingRecipeRegistry getBrewingRecipeRegistry();
-
     @Inject(method = "isDay", at = @At("RETURN"), cancellable = true)
     private void isDayInject(CallbackInfoReturnable<Boolean> cir) {
 

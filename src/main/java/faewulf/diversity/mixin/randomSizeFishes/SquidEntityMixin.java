@@ -1,6 +1,9 @@
 package faewulf.diversity.mixin.randomSizeFishes;
 
-import faewulf.diversity.inter.entity.ICustomSquidEntity;
+
+//? if >=1.21 {
+
+/*import faewulf.diversity.inter.entity.ICustomSquidEntity;
 import faewulf.diversity.util.ModConfigs;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -56,3 +59,5 @@ public abstract class SquidEntityMixin extends WaterCreatureEntity implements IC
         return size;
     }
 }
+ 
+*///?}

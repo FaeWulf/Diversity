@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.RegistryLoadBlocker;
 
-import com.google.gson.JsonElement;
+//? if >=1.21 {
+
+/*import com.google.gson.JsonElement;
 import com.mojang.serialization.Decoder;
 import faewulf.diversity.util.ModConfigs;
 import faewulf.diversity.util.data.CustomEnchantment;
@@ -31,7 +33,6 @@ public abstract class RegistryLoaderMixin {
 
         }
     }
-
-
 }
-
+ 
+*///?}

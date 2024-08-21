@@ -1,6 +1,8 @@
 package faewulf.diversity.mixin.fastOxidizationCopper;
 
-import faewulf.diversity.util.CopperUtils;
+//? if >=1.20.4 {
+
+/*import faewulf.diversity.util.CopperUtils;
 import faewulf.diversity.util.ModConfigs;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
@@ -29,3 +31,5 @@ public abstract class OxidizableDoorBlockMixin extends DoorBlock implements Oxid
         }
     }
 }
+ 
+*///?}
