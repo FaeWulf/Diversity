@@ -93,13 +93,17 @@ public class hitResult2Infomations {
         }
 
         //trial spawner
-        if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
+        //? if >=1.21 {
+        
+        /*if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
             TrialSpawnerData trialSpawnerData = trialSpawnerBlockEntity.getSpawner().getData();
             if (!trialSpawnerData.isCooldownOver((ServerWorld) world)) {
                 long cooldown = ((TrialSpawnerDataMixin) trialSpawnerData).getCooldownEnd();
                 result.append(Text.literal(" ⏳" + converter.tiok2Time(cooldown - world.getTime())).formatted(Formatting.RED));
             }
         }
+         
+        *///?}
 
         //furnace
         if (blockEntity instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity) {
@@ -208,7 +212,9 @@ public class hitResult2Infomations {
         DecimalFormat df = new DecimalFormat("#.#");
 
         //entity variation
-        if (entity instanceof WolfEntity wolfEntity) {
+        //? if >=1.21 {
+        
+        /*if (entity instanceof WolfEntity wolfEntity) {
             result.append(converter.UppercaseFirstLetter(wolfEntity.getVariant().getIdAsString().replace("minecraft:", "").replace("_", " ")));
         }
 
@@ -216,6 +222,8 @@ public class hitResult2Infomations {
         if (entity instanceof CatEntity catEntity) {
             result.append(converter.UppercaseFirstLetter(catEntity.getVariant().getIdAsString().replace("minecraft:", "").replace("_", " ")));
         }
+         
+        *///?}
 
         //villager
         if (entity instanceof ZombieVillagerEntity zombieVillagerEntity) {
@@ -240,7 +248,14 @@ public class hitResult2Infomations {
         //horse
         if (entity instanceof AbstractHorseEntity abstractHorseEntity) {
             double speed = abstractHorseEntity.getAttributes().getValue(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-            double jump = abstractHorseEntity.getAttributes().getValue(EntityAttributes.GENERIC_JUMP_STRENGTH);
+
+            //? if >=1.21 {
+            /*double jump = abstractHorseEntity.getAttributes().getValue(EntityAttributes.GENERIC_JUMP_STRENGTH);
+            *///?}
+
+            //? if =1.20.1 {
+            double jump = abstractHorseEntity.getAttributes().getValue(EntityAttributes.HORSE_JUMP_STRENGTH);
+            //?}
 
             result.append(" |");
             result.append(Text.literal(" ➠").formatted(Formatting.BLUE));

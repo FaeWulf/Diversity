@@ -1,9 +1,10 @@
 package faewulf.diversity;
 
-import com.mojang.brigadier.CommandDispatcher;
 import eu.midnightdust.lib.config.MidnightConfig;
+import faewulf.diversity.command.emote;
+import faewulf.diversity.command.slimechunk;
+import faewulf.diversity.event.*;
 import faewulf.diversity.util.ModConfigs;
-import faewulf.diversity.util.ReflectionUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import org.slf4j.Logger;
@@ -29,14 +30,27 @@ public class Diversity implements ModInitializer {
     private void loadCommand() {
         LOGGER.info("Register commands...");
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            ReflectionUtils.invokeMethodOnClasses("faewulf.diversity.command", "register", CommandDispatcher.class, dispatcher);
+            //ReflectionUtils.invokeMethodOnClasses("faewulf.diversity.command", "register", CommandDispatcher.class, dispatcher);
+            emote.register(dispatcher);
+            slimechunk.register(dispatcher);
         });
     }
 
     private void loadEvent() {
         LOGGER.info("Register events...");
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            ReflectionUtils.invokeClasses("faewulf.diversity.event", "run");
+            //ReflectionUtils.invokeClasses("faewulf.diversity.event", "run");
+            breakCrops.run();
+            changeBundleMode.run();
+            explodeSniffer.run();
+            hydrophobicElytra.run();
+            invisibleItemFrame.run();
+            onReload.run();
+            placeShulkerBlock.run();
+            placeWetSpongeBlock.run();
+            playerChatEmote.run();
+            putItemIntoBrushableBlocks.run();
+            useClockOnBlock.run();
         });
     }
 }

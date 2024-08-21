@@ -48,12 +48,6 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${property('debs.fabric_version')}"
 
-    //extra lib
-    implementation(include("org.reflections:reflections:0.10.2"))
-
-    //for the f sake
-    include group: 'org.javassist', name: 'javassist', version: '3.28.0-GA'
-
     //permission
     include(modImplementation('me.lucko:fabric-permissions-api:0.3.1'))
 

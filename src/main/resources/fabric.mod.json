@@ -12,7 +12,7 @@
     "sources": "https://github.com/FaeWulf/Diversity",
     "issues": "https://github.com/FaeWulf/Diversity/issues"
   },
-  "license": "CC0-1.0",
+  "license": "CC-BY-NC-SA-4.0",
   "icon": "assets/diversity/icon.png",
   "environment": "*",
   "entrypoints": {

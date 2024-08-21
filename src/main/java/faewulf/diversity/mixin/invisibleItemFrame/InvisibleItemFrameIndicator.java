@@ -4,6 +4,11 @@ import faewulf.diversity.inter.ICustomItemFrame;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
+
+//? if >=1.21 {
+/*import net.minecraft.entity.decoration.BlockAttachedEntity;*/
+//?}
+
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
@@ -16,7 +21,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+//? if =1.20.1 {
 @Mixin(AbstractDecorationEntity.class)
+//?}
+
+//? if >=1.21 {
+/*@Mixin(BlockAttachedEntity.class)
+ *///?}
 public abstract class InvisibleItemFrameIndicator extends Entity {
 
     public InvisibleItemFrameIndicator(EntityType<?> type, World world) {
@@ -35,7 +46,13 @@ public abstract class InvisibleItemFrameIndicator extends Entity {
             if (!((ICustomItemFrame) this).getIsInvisible())
                 return;
 
+            //? if >=1.21 {
+            /*BlockAttachedEntity abstractDecorationEntity = ((BlockAttachedEntity) (Object) this);
+             *///?}
+
+            //? if =1.20.1 {
             AbstractDecorationEntity abstractDecorationEntity = ((AbstractDecorationEntity) (Object) this);
+            //?}
 
             //if it is holding item the return
             if (!((ItemFrameEntity) abstractDecorationEntity).getHeldItemStack().isEmpty())
@@ -45,12 +62,11 @@ public abstract class InvisibleItemFrameIndicator extends Entity {
 
             //? if >=1.21 {
             /*Direction direction = ((ItemFrameEntity) abstractDecorationEntity).getFacing();
-            *///?}
+             *///?}
 
             //? if =1.20.1 {
             Direction direction = abstractDecorationEntity.getHorizontalFacing();
             //?}
-
 
             BlockPos pos = this.getBlockPos();
 
