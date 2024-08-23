@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "blocks",
+  "pattern": [
+    " g ",
+    "g g",
+    " g "
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:gravel"
+    }
+  },
+  "result": {
+    "id": "minecraft:suspicious_gravel",
+    "count": 4
+  }
+}

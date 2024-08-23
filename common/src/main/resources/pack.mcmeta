@@ -1,0 +1,11 @@
+{
+  "pack": {
+    "description": "Diversity",
+    "pack_format": 8
+  },
+  "features": {
+    "enabled": [
+      "minecraft:bundle"
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "xyz.faewulf.diversity.compat",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "EasyShulkerBoxes_Compat"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
