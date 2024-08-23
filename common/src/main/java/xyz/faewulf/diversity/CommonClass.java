@@ -9,7 +9,6 @@ public class CommonClass {
         //Constants.LOG.info("The ID for diamonds is {}", BuiltInRegistries.ITEM.getKey(Items.DIAMOND));
 
         if (Services.PLATFORM.isModLoaded("examplemod")) {
-
             Constants.LOG.info("Hello to examplemod");
         }
     }
