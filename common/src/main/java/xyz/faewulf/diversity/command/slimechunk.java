@@ -31,12 +31,12 @@ public class slimechunk {
 
     static private int run(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
 
-//        if (ModConfigs.permission_enable) {
-//            if (!Permissions.check(context.getSource(), permission.SLIME_CHUNK)) {
-//                context.getSource().sendSuccess(() -> Component.literal("You don't have permission to do this command"), false);
-//                return 0;
-//            }
-//        }
+        if (ModConfigs.permission_enable) {
+            if (!context.getSource().hasPermission(1)) {
+                context.getSource().sendSuccess(() -> Component.literal("You don't have permission to use this command"), false);
+                return 0;
+            }
+        }
 
         ServerPlayer serverPlayerEntity = context.getSource().getPlayerOrException();
 
