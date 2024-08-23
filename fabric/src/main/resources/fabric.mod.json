@@ -33,6 +33,7 @@
   },
   "mixins": [
     "compat.mixins.json",
+    "client.mixins.json",
     "${mod_id}.mixins.json",
     "${mod_id}.fabric.mixins.json"
   ],

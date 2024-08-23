@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -39,12 +40,12 @@ public class emote {
 
     static private int play(CommandContext<CommandSourceStack> context, SoundEvent soundEvent) throws CommandSyntaxException {
 
-//        if (ModConfigs.permission_enable) {
-//            if (!Permissions.check(context.getSource(), permission.EMOTE)) {
-//                context.getSource().sendSuccess(() -> Component.literal("You don't have permission to do this command"), false);
-//                return 0;
-//            }
-//        }
+        if (ModConfigs.permission_enable) {
+            if (!context.getSource().hasPermission(1)) {
+                context.getSource().sendSuccess(() -> Component.literal("You don't have permission to use this command"), false);
+                return 0;
+            }
+        }
 
         ServerPlayer player = context.getSource().getPlayerOrException();
         Level world = player.level();

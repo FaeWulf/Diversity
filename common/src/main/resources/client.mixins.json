@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "xyz.faewulf.diversity.mixinClient",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "AnvilMixin"
+  ]
+}
