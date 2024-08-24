@@ -1,5 +1,7 @@
 package xyz.faewulf.diversity.mixin;
 
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.EntityType;
@@ -71,6 +73,8 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
                     }
                 }
             }
+
+            this.level().playSound(null, this.getOnPos(), SoundEvents.TURTLE_EGG_BREAK, SoundSource.BLOCKS, 1.0F, (1.0F + this.level().getRandom().nextFloat() * 0.2F) * 0.7F);
         }
     }
 }
