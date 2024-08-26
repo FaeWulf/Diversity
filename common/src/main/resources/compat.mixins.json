@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "xyz.faewulf.diversity.compat",
-  "compatibilityLevel": "JAVA_18",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
     "EasyShulkerBoxes_Compat"
   ],

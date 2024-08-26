@@ -71,7 +71,7 @@ public abstract class TextDisplayMixin extends Entity implements ICustomPseudoEn
             if (this.random.nextInt(20) == 2) {
                 world.setBlock(pos, Blocks.SPONGE.defaultBlockState(), Block.UPDATE_ALL);
                 world.levelEvent(LevelEvent.PARTICLES_WATER_EVAPORATING, pos, 0);
-                world.playSound(null, pos, SoundEvents.WET_SPONGE_DRIES, SoundSource.BLOCKS, 1.0F, (1.0F + world.getRandom().nextFloat() * 0.2F) * 0.7F);
+                world.playSound(null, pos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, (1.0F + world.getRandom().nextFloat() * 0.2F) * 0.7F);
                 this.discard();
             } else {
                 Vec3 center = pos.getCenter();

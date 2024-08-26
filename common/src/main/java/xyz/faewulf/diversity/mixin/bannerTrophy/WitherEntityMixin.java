@@ -1,7 +1,5 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PowerableMob;
@@ -25,11 +23,11 @@ public abstract class WitherEntityMixin extends Monster implements PowerableMob,
     }
 
     @Inject(method = "dropCustomDeathLoot", at = @At("TAIL"))
-    private void dropEquipmentInject(ServerLevel world, DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
+    private void dropEquipmentInject(DamageSource $$0, int $$1, boolean $$2, CallbackInfo ci) {
 
         if (!ModConfigs.banner_trohpy) return;
 
-        ItemEntity itemEntity = this.spawnAtLocation(CustomBanner.witherBanner(this.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
+        ItemEntity itemEntity = this.spawnAtLocation(CustomBanner.witherBanner());
         if (itemEntity != null) {
             itemEntity.setExtendedLifetime();
         }

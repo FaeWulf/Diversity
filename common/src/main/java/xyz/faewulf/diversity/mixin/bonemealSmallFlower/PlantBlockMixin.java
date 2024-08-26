@@ -21,7 +21,7 @@ public abstract class PlantBlockMixin extends Block implements BonemealableBlock
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+    public boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean var4) {
 
         if (!ModConfigs.bonemeal_small_flower)
             return false;

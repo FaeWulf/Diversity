@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.goldArmorTrimIsAlsoGold;
 
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.item.ArmorItem;
@@ -14,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.ModConfigs;
 
+import java.util.Optional;
+
 @Mixin(PiglinAi.class)
 public class PiglinBrainMixin {
 
@@ -23,12 +24,24 @@ public class PiglinBrainMixin {
         if (!ModConfigs.piglin_goldenTrimmedArmor)
             return;
 
-        for (ItemStack itemStack : entity.getArmorAndBodyArmorSlots()) {
-            Item item = itemStack.getItem();
+        //1.21 method:
+//        for (ItemStack itemStack : entity.getArmorAndBodyArmorSlots()) {
+//            Item item = itemStack.getItem();
+//
+//            if (item instanceof ArmorItem) {
+//                ArmorTrim getTrim = itemStack.get(DataComponents.TRIM);
+//                if (getTrim != null && getTrim.material().is(TrimMaterials.GOLD)) {
+//                    cir.setReturnValue(true);
+//                    cir.cancel();
+//                }
+//            }
+//        }
 
+        for (ItemStack itemStack : entity.getArmorSlots()) {
+            Item item = itemStack.getItem();
             if (item instanceof ArmorItem) {
-                ArmorTrim getTrim = itemStack.get(DataComponents.TRIM);
-                if (getTrim != null && getTrim.material().is(TrimMaterials.GOLD)) {
+                Optional<ArmorTrim> trimData = ArmorTrim.getTrim(entity.level().registryAccess(), itemStack);
+                if (trimData.isPresent() && trimData.get().material().is(TrimMaterials.GOLD)) {
                     cir.setReturnValue(true);
                     cir.cancel();
                 }

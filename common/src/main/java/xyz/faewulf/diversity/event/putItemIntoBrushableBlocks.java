@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.entity.BrushableBlockEntity;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomBrushableBlockEntity;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.ModConfigs;
 
 import java.util.ArrayList;
@@ -63,7 +64,9 @@ public class putItemIntoBrushableBlocks {
 
                 ((ICustomBrushableBlockEntity) brushableBlockEntity).setItem(treasure);
 
-                mainHand.consume(1, player);
+                //mainHand.consume(1, player);
+                ItemStackMethod.consume(mainHand, 1, player);
+
                 world.playSound(null, player.blockPosition(), SoundEvents.SAND_PLACE, SoundSource.PLAYERS, 1.0f, 1.0f);
 
                 return InteractionResult.SUCCESS;

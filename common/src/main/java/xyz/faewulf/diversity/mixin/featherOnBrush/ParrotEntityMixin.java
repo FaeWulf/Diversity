@@ -24,6 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
 import xyz.faewulf.diversity.util.ModConfigs;
 
+import static xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod.getSlotForHand;
+
 @Mixin(Parrot.class)
 public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements VariantHolder<Parrot.Variant>, FlyingAnimal, ICustomParrotEntity {
 
@@ -49,7 +51,11 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         if (this.isBaby() || !player.isShiftKeyDown() || player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH)
             return;
 
-        player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, getSlotForHand(InteractionHand.MAIN_HAND));
+        //Equivalent for
+        //player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, getSlotForHand(InteractionHand.MAIN_HAND));
+        //:
+
+        player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, $$1x -> $$1x.broadcastBreakEvent(getSlotForHand(InteractionHand.MAIN_HAND)));
         this.playSound(SoundEvents.ITEM_FRAME_REMOVE_ITEM, 0.8f, 1.0f);
 
         ItemStack drops = new ItemStack(Items.FEATHER);

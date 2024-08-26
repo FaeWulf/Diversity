@@ -1,14 +1,14 @@
 package xyz.faewulf.diversity.mixin.enchantTableAcceptFurtherBookshelf;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.EnchantingTableBlock;
+import net.minecraft.world.level.block.EnchantmentTableBlock;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
-@Mixin(EnchantingTableBlock.class)
+@Mixin(EnchantmentTableBlock.class)
 public class EnchantingTableBlockMixin {
 
     @Shadow

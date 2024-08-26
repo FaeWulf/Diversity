@@ -1,8 +1,6 @@
 package xyz.faewulf.diversity.event;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.Entity;
@@ -13,7 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import xyz.faewulf.diversity.inter.ICustomDisplayEntity;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.DisplayEntityMixin;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.TextDisplayEntityMixin;
@@ -41,7 +38,10 @@ public class placeShulkerBlock {
 
         if (blockAt instanceof ShulkerBoxBlockEntity shulkerBoxBlockEntity) {
 
-            Component text = itemStack.get(DataComponents.CUSTOM_NAME);
+            if (!itemStack.hasCustomHoverName())
+                return;
+
+            Component text = itemStack.getHoverName();
 
             //if don't have custom name
             if (text == null)

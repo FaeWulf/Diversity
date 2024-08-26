@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity.command.emote;
 import xyz.faewulf.diversity.command.slimechunk;
 import xyz.faewulf.diversity.event_handler.*;
+import xyz.faewulf.diversity.platform.RegisterEnchantment;
 import xyz.faewulf.diversity.util.ModConfigs;
 
 public class Diversity implements ModInitializer {
@@ -19,6 +20,7 @@ public class Diversity implements ModInitializer {
         loadCommand();
         loadEvent();
 
+        RegisterEnchantment.register();
         CommonClass.init();
 
         Constants.LOG.info("Init done");

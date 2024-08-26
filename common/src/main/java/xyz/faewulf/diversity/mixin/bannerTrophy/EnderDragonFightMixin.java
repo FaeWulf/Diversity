@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -38,7 +37,7 @@ public class EnderDragonFightMixin {
 
         Vec3 pos = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)).getCenter();
 
-        ItemStack eggTrophy = CustomBanner.enderEggBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
+        ItemStack eggTrophy = CustomBanner.enderEggBanner();
         eggTrophy.setCount(1);
         ItemEntity itemEntity = new ItemEntity(level, pos.x(), pos.y() + 1, pos.z(), eggTrophy);
         itemEntity.setDeltaMovement(Vec3.ZERO);
@@ -52,7 +51,7 @@ public class EnderDragonFightMixin {
 
         Vec3 pos = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)).getCenter();
 
-        ItemStack eggTrophy = CustomBanner.enderDragonBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
+        ItemStack eggTrophy = CustomBanner.enderDragonBanner();
         eggTrophy.setCount(1);
         ItemEntity itemEntity = new ItemEntity(level, pos.x(), pos.y() + 1, pos.z(), eggTrophy);
         itemEntity.setDeltaMovement(Vec3.ZERO);

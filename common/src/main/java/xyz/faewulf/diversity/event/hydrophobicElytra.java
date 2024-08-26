@@ -3,6 +3,7 @@ package xyz.faewulf.diversity.event;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import xyz.faewulf.diversity.util.ModConfigs;
 
@@ -13,10 +14,10 @@ public class hydrophobicElytra {
 
         if (entity instanceof ServerPlayer serverPlayerEntity) {
             if (serverPlayerEntity.isFallFlying() &&
-                    (serverPlayerEntity.isInLiquid() || serverPlayerEntity.isInWaterOrRain())
+                    (serverPlayerEntity.isEyeInFluid(FluidTags.LAVA) || serverPlayerEntity.isInWaterOrRain())
             ) {
                 serverPlayerEntity.stopFallFlying();
-                serverPlayerEntity.level().playSound(null, serverPlayerEntity.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA.value(), SoundSource.PLAYERS, 0.5f, 1.5f);
+                serverPlayerEntity.level().playSound(null, serverPlayerEntity.blockPosition(), SoundEvents.ARMOR_EQUIP_ELYTRA, SoundSource.PLAYERS, 0.5f, 1.5f);
                 return true;
             }
         }

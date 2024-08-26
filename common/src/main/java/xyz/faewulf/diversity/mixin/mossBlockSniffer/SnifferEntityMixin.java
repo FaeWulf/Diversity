@@ -35,7 +35,7 @@ public abstract class SnifferEntityMixin extends Animal {
         if (!serverWorld.isClientSide) {
             BlockPos target = this.getHeadBlock().below();
             if (serverWorld.getBlockState(target).getBlock() == Blocks.MOSS_BLOCK) {
-                return serverWorld.getServer().reloadableRegistries().getLootTable(CustomLootTables.SNIFFER_MOSS_BLOCK);
+                return serverWorld.getServer().getLootData().getLootTable(CustomLootTables.SNIFFER_MOSS_BLOCK);
             }
         }
 

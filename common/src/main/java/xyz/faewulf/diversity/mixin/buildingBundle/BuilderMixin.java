@@ -1,34 +1,17 @@
 package xyz.faewulf.diversity.mixin.buildingBundle;
 
-import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BundleContents;
-import org.apache.commons.lang3.math.Fraction;
-import org.spongepowered.asm.mixin.Final;
+import net.minecraft.world.item.BundleItem;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 
-import java.util.List;
-
-@Mixin(BundleContents.Mutable.class)
+@Mixin(BundleItem.class)
 public abstract class BuilderMixin implements ICustomBundleContentBuilder {
-
-    @Shadow
-    @Final
-    private List<ItemStack> items;
-
-    @Shadow
-    private Fraction weight;
 
     @Unique
     private int maxSize = 64;
 
+    /*
     @Inject(method = "getMaxAmountToAdd", at = @At("RETURN"), cancellable = true)
     private void getMaxAllowedInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         //value = used value
@@ -57,6 +40,7 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
         //System.out.println("expected: " + cir.getReturnValue());
         cir.setReturnValue(Math.max(freeSpace / itemValue, 0));
     }
+     */
 
     @Override
     public int getMaxSize() {

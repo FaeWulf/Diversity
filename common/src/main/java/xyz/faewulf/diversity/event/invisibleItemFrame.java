@@ -11,6 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.ModConfigs;
 
 public class invisibleItemFrame {
@@ -46,7 +47,9 @@ public class invisibleItemFrame {
                 itemFrame.playSound(SoundEvents.GLASS_PLACE, 1.0f, 1.0f);
 
                 //reduce item count
-                player.getItemInHand(hand).consume(1, player);
+                //player.getItemInHand(hand).consume(1, player);
+                ItemStackMethod.consume(player.getItemInHand(hand), 1, player);
+
                 return InteractionResult.SUCCESS;
             }
 

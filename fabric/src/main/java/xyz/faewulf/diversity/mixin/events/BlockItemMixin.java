@@ -24,7 +24,7 @@ public abstract class BlockItemMixin {
     }
 
     //event onBlockPlaced
-    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
+    @Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
     private void onBlockPlaced(BlockPlaceContext context, CallbackInfoReturnable<InteractionResult> cir) {
         BlockPlacedCallback.EVENT.invoker().onBlockPlaced(context);
     }

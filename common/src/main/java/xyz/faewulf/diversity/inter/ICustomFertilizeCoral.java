@@ -1,7 +1,5 @@
 package xyz.faewulf.diversity.inter;
 
-import xyz.faewulf.diversity.mixin.bonemealCoral.CoralFeatureInvoker;
-import xyz.faewulf.diversity.util.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
@@ -26,6 +24,8 @@ import net.minecraft.world.level.levelgen.feature.CoralMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.CoralTreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.MapColor;
+import xyz.faewulf.diversity.mixin.bonemealCoral.CoralFeatureInvoker;
+import xyz.faewulf.diversity.util.ModConfigs;
 
 import java.util.Optional;
 
@@ -33,7 +33,7 @@ import static net.minecraft.world.level.block.Block.UPDATE_ALL;
 
 public interface ICustomFertilizeCoral extends BonemealableBlock {
     @Override
-    public default boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state) {
+    public default boolean isValidBonemealTarget(LevelReader world, BlockPos pos, BlockState state, boolean var4) {
 
         if (!ModConfigs.bonemeal_coral_fan)
             return false;

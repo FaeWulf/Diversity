@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.entity.ICustomChickenEntity;
 import xyz.faewulf.diversity.util.ModConfigs;
 
-import static net.minecraft.world.entity.LivingEntity.getSlotForHand;
+import static xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod.getSlotForHand;
 
 @Mixin(Animal.class)
 public class ChickenEntitySuperClassMixin {
@@ -34,7 +34,11 @@ public class ChickenEntitySuperClassMixin {
             if (chickenEntity.isBaby() || !player.isShiftKeyDown() || player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH)
                 return;
 
-            player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, getSlotForHand(InteractionHand.MAIN_HAND));
+            //Equivalent for
+            //player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, getSlotForHand(InteractionHand.MAIN_HAND));
+            //:
+
+            player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, $$1x -> $$1x.broadcastBreakEvent(getSlotForHand(InteractionHand.MAIN_HAND)));
             chickenEntity.playSound(SoundEvents.ITEM_FRAME_REMOVE_ITEM, 0.8f, 1.0f);
 
             ItemStack drops = new ItemStack(Items.FEATHER);

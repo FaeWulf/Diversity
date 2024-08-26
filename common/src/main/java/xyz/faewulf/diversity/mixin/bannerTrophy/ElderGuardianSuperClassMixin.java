@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
@@ -30,7 +29,7 @@ public abstract class ElderGuardianSuperClassMixin extends Entity implements Att
         if (!ModConfigs.banner_trohpy) return;
 
         if ((Object) this instanceof ElderGuardian elderGuardianEntity) {
-            ItemStack wardenBanner = CustomBanner.elderGuardianBanner(elderGuardianEntity.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
+            ItemStack wardenBanner = CustomBanner.elderGuardianBanner();
             wardenBanner.setCount(1);
             elderGuardianEntity.spawnAtLocation(wardenBanner);
         }

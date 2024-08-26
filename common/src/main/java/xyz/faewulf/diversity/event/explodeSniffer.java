@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomSniffer;
 import xyz.faewulf.diversity.inter.typeSnort;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.ModConfigs;
 
 import java.util.ArrayList;
@@ -64,7 +65,9 @@ public class explodeSniffer {
                     ((ICustomSniffer) entity).setSnortType(typeSnort.GUN_POWDER);
 
 
-                player.getItemInHand(hand).consume(1, player);
+                //player.getItemInHand(hand).consume(1, player);
+                ItemStackMethod.consume(player.getItemInHand(hand), 1, player);
+
                 entity.playSound(SoundEvents.BONE_MEAL_USE, 1.0f, 1.0f);
 
                 return InteractionResult.SUCCESS;

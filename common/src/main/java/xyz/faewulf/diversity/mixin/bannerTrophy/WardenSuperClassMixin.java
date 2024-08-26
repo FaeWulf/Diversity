@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
@@ -29,7 +28,7 @@ public abstract class WardenSuperClassMixin extends Entity implements Attackable
         if (!ModConfigs.banner_trohpy) return;
 
         if ((Object) this instanceof Warden wardenEntity) {
-            ItemStack wardenBanner = CustomBanner.wardenBanner(wardenEntity.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
+            ItemStack wardenBanner = CustomBanner.wardenBanner();
             wardenBanner.setCount(1);
             wardenEntity.spawnAtLocation(wardenBanner);
         }

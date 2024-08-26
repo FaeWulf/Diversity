@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.ai.behavior.GiveGiftToHero;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerProfession;
@@ -25,7 +24,7 @@ public abstract class GiveGiftsToHeroTaskMixin {
         List<ItemStack> returnValue = cir.getReturnValue();
         if (villager.getVillagerData().getProfession() == VillagerProfession.SHEPHERD) {
             if (returnValue != null && villager.getRandom().nextInt(5) == 2) {
-                returnValue.add(CustomBanner.heroBanner(villager.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
+                returnValue.add(CustomBanner.heroBanner());
                 cir.setReturnValue(returnValue);
                 cir.cancel();
             }

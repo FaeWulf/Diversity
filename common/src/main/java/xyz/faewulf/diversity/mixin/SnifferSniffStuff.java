@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -20,8 +19,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomSniffer;
 import xyz.faewulf.diversity.inter.typeSnort;
-
-import static net.minecraft.world.entity.projectile.windcharge.AbstractWindCharge.EXPLOSION_DAMAGE_CALCULATOR;
 
 @Mixin(Sniffer.class)
 public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer {
@@ -65,19 +62,19 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
                 snortState = 0;
                 if (this.level() instanceof ServerLevel serverWorld && snortType != null) {
                     switch (snortType) {
-                        case typeSnort.GUN_POWDER -> {
+                        case GUN_POWDER, REDSTONE -> {
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 2.0f, Level.ExplosionInteraction.NONE);
                         }
 
-                        case typeSnort.BLAZE_POWDER, typeSnort.GLOW_DUST -> {
+                        case BLAZE_POWDER, GLOW_DUST -> {
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 1.0f, true, Level.ExplosionInteraction.NONE);
                         }
 
-                        case typeSnort.SUGAR -> {
+                        case SUGAR -> {
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 0.0f, Level.ExplosionInteraction.NONE);
                         }
 
-                        case typeSnort.BONE_MEAL -> {
+                        case BONE_MEAL -> {
 
                             ItemStack bonemeal = new ItemStack(Items.BONE_MEAL);
 
@@ -87,26 +84,7 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
                             serverWorld.levelEvent(LevelEvent.PARTICLES_AND_SOUND_PLANT_GROWTH, bonemealPos, 15);
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 0.5f, Level.ExplosionInteraction.NONE);
                         }
-
-                        case typeSnort.REDSTONE -> {
-                            serverWorld.explode(
-                                    null,
-                                    null,
-                                    EXPLOSION_DAMAGE_CALCULATOR,
-                                    this.getX(),
-                                    this.getY(),
-                                    this.getZ(),
-                                    2.0F,
-                                    false,
-                                    Level.ExplosionInteraction.TRIGGER,
-                                    ParticleTypes.GUST_EMITTER_SMALL,
-                                    ParticleTypes.GUST_EMITTER_LARGE,
-                                    SoundEvents.WIND_CHARGE_BURST
-                            );
-                        }
                     }
-
-
                 }
 
                 snortType = null;

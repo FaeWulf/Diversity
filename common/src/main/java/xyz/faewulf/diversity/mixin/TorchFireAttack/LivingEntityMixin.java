@@ -20,9 +20,6 @@ import xyz.faewulf.diversity.util.ModConfigs;
 public abstract class LivingEntityMixin extends Entity implements Attackable {
 
     @Shadow
-    public abstract void igniteForTicks(int ticks);
-
-    @Shadow
     protected abstract void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition);
 
     public LivingEntityMixin(EntityType<?> type, Level world) {
@@ -41,7 +38,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             if (entityAttacker instanceof LivingEntity livingEntity) {
                 livingEntity.getHandSlots().forEach(itemStack -> {
                     if (itemStack.getItem() == Items.TORCH || itemStack.getItem() == Items.SOUL_TORCH) {
-                        this.igniteForTicks(100);
+                        this.setSecondsOnFire(5);
                         return;
                     }
                 });

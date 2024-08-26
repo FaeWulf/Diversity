@@ -12,6 +12,13 @@ mod is designed to work on server-side only installations as well.
 
 **Current feature: 51 (+9 in latest version)**
 
+Features don't exist in 1.20.1:
+
+- 1 tick Delay Bulb Block
+- Random size fishes
+- Smaller bee
+- Mace rotates blocks
+
 ### What's new?
 
 - Day counter

@@ -7,15 +7,12 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -26,14 +23,12 @@ import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerData;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BeaconBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.TrialSpawnerDataMixin;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -96,23 +91,17 @@ public class hitResult2Infomations {
             result.append(Component.literal(" " + instrument.name()).withStyle(ChatFormatting.GOLD));
         }
 
-        //trial spawner
-        if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity) {
-            TrialSpawnerData trialSpawnerData = trialSpawnerBlockEntity.getTrialSpawner().getData();
-            if (!trialSpawnerData.isCooldownFinished((ServerLevel) world)) {
-                long cooldown = ((TrialSpawnerDataMixin) trialSpawnerData).getCooldownEndsAt();
-                result.append(Component.literal(" ⌛" + converter.tick2Time(cooldown - world.getGameTime())).withStyle(ChatFormatting.RED));
-            }
-        }
-
         //furnace
         if (blockEntity instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity) {
 
             AtomicInteger totalExp = new AtomicInteger();
             for (Object2IntMap.Entry<ResourceLocation> entry : ((AbstractFurnaceBlockEntityMixin) abstractFurnaceBlockEntity).getRecipesUsed().object2IntEntrySet()) {
-                world.getRecipeManager().byKey((ResourceLocation) entry.getKey()).ifPresent(recipe -> {
+                world.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                     int multiplier = entry.getIntValue();
-                    float experience = ((AbstractCookingRecipe) recipe.value()).getExperience();
+
+                    //Todo: fix
+                    //float experience = ((AbstractCookingRecipe) recipe.value).getExperience();
+                    float experience = ((AbstractCookingRecipe) recipe).getExperience();
 
                     int i = Mth.floor((float) multiplier * experience);
                     float f = Mth.frac((float) multiplier * experience);
@@ -210,16 +199,6 @@ public class hitResult2Infomations {
 
         MutableComponent result = Component.empty();
         DecimalFormat df = new DecimalFormat("#.#");
-
-        //entity variation
-        if (entity instanceof Wolf wolfEntity) {
-            result.append(converter.UppercaseFirstLetter(wolfEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
-        }
-
-        //cat
-        if (entity instanceof Cat catEntity) {
-            result.append(converter.UppercaseFirstLetter(catEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
-        }
 
         //villager
         if (entity instanceof ZombieVillager zombieVillagerEntity) {

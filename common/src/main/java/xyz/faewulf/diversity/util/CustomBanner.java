@@ -1,132 +1,156 @@
 package xyz.faewulf.diversity.util;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Unit;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BannerPattern;
-import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.entity.BannerPatterns;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class CustomBanner {
-    public static ItemStack wardenBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack wardenBanner() {
         ItemStack itemStack = new ItemStack(Items.LIGHT_BLUE_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CREEPER, DyeColor.LIGHT_BLUE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.RHOMBUS_MIDDLE, DyeColor.CYAN)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_TOP, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.PIGLIN, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Warden Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.CURLY_BORDER, DyeColor.BLACK)
+                .addPattern(BannerPatterns.CREEPER, DyeColor.LIGHT_BLUE)
+                .addPattern(BannerPatterns.RHOMBUS_MIDDLE, DyeColor.CYAN)
+                .addPattern(BannerPatterns.FLOWER, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_TOP, DyeColor.BLACK)
+                .addPattern(BannerPatterns.PIGLIN, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
+                .toListTag();
+
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Warden Banner").withStyle(ChatFormatting.GOLD));
+
         return itemStack;
     }
 
-    public static ItemStack witherBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack witherBanner() {
         ItemStack itemStack = new ItemStack(Items.RED_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.ORANGE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRAIGHT_CROSS, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.SKULL, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CREEPER, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.BORDER, DyeColor.RED)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CREEPER, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_TOP, DyeColor.RED)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.SKULL, DyeColor.BLACK)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Wither Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.FLOWER, DyeColor.ORANGE)
+                .addPattern(BannerPatterns.STRAIGHT_CROSS, DyeColor.BLACK)
+                .addPattern(BannerPatterns.SKULL, DyeColor.WHITE)
+                .addPattern(BannerPatterns.CREEPER, DyeColor.WHITE)
+                .addPattern(BannerPatterns.BORDER, DyeColor.RED)
+                .addPattern(BannerPatterns.CREEPER, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_TOP, DyeColor.RED)
+                .addPattern(BannerPatterns.SKULL, DyeColor.BLACK)
+                .toListTag();
+
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Wither Banner").withStyle(ChatFormatting.GOLD));
+
         return itemStack;
     }
 
-    public static ItemStack elderGuardianBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack elderGuardianBanner() {
         ItemStack itemStack = new ItemStack(Items.PINK_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CIRCLE_MIDDLE, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_HORIZONTAL, DyeColor.GRAY)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_TOP, DyeColor.LIGHT_GRAY)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.LIGHT_GRAY)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_TOP, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_TOP, DyeColor.BLUE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLUE)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Elder Guardian Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.CIRCLE_MIDDLE, DyeColor.WHITE)
+                .addPattern(BannerPatterns.HALF_HORIZONTAL, DyeColor.GRAY)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_TOP, DyeColor.LIGHT_GRAY)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.LIGHT_GRAY)
+                .addPattern(BannerPatterns.TRIANGLES_TOP, DyeColor.BLACK)
+                .addPattern(BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLACK)
+                .addPattern(BannerPatterns.TRIANGLES_TOP, DyeColor.BLUE)
+                .addPattern(BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLUE)
+                .toListTag();
+
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Elder Guardian Banner").withStyle(ChatFormatting.GOLD));
+
         return itemStack;
     }
 
-    public static ItemStack enderDragonBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack enderDragonBanner() {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_HORIZONTAL_MIRROR, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_DOWNLEFT, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CROSS, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_VERTICAL, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.BORDER, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLE_BOTTOM, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.SQUARE_TOP_LEFT, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.SQUARE_TOP_RIGHT, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.MOJANG, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.ORANGE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLACK)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Ender Dragon Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.HALF_HORIZONTAL_MIRROR, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.STRIPE_DOWNLEFT, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.CROSS, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.HALF_VERTICAL, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.BORDER, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.TRIANGLE_BOTTOM, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.SQUARE_TOP_LEFT, DyeColor.BLACK)
+                .addPattern(BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.SQUARE_TOP_RIGHT, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.MOJANG, DyeColor.BLACK)
+                .addPattern(BannerPatterns.TRIANGLES_BOTTOM, DyeColor.ORANGE)
+                .addPattern(BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLACK)
+                .toListTag();
+
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Ender Dragon Banner").withStyle(ChatFormatting.GOLD));
+
+
         return itemStack;
     }
 
-    public static ItemStack enderEggBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack enderEggBanner() {
         ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_TOP, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.SKULL, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.GLOBE, DyeColor.BLUE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.GLOBE, DyeColor.MAGENTA)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.GRAY)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.BORDER, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Dragon Egg Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.FLOWER, DyeColor.BLACK)
+                .addPattern(BannerPatterns.FLOWER, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_TOP, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.SKULL, DyeColor.BLACK)
+                .addPattern(BannerPatterns.GLOBE, DyeColor.BLUE)
+                .addPattern(BannerPatterns.GLOBE, DyeColor.MAGENTA)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.GRAY)
+                .addPattern(BannerPatterns.BORDER, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
+                .addPattern(BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
+                .toListTag();
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Dragon Egg Banner").withStyle(ChatFormatting.GOLD));
+
         return itemStack;
     }
 
-    public static ItemStack heroBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
+    public static ItemStack heroBanner() {
         ItemStack itemStack = new ItemStack(Items.WHITE_BANNER);
-        BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.RED)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.RED)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_HORIZONTAL, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.RHOMBUS_MIDDLE, DyeColor.BLACK)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.RHOMBUS_MIDDLE, DyeColor.LIME)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CIRCLE_MIDDLE, DyeColor.WHITE)
-                .addIfRegistered(bannerPatternLookup, BannerPatterns.CIRCLE_MIDDLE, DyeColor.LIME)
-                .build();
-        itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Hero of the Village Banner").withStyle(ChatFormatting.GOLD));
+        ListTag bannerTag = new BannerPattern.Builder()
+                .addPattern(BannerPatterns.FLOWER, DyeColor.RED)
+                .addPattern(BannerPatterns.FLOWER, DyeColor.RED)
+                .addPattern(BannerPatterns.STRIPE_BOTTOM, DyeColor.WHITE)
+                .addPattern(BannerPatterns.HALF_HORIZONTAL, DyeColor.WHITE)
+                .addPattern(BannerPatterns.RHOMBUS_MIDDLE, DyeColor.BLACK)
+                .addPattern(BannerPatterns.RHOMBUS_MIDDLE, DyeColor.LIME)
+                .addPattern(BannerPatterns.CIRCLE_MIDDLE, DyeColor.WHITE)
+                .addPattern(BannerPatterns.CIRCLE_MIDDLE, DyeColor.LIME)
+                .toListTag();
+
+        CompoundTag compoundTag = new CompoundTag();
+        compoundTag.put("Patterns", bannerTag);
+        BlockItem.setBlockEntityData(itemStack, BlockEntityType.BANNER, compoundTag);
+        itemStack.hideTooltipPart(ItemStack.TooltipPart.ADDITIONAL);
+        itemStack.setHoverName(Component.literal("Hero of the Village Banner").withStyle(ChatFormatting.GOLD));
+
         return itemStack;
     }
 }

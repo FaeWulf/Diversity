@@ -1,7 +1,5 @@
 package xyz.faewulf.diversity;
 
-import xyz.faewulf.diversity.platform.Services;
-
 public class CommonClass {
     public static void init() {
 
@@ -11,5 +9,6 @@ public class CommonClass {
 //        if (Services.PLATFORM.isModLoaded("examplemod")) {
 //            Constants.LOG.info("Hello to examplemod");
 //        }
+
     }
 }

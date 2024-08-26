@@ -60,7 +60,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
             beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
-            end_time = begin_time + message.length() * 3 + 20 * 4;
+            end_time = begin_time + message.length() * 2 + 20 * 4;
         }
 
         announceNewDay();
@@ -78,12 +78,12 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
             return;
         }
 
-        if ((current_time - begin_time) % 3 == 0) {
+        if ((current_time - begin_time) % 2 == 0) {
             String message = "Day #" + (current_time / 24000L + 1L) + " has arrived!";
             for (ServerPlayer player : this.players()) {
 
                 boolean playSound = true;
-                int cut_pos = (int) ((current_time - begin_time) / 3);
+                int cut_pos = (int) ((current_time - begin_time) / 2);
 
                 if (cut_pos > message.length()) {
                     cut_pos = message.length();
@@ -93,7 +93,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
                 player.displayClientMessage(Component.literal(message.substring(0, cut_pos) + "_").withStyle(ChatFormatting.GOLD), true);
 
                 if (playSound)
-                    player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.5f, 1.4f);
+                    player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.4f, 1.4f * (this.random.nextFloat() * 0.2f + 0.9f));
             }
         }
     }

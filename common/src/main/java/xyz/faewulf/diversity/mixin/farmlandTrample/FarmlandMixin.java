@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
 
 @Mixin(FarmBlock.class)
 public class FarmlandMixin {
@@ -26,7 +25,10 @@ public class FarmlandMixin {
             return;
 
         if (entity instanceof LivingEntity livingEntity) {
-            if (EnchantmentHelper.getEnchantmentLevel(converter.getEnchant(world, Enchantments.FEATHER_FALLING), livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
+            //equivalent for
+            //if (EnchantmentHelper.getEnchantmentLevel(converter.getEnchant(world, Enchantments.FEATHER_FALLING), livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
+            //:
+            if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
                 ci.cancel();
             }
         }
