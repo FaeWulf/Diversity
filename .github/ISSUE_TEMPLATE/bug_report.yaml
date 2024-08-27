@@ -1,4 +1,4 @@
-name: 🐞 Bug
+name: 🐞 Bug (Detail form, recommend if you have times)
 description: Create a report about bug, issue, or incompatibility with other mods
 title: "[BUG] <title>"
 labels: ["bug"]
