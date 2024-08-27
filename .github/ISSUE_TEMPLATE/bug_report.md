@@ -1,5 +1,5 @@
 ---
-name: Bug report
+name: Bug report (fast report)
 about: Create a report about bug, issue, or incompatibility with other mods
 title: "[BUG]"
 labels: bug
