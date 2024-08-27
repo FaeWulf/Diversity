@@ -1,6 +1,6 @@
-name: 🐞 Bug (Detail form, recommend if you have times)
+name: 🐞 Bug report (Detail form, recommend if you have times)
 description: Create a report about bug, issue, or incompatibility with other mods
-title: "[BUG] <title>"
+title: "[BUG] "
 labels: ["bug"]
 body:
 - type: textarea
