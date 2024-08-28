@@ -5,8 +5,10 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -14,8 +16,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import xyz.faewulf.diversity.inter.ICustomBrushableBlockEntity;
 import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
 import xyz.faewulf.diversity.util.CustomLootTables;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class BuryItemGoal extends MoveToBlockGoal {
 
@@ -64,12 +69,26 @@ public class BuryItemGoal extends MoveToBlockGoal {
                 //after done
                 BlockState susBlock = type == 1 ? Blocks.SUSPICIOUS_SAND.defaultBlockState() : Blocks.SUSPICIOUS_GRAVEL.defaultBlockState();
 
+                AtomicInteger multiplier = new AtomicInteger(1);
+
                 this.fox.level().setBlockAndUpdate(this.blockPos.below(), susBlock);
                 this.fox.level().gameEvent(this.fox, GameEvent.BLOCK_CHANGE, this.blockPos.below());
 
                 this.fox.level().getBlockEntity(blockPos.below(), BlockEntityType.BRUSHABLE_BLOCK).ifPresent(
-                        blockEntity -> blockEntity.setLootTable(CustomLootTables.FOX_BURY, this.fox.getRandom().nextLong())
+                        blockEntity -> {
+
+                            ItemStack itemStack = this.fox.getMainHandItem();
+
+                            if (itemStack.isEmpty()) {
+                                blockEntity.setLootTable(CustomLootTables.FOX_BURY, this.fox.getRandom().nextLong());
+                                multiplier.set(3);
+                            } else {
+                                ((ICustomBrushableBlockEntity) blockEntity).setItem(itemStack);
+                                this.fox.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                            }
+                        }
                 );
+
 
                 if (type == 1)
                     this.fox.playSound(SoundEvents.SAND_BREAK, 1.0F, 1.0F);
@@ -77,7 +96,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
                     this.fox.playSound(SoundEvents.GRAVEL_BREAK, 1.0F, 1.0F);
 
                 //set cooldown
-                ((ICustomFoxEntity) this.fox).setBuryCoolDown(24000);
+                ((ICustomFoxEntity) this.fox).setBuryCoolDown(24000 * multiplier.get());
             } else {
                 //particle
                 if (this.timer % 10 == 0)
