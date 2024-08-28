@@ -5,11 +5,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 public abstract class CustomEnchant {
 
-    @FunctionalInterface
-    public interface EnchantmentVisitor {
-        void accept(Enchantment enchantment, int i);
-    }
-
     public static final EquipmentSlot[] ARMOR_SLOTS = new EquipmentSlot[]{EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET};
 
     public static Enchantment CAPACITY;
@@ -18,9 +13,4 @@ public abstract class CustomEnchant {
     public static Enchantment BACKUP_FIRE_PROTECTION;
     public static Enchantment BACKUP_BLAST_PROTECTION;
     public static Enchantment BACKUP_PROJECTILE_PROTECTION;
-
-    //pseudo
-    public static void register() {
-        return;
-    }
 }
