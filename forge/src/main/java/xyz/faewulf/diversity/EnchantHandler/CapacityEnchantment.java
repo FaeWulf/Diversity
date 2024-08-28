@@ -1,19 +1,17 @@
-package xyz.faewulf.diversity.enchant;
+package xyz.faewulf.diversity.EnchantHandler;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import xyz.faewulf.diversity.inter.ICustomEnchantCategory;
 import xyz.faewulf.diversity.util.CustomEnchantCategory;
 
-public class CapacityEnchantment extends Enchantment implements ICustomEnchantCategory {
+public class CapacityEnchantment extends Enchantment {
 
     private final CustomEnchantCategory category = CustomEnchantCategory.BUNDLE;
 
     public CapacityEnchantment() {
-        super(Rarity.COMMON, EnchantmentCategory.VANISHABLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+        super(Rarity.COMMON, CustomEnchantmentCategory.BUNDLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
@@ -41,8 +39,4 @@ public class CapacityEnchantment extends Enchantment implements ICustomEnchantCa
         return true;
     }
 
-    @Override
-    public CustomEnchantCategory getCategory() {
-        return this.category;
-    }
 }

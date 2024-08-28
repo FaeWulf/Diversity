@@ -1,34 +1,32 @@
-package xyz.faewulf.diversity.enchant;
+package xyz.faewulf.diversity.EnchantHandler;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
-import xyz.faewulf.diversity.inter.ICustomEnchantCategory;
 import xyz.faewulf.diversity.util.CustomEnchantCategory;
 
-public class CapacityEnchantment extends Enchantment implements ICustomEnchantCategory {
+public class RefillEnchantment extends Enchantment {
 
     private final CustomEnchantCategory category = CustomEnchantCategory.BUNDLE;
 
-    public CapacityEnchantment() {
-        super(Rarity.COMMON, EnchantmentCategory.VANISHABLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
+    public RefillEnchantment() {
+        super(Rarity.COMMON, CustomEnchantmentCategory.BUNDLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
     @Override
     public int getMinCost(int $$0) {
-        return 5 + ($$0 - 1) * 8;
+        return 22;
     }
 
     @Override
     public int getMaxCost(int $$0) {
-        return 20 + ($$0 - 1) * 10;
+        return 30;
     }
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return 1;
     }
 
     @Override
@@ -36,13 +34,9 @@ public class CapacityEnchantment extends Enchantment implements ICustomEnchantCa
         return $$0.getItem() instanceof BundleItem;
     }
 
+
     @Override
     public boolean isDiscoverable() {
         return true;
-    }
-
-    @Override
-    public CustomEnchantCategory getCategory() {
-        return this.category;
     }
 }
