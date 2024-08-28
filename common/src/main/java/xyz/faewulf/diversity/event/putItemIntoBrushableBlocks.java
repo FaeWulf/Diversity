@@ -29,7 +29,6 @@ public class putItemIntoBrushableBlocks {
 
     public static InteractionResult run(Level world, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-
         if (!ModConfigs.usable_suspicious_block)
             return InteractionResult.PASS;
 

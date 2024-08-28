@@ -67,6 +67,7 @@ public interface ICustomFertilizeCoral extends BonemealableBlock {
         //get corresponding block based on the fan, use color map...
         MapColor color = state.getMapColor(world, pos);
         BlockState coralBlockMatchedColor = state;
+
         //get all coral blocks
         Optional<HolderSet.Named<Block>> coralBlocksRegistry = world.registryAccess().registryOrThrow(Registries.BLOCK).getTag(BlockTags.CORAL_BLOCKS);
         HolderSet.Named<Block> coralBlocks;

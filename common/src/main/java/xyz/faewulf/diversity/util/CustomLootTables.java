@@ -36,4 +36,7 @@ public class CustomLootTables {
     public static Set<ResourceLocation> getAll() {
         return LOOT_TABLES_READ_ONLY;
     }
+
+    public static void init() {
+    }
 }
