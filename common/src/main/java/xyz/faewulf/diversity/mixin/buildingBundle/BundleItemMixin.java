@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -38,9 +39,8 @@ import xyz.faewulf.diversity.util.CustomEnchant;
 import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.ModConfigs;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 @Mixin(value = BundleItem.class, priority = 1)
@@ -90,15 +90,74 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return 64 + level * 64;
     }
 
-    //this one bugged
     //modify max allowed items add to bundle
-    /*
     @ModifyExpressionValue(method = "overrideStackedOnOther", at = @At(value = "CONSTANT", args = "intValue=64"))
     private int modifyMaxBundleValue2(int original, @Local(ordinal = 0, argsOnly = true) ItemStack bundle) {
-        return 64 * 2;
+        int level = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, bundle);
+        return 64 + 64 * level;
+    }
+
+    @ModifyExpressionValue(method = "add", at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z"))
+    private static boolean modifyIfCase(boolean original, @Local(ordinal = 2) int k) {
+
+        if (ModConfigs.bundle_enchantment)
+            return false;
+        else
+            return original;
+
+    }
+
+    @Inject(method = "add", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/ListTag;add(ILnet/minecraft/nbt/Tag;)V", shift = At.Shift.AFTER))
+    private static void modifyListTag_extra_sort(ItemStack $$0, ItemStack $$1, CallbackInfoReturnable<Integer> cir, @Local ListTag listTag) {
+        Map<CompoundTag, Integer> map = new HashMap<>();
+
+        //map all item (ItemStack Data, total count)
+        for (Tag tag : listTag) {
+            if (tag instanceof CompoundTag compoundTag) {
+
+                AtomicBoolean isExist = new AtomicBoolean(false);
+
+                map.forEach((compoundTag1, integer) -> {
+                    if (ItemStack.isSameItemSameTags(ItemStack.of(compoundTag1), ItemStack.of(compoundTag))) {
+                        integer += compoundTag.getByte("Count");
+
+                        map.put(compoundTag1, integer);
+                        isExist.set(true);
+                    }
+                });
+
+                if (!isExist.get())
+                    map.put(compoundTag, (int) compoundTag.getByte("Count"));
+
+            }
+        }
+
+        listTag.clear();
+        map.forEach((compoundTag, integer) -> {
+            //System.out.println(compoundTag + ", Count: " + integer);
+            ItemStack itemStack = ItemStack.of(compoundTag);
+
+            //insert item into TagList, but max stack only
+            while (integer > itemStack.getMaxStackSize()) {
+                CompoundTag insertOne = compoundTag.copy();
+                insertOne.putByte("Count", (byte) itemStack.getMaxStackSize());
+                listTag.add(insertOne);
+
+                integer -= itemStack.getMaxStackSize();
+            }
+
+            CompoundTag insertOne = compoundTag.copy();
+
+            insertOne.putByte("Count", integer.byteValue());
+            listTag.add(insertOne);
+
+        });
     }
 
 
+
+
+    /*
     //no needed
     @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BundleItem;add(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)I"))
     private void onClickedInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction clickType, Player player, SlotAccess cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
@@ -229,10 +288,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         boolean isRefilled = false;
 
-        /*
         if (isRefillable(player.level(), bundleItem))
-            isRefilled = refill(player, bundleItem, bundleContentsComponent, itemStacks, index);
-         */
+            isRefilled = refill(player, bundleItem, bundleContentsComponent, index);
 
         if (!isRefilled) {
             bundleContentsComponent.remove(index);
@@ -275,7 +332,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private boolean refill(Player player, ItemStack bundle, List<ItemStack> bundleContentsComponent, List<ItemStack> itemStacks, int index) {
+    private boolean refill(Player player, ItemStack bundle, List<ItemStack> itemStacks, int index) {
 
         Inventory playerInventory = player.getInventory();
         int indexOfItemInInventory = playerInventory.findSlotMatchingItem(itemStacks.get(index));
@@ -311,7 +368,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         //because there is already 1 item in the bundle
         itemStacks.get(index).grow(numberOfItemWillPut - 1);
-        player.level().playSound(null, player.blockPosition(), SoundEvents.BUNDLE_INSERT, SoundSource.PLAYERS, 0.5f, 1.0f);
+        player.level().playSound(null, player.blockPosition(), SoundEvents.BEEHIVE_EXIT, SoundSource.PLAYERS, 0.5f, 0.7f);
 
         return true;
     }
