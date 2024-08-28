@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import xyz.faewulf.diversity.inter.ICustomBrushableBlockEntity;
 import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
 import xyz.faewulf.diversity.util.CustomLootTables;
@@ -25,7 +26,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class BuryItemGoal extends MoveToBlockGoal {
 
     private final Fox fox;
-    private BlockPos targetPos;
     private int timer = 0;
     private int type = 0;
 
@@ -128,7 +128,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
 
 
     @Override
-    protected boolean isValidTarget(LevelReader world, BlockPos pos) {
+    protected boolean isValidTarget(LevelReader world, @NotNull BlockPos pos) {
         BlockState blockState = world.getBlockState(pos);
         BlockState blockStateBelow = world.getBlockState(pos.below());
 
