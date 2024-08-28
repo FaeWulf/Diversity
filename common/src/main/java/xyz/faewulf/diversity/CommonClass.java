@@ -1,5 +1,7 @@
 package xyz.faewulf.diversity;
 
+import xyz.faewulf.diversity.util.CustomLootTables;
+
 public class CommonClass {
     public static void init() {
 
@@ -10,5 +12,6 @@ public class CommonClass {
 //            Constants.LOG.info("Hello to examplemod");
 //        }
 
+        CustomLootTables.init();
     }
 }
