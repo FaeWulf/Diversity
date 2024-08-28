@@ -99,7 +99,6 @@ public class hitResult2Infomations {
                 world.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                     int multiplier = entry.getIntValue();
 
-                    //Todo: fix
                     //float experience = ((AbstractCookingRecipe) recipe.value).getExperience();
                     float experience = ((AbstractCookingRecipe) recipe).getExperience();
 
