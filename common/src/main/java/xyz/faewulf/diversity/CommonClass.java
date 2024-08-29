@@ -1,6 +1,7 @@
 package xyz.faewulf.diversity;
 
 import xyz.faewulf.diversity.platform.Services;
+import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 
 public class CommonClass {
     public static void init() {
@@ -11,5 +12,7 @@ public class CommonClass {
 //        if (Services.PLATFORM.isModLoaded("examplemod")) {
 //            Constants.LOG.info("Hello to examplemod");
 //        }
+
+        CauldronInteractionRegister.register();
     }
 }
