@@ -12,9 +12,6 @@ public class ModConfigs extends MidnightConfig {
 
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
-    @Entry(category = "general", name = "1 tick delay copper bulb")
-    public static boolean copper_bulb_tick_delay = false;
-
     @Entry(category = "general", name = "Backup Enchantments")
     public static boolean more_enchantment = true;
 
@@ -95,9 +92,6 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "item", name = "Check Villagers schedule")
     public static boolean check_villager_schedule = true;
 
-    @Entry(category = "item", name = "Mace rotate blocks")
-    public static boolean mace_rotate_block = true;
-
     @Entry(category = "item", name = "Trident can call thunder strom")
     public static boolean trident_call_thunder = true;
 
@@ -146,20 +140,11 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "entity", name = "Rabbit breed after eats carrot crops")
     public static boolean rabbit_eat_carrot_crops = true;
 
-    @Entry(category = "entity", name = "Random size fishes/squid")
-    public static boolean random_size_fishes = true;
-
-    @Entry(category = "entity", name = "Smaller bee")
-    public static boolean smaller_bee = true;
-
     @Entry(category = "entity", name = "Wandering trader announcer")
     public static boolean wandering_trader_announcer = true;
 
     @Entry(category = "cursed", name = "Hydrophobic elytra")
     public static boolean hydrophobic_elytra = false;
-
-    @Entry(category = "cursed", name = "End stone is cheese")
-    public static boolean endstone_is_cheese = false;
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;

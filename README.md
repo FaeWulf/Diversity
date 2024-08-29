@@ -18,6 +18,7 @@ Features don't exist in 1.20.1:
 - Random size fishes
 - Smaller bee
 - Mace rotates blocks
+- (custom enchantments doesn't data driven/ turn off to make it work server-side only)
 
 ### What's new?
 
