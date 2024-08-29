@@ -1,5 +1,6 @@
 package xyz.faewulf.diversity;
 
+import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.CustomLootTables;
 
 public class CommonClass {
@@ -13,5 +14,8 @@ public class CommonClass {
 //        }
 
         CustomLootTables.init();
+
+        //registry
+        CauldronInteractionRegister.register();
     }
 }
