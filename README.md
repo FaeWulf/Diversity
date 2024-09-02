@@ -400,4 +400,4 @@ or join my Discord server: [link](https://discord.gg/xZneCTcEvb)
 
 ## License
 
-You can use this mod in modpack as long as giving proper credits.
+You can use this mod in your modpack as long as giving proper credits.
