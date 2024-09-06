@@ -10,8 +10,9 @@ repositories {
 }
 
 dependencies {
-    implementation("maven.modrinth:midnightlib:${project.midnight_config}-neoforge")
+    jarJar(implementation("maven.modrinth:midnightlib:${project.midnight_config}-neoforge"))
     implementation("com.moulberry:mixinconstraints:1.0.1")
+
 }
 
 neoForge {
