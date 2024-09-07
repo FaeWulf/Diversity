@@ -68,6 +68,8 @@ jar {
         rename { "${it}_${mod_name}" }
     }
 
+    from(rootProject.file("CHANGELOG.md"))
+
     manifest {
         attributes([
                 'Specification-Title'   : mod_name,

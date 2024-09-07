@@ -12,6 +12,11 @@ repositories {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
+
+    maven {
+        name 'Xander Maven'
+        url 'https://maven.isxander.dev/releases'
+    }
 }
 
 dependencies {
@@ -25,6 +30,7 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:11.0.0")
     include(modImplementation("maven.modrinth:midnightlib:${project.midnight_config}-fabric"))
     include(implementation("com.moulberry:mixinconstraints:1.0.1"))
+    include(modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_config}+1.21-fabric"))
 }
 
 loom {
