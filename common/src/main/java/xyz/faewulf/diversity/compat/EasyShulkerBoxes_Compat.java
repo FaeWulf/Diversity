@@ -18,6 +18,8 @@ import java.util.Map;
 @Pseudo
 @Mixin(targets = "fuzs.iteminteractions.impl.world.item.container.ItemContentsProviders")
 public class EasyShulkerBoxes_Compat {
+
+    //apply method
     @Inject(method = "apply*", at = @At(value = "HEAD"))
     private void compatInject(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
         ArrayList<ResourceLocation> resourceLocation = new ArrayList<>();
