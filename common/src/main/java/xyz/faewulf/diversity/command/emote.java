@@ -11,7 +11,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class emote {
     static public void register(CommandDispatcher<CommandSourceStack> dispatcher) {

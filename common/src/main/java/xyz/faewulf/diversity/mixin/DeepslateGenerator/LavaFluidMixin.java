@@ -9,7 +9,7 @@ import net.minecraft.world.level.material.LavaFluid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(LavaFluid.class)
 public abstract class LavaFluidMixin extends FlowingFluid {

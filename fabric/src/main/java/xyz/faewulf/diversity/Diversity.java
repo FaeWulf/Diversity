@@ -1,20 +1,16 @@
 package xyz.faewulf.diversity;
 
-import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity.command.emote;
 import xyz.faewulf.diversity.command.slimechunk;
 import xyz.faewulf.diversity.event_handler.*;
-import xyz.faewulf.diversity.util.ModConfigs;
 
 public class Diversity implements ModInitializer {
 
     @Override
     public void onInitialize() {
         Constants.LOG.info("Loading");
-
-        MidnightConfig.init(Constants.MOD_ID, ModConfigs.class);
 
         loadCommand();
         loadEvent();

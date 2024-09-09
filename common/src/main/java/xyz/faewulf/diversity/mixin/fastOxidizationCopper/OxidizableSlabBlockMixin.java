@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.mixin.fastOxidizationCopper;
 
 import xyz.faewulf.diversity.util.CopperUtils;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

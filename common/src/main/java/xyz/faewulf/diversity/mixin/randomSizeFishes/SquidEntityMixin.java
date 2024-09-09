@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.mixin.randomSizeFishes;
 
 import xyz.faewulf.diversity.inter.entity.ICustomSquidEntity;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;

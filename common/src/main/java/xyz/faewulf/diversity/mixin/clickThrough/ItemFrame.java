@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.mixin.clickThrough;
 
 import xyz.faewulf.diversity.util.BlockEntityContainer;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

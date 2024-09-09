@@ -1,24 +1,19 @@
-package xyz.faewulf.diversity.util;
+package xyz.faewulf.diversity.util.config;
 
-import eu.midnightdust.lib.config.MidnightConfig;
-
-public class ModConfigs extends MidnightConfig {
+public class ModConfigs {
 
     @Entry(category = "general", name = "Enable permission system")
     public static boolean permission_enable = false;
-
-    @Comment(category = "general")
-    public static Comment spacer1;
 
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
     @Entry(category = "general", name = "1 tick delay copper bulb")
     public static boolean copper_bulb_tick_delay = false;
 
-    @Entry(category = "general", name = "Backup Enchantments")
+    @Entry(category = "general", name = "Backup Enchantments", require_restart = true)
     public static boolean more_enchantment = true;
 
-    @Entry(category = "general", name = "Bundle's Enchantment")
+    @Entry(category = "general", name = "Bundle's Enchantment", require_restart = true)
     public static boolean bundle_enchantment = true;
 
     @Entry(category = "general", name = "Banner trophies")
@@ -66,7 +61,7 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "No set spawn on sleep")
     public static boolean prevent_setSpawn_onSleep = true;
 
-    @Entry(category = "general", name = "Sleep doesn't skip weather")
+    @Entry(category = "general", name = "Sleep doesn't skip weather", info = "[DISABLE, RAIN_ONLY, ALL_WEATHER]")
     public static weatherType sleep_dont_skip_weather = weatherType.DISABLE;
 
     public enum weatherType {
@@ -88,10 +83,6 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "item", name = "Bundle place function")
     public static boolean bundle_place_mode = true;
 
-    public enum inspectType {
-        ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE
-    }
-
     @Entry(category = "item", name = "Check Villagers schedule")
     public static boolean check_villager_schedule = true;
 
@@ -101,8 +92,12 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "item", name = "Trident can call thunder strom")
     public static boolean trident_call_thunder = true;
 
-    @Entry(category = "item", name = "Spyglass what is that?")
+    @Entry(category = "item", name = "Spyglass what is that?", info = "[ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE]")
     public static inspectType spyglass_what_is_that = inspectType.ALL;
+
+    public enum inspectType {
+        ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE
+    }
 
     @Entry(category = "item", name = "Waxed copper indicator")
     public static boolean waxed_copper_indicator = true;

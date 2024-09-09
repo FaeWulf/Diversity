@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter;
 
 import xyz.faewulf.diversity.mixin.bonemealCoral.CoralFeatureInvoker;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;

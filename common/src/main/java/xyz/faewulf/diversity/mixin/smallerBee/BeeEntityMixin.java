@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.mixin.smallerBee;
 
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;

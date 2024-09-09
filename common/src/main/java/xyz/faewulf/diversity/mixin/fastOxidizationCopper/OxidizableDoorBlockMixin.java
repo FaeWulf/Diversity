@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.CopperUtils;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(WeatheringCopperDoorBlock.class)
 public abstract class OxidizableDoorBlockMixin extends DoorBlock implements WeatheringCopper {

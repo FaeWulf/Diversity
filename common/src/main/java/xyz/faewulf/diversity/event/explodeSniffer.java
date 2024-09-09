@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomSniffer;
 import xyz.faewulf.diversity.inter.typeSnort;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.ArrayList;
 import java.util.List;

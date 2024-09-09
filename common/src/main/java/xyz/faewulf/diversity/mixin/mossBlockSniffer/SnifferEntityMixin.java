@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import xyz.faewulf.diversity.util.CustomLootTables;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Sniffer.class)
 public abstract class SnifferEntityMixin extends Animal {

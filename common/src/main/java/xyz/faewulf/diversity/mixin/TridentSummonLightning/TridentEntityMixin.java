@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.mixin.TridentSummonLightning;
 
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.converter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;

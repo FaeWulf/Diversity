@@ -11,7 +11,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class invisibleItemFrame {
 

@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.converter;
 
 import java.util.ArrayList;

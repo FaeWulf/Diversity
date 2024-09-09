@@ -18,7 +18,7 @@ import java.util.Map;
 @Pseudo
 @Mixin(targets = "fuzs.iteminteractions.impl.world.item.container.ItemContentsProviders")
 public class EasyShulkerBoxes_Compat {
-    @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At(value = "HEAD"))
+    @Inject(method = "apply*", at = @At(value = "HEAD"))
     private void compatInject(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
         ArrayList<ResourceLocation> resourceLocation = new ArrayList<>();
         for (ResourceLocation resourceLocation1 : map.keySet()) {

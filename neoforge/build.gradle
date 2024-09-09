@@ -7,12 +7,21 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+
+    maven {
+        name 'Xander Maven'
+        url 'https://maven.isxander.dev/releases'
+    }
 }
 
 dependencies {
-    jarJar(implementation("maven.modrinth:midnightlib:${project.midnight_config}-neoforge"))
     implementation("com.moulberry:mixinconstraints:1.0.1")
 
+    //lib
+    implementation("com.electronwill.night-config:toml:3.6.0")
+
+    compileOnly "dev.isxander:yet-another-config-lib:${project.yacl_config}-neoforge"
+    jarJar("dev.isxander:yet-another-config-lib:${project.yacl_config}-neoforge")
 }
 
 neoForge {

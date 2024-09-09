@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.feature.entity.fox.BuryItemGoal;
 import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Fox.class)
 public abstract class FoxBuryItems extends Mob implements VariantHolder<Fox.Type>, ICustomFoxEntity {

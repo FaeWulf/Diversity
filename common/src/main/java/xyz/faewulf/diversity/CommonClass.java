@@ -2,6 +2,7 @@ package xyz.faewulf.diversity;
 
 import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
+import xyz.faewulf.diversity.util.config.Config;
 
 public class CommonClass {
     public static void init() {
@@ -14,5 +15,8 @@ public class CommonClass {
 //        }
 
         CauldronInteractionRegister.register();
+
+        //load config
+        Config.init();
     }
 }

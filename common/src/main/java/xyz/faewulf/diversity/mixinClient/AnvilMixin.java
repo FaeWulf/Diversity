@@ -6,7 +6,7 @@ import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import net.minecraft.world.entity.player.Abilities;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(value = AnvilScreen.class)
 public abstract class AnvilMixin {

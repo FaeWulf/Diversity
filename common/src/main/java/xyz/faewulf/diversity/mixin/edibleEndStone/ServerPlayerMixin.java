@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.mixin.edibleEndStone;
 
 import com.mojang.authlib.GameProfile;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;

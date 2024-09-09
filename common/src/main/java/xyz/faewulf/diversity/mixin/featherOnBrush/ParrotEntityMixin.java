@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Parrot.class)
 public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements VariantHolder<Parrot.Variant>, FlyingAnimal, ICustomParrotEntity {

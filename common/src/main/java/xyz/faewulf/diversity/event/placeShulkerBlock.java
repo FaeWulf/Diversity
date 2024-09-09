@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.event;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Display;
@@ -13,11 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import xyz.faewulf.diversity.inter.ICustomDisplayEntity;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.DisplayEntityMixin;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.TextDisplayEntityMixin;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
 
