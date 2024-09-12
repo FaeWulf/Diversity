@@ -13,7 +13,7 @@ import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class changeBundleMode {
     static public InteractionResult run(Level world, Player player, InteractionHand hand, BlockPos pos, Direction direction) {

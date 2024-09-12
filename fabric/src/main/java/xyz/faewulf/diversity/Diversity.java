@@ -1,13 +1,12 @@
 package xyz.faewulf.diversity;
 
-import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity.command.emote;
 import xyz.faewulf.diversity.command.slimechunk;
 import xyz.faewulf.diversity.event_handler.*;
 import xyz.faewulf.diversity.platform.RegisterEnchantment;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.Config;
 
 public class Diversity implements ModInitializer {
 
@@ -15,7 +14,7 @@ public class Diversity implements ModInitializer {
     public void onInitialize() {
         Constants.LOG.info("Loading");
 
-        MidnightConfig.init(Constants.MOD_ID, ModConfigs.class);
+        Config.init();
 
         loadCommand();
         loadEvent();
@@ -48,6 +47,7 @@ public class Diversity implements ModInitializer {
             playerChatEmote.register();
             putItemIntoBrushableBlocks.register();
             useClockOnBlock.register();
+            useShearOnBlock.register();
         });
     }
 

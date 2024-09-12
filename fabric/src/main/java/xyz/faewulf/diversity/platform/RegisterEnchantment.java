@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.enchant.*;
 import xyz.faewulf.diversity.util.CustomEnchant;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class RegisterEnchantment {
     //pseudo

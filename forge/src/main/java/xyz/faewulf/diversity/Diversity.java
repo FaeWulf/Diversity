@@ -1,14 +1,15 @@
 package xyz.faewulf.diversity;
 
 
-import eu.midnightdust.lib.config.MidnightConfig;
+import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.faewulf.diversity.event_handler.RegsitryDone;
 import xyz.faewulf.diversity.platform.RegisterEnchantment;
-import xyz.faewulf.diversity.platform.Services;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.Config;
+import xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen;
 
 @Mod(Constants.MOD_ID)
 public class Diversity {
@@ -16,10 +17,18 @@ public class Diversity {
     public Diversity() {
         Constants.LOG.info("Loading");
 
-        if (!Services.PLATFORM.isDevelopmentEnvironment())
-            MidnightConfig.init(Constants.MOD_ID, ModConfigs.class);
+        Config.init();
 
         loadCommand();
+
+        //config
+        ModLoadingContext.get().registerExtensionPoint(
+                ConfigScreenHandler.ConfigScreenFactory.class,
+                () -> new ConfigScreenHandler.ConfigScreenFactory(
+                        (client, parent) -> ConfigScreen.getScreen(parent)
+                )
+        );
+
 
         //register enchant
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

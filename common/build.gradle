@@ -25,6 +25,11 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+
+    maven {
+        name 'Xander Maven'
+        url 'https://maven.isxander.dev/releases'
+    }
 }
 
 base {
@@ -43,6 +48,10 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     compileOnly "maven.modrinth:midnightlib:1.4.1-fabric"
     compileOnly "com.moulberry:mixinconstraints:1.0.1"
+
+    //config
+    implementation("com.electronwill.night-config:toml:3.6.0")
+    //implementation "dev.isxander:yet-another-config-lib:${project.yacl_config}-forge"
 }
 
 publishing {

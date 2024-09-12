@@ -1,21 +1,16 @@
-package xyz.faewulf.diversity.util;
+package xyz.faewulf.diversity.util.config;
 
-import eu.midnightdust.lib.config.MidnightConfig;
-
-public class ModConfigs extends MidnightConfig {
+public class ModConfigs {
 
     @Entry(category = "general", name = "Enable permission system")
     public static boolean permission_enable = false;
 
-    @Comment(category = "general")
-    public static Comment spacer1;
-
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
-    @Entry(category = "general", name = "Backup Enchantments")
+    @Entry(category = "general", name = "Backup Enchantments", require_restart = true)
     public static boolean more_enchantment = true;
 
-    @Entry(category = "general", name = "Bundle's Enchantment")
+    @Entry(category = "general", name = "Bundle's Enchantment", require_restart = true)
     public static boolean bundle_enchantment = true;
 
     @Entry(category = "general", name = "Banner trophies")
@@ -63,7 +58,7 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "general", name = "No set spawn on sleep")
     public static boolean prevent_setSpawn_onSleep = true;
 
-    @Entry(category = "general", name = "Sleep doesn't skip weather")
+    @Entry(category = "general", name = "Sleep doesn't skip weather", info = "[DISABLE, RAIN_ONLY, ALL_WEATHER]")
     public static weatherType sleep_dont_skip_weather = weatherType.DISABLE;
 
     public enum weatherType {
@@ -95,7 +90,7 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "item", name = "Trident can call thunder strom")
     public static boolean trident_call_thunder = true;
 
-    @Entry(category = "item", name = "Spyglass what is that?")
+    @Entry(category = "item", name = "Spyglass what is that?", info = "[ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE]")
     public static inspectType spyglass_what_is_that = inspectType.ALL;
 
     @Entry(category = "item", name = "Waxed copper indicator")
@@ -137,7 +132,7 @@ public class ModConfigs extends MidnightConfig {
     @Entry(category = "entity", name = "No tamed horse wandering")
     public static boolean prevent_tamed_horse_wandering = true;
 
-    @Entry(category = "entity", name = "Rabbit breed after eats carrot crops")
+    @Entry(category = "entity", name = "Rabbit breeds after eats carrot crops")
     public static boolean rabbit_eat_carrot_crops = true;
 
     @Entry(category = "entity", name = "Wandering trader announcer")

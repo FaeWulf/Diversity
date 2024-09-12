@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomBrushableBlockEntity;
 import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.ArrayList;
 import java.util.List;

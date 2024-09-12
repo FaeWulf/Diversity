@@ -14,7 +14,7 @@ import net.minecraft.world.phys.AABB;
 import xyz.faewulf.diversity.inter.ICustomDisplayEntity;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.DisplayEntityMixin;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.TextDisplayEntityMixin;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
 

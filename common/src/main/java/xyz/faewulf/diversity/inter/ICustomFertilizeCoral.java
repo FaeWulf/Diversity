@@ -25,7 +25,7 @@ import net.minecraft.world.level.levelgen.feature.CoralTreeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.MapColor;
 import xyz.faewulf.diversity.mixin.bonemealCoral.CoralFeatureInvoker;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.Optional;
 

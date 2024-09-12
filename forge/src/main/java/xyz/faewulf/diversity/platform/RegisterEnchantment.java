@@ -11,7 +11,7 @@ import xyz.faewulf.diversity.enchant.BackupBlastProtectionEnchantment;
 import xyz.faewulf.diversity.enchant.BackupFireProtectionEnchantment;
 import xyz.faewulf.diversity.enchant.BackupProjectileProtectionEnchantment;
 import xyz.faewulf.diversity.enchant.BackupProtectionEnchantment;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class RegisterEnchantment {
     // Create a DeferredRegister for Enchantments

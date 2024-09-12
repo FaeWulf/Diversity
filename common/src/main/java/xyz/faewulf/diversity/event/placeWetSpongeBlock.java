@@ -12,7 +12,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomPseudoEntityBlock;
-import xyz.faewulf.diversity.util.ModConfigs;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
 

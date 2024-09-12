@@ -2,6 +2,7 @@ package xyz.faewulf.diversity;
 
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.CustomLootTables;
+import xyz.faewulf.diversity.util.config.Config;
 
 public class CommonClass {
     public static void init() {
