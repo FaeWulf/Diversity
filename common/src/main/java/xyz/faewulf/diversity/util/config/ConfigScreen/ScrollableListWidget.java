@@ -17,16 +17,10 @@ import java.util.List;
 public class ScrollableListWidget extends ContainerObjectSelectionList<ScrollableListWidget.ListEntry> {
 
     private static final int SCROLLBAR_OFFSET = 7;
-    private float scrollAmount;   // Current scroll amount (smooth)
-    private float targetScroll;   // Target scroll position
 
 
     public ScrollableListWidget(Minecraft $$0, int $$1, int $$2, int $$3, int $$4, int $$5) {
         super($$0, $$1, $$2, $$3, $$4, $$5);
-
-        this.scrollAmount = 0.0f;
-        this.targetScroll = 0.0f;
-        //this.setRenderBackground(false);
     }
 
     public void clear() {
@@ -118,7 +112,7 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
             this.defaultButton.render(context, mouseX, mouseY, tickDelta);
 
             //check value
-            Object value = null;
+            Object value;
 
             try {
                 value = this.entryInfo.targetField.get(null);

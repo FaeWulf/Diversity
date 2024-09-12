@@ -19,7 +19,6 @@ import xyz.faewulf.diversity.util.config.Config;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -147,9 +146,7 @@ public class ConfigScreen extends Screen {
         ButtonUndo = rightTabRowHelper.addChild(
                 Button.builder(
                                 Component.translatable("diversity.config.undo"),
-                                button -> {
-                                    this.undoConfig();
-                                })
+                                button -> this.undoConfig())
                         .width(75)
                         .tooltip(Tooltip.create(Component.translatable("diversity.config.undo.tooltip")))
                         .build()
@@ -187,16 +184,20 @@ public class ConfigScreen extends Screen {
         infoTab_Info.setMaxWidth(154);
 
         //register rendering to main Screen
+
+        //for scroll list
         ScreenRectangle screenRectangle = new ScreenRectangle(0, this.tabNavigationBar.getRectangle().bottom(), this.width - this.rightTab.getWidth(), this.height - this.tabNavigationBar.getRectangle().bottom());
         this.slw = new ScrollableListWidget(this.client, screenRectangle.width(), screenRectangle.height(), 24, screenRectangle.height(), 20);
 
+        //navigation
         this.tabNavigationBar.selectTab(0, false);
         this.selectedTab = null;
 
         this.addRenderableWidget(slw);
 
-        this.infoTab.visitWidgets(this::addRenderableWidget);
+        infoTab.visitWidgets(this::addRenderableWidget); //info register
 
+        //register each widget in right tab (buttons)
         rightTab.visitWidgets(abstractWidget -> {
             abstractWidget.setTabOrderGroup(1);
             this.addRenderableWidget(abstractWidget);
@@ -204,6 +205,7 @@ public class ConfigScreen extends Screen {
 
         this.addRenderableWidget(this.tabNavigationBar);
 
+        //init the reposition
         this.repositionElements();
     }
 
@@ -212,22 +214,25 @@ public class ConfigScreen extends Screen {
 
         if (this.tabNavigationBar != null && this.rightTab != null && this.slw != null) {
             this.tabNavigationBar.setWidth(this.width);
+
+            //arrange each main comp
             this.tabNavigationBar.arrangeElements();
-
             this.rightTab.arrangeElements();
-            this.infoTab.arrangeElements();
+            infoTab.arrangeElements();
 
+            //the Y position of the bottom of navbar
             int i = this.tabNavigationBar.getRectangle().bottom();
 
-            //this.rightTab.setPosition(this.width - this.rightTab.getWidth(), i);
+            //reposition for right tab
             FrameLayout.centerInRectangle(this.rightTab, this.width - this.rightTab.getWidth() - RIGHT_TAB_PADDING, this.height - this.rightTab.getHeight() - RIGHT_TAB_PADDING, this.rightTab.getWidth() + RIGHT_TAB_PADDING, this.rightTab.getHeight() + RIGHT_TAB_PADDING);
 
-            FrameLayout.alignInRectangle(this.infoTab, this.width - this.rightTab.getWidth() - RIGHT_TAB_PADDING, i, this.rightTab.getWidth() + RIGHT_TAB_PADDING, this.height - i - this.rightTab.getHeight(), 0f, 0f);
+            //reposition for info tab
+            FrameLayout.alignInRectangle(infoTab, this.width - this.rightTab.getWidth() - RIGHT_TAB_PADDING, i, this.rightTab.getWidth() + RIGHT_TAB_PADDING, this.height - i - this.rightTab.getHeight(), 0f, 0f);
 
-            //list, slw
+            //for list, slw
             ScreenRectangle screenRectangle = new ScreenRectangle(0, i, this.width - this.rightTab.getWidth() - RIGHT_TAB_PADDING, this.height);
 
-            //resize
+            //resize and reposition
             this.slw.updateSize(screenRectangle.width(), screenRectangle.height(), screenRectangle.top(), screenRectangle.height());
             this.tabManager.setTabArea(screenRectangle);
         }
@@ -242,6 +247,7 @@ public class ConfigScreen extends Screen {
         if (this.searchBar != null)
             this.searchBar.tick();
 
+        //refresh scrollbar (change entry list for scrollbar
         //only change when change tab
         if (this.slw != null && this.searchBar != null && this.selectedTab != this.tabManager.getCurrentTab()) {
             pushList(this.searchBar.getValue());
@@ -249,7 +255,7 @@ public class ConfigScreen extends Screen {
 
         //checking for save
         //checking between CONFIG_VALUES and CONFIG_ENTRIES, if different then trigger save button and cancel button
-        //CONFIG_VALUES is for reference only, don't change it
+        //CONFIG_VALUES is for reference only, don't change it here
 
         Map<String, ConfigLoaderFromAnnotation.EntryInfo> current_config_data = ConfigLoaderFromAnnotation.loadConfig_EntryOnly(ModConfigs.class);
 
@@ -271,7 +277,8 @@ public class ConfigScreen extends Screen {
 
         });
 
-        if (ButtonUndo != null && isChanged) {
+        //switch mode each buttons based on change mode
+        if (ButtonUndo != null && ButtonDone_Save != null && ButtonReset_Cancel != null && isChanged) {
             this.ButtonDone_Save.setMessage(Component.translatable("diversity.config.save").withStyle(ChatFormatting.GREEN));
             this.ButtonDone_Save.setTooltip(Tooltip.create(Component.translatable("diversity.config.save.tooltip")));
 
@@ -290,6 +297,7 @@ public class ConfigScreen extends Screen {
         }
     }
 
+    //update config: CONFIG_ENTRIES -> CONFIG_VALUES (CONFIG_ENTRIES holds variable's pointer)
     private void updateConfig() {
         for (ConfigLoaderFromAnnotation.EntryInfo configEntry : CONFIG_ENTRIES) {
             try {
@@ -300,6 +308,7 @@ public class ConfigScreen extends Screen {
         }
     }
 
+    //undo config: CONFIG_VALUES -> variables (by using CONFIG_ENTRIES which holding variable's pointer)
     private void undoConfig() {
         for (ConfigLoaderFromAnnotation.EntryInfo configEntry : CONFIG_ENTRIES) {
             try {
@@ -370,7 +379,6 @@ public class ConfigScreen extends Screen {
 
     @Override
     public void renderDirtBackground(GuiGraphics guiGraphics) {
-        int i = 32;
         guiGraphics.blit(LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
     }
 }

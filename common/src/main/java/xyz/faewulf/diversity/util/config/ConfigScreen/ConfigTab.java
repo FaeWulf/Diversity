@@ -29,7 +29,7 @@ public class ConfigTab extends GridLayoutTab {
             CONFIG_VALUES.put(entryInfo.name, entryInfo.value);
 
             buttonList.add(
-                    new OptionButton(20, 20, 20, 20, 1f, Component.literal(s1),
+                    new OptionButton(20, 20, 20, 20, Component.literal(s1),
                             button -> {
                                 //System.out.println("Button " + s1 + ": " + entryInfo.info + ", " + entryInfo.value + ", " + entryInfo.require_restart);
 

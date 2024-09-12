@@ -17,7 +17,7 @@ import static xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen.CONFIG
 
 public class OptionButton extends Button {
 
-    private ConfigLoaderFromAnnotation.EntryInfo entryInfo;
+    private final ConfigLoaderFromAnnotation.EntryInfo entryInfo;
 
     //text scroll effect
     private long lastTime;
@@ -25,7 +25,7 @@ public class OptionButton extends Button {
     private boolean reverse = false;
     private int effectCooldown = 0;
 
-    public OptionButton(int x, int y, int width, int height, float textScale, Component message, Component tooltip, OnPress onPress, ConfigLoaderFromAnnotation.EntryInfo entryInfo) {
+    public OptionButton(int x, int y, int width, int height, Component message, Component tooltip, OnPress onPress, ConfigLoaderFromAnnotation.EntryInfo entryInfo) {
         super(x, y, width, height, message, onPress, DEFAULT_NARRATION);
         this.entryInfo = entryInfo;
 
@@ -36,8 +36,8 @@ public class OptionButton extends Button {
         this.scrollOffset = 0;
     }
 
-    public OptionButton(int x, int y, int width, int height, float textScale, Component message, OnPress onPress, ConfigLoaderFromAnnotation.EntryInfo entryInfo) {
-        this(x, y, width, height, textScale, message, null, onPress, entryInfo);
+    public OptionButton(int x, int y, int width, int height, Component message, OnPress onPress, ConfigLoaderFromAnnotation.EntryInfo entryInfo) {
+        this(x, y, width, height, message, null, onPress, entryInfo);
     }
 
     @Override
