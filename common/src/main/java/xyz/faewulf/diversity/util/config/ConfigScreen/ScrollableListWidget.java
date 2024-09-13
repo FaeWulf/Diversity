@@ -21,6 +21,8 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
 
     public ScrollableListWidget(Minecraft $$0, int $$1, int $$2, int $$3, int $$4, int $$5) {
         super($$0, $$1, $$2, $$3, $$4, $$5);
+
+        this.setRenderBackground(false);
     }
 
     public void clear() {
@@ -41,11 +43,6 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
     @Override
     public int getRowWidth() {
         return (int) Math.max(220, width * 0.85);
-    }
-
-    @Override
-    public void render(GuiGraphics $$0, int $$1, int $$2, float $$3) {
-        super.render($$0, $$1, $$2, $$3);
     }
 
     public static class ListEntry extends ContainerObjectSelectionList.Entry<ScrollableListWidget.ListEntry> {

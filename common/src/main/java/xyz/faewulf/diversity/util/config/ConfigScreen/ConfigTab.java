@@ -1,24 +1,31 @@
 package xyz.faewulf.diversity.util.config.ConfigScreen;
 
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.tabs.GridLayoutTab;
+import net.minecraft.client.gui.components.tabs.Tab;
+import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.network.chat.Component;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
 
 import static xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen.CONFIG_ENTRIES;
 import static xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen.CONFIG_VALUES;
 
-public class ConfigTab extends GridLayoutTab {
+public class ConfigTab implements Tab {
 
     public Map<ConfigLoaderFromAnnotation.EntryInfo, List<Button>> tabEntries = new LinkedHashMap<>();
 
-    public ConfigTab(Component Text, Map<String, ConfigLoaderFromAnnotation.EntryInfo> entry) {
-        super(Text);
+    Component Title;
 
-        this.layout.defaultCellSetting().padding(5);
+    public ConfigTab(Component Text, Map<String, ConfigLoaderFromAnnotation.EntryInfo> entry) {
+
+        this.Title = Text;
 
         //creating options buttons
         entry.forEach((s1, entryInfo) -> {
@@ -64,6 +71,21 @@ public class ConfigTab extends GridLayoutTab {
         int currentIndex = currentValue.ordinal();  // Get current index
         int nextIndex = (currentIndex + 1) % enumValues.length;  // Calculate next index, wrap around if needed
         return enumValues[nextIndex];  // Return the next value
+    }
+
+    @Override
+    public Component getTabTitle() {
+        return Title;
+    }
+
+    @Override
+    public void visitChildren(Consumer<AbstractWidget> consumer) {
+
+    }
+
+    @Override
+    public void doLayout(ScreenRectangle screenRectangle) {
+
     }
 }
 

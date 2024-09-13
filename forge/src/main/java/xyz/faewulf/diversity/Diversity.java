@@ -9,7 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.faewulf.diversity.event_handler.RegsitryDone;
 import xyz.faewulf.diversity.platform.RegisterEnchantment;
 import xyz.faewulf.diversity.util.config.Config;
-import xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen;
+import xyz.faewulf.diversity.util.config.infoScreen.ModInfoScreen;
 
 @Mod(Constants.MOD_ID)
 public class Diversity {
@@ -25,7 +25,7 @@ public class Diversity {
         ModLoadingContext.get().registerExtensionPoint(
                 ConfigScreenHandler.ConfigScreenFactory.class,
                 () -> new ConfigScreenHandler.ConfigScreenFactory(
-                        (client, parent) -> ConfigScreen.getScreen(parent)
+                        (client, parent) -> ModInfoScreen.getScreen(parent)
                 )
         );
 

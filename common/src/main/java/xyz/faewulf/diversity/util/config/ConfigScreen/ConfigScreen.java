@@ -4,7 +4,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
-import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.tabs.Tab;
 import net.minecraft.client.gui.components.tabs.TabManager;
 import net.minecraft.client.gui.components.tabs.TabNavigationBar;
@@ -13,21 +12,33 @@ import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.navigation.ScreenRectangle;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.util.config.Config;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.*;
-import java.util.List;
 
-import static net.minecraft.client.gui.screens.worldselection.CreateWorldScreen.LIGHT_DIRT_BACKGROUND;
 import static xyz.faewulf.diversity.util.config.Config.configClass;
 
 public class ConfigScreen extends Screen {
 
     private static final String translatePath = "diversity.config.";
+
+    //Textures
+    public static final ResourceLocation LIGHT_BACKGROUND = new ResourceLocation(Constants.MOD_ID, "textures/gui/light_background.png");
+    public static final ResourceLocation ATLAS_TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/gui/atlas_background.png");
+
+    //background
+    private final int ATLAS_SIZE = 32 * 3; // number of atlas tile
+    private final int TILE_SIZE = 32;
+    private int[][] tileMap;  // Store the (x, y) positions of the random tiles in the atlas
+    private int tilesX;
+    private int tilesY;
+
 
     //client
     private final Screen parent;
@@ -79,6 +90,10 @@ public class ConfigScreen extends Screen {
         super(Component.translatable(translatePath + "title"));
         this.parent = parent;
         client = Minecraft.getInstance();
+
+        this.tilesX = (int) Math.ceil(this.width * 1.0f / TILE_SIZE);
+        this.tilesY = (int) Math.ceil(this.height * 1.0f / TILE_SIZE);
+        this.tileMap = new int[tilesX][tilesY];
     }
 
     public static Screen getScreen(Screen parent) {
@@ -87,6 +102,9 @@ public class ConfigScreen extends Screen {
 
     @Override
     protected void init() {
+
+        //background
+        generateRandomTileMap();
 
         //data
         Map<String, Map<String, ConfigLoaderFromAnnotation.EntryInfo>> configMap = ConfigLoaderFromAnnotation.loadConfig(configClass);
@@ -210,8 +228,15 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    protected void repositionElements() {
+    protected void repositionElements() { //on resize windows event
 
+        //background
+        this.tilesX = (int) Math.ceil(this.width * 1.0f / TILE_SIZE);
+        this.tilesY = (int) Math.ceil(this.height * 1.0f / TILE_SIZE);
+        this.tileMap = new int[tilesX][tilesY];
+        generateRandomTileMap();
+
+        //other comp
         if (this.tabNavigationBar != null && this.rightTab != null && this.slw != null) {
             this.tabNavigationBar.setWidth(this.width);
 
@@ -354,31 +379,63 @@ public class ConfigScreen extends Screen {
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int $$1, int $$2, float $$3) {
         this.renderBackground(guiGraphics);
-
-        guiGraphics.setColor(0.125F, 0.125F, 0.125F, 1.0F);
-
-        assert this.rightTab != null;
-        assert this.tabNavigationBar != null;
-
-        guiGraphics.blit(
-                BACKGROUND_LOCATION,
+        drawRandomTiledBackground(guiGraphics);
+        guiGraphics.fillGradient(
                 0,
-                this.tabNavigationBar.getRectangle().bottom(),
-                0.0F,
-                0.0F,
+                0,
                 this.width,
-                this.height - this.tabNavigationBar.getRectangle().height(),
-                32,
-                32
+                this.height,
+                0x80000000, 0x80000000
         );
 
-        guiGraphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //extra layer for right tab
+        guiGraphics.fillGradient(
+                this.rightTab.getX() - RIGHT_TAB_PADDING,
+                this.tabNavigationBar.getRectangle().bottom(),
+                this.width,
+                this.height,
+                0x80000000, 0x80000000
+        );
 
         super.render(guiGraphics, $$1, $$2, $$3);
     }
 
-    @Override
-    public void renderDirtBackground(GuiGraphics guiGraphics) {
-        guiGraphics.blit(LIGHT_DIRT_BACKGROUND, 0, 0, 0, 0.0F, 0.0F, this.width, this.height, 32, 32);
+    private void drawRandomTiledBackground(GuiGraphics guiGraphics) {
+        int tilesPerRow = ATLAS_SIZE / TILE_SIZE;  // Number of tiles per row in the atlas
+
+        for (int y = 0; y < tilesY; y++) {
+            for (int x = 0; x < tilesX; x++) {
+                // Calculate the tile's atlas coordinates based on the stored index
+                int tileIndex = tileMap[x][y];
+                int tileX = (tileIndex % tilesPerRow) * TILE_SIZE;  // X offset in the atlas
+                int tileY = (tileIndex / tilesPerRow) * TILE_SIZE;  // Y offset in the atlas
+
+                // Draw the tile from the atlas
+                guiGraphics.blit(
+                        ATLAS_TEXTURE,
+                        x * TILE_SIZE,  // X position on the screen
+                        y * TILE_SIZE,  // Y position on the screen
+                        tileX, tileY,   // X, Y offset in the atlas
+                        TILE_SIZE, TILE_SIZE,  // Tile size (width, height)
+                        ATLAS_SIZE, ATLAS_SIZE  // Atlas size (width, height)
+                );
+            }
+        }
+    }
+
+    private void generateRandomTileMap() {
+        Random random = new Random();
+        int tilesPerRow = ATLAS_SIZE / TILE_SIZE;  // Number of tiles per row in the atlas
+
+        for (int y = 0; y < tilesY; y++) {
+            for (int x = 0; x < tilesX; x++) {
+                // Randomly select a tile from the atlas by generating random coordinates (tileX, tileY)
+                int tileX = random.nextInt(tilesPerRow);  // Random column
+                int tileY = random.nextInt(tilesPerRow);  // Random row
+
+                // Store the (tileX, tileY) for later use when rendering
+                tileMap[x][y] = tileY * tilesPerRow + tileX;  // Linear index for simplicity
+            }
+        }
     }
 }

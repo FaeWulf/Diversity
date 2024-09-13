@@ -78,7 +78,7 @@ public class OptionButton extends Button {
 
         Component leftTextComp = Component.literal(displayedLeftValue);
         if (isChanging())
-            leftTextComp = Component.literal(displayedLeftValue).withStyle(ChatFormatting.ITALIC, ChatFormatting.DARK_AQUA);
+            leftTextComp = Component.literal(displayedLeftValue).withStyle(ChatFormatting.ITALIC, ChatFormatting.YELLOW);
 
         graphics.drawString(font, leftTextComp, leftTextX, textY, 0xFFFFFF);  // Left value
     }
