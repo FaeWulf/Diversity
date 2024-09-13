@@ -7,17 +7,6 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
-
-    maven {
-        name 'Xander Maven'
-        url 'https://maven.isxander.dev/releases'
-    }
-
-    maven {
-        name = 'Kotlin for Forge'
-        url = 'https://thedarkcolour.github.io/KotlinForForge/'
-    }
-
     mavenCentral()
 }
 
@@ -43,7 +32,6 @@ dependencies {
 
     //config
     implementation("com.electronwill.night-config:toml:3.6.0")
-    implementation "dev.isxander:yet-another-config-lib:${project.yacl_config}-neoforge"
 }
 
 configurations {
