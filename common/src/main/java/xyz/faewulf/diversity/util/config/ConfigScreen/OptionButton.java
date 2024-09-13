@@ -61,8 +61,8 @@ public class OptionButton extends Button {
         }
 
         if (rightValue.equalsIgnoreCase("false")) {
-            component = Component.literal("❌").withStyle(ChatFormatting.RED);
-            rightValue = "❌";
+            component = Component.literal("\u274C").withStyle(ChatFormatting.RED);
+            rightValue = "\u274C";
         }
 
         // Calculate text positions for left and right values

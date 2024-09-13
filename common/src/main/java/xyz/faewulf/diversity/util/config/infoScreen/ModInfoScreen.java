@@ -112,7 +112,7 @@ public class ModInfoScreen extends Screen {
 
         rowHelperInfoLayout.addChild(
                 Button.builder(
-                                Component.literal("Discord").withStyle(ChatFormatting.DARK_BLUE),
+                                Component.literal("Discord").withStyle(ChatFormatting.BLUE),
                                 button -> this.openWebLink("https://discord.com/invite/xZneCTcEvb"))
                         .width(50).build()
         );
