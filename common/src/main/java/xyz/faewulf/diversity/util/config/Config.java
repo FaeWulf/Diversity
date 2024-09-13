@@ -6,7 +6,7 @@ import xyz.faewulf.diversity.Constants;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.Map;
 
 public class Config {
 
@@ -89,7 +89,7 @@ public class Config {
                     if (value != null && isValidType(field, value)) {
                         field.set(null, convertValue(field.getType(), value));
                     } else {
-                        Constants.LOG.error("Invalid type for config '{}' in category '{}'. Override with default value...", name, category);
+                        Constants.LOG.warn("Invalid type for config '{}' in category '{}'. Override with default value...", name, category);
                     }
                 }
             }
