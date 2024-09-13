@@ -89,7 +89,7 @@ public class Config {
                     if (value != null && isValidType(field, value)) {
                         field.set(null, convertValue(field.getType(), value));
                     } else {
-                        Constants.LOG.error("Invalid type for config '{}' in category '{}'. Override with default value...", name, category);
+                        Constants.LOG.warn("Invalid type for config '{}' in category '{}'. Override with default value...", name, category);
                     }
                 }
             }
