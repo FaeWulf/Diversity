@@ -12,11 +12,22 @@ public class RegsitryDone {
 
     @SubscribeEvent
     public static void onDone(FMLCommonSetupEvent event) {
-        CustomEnchant.CAPACITY = RegisterEnchantment.CAPACITY.get();
-        CustomEnchant.REFILL = RegisterEnchantment.REFILL.get();
-        CustomEnchant.BACKUP_PROTECTION = RegisterEnchantment.BACKUP_PROTECTION.get();
-        CustomEnchant.BACKUP_FIRE_PROTECTION = RegisterEnchantment.BACKUP_FIRE_PROTECTION.get();
-        CustomEnchant.BACKUP_BLAST_PROTECTION = RegisterEnchantment.BACKUP_BLAST_PROTECTION.get();
-        CustomEnchant.BACKUP_PROJECTILE_PROTECTION = RegisterEnchantment.BACKUP_PROJECTILE_PROTECTION.get();
+        if (RegisterEnchantment.CAPACITY != null)
+            CustomEnchant.CAPACITY = RegisterEnchantment.CAPACITY.get();
+
+        if (RegisterEnchantment.REFILL != null)
+            CustomEnchant.REFILL = RegisterEnchantment.REFILL.get();
+
+        if (RegisterEnchantment.BACKUP_PROTECTION != null)
+            CustomEnchant.BACKUP_PROTECTION = RegisterEnchantment.BACKUP_PROTECTION.get();
+
+        if (RegisterEnchantment.BACKUP_FIRE_PROTECTION != null)
+            CustomEnchant.BACKUP_FIRE_PROTECTION = RegisterEnchantment.BACKUP_FIRE_PROTECTION.get();
+
+        if (RegisterEnchantment.BACKUP_BLAST_PROTECTION != null)
+            CustomEnchant.BACKUP_BLAST_PROTECTION = RegisterEnchantment.BACKUP_BLAST_PROTECTION.get();
+
+        if (RegisterEnchantment.BACKUP_PROJECTILE_PROTECTION != null)
+            CustomEnchant.BACKUP_PROJECTILE_PROTECTION = RegisterEnchantment.BACKUP_PROJECTILE_PROTECTION.get();
     }
 }
