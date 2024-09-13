@@ -14,6 +14,7 @@ dependencies {
 
     //lib
     implementation("com.electronwill.night-config:toml:3.6.0")
+
 }
 
 neoForge {

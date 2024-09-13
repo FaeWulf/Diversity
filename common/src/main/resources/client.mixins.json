@@ -2,6 +2,7 @@
   "required": true,
   "package": "xyz.faewulf.diversity.mixinClient",
   "compatibilityLevel": "JAVA_18",
+  "refmap": "${mod_id}.refmap.json",
   "mixins": [
   ],
   "injectors": {

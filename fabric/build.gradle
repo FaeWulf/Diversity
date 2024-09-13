@@ -23,10 +23,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation("com.terraformersmc:modmenu:11.0.0")
-    include(implementation("com.moulberry:mixinconstraints:1.0.1"))
+    include(modImplementation("com.moulberry:mixinconstraints:1.0.1"))
 
     //lib
-    implementation("com.electronwill.night-config:toml:3.6.0")
+    include(modImplementation "com.electronwill.night-config:core:3.6.0")
+    include(modImplementation "com.electronwill.night-config:toml:3.6.0")
 }
 
 loom {
