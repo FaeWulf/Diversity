@@ -1,22 +1,23 @@
 package xyz.faewulf.diversity.util.config;
 
-import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
-import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
-import net.minecraft.resources.ResourceLocation;
-
 import java.lang.reflect.Field;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ConfigLoaderFromAnnotation {
 
-    private static final Map<String, Object> defaultValues = new HashMap<>();
+    private static final Map<String, Object> defaultValues = new LinkedHashMap<>();
 
-    public static Map<String, Map<String, EntryType>> loadConfig(Class<?> configClass) {
-        Map<String, Map<String, EntryType>> configMap = new HashMap<>();
+    public static Map<String, Map<String, EntryInfo>> loadConfig(Class<?> configClass) {
+        Map<String, Map<String, EntryInfo>> configMap = new LinkedHashMap<>();
+
+        Field[] fields = configClass.getDeclaredFields();
+        Arrays.sort(fields, Comparator.comparing(Field::getName));
 
         // Iterate over all fields in the config class
-        for (Field field : configClass.getDeclaredFields()) {
+        for (Field field : fields) {
             if (field.isAnnotationPresent(Entry.class)) {
                 Entry entry = field.getAnnotation(Entry.class);
 
@@ -30,13 +31,44 @@ public class ConfigLoaderFromAnnotation {
                     Object value = field.get(null); // Access static field value
 
                     // If category map doesn't exist, create it
-                    configMap.computeIfAbsent(category, k -> new HashMap<>());
-                    configMap.get(category).put(name, new EntryType(value, info, require_restart));
+                    configMap.computeIfAbsent(category, k -> new LinkedHashMap<>());
+                    configMap.get(category).put(name, new EntryInfo(field, field.getName(), name, info, value, require_restart));
 
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
             }
+        }
+        return configMap;
+    }
+
+    public static Map<String, EntryInfo> loadConfig_EntryOnly(Class<?> configClass) {
+        Map<String, EntryInfo> configMap = new LinkedHashMap<>();
+
+        Field[] fields = configClass.getDeclaredFields();
+        Arrays.sort(fields, Comparator.comparing(Field::getName));
+
+        // Iterate over all fields in the config class
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(Entry.class)) {
+                Entry entry = field.getAnnotation(Entry.class);
+
+                String name = entry.name();
+                String info = entry.info();
+                boolean require_restart = entry.require_restart();
+
+                // Add the field's value to the map
+                try {
+                    Object value = field.get(null); // Access static field value
+
+                    // If category map doesn't exist, create it
+                    configMap.put(name, new EntryInfo(field, field.getName(), name, info, value, require_restart));
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         return configMap;
     }
@@ -58,10 +90,9 @@ public class ConfigLoaderFromAnnotation {
                 if (field.isAnnotationPresent(Entry.class)) {
                     // Capture the field's current (default) value
                     Object defaultValue = field.get(null);
-                    Entry entry = field.getAnnotation(Entry.class);
 
                     // Store the default value in the map
-                    defaultValues.put(entry.name(), defaultValue);
+                    defaultValues.put(field.getName(), defaultValue);
                 }
             }
         } catch (IllegalAccessException e) {
@@ -69,15 +100,21 @@ public class ConfigLoaderFromAnnotation {
         }
     }
 
-    public static class EntryType {
-        Object value;
-        String info;
-        boolean require_restart;
+    public static class EntryInfo {
+        public String info;
+        public boolean require_restart;
+        public String name;
+        public Field targetField;
+        public String humanizeName;
+        public Object value;
 
-        public EntryType(Object value, String info, boolean require_restart) {
-            this.value = value;
+        public EntryInfo(Field field, String name, String humanizeName, String info, Object value, boolean require_restart) {
+            this.name = name;
             this.info = info;
             this.require_restart = require_restart;
+            this.targetField = field;
+            this.humanizeName = humanizeName;
+            this.value = value;
         }
     }
 }
