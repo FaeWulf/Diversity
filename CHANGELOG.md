@@ -4,6 +4,7 @@
 
 ### Changed
 
+- A little info screen
 - Config file now is `diversity.toml` for easier reading and editing.
 
 ### Removed
