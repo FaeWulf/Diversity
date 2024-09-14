@@ -4,3 +4,32 @@ plugins {
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '0.1.110' apply false
 }
+
+tasks.register('copyJars', Copy) {
+    dependsOn ':fabric:build', ':neoforge:build' // Make sure subprojects are built
+
+    from('fabric/build/libs') {
+        include('*.jar')
+        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+    }
+
+    from('neoforge/build/libs') {
+        include('*.jar')
+        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+    }
+
+    into 'build/'
+}
+
+// Trigger the copyJars task after the subprojects' builds are done
+gradle.projectsEvaluated {
+    copyJars.mustRunAfter ':fabric:build', ':neoforge:build'
+}
+
+// Add a custom task to trigger the copy process
+tasks.register('buildAll') {
+    group = 'build'  // Assign to a visible group in Gradle tab
+    description = 'Builds and copies the main JARs from subprojects to the root build folder.'
+
+    dependsOn ':fabric:build', 'neoforge:build', copyJars
+}
