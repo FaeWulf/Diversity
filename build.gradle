@@ -3,18 +3,23 @@ plugins {
     id 'fabric-loom' version '1.7-SNAPSHOT' apply false
     // see https://projects.neoforged.net/neoforged/moddevgradle for new versions
     id 'net.neoforged.moddev' version '0.1.110' apply false
+
+    //publisher
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.6"
 }
 
+//custom task
 tasks.register('copyJars', Copy) {
+
     dependsOn ':fabric:build', ':neoforge:build' // Make sure subprojects are built
 
     from('fabric/build/libs') {
-        include('*.jar')
+        include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
 
     from('neoforge/build/libs') {
-        include('*.jar')
+        include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
 
@@ -31,5 +36,75 @@ tasks.register('buildAll') {
     group = 'build'  // Assign to a visible group in Gradle tab
     description = 'Builds and copies the main JARs from subprojects to the root build folder.'
 
+    //delete(fileTree("build/"))
     dependsOn ':fabric:build', 'neoforge:build', copyJars
 }
+
+subprojects { subproject ->
+    publisher {
+        apiKeys {
+            modrinth System.getenv("MODRINTH_TOKEN")
+            curseforge System.getenv("CURSEFORGE_TOKEN")
+        }
+
+        //debug
+        setDebug(true)
+
+        //must set this: supported version
+        setGameVersions(minecraft_version, "1.21.1")
+
+        setVersion(project.version)
+        setChangelog("CHANGELOG.md")
+        setVersionType(version_type as String)
+
+        //jar file to upload
+        setArtifact("build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
+
+        setDisableMalwareScanner(true) // Disable the built in Fractureizer scanner.
+        setDisableEmptyJarCheck(true)
+
+        // Disable check for valid mod metadata entry in artifact, which could possibly mean that the jar is empty.
+        setModrinthID(modrinth_id)
+        setCurseID(curseforge_id)
+
+        //set support loader
+        switch (subproject.name) {
+            case "fabric":
+                setLoaders("Fabric", "Quilt")
+                break
+            case "forge":
+                setLoaders("Forge", "NeoForge")
+                break
+            case "neoforge":
+                setLoaders("NeoForge")
+                break
+        }
+
+
+        setDisplayName("[${subproject.name} ${minecraft_version}] ${mod_name} v${project.version}")
+        //setJavaVersions([java_version])
+
+        setCurseEnvironment("server") // "server", "client" or "both".
+
+        modrinthDepends {
+            switch (subproject.name) {
+                case "fabric":
+                    required "fabric-api"
+                    break
+                case "forge":
+                    break
+            }
+        }
+
+        curseDepends {
+            switch (subproject.name) {
+                case "fabric":
+                    required "fabric-api"
+                    break
+                case "forge":
+                    break
+            }
+        }
+    }
+}
+
