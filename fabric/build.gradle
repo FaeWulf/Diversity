@@ -14,11 +14,6 @@ repositories {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
-
-    maven {
-        name 'Xander Maven'
-        url 'https://maven.isxander.dev/releases'
-    }
 }
 
 base {
@@ -37,9 +32,6 @@ dependencies {
 
     include(implementation("com.electronwill.night-config:core:3.6.0"))
     include(implementation("com.electronwill.night-config:toml:3.6.0"))
-
-    //config
-    //include(modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_config}-fabric"))
 }
 
 loom {
