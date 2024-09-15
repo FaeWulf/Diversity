@@ -3,10 +3,72 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)' apply(false)
     id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT' apply(false)
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT" apply(false)
+
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.6" apply(false)
 }
 
-subprojects {
+//custom task
+tasks.register('copyJars', Copy) {
+
+    dependsOn ':fabric:build', ':forge:build' // Make sure subprojects are built
+
+    from('fabric/build/libs') {
+        include("*${project.version}.jar")
+        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+    }
+
+    from('forge/build/libs') {
+        include("*${project.version}.jar")
+        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+    }
+
+    into 'build/'
+}
+
+// Trigger the copyJars task after the subprojects' builds are done
+gradle.projectsEvaluated {
+    copyJars.mustRunAfter ':fabric:build', ':forge:build'
+}
+
+// Add a custom task to trigger the copy process
+tasks.register('buildAll') {
+    group = 'build'  // Assign to a visible group in Gradle tab
+    description = 'Builds and copies the main JARs from subprojects to the root build folder.'
+
+    //delete(fileTree("build/"))
+    dependsOn ':fabric:build', ':forge:build', copyJars
+}
+
+// Tasks for publish
+tasks.register('publishAllToModrinth') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Modrinth'
+
+    //delete(fileTree("build/"))
+    dependsOn ':fabric:publishModrinth', ':forge:publishModrinth'
+}
+
+tasks.register('publishAllToCurseforge') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Curseforge'
+
+    //delete(fileTree("build/"))
+    dependsOn ':fabric:publishCurseforge', ':forge:publishCurseforge'
+}
+
+tasks.register('publishAllToAll') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Modrinth and Curseforge'
+
+
+    //delete(fileTree("build/"))
+    dependsOn publishAllToModrinth, publishAllToCurseforge
+}
+
+//publisher
+subprojects { subproject ->
     apply plugin: 'java'
+    apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(17)
     java.withSourcesJar()
@@ -53,6 +115,7 @@ subprojects {
             name = 'BlameJared Maven (JEI / CraftTweaker / Bookshelf)'
             url = 'https://maven.blamejared.com'
         }
+
     }
 
     tasks.withType(JavaCompile).configureEach {
@@ -83,5 +146,51 @@ subprojects {
             expand expandProps
         }
         inputs.properties(expandProps)
+    }
+
+
+    subproject.afterEvaluate {
+        publisher {
+            apiKeys {
+                modrinth System.getenv("MODRINTH_TOKEN")
+                curseforge System.getenv("CURSEFORGE_TOKEN")
+            }
+
+            setDebug(!confirm_publish.toBoolean())
+
+            setGameVersions(minecraft_version)
+            setVersion(project.version)
+            setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
+            setVersionType(version_type)
+
+            // Set different artifacts for each subproject
+            setArtifact("${subproject.rootDir}/build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
+            setDisableMalwareScanner(true)
+            setDisableEmptyJarCheck(true)
+            setModrinthID(modrinth_id)
+            setCurseID(curseforge_id)
+
+            // Configure loaders and dependencies per subproject
+            switch (subproject.name) {
+                case "fabric":
+                    setLoaders("Fabric", "Quilt")
+                    setDisplayName("[Fabric ${minecraft_version}] ${mod_name} v${project.version}")
+                    modrinthDepends {
+                        required "fabric-api"
+                    }
+                    curseDepends {
+                        required "fabric-api"
+                    }
+                    break
+                case "forge":
+                    setLoaders("Forge", "NeoForge")
+                    setDisplayName("[Forge ${minecraft_version}] ${mod_name} v${project.version}")
+                    break
+                case "neoforge":
+                    setLoaders("NeoForge")
+                    setDisplayName("[NeoForge ${minecraft_version}] ${mod_name} v${project.version}")
+                    break
+            }
+        }
     }
 }
