@@ -5,7 +5,7 @@ plugins {
     id 'net.neoforged.moddev' version '0.1.110' apply false
 
     //publisher
-    id "com.hypherionmc.modutils.modpublisher" version "2.1.6"
+    id "com.hypherionmc.modutils.modpublisher" version "2.1.6" apply false
 }
 
 //custom task
@@ -37,74 +37,83 @@ tasks.register('buildAll') {
     description = 'Builds and copies the main JARs from subprojects to the root build folder.'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:build', 'neoforge:build', copyJars
+    dependsOn ':fabric:build', ':neoforge:build', copyJars
 }
 
+// Tasks for publish
+tasks.register('publishAllToModrinth') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Modrinth'
+
+    //delete(fileTree("build/"))
+    dependsOn ':fabric:publishModrinth', ':neoforge:publishModrinth'
+}
+
+tasks.register('publishAllToCurseforge') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Curseforge'
+
+    //delete(fileTree("build/"))
+    dependsOn ':fabric:publishCurseforge', ':neoforge:publishCurseforge'
+}
+
+tasks.register('publishAllToAll') {
+    group = 'publish'  // Assign to a visible group in Gradle tab
+    description = 'Publish all subproject artifacts to Modrinth and Curseforge'
+
+
+    //delete(fileTree("build/"))
+    dependsOn publishAllToModrinth, publishAllToCurseforge
+}
+
+//publisher
 subprojects { subproject ->
-    publisher {
-        apiKeys {
-            modrinth System.getenv("MODRINTH_TOKEN")
-            curseforge System.getenv("CURSEFORGE_TOKEN")
-        }
-
-        //debug
-        setDebug(true)
-
-        //must set this: supported version
-        setGameVersions(minecraft_version, "1.21.1")
-
-        setVersion(project.version)
-        setChangelog("CHANGELOG.md")
-        setVersionType(version_type as String)
-
-        //jar file to upload
-        setArtifact("build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
-
-        setDisableMalwareScanner(true) // Disable the built in Fractureizer scanner.
-        setDisableEmptyJarCheck(true)
-
-        // Disable check for valid mod metadata entry in artifact, which could possibly mean that the jar is empty.
-        setModrinthID(modrinth_id)
-        setCurseID(curseforge_id)
-
-        //set support loader
-        switch (subproject.name) {
-            case "fabric":
-                setLoaders("Fabric", "Quilt")
-                break
-            case "forge":
-                setLoaders("Forge", "NeoForge")
-                break
-            case "neoforge":
-                setLoaders("NeoForge")
-                break
-        }
+    apply plugin: 'java'
+    apply plugin: 'com.hypherionmc.modutils.modpublisher'
 
 
-        setDisplayName("[${subproject.name} ${minecraft_version}] ${mod_name} v${project.version}")
-        //setJavaVersions([java_version])
-
-        setCurseEnvironment("server") // "server", "client" or "both".
-
-        modrinthDepends {
-            switch (subproject.name) {
-                case "fabric":
-                    required "fabric-api"
-                    break
-                case "forge":
-                    break
+    subproject.afterEvaluate {
+        publisher {
+            apiKeys {
+                modrinth System.getenv("MODRINTH_TOKEN")
+                curseforge System.getenv("CURSEFORGE_TOKEN")
             }
-        }
 
-        curseDepends {
+            setDebug(!confirm_publish.toBoolean())
+
+            setGameVersions(minecraft_version, "1.21.1")
+            setVersion(project.version)
+            setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
+            setVersionType(version_type)
+
+            // Set different artifacts for each subproject
+            setArtifact("${subproject.rootDir}/build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
+            setDisableMalwareScanner(true)
+            setDisableEmptyJarCheck(true)
+            setModrinthID(modrinth_id)
+            setCurseID(curseforge_id)
+
+            // Configure loaders and dependencies per subproject
             switch (subproject.name) {
                 case "fabric":
-                    required "fabric-api"
+                    setLoaders("Fabric", "Quilt")
+                    setDisplayName("[Fabric ${minecraft_version}] ${mod_name} v${project.version}")
+                    modrinthDepends {
+                        required "fabric-api"
+                    }
+                    curseDepends {
+                        required "fabric-api"
+                    }
                     break
                 case "forge":
+                    setLoaders("Forge", "NeoForge")
+                    setDisplayName("[Forge ${minecraft_version}] ${mod_name} v${project.version}")
+                    break
+                case "neoforge":
+                    setLoaders("NeoForge")
+                    setDisplayName("[NeoForge ${minecraft_version}] ${mod_name} v${project.version}")
                     break
             }
         }
     }
 }
-
