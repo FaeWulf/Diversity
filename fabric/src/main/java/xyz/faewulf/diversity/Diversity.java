@@ -42,6 +42,7 @@ public class Diversity implements ModInitializer {
             playerChatEmote.register();
             putItemIntoBrushableBlocks.register();
             useClockOnBlock.register();
+            useShearOnBlock.register();
         });
     }
 
