@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
+import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(FlowerBlock.class)
@@ -26,7 +27,7 @@ public abstract class PlantBlockMixin extends Block implements BonemealableBlock
         if (!ModConfigs.bonemeal_small_flower)
             return false;
 
-        return state.is(BlockTags.SMALL_FLOWERS) && state.getBlock() != Blocks.WITHER_ROSE && state.getBlock() != Blocks.TORCHFLOWER;
+        return state.is(BlockTags.SMALL_FLOWERS) && !compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist");
     }
 
     @Override
