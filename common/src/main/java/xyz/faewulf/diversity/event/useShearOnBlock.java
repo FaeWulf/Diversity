@@ -11,8 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntities;
@@ -21,18 +19,7 @@ import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.pseudoBlockEntityUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class useShearOnBlock {
-
-    private static List<Block> allowList = new ArrayList<>() {{
-        this.add(Blocks.SUGAR_CANE);
-        this.add(Blocks.BAMBOO);
-        this.add(Blocks.BAMBOO_SAPLING);
-        this.add(Blocks.VINE);
-    }};
-
     public static InteractionResult run(Level world, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
 
@@ -48,7 +35,7 @@ public class useShearOnBlock {
 
             BlockState block = world.getBlockState(hitResult.getBlockPos());
 
-            if (allowList.contains(block.getBlock()) || compare.isHasTag(block.getBlock(), "minecraft:saplings")) {
+            if (compare.isHasTag(block.getBlock(), "diversity:trimmable") || compare.isHasTag(block.getBlock(), "minecraft:saplings")) {
 
                 if (pseudoBlockEntityUtil.getBlockEntity(world, hitResult.getBlockPos()) != null)
                     return InteractionResult.PASS;
@@ -66,6 +53,7 @@ public class useShearOnBlock {
                     }
                 }
 
+                player.swing(hand, true);
                 return InteractionResult.CONSUME;
             }
         }

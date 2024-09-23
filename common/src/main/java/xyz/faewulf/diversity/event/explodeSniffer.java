@@ -64,6 +64,8 @@ public class explodeSniffer {
                     ((ICustomSniffer) entity).setSnortType(typeSnort.GUN_POWDER);
 
 
+                player.swing(hand, true);
+
                 player.getItemInHand(hand).consume(1, player);
                 entity.playSound(SoundEvents.BONE_MEAL_USE, 1.0f, 1.0f);
 

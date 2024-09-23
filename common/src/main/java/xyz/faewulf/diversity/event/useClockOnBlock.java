@@ -100,6 +100,7 @@ public class useClockOnBlock {
                 feedBack.append(" | Next: ")
                         .append(next);
 
+                player.swing(hand, true);
                 player.displayClientMessage(feedBack, true);
                 return InteractionResult.CONSUME;
             }
