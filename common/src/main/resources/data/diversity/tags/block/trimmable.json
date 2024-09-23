@@ -1,5 +1,9 @@
 {
   "replace": false,
   "values": [
+    "minecraft:sugar_cane",
+    "minecraft:vine",
+    "minecraft:bamboo",
+    "minecraft:bamboo_sapling"
   ]
 }
