@@ -42,8 +42,8 @@ public interface PseudoBlockEntity {
      * the specific condition that will trigger the discard action. The method should
      * return {@code true} if the object meets the criteria for discarding, and {@code false}
      * otherwise.</p>
-     *
-     * @return {@code true} if this entity should be discarded, {@code false} otherwise
+     * <p>
+     * return {@code true} if this entity should be discarded, {@code false} otherwise
      */
     void setDiscardWhenFunction(Function<Display, Boolean> callback);
 
