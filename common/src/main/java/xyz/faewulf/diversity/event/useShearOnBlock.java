@@ -23,7 +23,7 @@ public class useShearOnBlock {
     public static InteractionResult run(Level world, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
 
-        if (!ModConfigs.check_villager_schedule)
+        if (!ModConfigs.shear_prevent_growing)
             return InteractionResult.PASS;
 
         if (world.isClientSide)
@@ -46,7 +46,7 @@ public class useShearOnBlock {
                 display.setPos(pos.getCenter().x, pos.getCenter().y, pos.getCenter().z);
 
                 if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
-                    if (!pseudoBlockEntity.isBlockEntityAlreadyExist()) {
+                    if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist()) {
                         world.addFreshEntity(display);
                         world.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.PLAYERS, 1.0F, (1.0F + world.getRandom().nextFloat() * 0.2F) * 0.7F);
                         player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
