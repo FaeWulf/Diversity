@@ -26,45 +26,43 @@ import static net.minecraft.world.entity.projectile.windcharge.AbstractWindCharg
 @Mixin(Sniffer.class)
 public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer {
 
-    @Shadow
-    public abstract Sniffer transitionTo(Sniffer.State pState);
-
     @Unique
-    private typeSnort snortType;
-
+    private typeSnort diversity_Multiloader$snortType;
     @Unique
-    private int snortState = 0;
-
+    private int diversity_Multiloader$snortState = 0;
     @Unique
-    private int snortTimer = 0;
+    private int diversity_Multiloader$snortTimer = 0;
 
     protected SnifferSniffStuff(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
+    @Shadow
+    public abstract Sniffer transitionTo(Sniffer.State pState);
+
     @Inject(at = @At("HEAD"), method = "tick")
     private void tick(CallbackInfo ci) {
-        if (this.snortType == null)
+        if (this.diversity_Multiloader$snortType == null)
             return;
 
         if (this.level().isClientSide)
             return;
 
-        if (snortTimer >= 30) {
-            snortTimer = 0;
-            snortState++;
+        if (diversity_Multiloader$snortTimer >= 30) {
+            diversity_Multiloader$snortTimer = 0;
+            diversity_Multiloader$snortState++;
 
-            if (snortState % 2 == 0)
+            if (diversity_Multiloader$snortState % 2 == 0)
                 this.transitionTo(Sniffer.State.SNIFFING);
             else
                 this.transitionTo(Sniffer.State.SCENTING);
 
             this.playSound(SoundEvents.SNIFFER_IDLE, 1.0f, 1.0f);
 
-            if (snortState > 5) {
-                snortState = 0;
-                if (this.level() instanceof ServerLevel serverWorld && snortType != null) {
-                    switch (snortType) {
+            if (diversity_Multiloader$snortState > 5) {
+                diversity_Multiloader$snortState = 0;
+                if (this.level() instanceof ServerLevel serverWorld && diversity_Multiloader$snortType != null) {
+                    switch (diversity_Multiloader$snortType) {
                         case typeSnort.GUN_POWDER -> {
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 2.0f, Level.ExplosionInteraction.NONE);
                         }
@@ -109,19 +107,19 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
 
                 }
 
-                snortType = null;
+                diversity_Multiloader$snortType = null;
             }
         }
 
-        snortTimer++;
+        diversity_Multiloader$snortTimer++;
     }
 
     @Override
-    public typeSnort getSnortType() {
-        return snortType;
+    public typeSnort diversity_Multiloader$getSnortType() {
+        return diversity_Multiloader$snortType;
     }
 
-    public void setSnortType(typeSnort snortType) {
-        this.snortType = snortType;
+    public void diversity_Multiloader$setSnortType(typeSnort snortType) {
+        this.diversity_Multiloader$snortType = snortType;
     }
 }

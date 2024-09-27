@@ -21,60 +21,60 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(AbstractFish.class)
 public abstract class FishEntityMixin extends WaterAnimal implements Bucketable {
+    @Unique
+    private float diversity_Multiloader$size = (float) (this.random.nextGaussian() * 0.2 + 1);
+
     protected FishEntityMixin(EntityType<? extends WaterAnimal> entityType, Level world) {
         super(entityType, world);
     }
 
-    @Unique
-    private float size = (float) (this.random.nextGaussian() * 0.2 + 1);
-
     @Inject(method = "<init>", at = @At("TAIL"))
     private void initInject(EntityType<? extends Salmon> entityType, Level world, CallbackInfo ci) {
-        reCalculateSize();
+        diversity_Multiloader$reCalculateSize();
     }
 
     @Inject(method = "saveToBucketTag", at = @At("TAIL"))
     private void copyDataToStackInject(ItemStack stack, CallbackInfo ci) {
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, nbtCompound -> nbtCompound.putFloat("diversity:Size", this.size));
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, nbtCompound -> nbtCompound.putFloat("diversity:Size", this.diversity_Multiloader$size));
     }
 
     @Inject(method = "loadFromBucketTag", at = @At("TAIL"))
     private void copyDataFromNbt(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:Size")) {
-            this.size = nbt.getFloat("diversity:Size");
+            this.diversity_Multiloader$size = nbt.getFloat("diversity:Size");
         }
 
-        reCalculateSize();
+        diversity_Multiloader$reCalculateSize();
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putFloat("diversity:Size", size);
+        nbt.putFloat("diversity:Size", diversity_Multiloader$size);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:Size")) {
-            this.size = nbt.getFloat("diversity:Size");
+            this.diversity_Multiloader$size = nbt.getFloat("diversity:Size");
         }
-        reCalculateSize();
+        diversity_Multiloader$reCalculateSize();
     }
 
     @Unique
-    private void reCalculateSize() {
-        if (size < 0.6f)
-            size = 0.6f;
+    private void diversity_Multiloader$reCalculateSize() {
+        if (diversity_Multiloader$size < 0.6f)
+            diversity_Multiloader$size = 0.6f;
 
-        if (size > 1.7f)
-            size = 1.7f;
+        if (diversity_Multiloader$size > 1.7f)
+            diversity_Multiloader$size = 1.7f;
 
         if (!ModConfigs.random_size_fishes)
-            size = 1.0f;
+            diversity_Multiloader$size = 1.0f;
 
         AttributeInstance entityAttributeInstance = this.getAttributes().getInstance(Attributes.SCALE);
 
         if (entityAttributeInstance != null) {
-            entityAttributeInstance.setBaseValue(size);
+            entityAttributeInstance.setBaseValue(diversity_Multiloader$size);
         }
     }
 }

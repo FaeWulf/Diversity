@@ -61,7 +61,7 @@ public class putItemIntoBrushableBlocks {
 
                 ItemStack treasure = mainHand.copyWithCount(1);
 
-                ((ICustomBrushableBlockEntity) brushableBlockEntity).setItem(treasure);
+                ((ICustomBrushableBlockEntity) brushableBlockEntity).diversity_Multiloader$setItem(treasure);
 
                 player.swing(hand, true);
 

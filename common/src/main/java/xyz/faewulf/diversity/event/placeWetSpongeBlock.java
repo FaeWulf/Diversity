@@ -37,7 +37,7 @@ public class placeWetSpongeBlock {
                 w.setPos(blockPos.getCenter());
 
                 if (w instanceof PseudoBlockEntity pseudoBlockEntity) {
-                    if (!pseudoBlockEntity.isBlockEntityAlreadyExist())
+                    if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist())
                         world.addFreshEntity(w);
                 }
             }

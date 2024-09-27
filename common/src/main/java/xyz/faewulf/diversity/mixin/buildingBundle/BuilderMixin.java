@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin.buildingBundle;
 
 import net.minecraft.util.Mth;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import org.apache.commons.lang3.math.Fraction;
@@ -27,7 +26,7 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
     private Fraction weight;
 
     @Unique
-    private int maxSize = 64;
+    private int diversity_Multiloader$maxSize = 64;
 
     @Inject(method = "getMaxAmountToAdd", at = @At("RETURN"), cancellable = true)
     private void getMaxAllowedInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
@@ -35,7 +34,7 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
         int itemValue = Mth.mulAndTruncate(BundleContentComponentInvoker.getOccupancy(stack), 64);
 
         int usedSpace = Mth.mulAndTruncate(this.weight, 64);
-        int freeSpace = maxSize - usedSpace;
+        int freeSpace = diversity_Multiloader$maxSize - usedSpace;
 
         //freeSpace / (of 1 item of StackItem, how many item can put) or itemValue
         //which mean the return value is how much of that ItemStack can be put into the freeSpace
@@ -59,16 +58,16 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
     }
 
     @Override
-    public int getMaxSize() {
-        return maxSize;
+    public int diversity_Multiloader$getMaxSize() {
+        return diversity_Multiloader$maxSize;
     }
 
     @Override
-    public void setMaxSize(int maxSize) {
+    public void diversity_Multiloader$setMaxSize(int maxSize) {
 
         if (maxSize < 64)
             return;
-        this.maxSize = maxSize;
+        this.diversity_Multiloader$maxSize = maxSize;
     }
 }
 

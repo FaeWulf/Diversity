@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter.entity;
 
 public interface ICustomChickenEntity {
-    void setFeatherCoolDown(int value);
+    void diversity_Multiloader$setFeatherCoolDown(int value);
 
-    int getFeatherCoolDown();
+    int diversity_Multiloader$getFeatherCoolDown();
 }

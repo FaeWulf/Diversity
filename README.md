@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true"/>
+    <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true" alt="banner"/>
 </p>
 
 ---

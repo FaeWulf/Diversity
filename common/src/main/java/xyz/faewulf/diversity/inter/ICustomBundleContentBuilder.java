@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter;
 
 public interface ICustomBundleContentBuilder {
-    void setMaxSize(int value);
+    void diversity_Multiloader$setMaxSize(int value);
 
-    int getMaxSize();
+    int diversity_Multiloader$getMaxSize();
 }

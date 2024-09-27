@@ -33,6 +33,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -60,7 +61,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Override
-    public boolean isEnchantable(ItemStack stack) {
+    public boolean isEnchantable(@NotNull ItemStack stack) {
         return true;
     }
 
@@ -82,17 +83,17 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
     private void onClickedInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction clickType, Player player, SlotAccess cursorStackReference, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
     @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
     private void onStackClickedInject(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
     @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryTransfer(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/entity/player/Player;)I"))
     private void onStackClickedInject2(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).setMaxSize(this.getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
 
@@ -103,15 +104,15 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             return;
 
         if (!world.isClientSide && user instanceof ServerPlayer) {
-            if (getMode(user.getItemInHand(hand)) != 0) {
-                syncBundleContents((ServerPlayer) user);
+            if (diversity_Multiloader$getMode(user.getItemInHand(hand)) != 0) {
+                diversity_Multiloader$syncBundleContents((ServerPlayer) user);
                 cir.setReturnValue(InteractionResultHolder.fail(user.getItemInHand(hand)));
             }
         }
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
 
         if (!ModConfigs.bundle_place_mode)
             return InteractionResult.PASS;
@@ -124,7 +125,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         ItemStack bundle = context.getItemInHand();
 
-        if (getMode(bundle) == 0)
+        if (diversity_Multiloader$getMode(bundle) == 0)
             return InteractionResult.PASS;
 
         if (world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayerEntity) {
@@ -143,7 +144,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     return InteractionResult.PASS;
 
                 //get indexOfItemInInventory based on mode value, if 2 then choose random, if 1 then choose first indexOfItemInInventory
-                int chosenIndex = getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.getFirst();
+                int chosenIndex = diversity_Multiloader$getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.getFirst();
 
                 //if blockItem
                 if (bundleContentsComponent.getItemUnsafe(chosenIndex).getItem() instanceof BlockItem blockItem) {
@@ -151,7 +152,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     InteractionResult actionResult = blockItem.useOn(context);
                     //check result Consume or SUCCESS then block is placed then -1 that block from bundle
                     if (actionResult == InteractionResult.CONSUME || actionResult == InteractionResult.SUCCESS) {
-                        removeItem(player, bundle, bundleContentsComponent, chosenIndex);
+                        diversity_Multiloader$removeItem(player, bundle, bundleContentsComponent, chosenIndex);
 
                         BlockState blockState = blockItem.getBlock().defaultBlockState();
                         SoundEvent soundEvent = ((BlockItemInvoker) blockItem).invokeGetPlaceSound(blockState);
@@ -173,7 +174,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private void removeItem(Player player, ItemStack bundleItem, BundleContents bundleContentsComponent, int index) {
+    private void diversity_Multiloader$removeItem(Player player, ItemStack bundleItem, BundleContents bundleContentsComponent, int index) {
         if (bundleContentsComponent.isEmpty() || bundleContentsComponent.size() < index + 1)
             return;
 
@@ -196,8 +197,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         boolean isRefilled = false;
 
-        if (isRefillable(player.level(), bundleItem))
-            isRefilled = refill(player, bundleItem, bundleContentsComponent, itemStacks, index);
+        if (diversity_Multiloader$isRefillable(player.level(), bundleItem))
+            isRefilled = diversity_Multiloader$refill(player, bundleItem, bundleContentsComponent, itemStacks, index);
 
         if (!isRefilled) {
             itemStacks.remove(index);
@@ -210,13 +211,13 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private void syncBundleContents(ServerPlayer player) {
+    private void diversity_Multiloader$syncBundleContents(ServerPlayer player) {
         // Sync the entire inventory to the client
         player.connection.send(new ClientboundContainerSetContentPacket(player.inventoryMenu.containerId, 0, player.inventoryMenu.getItems(), player.inventoryMenu.getCarried()));
     }
 
     @Unique
-    private boolean refill(Player player, ItemStack bundle, BundleContents bundleContentsComponent, List<ItemStack> itemStacks, int index) {
+    private boolean diversity_Multiloader$refill(Player player, ItemStack bundle, BundleContents bundleContentsComponent, List<ItemStack> itemStacks, int index) {
 
         Inventory playerInventory = player.getInventory();
         int indexOfItemInInventory = playerInventory.findSlotMatchingItem(itemStacks.get(index));
@@ -236,7 +237,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         //because of that, for the later we have to subtract 1 when increase amount of target item in the bundle
         int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight(), 64) - stackMultiplier;
 
-        final int maxBundleSize = getMaxSize(player.level(), bundle);
+        final int maxBundleSize = diversity_Multiloader$getMaxSize(player.level(), bundle);
 
         if (usedSlotInBundle >= maxBundleSize)
             return false;
@@ -256,7 +257,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private boolean isRefillable(Level world, ItemStack itemStack) {
+    private boolean diversity_Multiloader$isRefillable(Level world, ItemStack itemStack) {
         if (world.isClientSide)
             return false;
 
@@ -266,7 +267,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private int getMaxSize(Level world, ItemStack itemStack) {
+    private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
         ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
         int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
 
@@ -274,7 +275,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Override
-    public int getMode(ItemStack itemStack) {
+    public int diversity_Multiloader$getMode(ItemStack itemStack) {
 
         CustomData customData = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 
@@ -284,7 +285,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Override
-    public void setMode(ItemStack itemStack, int mode) {
+    public void diversity_Multiloader$setMode(ItemStack itemStack, int mode) {
 
         String modeText = switch (mode) {
             case 1 -> "place first slot";

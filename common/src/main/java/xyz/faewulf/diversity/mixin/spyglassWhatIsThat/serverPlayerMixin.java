@@ -23,15 +23,15 @@ import xyz.faewulf.diversity.util.hitResult2Infomations;
 
 @Mixin(ServerPlayer.class)
 public abstract class serverPlayerMixin extends Player {
-    @Shadow
-    public abstract void sendSystemMessage(@NotNull Component message);
+    @Unique
+    private int diversity_Multiloader$spyGlassHUDcooldown = 0;
 
     public serverPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
 
-    @Unique
-    private int spyGlassHUDcooldown = 0;
+    @Shadow
+    public abstract void sendSystemMessage(@NotNull Component message);
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {
@@ -43,11 +43,11 @@ public abstract class serverPlayerMixin extends Player {
         Item offHandItem = this.getOffhandItem().getItem();
 
         if (handItem == Items.SPYGLASS || offHandItem == Items.SPYGLASS) {
-            if (spyGlassHUDcooldown != 20) {
-                spyGlassHUDcooldown++;
+            if (diversity_Multiloader$spyGlassHUDcooldown != 20) {
+                diversity_Multiloader$spyGlassHUDcooldown++;
                 return;
             }
-            spyGlassHUDcooldown = 0;
+            diversity_Multiloader$spyGlassHUDcooldown = 0;
 
             int distance = this.isScoping() ? 32 : 5;
 
@@ -68,7 +68,7 @@ public abstract class serverPlayerMixin extends Player {
                 Vec3 max = min.add(vec3d2.x * distance, vec3d2.y * distance, vec3d2.z * distance);
 
                 AABB box = this.getBoundingBox().expandTowards(vec3d2.scale(distance)).inflate(1.0D, 1.0D, 1.0D);
-                EntityHitResult hitResult = ProjectileUtil.getEntityHitResult(this, min, max, box, this::isTargettable_diversity, sqrdDist);
+                EntityHitResult hitResult = ProjectileUtil.getEntityHitResult(this, min, max, box, this::isTargetable_diversity, sqrdDist);
 
                 if (hitResult != null)
                     hit = hitResult;
@@ -101,7 +101,7 @@ public abstract class serverPlayerMixin extends Player {
     }
 
     @Unique
-    private boolean isTargettable_diversity(Entity entity) {
+    private boolean isTargetable_diversity(Entity entity) {
         return !entity.isSpectator() && entity.isPickable() && !entity.isInvisibleTo(this);
     }
 }

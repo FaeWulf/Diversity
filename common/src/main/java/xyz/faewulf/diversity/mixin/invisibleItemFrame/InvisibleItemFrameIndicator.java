@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.invisibleItemFrame;
 
-import xyz.faewulf.diversity.inter.ICustomItemFrame;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,6 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.inter.ICustomItemFrame;
 
 @Mixin(BlockAttachedEntity.class)
 public class InvisibleItemFrameIndicator {
@@ -27,7 +27,7 @@ public class InvisibleItemFrameIndicator {
                 return;
 
             //if does't have the require tag
-            if (!((ICustomItemFrame) _this).getIsInvisible())
+            if (!((ICustomItemFrame) _this).diversity_Multiloader$getIsInvisible())
                 return;
 
             //if it is holding item the return

@@ -34,13 +34,13 @@ public class changeBundleMode {
                             return InteractionResult.PASS;
                         }
 
-                        int mode = ((ICustomBundleItem) bundleItem).getMode(stack);
+                        int mode = ((ICustomBundleItem) bundleItem).diversity_Multiloader$getMode(stack);
 
                         mode++;
                         if (mode > 2)
                             mode = 0;
 
-                        ((ICustomBundleItem) bundleItem).setMode(stack, mode);
+                        ((ICustomBundleItem) bundleItem).diversity_Multiloader$setMode(stack, mode);
 
                         String modeText = switch (mode) {
                             case 1 -> "Place first slot";

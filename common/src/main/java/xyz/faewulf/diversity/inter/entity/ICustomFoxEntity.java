@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter.entity;
 
 public interface ICustomFoxEntity {
-    public int getBuryCoolDown();
+    public int diversity_Multiloader$getBuryCoolDown();
 
-    public void setBuryCoolDown(int value);
+    public void diversity_Multiloader$setBuryCoolDown(int value);
 }

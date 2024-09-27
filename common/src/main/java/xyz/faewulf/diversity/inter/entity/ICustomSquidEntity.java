@@ -1,9 +1,9 @@
 package xyz.faewulf.diversity.inter.entity;
 
 public interface ICustomSquidEntity {
-    float getSize();
+    float diversity_Multiloader$getSize();
 
-    void setSize(float value);
+    void diversity_Multiloader$setSize(float value);
 
-    void reCalculateSize();
+    void diversity_Multiloader$reCalculateSize();
 }

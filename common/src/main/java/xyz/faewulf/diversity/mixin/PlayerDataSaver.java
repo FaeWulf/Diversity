@@ -13,28 +13,28 @@ import xyz.faewulf.diversity.inter.IPlayerDataSaver;
 @Mixin(Entity.class)
 public class PlayerDataSaver implements IPlayerDataSaver {
     @Unique
-    private CompoundTag persistentData;
+    private CompoundTag diversity_Multiloader$persistentData;
 
     @Override
-    public CompoundTag getPersistentData() {
-        if (this.persistentData == null) {
-            this.persistentData = new CompoundTag();
+    public CompoundTag diversity_Multiloader$getPersistentData() {
+        if (this.diversity_Multiloader$persistentData == null) {
+            this.diversity_Multiloader$persistentData = new CompoundTag();
         }
 
-        return this.persistentData;
+        return this.diversity_Multiloader$persistentData;
     }
 
     @Inject(method = "saveWithoutId", at = @At("HEAD"))
-    protected void writeNbt(CompoundTag nbt, CallbackInfoReturnable info) {
-        if (persistentData != null) {
-            nbt.put("faewulf.diversity", persistentData);
+    protected void writeNbt(CompoundTag nbt, CallbackInfoReturnable<CompoundTag> cir) {
+        if (diversity_Multiloader$persistentData != null) {
+            nbt.put("faewulf.diversity", diversity_Multiloader$persistentData);
         }
     }
 
     @Inject(method = "load", at = @At("HEAD"))
     protected void readNbt(CompoundTag nbt, CallbackInfo info) {
         if (nbt.contains("faewulf.diversity", 10)) {
-            persistentData = nbt.getCompound("faewulf.diversity");
+            diversity_Multiloader$persistentData = nbt.getCompound("faewulf.diversity");
         }
     }
 }

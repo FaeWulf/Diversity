@@ -21,7 +21,7 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 public abstract class FoxBuryItems extends Mob implements VariantHolder<Fox.Type>, ICustomFoxEntity {
 
     @Unique
-    private int BuryCoolDown = 0;
+    private int diversity_Multiloader$BuryCoolDown = 0;
 
     protected FoxBuryItems(EntityType<? extends Animal> entityType, Level world) {
         super(entityType, world);
@@ -38,28 +38,30 @@ public abstract class FoxBuryItems extends Mob implements VariantHolder<Fox.Type
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void injectTick(CallbackInfo ci) {
-        if (BuryCoolDown > 0) {
-            BuryCoolDown--;
+        if (diversity_Multiloader$BuryCoolDown > 0) {
+            diversity_Multiloader$BuryCoolDown--;
         }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:buryCooldown", this.BuryCoolDown);
+        nbt.putInt("diversity:buryCooldown", this.diversity_Multiloader$BuryCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:buryCooldown", Tag.TAG_ANY_NUMERIC)) {
-            this.BuryCoolDown = nbt.getInt("diversity:buryCooldown");
+            this.diversity_Multiloader$BuryCoolDown = nbt.getInt("diversity:buryCooldown");
         }
     }
 
-    public int getBuryCoolDown() {
-        return BuryCoolDown;
+    @Override
+    public int diversity_Multiloader$getBuryCoolDown() {
+        return diversity_Multiloader$BuryCoolDown;
     }
 
-    public void setBuryCoolDown(int value) {
-        this.BuryCoolDown = value;
+    @Override
+    public void diversity_Multiloader$setBuryCoolDown(int value) {
+        this.diversity_Multiloader$BuryCoolDown = value;
     }
 }

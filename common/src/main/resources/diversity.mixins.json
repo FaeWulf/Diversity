@@ -10,6 +10,7 @@
     "HorseFitInBoatMixin",
     "maceRotateBlock",
     "onGroundEggAutoHatch",
+    "PlayerDataSaver",
     "PreventSetSpawnPoint",
     "sneakingThroughSweetBerry",
     "SnifferSniffStuff",

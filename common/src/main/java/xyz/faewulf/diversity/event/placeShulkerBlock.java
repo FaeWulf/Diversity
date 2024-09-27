@@ -65,7 +65,7 @@ public class placeShulkerBlock {
                 ((TextDisplayEntityMixin) w).invokeSetBackground(1174405120);
                 ((DisplayEntityMixin) w).invokeSetBillboardMode(Display.BillboardConstraints.CENTER);
 
-                ((ICustomDisplayEntity) w).setType(1);
+                ((ICustomDisplayEntity) w).diversity_Multiloader$setType(1);
 
                 w.setPos(blockPos.getX() + 0.5f, blockPos.getY() + 0.95f, blockPos.getZ() + 0.5f);
 

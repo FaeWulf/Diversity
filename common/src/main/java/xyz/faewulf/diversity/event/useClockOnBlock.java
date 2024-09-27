@@ -56,7 +56,7 @@ public class useClockOnBlock {
                 display.setPos(pos.getCenter().x, pos.getCenter().y, pos.getCenter().z);
 
                 if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
-                    if (!pseudoBlockEntity.isBlockEntityAlreadyExist())
+                    if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist())
                         world.addFreshEntity(display);
                 }
 

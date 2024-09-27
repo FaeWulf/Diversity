@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,17 +39,17 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     private long end_time;
 
     @Unique
-    private boolean beginAnnounce = false;
-
-    @Shadow
-    public abstract List<ServerPlayer> players();
-
-    @Shadow
-    public abstract void playSeededSound(@Nullable Player source, double x, double y, double z, Holder<SoundEvent> sound, SoundSource category, float volume, float pitch, long seed);
+    private boolean diversity_Multiloader$beginAnnounce = false;
 
     protected ServerWorldMixin(WritableLevelData properties, ResourceKey<Level> registryRef, RegistryAccess registryManager, Holder<DimensionType> dimensionEntry, Supplier<ProfilerFiller> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
         super(properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess, maxChainedNeighborUpdates);
     }
+
+    @Shadow
+    public abstract @NotNull List<ServerPlayer> players();
+
+    @Shadow
+    public abstract void playSeededSound(@Nullable Player source, double x, double y, double z, @NotNull Holder<SoundEvent> sound, @NotNull SoundSource category, float volume, float pitch, long seed);
 
     @Inject(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;setDayTime(J)V"))
     private void tickTimeInject(CallbackInfo ci) {
@@ -57,24 +58,24 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
             return;
 
         if (this.dimensionType().hasSkyLight() && this.getDayTime() % 24000L == 0) {
-            beginAnnounce = true;
+            diversity_Multiloader$beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
             end_time = begin_time + message.length() * 3 + 20 * 4;
         }
 
-        announceNewDay();
+        diversity_Multiloader$announceNewDay();
     }
 
     @Unique
-    private void announceNewDay() {
-        if (!beginAnnounce)
+    private void diversity_Multiloader$announceNewDay() {
+        if (!diversity_Multiloader$beginAnnounce)
             return;
 
         final long current_time = this.getDayTime();
 
         if (current_time > end_time) {
-            beginAnnounce = false;
+            diversity_Multiloader$beginAnnounce = false;
             return;
         }
 

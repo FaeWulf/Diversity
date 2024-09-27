@@ -19,11 +19,11 @@ import java.util.Objects;
 public class DisplayEntityMixins implements ICustomDisplayEntity {
 
     @Unique
-    int type;
+    int diversity_Multiloader$type;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
-        if (type == 1) {
+        if (diversity_Multiloader$type == 1) {
             if ((Object) this instanceof Display.TextDisplay textDisplayEntity) {
                 BlockPos blockPos = textDisplayEntity.blockPosition();
                 Level world = textDisplayEntity.level();
@@ -49,23 +49,24 @@ public class DisplayEntityMixins implements ICustomDisplayEntity {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:type", this.type);
+        nbt.putInt("diversity:type", this.diversity_Multiloader$type);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:type")) {
-            this.type = nbt.getInt("diversity:type");
+            this.diversity_Multiloader$type = nbt.getInt("diversity:type");
         }
     }
 
-    public int getType() {
-        return this.type;
+    @Override
+    public int diversity_Multiloader$getType() {
+        return this.diversity_Multiloader$type;
     }
 
     @Override
-    public void setType(int type) {
-        this.type = type;
+    public void diversity_Multiloader$setType(int type) {
+        this.diversity_Multiloader$type = type;
     }
 
 }

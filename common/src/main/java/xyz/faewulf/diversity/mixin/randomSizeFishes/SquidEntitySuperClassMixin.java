@@ -14,7 +14,7 @@ public class SquidEntitySuperClassMixin {
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if ((Object) this instanceof ICustomSquidEntity iCustomSquidEntity) {
-            nbt.putFloat("diversity:Size", iCustomSquidEntity.getSize());
+            nbt.putFloat("diversity:Size", iCustomSquidEntity.diversity_Multiloader$getSize());
         }
     }
 
@@ -22,9 +22,9 @@ public class SquidEntitySuperClassMixin {
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if ((Object) this instanceof ICustomSquidEntity iCustomSquidEntity) {
             if (nbt.contains("diversity:Size")) {
-                iCustomSquidEntity.setSize(nbt.getFloat("diversity:Size"));
+                iCustomSquidEntity.diversity_Multiloader$setSize(nbt.getFloat("diversity:Size"));
             }
-            iCustomSquidEntity.reCalculateSize();
+            iCustomSquidEntity.diversity_Multiloader$reCalculateSize();
         }
     }
 
