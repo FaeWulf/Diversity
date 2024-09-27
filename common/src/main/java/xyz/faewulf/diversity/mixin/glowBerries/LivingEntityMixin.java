@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.GlowBerries;
+package xyz.faewulf.diversity.mixin.glowBerries;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,12 +20,12 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements Attackable {
 
-    @Shadow
-    public abstract boolean addEffect(MobEffectInstance effect);
-
     public LivingEntityMixin(EntityType<?> type, Level world) {
         super(type, world);
     }
+
+    @Shadow
+    public abstract boolean addEffect(MobEffectInstance effect);
 
     @Inject(method = "eat(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/food/FoodProperties;)Lnet/minecraft/world/item/ItemStack;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;addEatEffect(Lnet/minecraft/world/food/FoodProperties;)V"))

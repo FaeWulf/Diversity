@@ -8,8 +8,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.Constants;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntities;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntity;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.pseudoBlockEntityUtil;
 

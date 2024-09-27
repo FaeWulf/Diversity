@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.WanderingTraderAnnouncer;
+package xyz.faewulf.diversity.mixin.wanderingTraderAnnouncer;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;

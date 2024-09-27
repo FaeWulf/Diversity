@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.RegistryLoadBlocker;
+package xyz.faewulf.diversity.mixin.registryLoadBlocker;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Decoder;

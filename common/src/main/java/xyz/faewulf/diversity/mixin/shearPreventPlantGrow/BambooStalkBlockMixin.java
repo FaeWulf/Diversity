@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntities;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntity;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.pseudoBlockEntityUtil;
 

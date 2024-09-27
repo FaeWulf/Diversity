@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.RegistryLoadBlocker;
+package xyz.faewulf.diversity.mixin.registryLoadBlocker;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagLoader;

@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.DeepslateGenerator;
+package xyz.faewulf.diversity.mixin.deepslateGenerator;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;

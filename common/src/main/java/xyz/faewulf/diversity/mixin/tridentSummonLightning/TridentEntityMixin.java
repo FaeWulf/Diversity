@@ -1,7 +1,5 @@
-package xyz.faewulf.diversity.mixin.TridentSummonLightning;
+package xyz.faewulf.diversity.mixin.tridentSummonLightning;
 
-import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +18,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.diversity.util.converter;
 
 @Mixin(ThrownTrident.class)
 public abstract class TridentEntityMixin extends AbstractArrow {

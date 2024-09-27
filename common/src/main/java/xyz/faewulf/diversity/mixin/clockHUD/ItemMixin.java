@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.ClockHUD;
+package xyz.faewulf.diversity.mixin.clockHUD;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

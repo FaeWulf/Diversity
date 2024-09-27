@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin.TorchFireAttack;
+package xyz.faewulf.diversity.mixin.torchFireAttack;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
