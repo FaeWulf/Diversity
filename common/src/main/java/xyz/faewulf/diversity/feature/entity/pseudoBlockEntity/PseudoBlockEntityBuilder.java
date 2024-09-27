@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.feature.entity.PseudoBlockEntity;
+package xyz.faewulf.diversity.feature.entity.pseudoBlockEntity;
 
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
@@ -25,12 +25,12 @@ public class PseudoBlockEntityBuilder {
         Display.TextDisplay display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, level);
 
         if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
-            pseudoBlockEntity.setEntityType(this.diversity_type);
-            pseudoBlockEntity.setParentBlockType(this.parent);
-            pseudoBlockEntity.setBlockTickFunction(this.blockTickFunction);
-            pseudoBlockEntity.setDiscardWhenFunction(this.discardWhenFunction);
-            pseudoBlockEntity.setDelayTick(this.tickDelay);
-            pseudoBlockEntity.setParentTag(this.parentTag);
+            pseudoBlockEntity.diversity_Multiloader$setEntityType(this.diversity_type);
+            pseudoBlockEntity.diversity_Multiloader$setParentBlockType(this.parent);
+            pseudoBlockEntity.diversity_Multiloader$setBlockTickFunction(this.blockTickFunction);
+            pseudoBlockEntity.diversity_Multiloader$setDiscardWhenFunction(this.discardWhenFunction);
+            pseudoBlockEntity.diversity_Multiloader$setDelayTick(this.tickDelay);
+            pseudoBlockEntity.diversity_Multiloader$setParentTag(this.parentTag);
         }
 
         return display;

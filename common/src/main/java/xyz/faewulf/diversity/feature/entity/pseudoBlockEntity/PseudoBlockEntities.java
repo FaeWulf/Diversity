@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.feature.entity.PseudoBlockEntity;
+package xyz.faewulf.diversity.feature.entity.pseudoBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

@@ -15,9 +15,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntities;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntity;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntityBuilder;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntityBuilder;
 import xyz.faewulf.diversity.util.compare;
 
 import java.util.ArrayList;
@@ -29,22 +29,22 @@ import java.util.function.Function;
 public abstract class TextDisplayMixin extends Entity implements PseudoBlockEntity {
 
     @Unique
-    private List<String> parent = new ArrayList<>();
+    private List<String> diversity_Multiloader$parent = new ArrayList<>();
 
     @Unique
-    private int tickDelay = 0;
+    private int diversity_Multiloader$tickDelay = 0;
 
     @Unique
     private String diversity_type;
 
     @Unique
-    private Consumer<Display> blockTickFunction;
+    private Consumer<Display> diversity_Multiloader$blockTickFunction;
 
     @Unique
-    private Function<Display, Boolean> discardWhenFunction;
+    private Function<Display, Boolean> diversity_Multiloader$discardWhenFunction;
 
     @Unique
-    private List<String> parentTag;
+    private List<String> diversity_Multiloader$parentTag;
 
 
     public TextDisplayMixin(EntityType<?> pEntityType, Level pLevel) {
@@ -52,7 +52,7 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
     }
 
     @Override
-    public boolean isBlockEntityAlreadyExist() {
+    public boolean diversity_Multiloader$isBlockEntityAlreadyExist() {
 
         BlockPos blockPos = this.blockPosition();
 
@@ -83,16 +83,16 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
 
             if (builder != null) {
 
-                this.parent = new ArrayList<>();
+                this.diversity_Multiloader$parent = new ArrayList<>();
 
                 for (Block block : builder.getParent()) {
-                    this.parent.add(block.toString());
+                    this.diversity_Multiloader$parent.add(block.toString());
                 }
 
-                this.parentTag = List.of(builder.getParentTag());
+                this.diversity_Multiloader$parentTag = List.of(builder.getParentTag());
 
-                this.blockTickFunction = builder.getBlockTickFunction();
-                this.discardWhenFunction = builder.getDiscardWhenFunction();
+                this.diversity_Multiloader$blockTickFunction = builder.getBlockTickFunction();
+                this.diversity_Multiloader$discardWhenFunction = builder.getDiscardWhenFunction();
             }
         }
     }
@@ -104,11 +104,11 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
             return;
 
         //for tick every 1sec
-        if (tickDelay < 20) {
-            tickDelay++;
+        if (diversity_Multiloader$tickDelay < 20) {
+            diversity_Multiloader$tickDelay++;
             return;
         }
-        tickDelay = 0;
+        diversity_Multiloader$tickDelay = 0;
 
         BlockPos pos = this.blockPosition();
         BlockState currentBlock = this.level().getBlockState(pos);
@@ -118,65 +118,65 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
 
         //checking tag
         boolean hasTagInList = false;
-        for (String s : parentTag) {
+        for (String s : diversity_Multiloader$parentTag) {
             if (compare.isHasTag(currentBlock.getBlock(), s))
                 hasTagInList = true;
         }
 
-        if (!(this.parent.contains(currentBlock.getBlock().toString()) || hasTagInList)
-                || isBlockEntityAlreadyExist()
-                || (this.discardWhenFunction != null && this.discardWhenFunction.apply((Display) (Object) this))
+        if (!(this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) || hasTagInList)
+                || diversity_Multiloader$isBlockEntityAlreadyExist()
+                || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this))
         ) {
             this.discard();
             return;
         }
 
         //tick function for the BE
-        if (this.blockTickFunction != null)
-            this.blockTickFunction.accept((Display) (Object) this);
+        if (this.diversity_Multiloader$blockTickFunction != null)
+            this.diversity_Multiloader$blockTickFunction.accept((Display) (Object) this);
     }
 
     @Override
-    public void setBlockTickFunction(Consumer<Display> callback) {
-        this.blockTickFunction = callback;
+    public void diversity_Multiloader$setBlockTickFunction(Consumer<Display> callback) {
+        this.diversity_Multiloader$blockTickFunction = callback;
     }
 
 
     @Override
-    public void setDiscardWhenFunction(Function<Display, Boolean> callback) {
-        this.discardWhenFunction = callback;
+    public void diversity_Multiloader$setDiscardWhenFunction(Function<Display, Boolean> callback) {
+        this.diversity_Multiloader$discardWhenFunction = callback;
     }
 
     @Override
-    public void setParentBlockType(Block... block) {
-        this.parent = new ArrayList<>();
+    public void diversity_Multiloader$setParentBlockType(Block... block) {
+        this.diversity_Multiloader$parent = new ArrayList<>();
         for (Block block1 : block) {
-            this.parent.add(block1.toString());
+            this.diversity_Multiloader$parent.add(block1.toString());
         }
     }
 
     @Override
-    public String getEntityType() {
+    public String diversity_Multiloader$getEntityType() {
         return this.diversity_type;
     }
 
     @Override
-    public void setEntityType(String value) {
+    public void diversity_Multiloader$setEntityType(String value) {
         this.diversity_type = value;
     }
 
     @Override
-    public void setDelayTick(int value) {
-        this.tickDelay = value;
+    public void diversity_Multiloader$setDelayTick(int value) {
+        this.diversity_Multiloader$tickDelay = value;
     }
 
     @Override
-    public List<String> getParentTag() {
-        return parentTag;
+    public List<String> diversity_Multiloader$getParentTag() {
+        return diversity_Multiloader$parentTag;
     }
 
     @Override
-    public void setParentTag(String[] parentTag) {
-        this.parentTag = List.of(parentTag);
+    public void diversity_Multiloader$setParentTag(String[] parentTag) {
+        this.diversity_Multiloader$parentTag = List.of(parentTag);
     }
 }

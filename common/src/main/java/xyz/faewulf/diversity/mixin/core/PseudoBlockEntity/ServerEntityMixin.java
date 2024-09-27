@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.feature.entity.PseudoBlockEntity.PseudoBlockEntity;
+import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
 
 @Mixin(ServerEntity.class)
 public class ServerEntityMixin {
@@ -22,7 +22,7 @@ public class ServerEntityMixin {
     @Inject(method = "addPairing", at = @At("HEAD"), cancellable = true)
     private void addPairingInject(ServerPlayer pPlayer, CallbackInfo ci) {
         if (this.entity instanceof PseudoBlockEntity pseudoBlockEntity) {
-            if (pseudoBlockEntity.getEntityType() != null)
+            if (pseudoBlockEntity.diversity_Multiloader$getEntityType() != null)
                 ci.cancel();
         }
     }

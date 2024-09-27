@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.feature.entity.PseudoBlockEntity;
+package xyz.faewulf.diversity.feature.entity.pseudoBlockEntity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Display;
@@ -15,9 +15,9 @@ public interface PseudoBlockEntity {
         return null;
     }
 
-    String getEntityType();
+    String diversity_Multiloader$getEntityType();
 
-    void setEntityType(String value);
+    void diversity_Multiloader$setEntityType(String value);
 
     /**
      * Checks if a block entity of type {@link EntityType#TEXT_DISPLAY} already exists within a small
@@ -31,9 +31,9 @@ public interface PseudoBlockEntity {
      * @return {@code true} if a block entity of type {@link EntityType#TEXT_DISPLAY} is found
      * within the specified area, {@code false} otherwise
      */
-    boolean isBlockEntityAlreadyExist();
+    boolean diversity_Multiloader$isBlockEntityAlreadyExist();
 
-    void setBlockTickFunction(Consumer<Display> callback);
+    void diversity_Multiloader$setBlockTickFunction(Consumer<Display> callback);
 
     /**
      * Determines the condition under which the current entity should be discarded.
@@ -45,13 +45,13 @@ public interface PseudoBlockEntity {
      * <p>
      * return {@code true} if this entity should be discarded, {@code false} otherwise
      */
-    void setDiscardWhenFunction(Function<Display, Boolean> callback);
+    void diversity_Multiloader$setDiscardWhenFunction(Function<Display, Boolean> callback);
 
-    void setParentBlockType(Block... block);
+    void diversity_Multiloader$setParentBlockType(Block... block);
 
-    void setDelayTick(int value);
+    void diversity_Multiloader$setDelayTick(int value);
 
-    List<String> getParentTag();
+    List<String> diversity_Multiloader$getParentTag();
 
-    void setParentTag(String... tag);
+    void diversity_Multiloader$setParentTag(String... tag);
 }
