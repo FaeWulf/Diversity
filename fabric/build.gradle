@@ -53,3 +53,5 @@ loom {
         }
     }
 }
+
+tasks.withType(Javadoc).configureEach { enabled = false }
