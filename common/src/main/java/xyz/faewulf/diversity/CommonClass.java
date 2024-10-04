@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity;
 
-import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.config.Config;
 
@@ -16,7 +15,7 @@ public class CommonClass {
 
         CauldronInteractionRegister.register();
 
-        //load config
+        //load config, moved to util.mixinPlugin.ConditionalMixinPlugin method: onLoad()
         Config.init();
     }
 }

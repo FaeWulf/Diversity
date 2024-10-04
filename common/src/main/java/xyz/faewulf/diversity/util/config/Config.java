@@ -13,11 +13,18 @@ public class Config {
     public static final String path = "config/diversity.toml";
     public static final Class<?> configClass = ModConfigs.class;
     public static final String translatePath = "diversity.config.";
+    private static boolean alreadyInit = false;
 
     public static void init() {
+
+        //prevent calling twice and so on
+        if (alreadyInit)
+            return;
+
         ConfigLoaderFromAnnotation.initializeDefaults(configClass);
         loadFromFile(path);
         saveConfig(path);
+        alreadyInit = true;
     }
 
     public static void save() {
