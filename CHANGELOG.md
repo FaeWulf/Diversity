@@ -19,6 +19,7 @@
 - Added swing animation for some feature use the right-click event.
 - Rework Bone meal coral, small flower to prevent hard conflict.
 - `Fox buries Item` now buries item from its mouth, if not then use loot table (bury random items).
+- `Bigger bookshelf radius for enchanting table` feature now toggleable.
 
 ### Removed
 

@@ -5,6 +5,7 @@ public class ModConfigs {
     @Entry(category = "general", name = "Enable permission system")
     public static boolean permission_enable = false;
 
+    @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true)
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
     @Entry(category = "general", name = "1 tick delay copper bulb")
