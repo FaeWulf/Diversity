@@ -66,7 +66,7 @@
   "diversity.config.glow_berry_glowing.tooltip": "- Eat glow berry will give you glow effect.",
   "diversity.config.torch_burn_target.tooltip": "- If any entity attack while holding a torch, soul torch; target will be set on fire.",
   "diversity.config.trident_call_thunder.tooltip": "- If standing at max y-level and throw a channeling trident (with >50% durability) up to the sky\nThunder storm will be summoned.\n- In return, trident will lose channeling and all of durability (will not break).",
-  "diversity.config._9_lives_cat.tooltip": "Cat has 9 lives.",
+  "diversity.config._9_lives_cat.tooltip": "- Cat has 9 lives.",
   "diversity.config.hydrophobic_elytra.tooltip": "- Elytra can't be use in rain, or in water.",
   "diversity.config.endstone_is_cheese.tooltip": "- Edible end stone.",
   "diversity.config.reverse_phantom.tooltip": "- Phantom will spawn if player continuously sleep skipping the night.",
