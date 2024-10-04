@@ -49,7 +49,7 @@ public class ModConfigs {
     @Entry(category = "general", name = "Sneak through sweet berry")
     public static boolean softer_sweetBery = true;
 
-    @Entry(category = "general", name = "No level limit anvil")
+    @Entry(category = "general", name = "No level limit anvil", require_restart = true)
     public static boolean no_level_limit_anvil = true;
 
     @Entry(category = "general", name = "Prevent farmland trampling")

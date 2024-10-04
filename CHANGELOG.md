@@ -25,4 +25,5 @@
 ### Fixed
 
 - Fixed issue with `Easy Shulkerboxes` compatibility.
-- Duplicate Text Display on named shulker.
+- Duplicate Text Display on named Shulker.
+- `No anvil xp limit` crash.
