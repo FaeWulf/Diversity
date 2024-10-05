@@ -228,6 +228,16 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
+  <summary>Slime chunk detector</summary>
+  <p> Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will emit particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.</p>
+</details>
+
+<details>
+  <summary>Clock shows time</summary>
+  <p>Use the clock to show the current world's time.</p>
+</details>
+
+<details>
   <summary>Clock check Villager schedule</summary>
   <p>Check villager work schedule by holding Clock in hand and right-click any type of workstation block.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/clockCheckSchedule-min.gif?raw=true" alt="clockSchedule">
@@ -346,11 +356,6 @@ Then you can place block that inside the bundle.</p>
 ### Commands
 
 <details>
-  <summary>/slimechunkcheck</summary>
-  <p>Command to check if standing chunk is slime chunk or not.</p>
-</details>
-
-<details>
   <summary>/emote</summary>
   <p>Perform sound like meow, purr, purroew, and woof in chat. Inspired by plugin [PlayerMeowing](https://modrinth.com/plugin/playermeowing)</p>
 </details>
@@ -381,10 +386,12 @@ correctly.
 
 Currently there are only 2 permission right now:
 
-| Feature          | Permission                |
-|:-----------------|:--------------------------|
-| /emote           | diversity.emote           |
-| /slimechunkcheck | diversity.slimechunkcheck |
+| Feature           | Permission                 |
+|:------------------|:---------------------------|
+| /emote            | diversity.emote            |
+| /slimechunkcheck* | diversity.slimechunkcheck* |
+
+- (*) Removed in v2.1.0
 
 ---
 

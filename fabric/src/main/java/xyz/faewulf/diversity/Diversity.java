@@ -3,7 +3,6 @@ package xyz.faewulf.diversity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity.command.emote;
-import xyz.faewulf.diversity.command.slimechunk;
 import xyz.faewulf.diversity.event_handler.*;
 
 public class Diversity implements ModInitializer {
@@ -24,7 +23,7 @@ public class Diversity implements ModInitializer {
         Constants.LOG.info("Register commands...");
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             emote.register(dispatcher);
-            slimechunk.register(dispatcher);
+            //slimechunk.register(dispatcher);
         });
     }
 

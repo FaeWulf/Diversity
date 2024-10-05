@@ -6,6 +6,9 @@
 - Shear can be used on `Saplings`, `Bamboo`, `Vine` and `Sugar cane` to prevent it from growing.
 - Use the clock will show current time.
 - Reverse phantom spawn condition.
+- Slime chunk detector: Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will
+  emit
+  particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.
 
 ### Changed
 
@@ -23,8 +26,11 @@
 
 ### Removed
 
+- Check slime chunk command (replace with `slime chunk detector` feature).
+
 ### Fixed
 
 - Fixed issue with `Easy Shulkerboxes` compatibility.
 - Duplicate Text Display on named Shulker.
 - `No anvil xp limit` crash.
+- Missing command in forge/neoforge.
