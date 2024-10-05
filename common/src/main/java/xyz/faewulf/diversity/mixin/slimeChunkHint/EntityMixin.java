@@ -22,8 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-import java.util.Iterator;
-
 @Mixin(Entity.class)
 public abstract class EntityMixin {
 
@@ -51,9 +49,7 @@ public abstract class EntityMixin {
             boolean holdingSlimeBlock = false;
 
             //for each hand
-            for (Iterator<ItemStack> it = serverPlayer.getHandSlots().iterator(); it.hasNext(); ) {
-                ItemStack itemStack = it.next();
-
+            for (ItemStack itemStack : serverPlayer.getHandSlots()) {
                 //if has tag
                 if (compare.isHasTag(itemStack.getItem(), "diversity:slime_detector"))
                     holdingSlimeBlock = true;
