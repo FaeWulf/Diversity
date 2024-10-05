@@ -59,7 +59,7 @@
   "diversity.config.random_size_fishes.tooltip": "- Fish and squid now come in random sizes.",
   "diversity.config.smaller_bee.tooltip": "- Bees are now half their default size.",
   "diversity.config.emote.tooltip": "- Perform sound like meow, purr, purroew, and woof if chat or via /emote command.",
-  "diversity.config.slime_chunk_check.tooltip": "- Command /slimechunkcheck to check if standing chunk is slime chunk or not.",
+  "diversity.config.slime_chunk_check.tooltip": "- Holding 'Slime Ball`, 'Slime Block', or items with the 'diversity:slime_detector' tag will emit particles and sound when in a slime chunk.\n- With a 10% chance while walking/running and 70% chance when sneaking.",
   "diversity.config.wet_sponge_dry_in_warm_biome .tooltip": "- Wet sponge placed in warm biome will eventually dried out.",
   "diversity.config.deepslate_generator.tooltip": "- Deepslate will replace stone and cobble stone if lava x water below y-level 8.",
   "diversity.config.day_counter.tooltip": "- Day counter for each day passed.",

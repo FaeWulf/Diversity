@@ -84,6 +84,7 @@
     "shulkerBoxLabel.DisplayEntityMixins",
     "shulkerBoxLabel.ShulkerBoxBlockMixin",
     "shulkerBoxLabel.TextDisplayEntityMixin",
+    "slimeChunkHint.EntityMixin",
     "smallerBee.BeeEntityMixin",
     "spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin",
     "spyglassWhatIsThat.BeaconBlockEntityMixin",

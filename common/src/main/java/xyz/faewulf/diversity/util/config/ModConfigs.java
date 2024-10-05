@@ -101,6 +101,9 @@ public class ModConfigs {
     @Entry(category = "item", name = "Waxed copper indicator")
     public static boolean waxed_copper_indicator = true;
 
+    @Entry(category = "item", name = "Slime chunk detector")
+    public static boolean slime_chunk_check = true;
+
     @Entry(category = "entity", name = "9 lives cat")
     public static boolean _9_lives_cat = false;
 
@@ -160,9 +163,6 @@ public class ModConfigs {
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
-
-    @Entry(category = "command", name = "Check slime chunk command")
-    public static boolean slime_chunk_check = true;
 
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
