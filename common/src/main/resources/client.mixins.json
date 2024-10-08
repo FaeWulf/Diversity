@@ -10,5 +10,6 @@
   },
   "client": [
     "AnvilMixin"
-  ]
+  ],
+  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
 }

@@ -19,10 +19,7 @@
     "bannerTrophy.GiveGiftsToHeroTaskMixin",
     "bannerTrophy.WardenSuperClassMixin",
     "bannerTrophy.WitherEntityMixin",
-    "bonemealCoral.CoralBlockMixin",
-    "bonemealCoral.CoralFanBlockMixin",
     "bonemealCoral.CoralFeatureInvoker",
-    "bonemealSmallFlower.PlantBlockMixin",
     "buildingBundle.BlockItemInvoker",
     "buildingBundle.BlockItemMixin",
     "buildingBundle.BundleItemMixin",
@@ -30,6 +27,8 @@
     "clickThrough.ItemFrameMixin",
     "clickThrough.WallSign",
     "ClockHUD.ItemMixin",
+    "core.PseudoBlockEntity.ServerEntityMixin",
+    "core.PseudoBlockEntity.TextDisplayMixin",
     "CustomEnchantHandle.ModifyForBackupEnchantMixin",
     "dayCounter.ServerWorldMixin",
     "DeepslateGenerator.FluidBlockMixin",
@@ -57,10 +56,18 @@
     "patYourPet.HorseEntityMixin",
     "patYourPet.ParrotEntityMixin",
     "rabbitAutoBreedWithCarotPlant.EatCarrotCropGoalMixin",
+    "reversePhantom.PhantomSpawnerMixin",
+    "reversePhantom.PlayerMixin",
+    "shearPreventPlantGrow.BambooSaplingBlockMixin",
+    "shearPreventPlantGrow.BambooStalkBlockMixin",
+    "shearPreventPlantGrow.SaplingBlockMixin",
+    "shearPreventPlantGrow.SugarCaneMixin",
+    "shearPreventPlantGrow.VineBlockMixin",
     "shulkerBoxLabel.DisplayEntityMixin",
     "shulkerBoxLabel.DisplayEntityMixins",
     "shulkerBoxLabel.ShulkerBoxBlockMixin",
     "shulkerBoxLabel.TextDisplayEntityMixin",
+    "slimeChunkHint.EntityMixin",
     "spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin",
     "spyglassWhatIsThat.BeaconBlockEntityMixin",
     "spyglassWhatIsThat.BrewingStandBlockEntityMixin",
@@ -69,14 +76,13 @@
     "TridentSummonLightning.TridentEntityMixin",
     "usableSuspiciousBlock.BrushableBlockEntityMixin",
     "WanderingTraderAnnouncer.WanderingTraderManagerMixin",
-    "waxedBlockIndicator.serverPlayerMixin",
-    "wetSponeBlockDryInWarmBiome.TextDisplayMixin"
+    "waxedBlockIndicator.serverPlayerMixin"
   ],
   "client": [],
   "server": [],
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "com.moulberry.mixinconstraints.ConstraintsMixinPlugin"
+  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
 }
 
