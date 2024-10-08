@@ -76,7 +76,7 @@ public class Config {
         }
         //enum
         else if (value.getClass().isEnum()) {
-            return "\"" + value.toString() + "\"";
+            return "\"" + value + "\"";
         }
         return "";
     }

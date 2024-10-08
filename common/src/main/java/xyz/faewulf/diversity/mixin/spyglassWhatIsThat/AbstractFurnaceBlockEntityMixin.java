@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface AbstractFurnaceBlockEntityMixin {
 
     @Accessor
-    public Object2IntOpenHashMap<ResourceLocation> getRecipesUsed();
+    Object2IntOpenHashMap<ResourceLocation> getRecipesUsed();
 }

@@ -32,7 +32,6 @@ public class sneakingThroughSweetBerry {
             //if have pants
             if (serverPlayerEntity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ArmorItem) {
                 ci.cancel();
-                return;
             }
         }
     }

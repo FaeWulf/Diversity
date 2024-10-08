@@ -110,7 +110,7 @@ public class hitResult2Infomations {
 
             AtomicInteger totalExp = new AtomicInteger();
             for (Object2IntMap.Entry<ResourceLocation> entry : ((AbstractFurnaceBlockEntityMixin) abstractFurnaceBlockEntity).getRecipesUsed().object2IntEntrySet()) {
-                world.getRecipeManager().byKey((ResourceLocation) entry.getKey()).ifPresent(recipe -> {
+                world.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
                     int multiplier = entry.getIntValue();
                     float experience = ((AbstractCookingRecipe) recipe.value()).getExperience();
 

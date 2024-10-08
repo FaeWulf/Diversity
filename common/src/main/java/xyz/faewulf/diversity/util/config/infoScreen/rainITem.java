@@ -7,18 +7,16 @@ import net.minecraft.resources.ResourceLocation;
 import xyz.faewulf.diversity.Constants;
 
 public class rainITem {
-    private final int texture;  // Texture for the falling entity
-    private float x, y;  // Position
-    private float velocityX;  // Falling speed
-    private float velocityY;  // Falling speed
-    private float rotationAngle;  // Rotation angle
-    private float rotationSpeed;  // Speed of rotation
-    private int screenWidth, screenHeight;
-
-    private static final ResourceLocation RAIN_ITEM = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/rain_item.png");
     public static final int itemSize = 9;
-
+    private static final ResourceLocation RAIN_ITEM = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/rain_item.png");
+    private final int texture;  // Texture for the falling entity
+    private final float velocityX;  // Falling speed
+    private final float velocityY;  // Falling speed
+    private final float rotationSpeed;  // Speed of rotation
     private final int ITEM_SIZE = 16;
+    private float x, y;  // Position
+    private float rotationAngle;  // Rotation angle
+    private int screenWidth, screenHeight;
 
     public rainITem(int item, float x, float y, float velocityX, float velocityY, float rotationSpeed, int screenWidth, int screenHeight) {
         this.texture = item;

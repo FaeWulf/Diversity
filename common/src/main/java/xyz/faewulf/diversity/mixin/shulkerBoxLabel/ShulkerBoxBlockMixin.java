@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(ShulkerBoxBlock.class)
 public interface ShulkerBoxBlockMixin {
     @Invoker("canOpen")
-    public static boolean invokeCanOpen(BlockState state, Level world, BlockPos pos, ShulkerBoxBlockEntity entity) {
+    static boolean invokeCanOpen(BlockState state, Level world, BlockPos pos, ShulkerBoxBlockEntity entity) {
         throw new AssertionError();
     }
 }

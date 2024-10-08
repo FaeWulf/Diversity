@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(Display.TextDisplay.class)
 public interface TextDisplayEntityMixin {
     @Invoker("setTextOpacity")
-    abstract void invokeSetTextOpacity(byte textOpacity);
+    void invokeSetTextOpacity(byte textOpacity);
 
     @Invoker("setBackgroundColor")
-    abstract void invokeSetBackground(int background);
+    void invokeSetBackground(int background);
 }

@@ -9,5 +9,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(BlockItem.class)
 public interface BlockItemInvoker {
     @Invoker("getPlaceSound")
-    abstract SoundEvent invokeGetPlaceSound(BlockState state);
+    SoundEvent invokeGetPlaceSound(BlockState state);
 }

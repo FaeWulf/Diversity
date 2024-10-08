@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(Display.class)
 public interface DisplayEntityMixin {
     @Invoker("setBillboardConstraints")
-    abstract void invokeSetBillboardMode(Display.BillboardConstraints billboardMode);
+    void invokeSetBillboardMode(Display.BillboardConstraints billboardMode);
 
     @Invoker("setBrightnessOverride")
-    abstract void invokeSetBrightness(Brightness brightness);
+    void invokeSetBrightness(Brightness brightness);
 }

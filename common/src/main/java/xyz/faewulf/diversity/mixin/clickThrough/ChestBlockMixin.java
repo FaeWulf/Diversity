@@ -11,5 +11,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(net.minecraft.world.level.block.ChestBlock.class)
 public interface ChestBlockMixin {
     @Invoker("getMenuProvider")
-    abstract @Nullable MenuProvider invokerCreateScreenHandlerFactory(BlockState state, Level world, BlockPos pos);
+    @Nullable MenuProvider invokerCreateScreenHandlerFactory(BlockState state, Level world, BlockPos pos);
 }

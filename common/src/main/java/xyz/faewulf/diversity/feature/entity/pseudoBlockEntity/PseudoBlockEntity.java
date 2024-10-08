@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface PseudoBlockEntity {
-    public static PseudoBlockEntity getBlockEntity(Level level, BlockPos blockPos) {
+    static PseudoBlockEntity getBlockEntity(Level level, BlockPos blockPos) {
         return null;
     }
 

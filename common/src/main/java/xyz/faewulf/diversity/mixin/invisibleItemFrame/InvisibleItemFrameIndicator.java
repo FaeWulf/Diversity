@@ -35,7 +35,7 @@ public class InvisibleItemFrameIndicator {
                 return;
 
             RandomSource random = RandomSource.create();
-            Direction direction = ((ItemFrame) _this).getNearestViewDirection();
+            Direction direction = _this.getNearestViewDirection();
             BlockPos pos = _this.blockPosition();
 
             //each direction follow this formula: <position base value> - <direction value / 2> + 0.5 (center value) + <shift value>
@@ -45,10 +45,10 @@ public class InvisibleItemFrameIndicator {
             //<center value>: because <base value> isn't value from the center of the block.
             //<shift value> to make the particle stay in front of the itemFrame, if not add this value then particle plays inside and player couldnnt see it
 
-            double d = (double) (pos.getX() - ((double) direction.getStepX() / 2)) + 0.5 + 0.1 * direction.getStepX();
-            double e = (double) (pos.getY() - ((double) direction.getStepY() / 2)) + 0.5 + 0.1 * direction.getStepY();
-            double f = (double) (pos.getZ() - ((double) direction.getStepZ() / 2)) + 0.5 + 0.1 * direction.getStepZ();
-            double g = (double) (0.25F - (random.nextFloat()) * 0.5F);
+            double d = (pos.getX() - ((double) direction.getStepX() / 2)) + 0.5 + 0.1 * direction.getStepX();
+            double e = (pos.getY() - ((double) direction.getStepY() / 2)) + 0.5 + 0.1 * direction.getStepY();
+            double f = (pos.getZ() - ((double) direction.getStepZ() / 2)) + 0.5 + 0.1 * direction.getStepZ();
+            double g = 0.25F - (random.nextFloat()) * 0.5F;
 
             if (direction.getStepX() == 0) {
                 d += random.nextInt(2) == 0 ? g : -g;

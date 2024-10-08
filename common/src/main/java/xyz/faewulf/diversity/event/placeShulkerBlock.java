@@ -71,7 +71,6 @@ public class placeShulkerBlock {
 
                 world.addFreshEntity(w);
             } catch (ClassCastException classCastException) {
-                return;
             }
 
         }

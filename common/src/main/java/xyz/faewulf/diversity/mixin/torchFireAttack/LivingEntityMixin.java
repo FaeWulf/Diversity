@@ -42,7 +42,6 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
                 livingEntity.getHandSlots().forEach(itemStack -> {
                     if (compare.isHasTag(itemStack.getItem(), "diversity:flame_weapon")) {
                         this.igniteForTicks(100);
-                        return;
                     }
                 });
             }

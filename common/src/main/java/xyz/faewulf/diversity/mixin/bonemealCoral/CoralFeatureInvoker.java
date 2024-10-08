@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(CoralFeature.class)
-public abstract interface CoralFeatureInvoker {
+public interface CoralFeatureInvoker {
     @Invoker("placeFeature")
-    public abstract boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state);
+    boolean generateCoral(LevelAccessor world, RandomSource random, BlockPos pos, BlockState state);
 }

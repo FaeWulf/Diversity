@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(BundleContents.class)
 public interface BundleContentComponentInvoker {
     @Invoker("getWeight")
-    public static Fraction getOccupancy(ItemStack stack) {
+    static Fraction getOccupancy(ItemStack stack) {
         throw new AssertionError();
     }
 }
