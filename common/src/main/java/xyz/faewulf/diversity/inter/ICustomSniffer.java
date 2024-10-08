@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter;
 
 public interface ICustomSniffer {
-    public typeSnort getSnortType();
+    public typeSnort multiLoader_1_20_1$getSnortType();
 
-    public void setSnortType(typeSnort snortType);
+    public void multiLoader_1_20_1$setSnortType(typeSnort snortType);
 }

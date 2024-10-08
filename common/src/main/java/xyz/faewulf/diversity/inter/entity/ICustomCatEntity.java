@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter.entity;
 
 public interface ICustomCatEntity {
-    public int getLives();
+    public int multiLoader_1_20_1$getLives();
 
-    public void setLives(int value);
+    public void multiLoader_1_20_1$setLives(int value);
 }

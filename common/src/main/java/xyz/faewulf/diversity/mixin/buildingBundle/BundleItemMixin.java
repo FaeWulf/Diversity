@@ -185,15 +185,15 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             return;
 
         if (!world.isClientSide && user instanceof ServerPlayer) {
-            if (getMode(user.getItemInHand(hand)) != 0) {
-                syncBundleContents((ServerPlayer) user);
+            if (multiLoader_1_20_1$getMode(user.getItemInHand(hand)) != 0) {
+                multiLoader_1_20_1$syncBundleContents((ServerPlayer) user);
                 cir.setReturnValue(InteractionResultHolder.fail(user.getItemInHand(hand)));
             }
         }
     }
 
     @Override
-    public @NotNull InteractionResult useOn(UseOnContext context) {
+    public @NotNull InteractionResult useOn(@NotNull UseOnContext context) {
 
         if (!ModConfigs.bundle_place_mode)
             return InteractionResult.PASS;
@@ -206,7 +206,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         ItemStack bundle = context.getItemInHand();
 
-        if (getMode(bundle) == 0)
+        if (multiLoader_1_20_1$getMode(bundle) == 0)
             return InteractionResult.PASS;
 
         if (world instanceof ServerLevel serverWorld && player instanceof ServerPlayer serverPlayerEntity) {
@@ -234,7 +234,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     return InteractionResult.PASS;
 
                 //get indexOfItemInInventory based on mode value, if 2 then choose random, if 1 then choose first indexOfItemInInventory
-                int chosenIndex = getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.get(0);
+                int chosenIndex = multiLoader_1_20_1$getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.get(0);
 
                 //if blockItem
                 if (itemStackListFromBundle.get(chosenIndex).getItem() instanceof BlockItem blockItem) {
@@ -243,7 +243,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     //check result Consume or SUCCESS then block is placed then -1 that block from bundle
                     if (actionResult == InteractionResult.CONSUME || actionResult == InteractionResult.SUCCESS) {
 
-                        removeItem(player, bundle, itemStackListFromBundle, chosenIndex);
+                        multiLoader_1_20_1$removeItem(player, bundle, itemStackListFromBundle, chosenIndex);
 
                         BlockState blockState = blockItem.getBlock().defaultBlockState();
                         SoundEvent soundEvent = ((BlockItemInvoker) blockItem).invokeGetPlaceSound(blockState);
@@ -265,7 +265,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private void removeItem(Player player, ItemStack bundleItem, List<ItemStack> bundleContentsComponent, int index) {
+    private void multiLoader_1_20_1$removeItem(Player player, ItemStack bundleItem, List<ItemStack> bundleContentsComponent, int index) {
         if (bundleContentsComponent.isEmpty() || bundleContentsComponent.size() < index + 1)
             return;
 
@@ -282,14 +282,14 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             bundleContentsComponent.get(index).shrink(1);
             //bundleItem.set(DataComponents.BUNDLE_CONTENTS, bundleContentsComponent);
             //save data to bundle
-            saveItemListToBundle(bundleContentsComponent, bundleItem);
+            multiLoader_1_20_1$saveItemListToBundle(bundleContentsComponent, bundleItem);
             return;
         }
 
         boolean isRefilled = false;
 
-        if (isRefillable(player.level(), bundleItem))
-            isRefilled = refill(player, bundleItem, bundleContentsComponent, index);
+        if (multiLoader_1_20_1$isRefillable(player.level(), bundleItem))
+            isRefilled = multiLoader_1_20_1$refill(player, bundleItem, bundleContentsComponent, index);
 
         if (!isRefilled) {
             bundleContentsComponent.remove(index);
@@ -298,11 +298,11 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         }
 
         //save data to bundle
-        saveItemListToBundle(bundleContentsComponent, bundleItem);
+        multiLoader_1_20_1$saveItemListToBundle(bundleContentsComponent, bundleItem);
     }
 
     @Unique
-    private void saveItemListToBundle(List<ItemStack> itemStackList, ItemStack bundle) {
+    private void multiLoader_1_20_1$saveItemListToBundle(List<ItemStack> itemStackList, ItemStack bundle) {
 
         CompoundTag bundleTag = bundle.getOrCreateTag();
 
@@ -326,13 +326,13 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private void syncBundleContents(ServerPlayer player) {
+    private void multiLoader_1_20_1$syncBundleContents(ServerPlayer player) {
         // Sync the entire inventory to the client
         player.connection.send(new ClientboundContainerSetContentPacket(player.inventoryMenu.containerId, 0, player.inventoryMenu.getItems(), player.inventoryMenu.getCarried()));
     }
 
     @Unique
-    private boolean refill(Player player, ItemStack bundle, List<ItemStack> itemStacks, int index) {
+    private boolean multiLoader_1_20_1$refill(Player player, ItemStack bundle, List<ItemStack> itemStacks, int index) {
 
         Inventory playerInventory = player.getInventory();
         int indexOfItemInInventory = playerInventory.findSlotMatchingItem(itemStacks.get(index));
@@ -374,7 +374,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private boolean isRefillable(Level world, ItemStack itemStack) {
+    private boolean multiLoader_1_20_1$isRefillable(Level world, ItemStack itemStack) {
         if (world.isClientSide)
             return false;
 
@@ -384,7 +384,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Override
-    public int getMode(ItemStack itemStack) {
+    public int multiLoader_1_20_1$getMode(ItemStack itemStack) {
 
         //CustomData customData = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
         CompoundTag nbt = itemStack.getOrCreateTag();
@@ -396,7 +396,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Override
-    public void setMode(ItemStack itemStack, int mode) {
+    public void multiLoader_1_20_1$setMode(ItemStack itemStack, int mode) {
 
         String modeText = switch (mode) {
             case 1 -> "place first slot";

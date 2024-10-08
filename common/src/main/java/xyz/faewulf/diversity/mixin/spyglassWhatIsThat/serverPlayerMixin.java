@@ -31,7 +31,7 @@ public abstract class serverPlayerMixin extends Player {
     }
 
     @Unique
-    private int spyGlassHUDcooldown = 0;
+    private int multiLoader_1_20_1$spyGlassHUDcooldown = 0;
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {
@@ -43,11 +43,11 @@ public abstract class serverPlayerMixin extends Player {
         Item offHandItem = this.getOffhandItem().getItem();
 
         if (handItem == Items.SPYGLASS || offHandItem == Items.SPYGLASS) {
-            if (spyGlassHUDcooldown != 20) {
-                spyGlassHUDcooldown++;
+            if (multiLoader_1_20_1$spyGlassHUDcooldown != 20) {
+                multiLoader_1_20_1$spyGlassHUDcooldown++;
                 return;
             }
-            spyGlassHUDcooldown = 0;
+            multiLoader_1_20_1$spyGlassHUDcooldown = 0;
 
             int distance = this.isScoping() ? 32 : 5;
 

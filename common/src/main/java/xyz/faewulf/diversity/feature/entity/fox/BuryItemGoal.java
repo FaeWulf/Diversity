@@ -36,7 +36,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
 
     @Override
     public boolean canUse() {
-        return !this.fox.isSleeping() && super.canUse() && !this.fox.isBaby() && ((ICustomFoxEntity) this.fox).getBuryCoolDown() <= 0;
+        return !this.fox.isSleeping() && super.canUse() && !this.fox.isBaby() && ((ICustomFoxEntity) this.fox).multiLoader_1_20_1$getBuryCoolDown() <= 0;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
                                 blockEntity.setLootTable(CustomLootTables.FOX_BURY, this.fox.getRandom().nextLong());
                                 multiplier.set(3);
                             } else {
-                                ((ICustomBrushableBlockEntity) blockEntity).setItem(itemStack);
+                                ((ICustomBrushableBlockEntity) blockEntity).multiLoader_1_20_1$setItem(itemStack);
                                 this.fox.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                             }
                         }
@@ -93,7 +93,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
                     this.fox.playSound(SoundEvents.GRAVEL_BREAK, 1.0F, 1.0F);
 
                 //set cooldown
-                ((ICustomFoxEntity) this.fox).setBuryCoolDown(24000 * multiplier.get());
+                ((ICustomFoxEntity) this.fox).multiLoader_1_20_1$setBuryCoolDown(24000 * multiplier.get());
             } else {
                 //particle
                 if (this.timer % 10 == 0)

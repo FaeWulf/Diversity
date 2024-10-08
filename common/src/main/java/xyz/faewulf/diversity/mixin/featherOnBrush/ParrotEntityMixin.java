@@ -37,7 +37,7 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
     }
 
     @Unique
-    private int featherCoolDown = 0;
+    private int multiLoader_1_20_1$featherCoolDown = 0;
 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void InjectInteractMod(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
@@ -45,7 +45,7 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         if (!ModConfigs.brushable_parrot_chicken)
             return;
 
-        if (player.level().isClientSide || featherCoolDown > 0)
+        if (player.level().isClientSide || multiLoader_1_20_1$featherCoolDown > 0)
             return;
 
         if (this.isBaby() || !player.isShiftKeyDown() || player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH)
@@ -62,38 +62,38 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         drops.setCount(random.nextIntBetweenInclusive(1, 2));
         this.spawnAtLocation(drops);
 
-        featherCoolDown = 24000;
+        multiLoader_1_20_1$featherCoolDown = 24000;
         cir.setReturnValue(InteractionResult.SUCCESS);
         cir.cancel();
     }
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void tickMovementMixin(CallbackInfo ci) {
-        if (featherCoolDown > 0) {
-            featherCoolDown--;
+        if (multiLoader_1_20_1$featherCoolDown > 0) {
+            multiLoader_1_20_1$featherCoolDown--;
         }
     }
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:featherCoolDown", this.featherCoolDown);
+        nbt.putInt("diversity:featherCoolDown", this.multiLoader_1_20_1$featherCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:featherCoolDown", Tag.TAG_ANY_NUMERIC)) {
-            this.featherCoolDown = nbt.getInt("diversity:featherCoolDown");
+            this.multiLoader_1_20_1$featherCoolDown = nbt.getInt("diversity:featherCoolDown");
         }
     }
 
     @Override
-    public void setFeatherCoolDown(int value) {
-        this.featherCoolDown = value;
+    public void multiLoader_1_20_1$setFeatherCoolDown(int value) {
+        this.multiLoader_1_20_1$featherCoolDown = value;
     }
 
     @Override
-    public int getFeatherCoolDown() {
-        return this.featherCoolDown;
+    public int multiLoader_1_20_1$getFeatherCoolDown() {
+        return this.multiLoader_1_20_1$featherCoolDown;
     }
 }

@@ -37,8 +37,8 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
             return;
 
         if (this instanceof ICustomCatEntity iCustomCatEntity) {
-            if (iCustomCatEntity.getLives() > 0) {
-                iCustomCatEntity.setLives(iCustomCatEntity.getLives() - 1);
+            if (iCustomCatEntity.multiLoader_1_20_1$getLives() > 0) {
+                iCustomCatEntity.multiLoader_1_20_1$setLives(iCustomCatEntity.multiLoader_1_20_1$getLives() - 1);
                 ItemStack totem = new ItemStack(Items.TOTEM_OF_UNDYING);
                 totem.setCount(1);
                 this.setItemInHand(InteractionHand.MAIN_HAND, totem);

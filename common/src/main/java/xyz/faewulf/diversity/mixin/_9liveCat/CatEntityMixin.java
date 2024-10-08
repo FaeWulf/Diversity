@@ -22,30 +22,30 @@ public abstract class CatEntityMixin extends TamableAnimal implements VariantHol
     }
 
     @Unique
-    private int lives = 8;
+    private int multiLoader_1_20_1$lives = 8;
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:lives", this.lives);
+        nbt.putInt("diversity:lives", this.multiLoader_1_20_1$lives);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:lives")) {
-            this.lives = nbt.getInt("diversity:lives");
+            this.multiLoader_1_20_1$lives = nbt.getInt("diversity:lives");
         } else
-            this.lives = 9;
+            this.multiLoader_1_20_1$lives = 9;
     }
 
     @Override
-    public int getLives() {
-        return lives;
+    public int multiLoader_1_20_1$getLives() {
+        return multiLoader_1_20_1$lives;
     }
 
-    public void setLives(int lives) {
+    public void multiLoader_1_20_1$setLives(int lives) {
         if (lives < 0)
             lives = 0;
 
-        this.lives = lives;
+        this.multiLoader_1_20_1$lives = lives;
     }
 }

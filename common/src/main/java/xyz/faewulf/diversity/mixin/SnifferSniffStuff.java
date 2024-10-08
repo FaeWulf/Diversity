@@ -27,13 +27,13 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
     public abstract Sniffer transitionTo(Sniffer.State pState);
 
     @Unique
-    private typeSnort snortType;
+    private typeSnort multiLoader_1_20_1$snortType;
 
     @Unique
-    private int snortState = 0;
+    private int multiLoader_1_20_1$snortState = 0;
 
     @Unique
-    private int snortTimer = 0;
+    private int multiLoader_1_20_1$snortTimer = 0;
 
     protected SnifferSniffStuff(EntityType<? extends Animal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -41,27 +41,27 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void tick(CallbackInfo ci) {
-        if (this.snortType == null)
+        if (this.multiLoader_1_20_1$snortType == null)
             return;
 
         if (this.level().isClientSide)
             return;
 
-        if (snortTimer >= 30) {
-            snortTimer = 0;
-            snortState++;
+        if (multiLoader_1_20_1$snortTimer >= 30) {
+            multiLoader_1_20_1$snortTimer = 0;
+            multiLoader_1_20_1$snortState++;
 
-            if (snortState % 2 == 0)
+            if (multiLoader_1_20_1$snortState % 2 == 0)
                 this.transitionTo(Sniffer.State.SNIFFING);
             else
                 this.transitionTo(Sniffer.State.SCENTING);
 
             this.playSound(SoundEvents.SNIFFER_IDLE, 1.0f, 1.0f);
 
-            if (snortState > 5) {
-                snortState = 0;
-                if (this.level() instanceof ServerLevel serverWorld && snortType != null) {
-                    switch (snortType) {
+            if (multiLoader_1_20_1$snortState > 5) {
+                multiLoader_1_20_1$snortState = 0;
+                if (this.level() instanceof ServerLevel serverWorld && multiLoader_1_20_1$snortType != null) {
+                    switch (multiLoader_1_20_1$snortType) {
                         case GUN_POWDER, REDSTONE -> {
                             serverWorld.explode(null, this.getX(), this.getY(), this.getZ(), 2.0f, Level.ExplosionInteraction.NONE);
                         }
@@ -87,19 +87,19 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
                     }
                 }
 
-                snortType = null;
+                multiLoader_1_20_1$snortType = null;
             }
         }
 
-        snortTimer++;
+        multiLoader_1_20_1$snortTimer++;
     }
 
     @Override
-    public typeSnort getSnortType() {
-        return snortType;
+    public typeSnort multiLoader_1_20_1$getSnortType() {
+        return multiLoader_1_20_1$snortType;
     }
 
-    public void setSnortType(typeSnort snortType) {
-        this.snortType = snortType;
+    public void multiLoader_1_20_1$setSnortType(typeSnort snortType) {
+        this.multiLoader_1_20_1$snortType = snortType;
     }
 }

@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.inter;
 
 public interface ICustomDisplayEntity {
-    int getType();
+    int multiLoader_1_20_1$getType();
 
-    void setType(int type);
+    void multiLoader_1_20_1$setType(int type);
 }

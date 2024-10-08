@@ -14,35 +14,35 @@ import xyz.faewulf.diversity.inter.entity.ICustomChickenEntity;
 public class ChickenEntityMixin implements ICustomChickenEntity {
 
     @Unique
-    private int featherCoolDown = 0;
+    private int multiLoader_1_20_1$featherCoolDown = 0;
 
     @Inject(method = "aiStep", at = @At("HEAD"))
     private void tickMovementMixin(CallbackInfo ci) {
-        if (featherCoolDown > 0) {
-            featherCoolDown--;
+        if (multiLoader_1_20_1$featherCoolDown > 0) {
+            multiLoader_1_20_1$featherCoolDown--;
         }
     }
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:featherCoolDown", this.featherCoolDown);
+        nbt.putInt("diversity:featherCoolDown", this.multiLoader_1_20_1$featherCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:featherCoolDown", Tag.TAG_ANY_NUMERIC)) {
-            this.featherCoolDown = nbt.getInt("diversity:featherCoolDown");
+            this.multiLoader_1_20_1$featherCoolDown = nbt.getInt("diversity:featherCoolDown");
         }
     }
 
     @Override
-    public void setFeatherCoolDown(int value) {
-        this.featherCoolDown = value;
+    public void multiLoader_1_20_1$setFeatherCoolDown(int value) {
+        this.multiLoader_1_20_1$featherCoolDown = value;
     }
 
     @Override
-    public int getFeatherCoolDown() {
-        return this.featherCoolDown;
+    public int multiLoader_1_20_1$getFeatherCoolDown() {
+        return this.multiLoader_1_20_1$featherCoolDown;
     }
 }

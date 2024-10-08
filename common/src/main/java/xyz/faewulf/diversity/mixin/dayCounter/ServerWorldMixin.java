@@ -38,7 +38,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     private long end_time;
 
     @Unique
-    private boolean beginAnnounce = false;
+    private boolean multiLoader_1_20_1$beginAnnounce = false;
 
     @Shadow
     public abstract List<ServerPlayer> players();
@@ -57,24 +57,24 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
             return;
 
         if (this.dimensionType().hasSkyLight() && this.getDayTime() % 24000L == 0) {
-            beginAnnounce = true;
+            multiLoader_1_20_1$beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
             end_time = begin_time + message.length() * 2 + 20 * 4;
         }
 
-        announceNewDay();
+        multiLoader_1_20_1$announceNewDay();
     }
 
     @Unique
-    private void announceNewDay() {
-        if (!beginAnnounce)
+    private void multiLoader_1_20_1$announceNewDay() {
+        if (!multiLoader_1_20_1$beginAnnounce)
             return;
 
         final long current_time = this.getDayTime();
 
         if (current_time > end_time) {
-            beginAnnounce = false;
+            multiLoader_1_20_1$beginAnnounce = false;
             return;
         }
 

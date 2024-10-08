@@ -46,23 +46,23 @@ public class explodeSniffer {
 
 
                 //if already snort
-                if (((ICustomSniffer) entity).getSnortType() != null)
+                if (((ICustomSniffer) entity).multiLoader_1_20_1$getSnortType() != null)
                     return InteractionResult.PASS;
 
                 Item item = player.getItemInHand(hand).getItem();
 
                 if (item == Items.SUGAR)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.SUGAR);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.SUGAR);
                 else if (item == Items.GLOWSTONE_DUST)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.GLOW_DUST);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.GLOW_DUST);
                 else if (item == Items.REDSTONE)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.REDSTONE);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.REDSTONE);
                 else if (item == Items.BLAZE_POWDER)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.BLAZE_POWDER);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.BLAZE_POWDER);
                 else if (item == Items.BONE_MEAL)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.BONE_MEAL);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.BONE_MEAL);
                 else if (item == Items.GUNPOWDER)
-                    ((ICustomSniffer) entity).setSnortType(typeSnort.GUN_POWDER);
+                    ((ICustomSniffer) entity).multiLoader_1_20_1$setSnortType(typeSnort.GUN_POWDER);
 
 
                 player.swing(hand, true);

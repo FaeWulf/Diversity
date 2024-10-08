@@ -28,7 +28,7 @@ public class ChickenEntitySuperClassMixin {
             return;
 
         if ((Object) this instanceof Chicken chickenEntity) {
-            if (player.level().isClientSide || ((ICustomChickenEntity) chickenEntity).getFeatherCoolDown() > 0)
+            if (player.level().isClientSide || ((ICustomChickenEntity) chickenEntity).multiLoader_1_20_1$getFeatherCoolDown() > 0)
                 return;
 
             if (chickenEntity.isBaby() || !player.isShiftKeyDown() || player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH)
@@ -45,7 +45,7 @@ public class ChickenEntitySuperClassMixin {
             drops.setCount(chickenEntity.getRandom().nextIntBetweenInclusive(1, 2));
             chickenEntity.spawnAtLocation(drops);
 
-            ((ICustomChickenEntity) chickenEntity).setFeatherCoolDown(12000);
+            ((ICustomChickenEntity) chickenEntity).multiLoader_1_20_1$setFeatherCoolDown(12000);
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
         }
