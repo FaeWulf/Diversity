@@ -6,7 +6,6 @@ import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(LivingEntity.class)
@@ -37,7 +37,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         if (entityAttacker != null) {
             if (entityAttacker instanceof LivingEntity livingEntity) {
                 livingEntity.getHandSlots().forEach(itemStack -> {
-                    if (itemStack.getItem() == Items.TORCH || itemStack.getItem() == Items.SOUL_TORCH) {
+                    if (compare.isHasTag(itemStack.getItem(), "diversity:flame_weapon")) {
                         this.setSecondsOnFire(5);
                         return;
                     }
