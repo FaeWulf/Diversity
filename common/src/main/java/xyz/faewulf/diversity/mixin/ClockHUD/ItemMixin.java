@@ -29,7 +29,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
     @Inject(method = "use", at = @At("TAIL"))
     private void useInject(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
 
-        if (!ModConfigs.check_villager_schedule)
+        if (!ModConfigs.clock_shows_time)
             return;
 
         if (world.isClientSide)
