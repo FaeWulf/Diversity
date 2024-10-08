@@ -11,25 +11,25 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(ItemEntity.class)
 public abstract class onGroundEggAutoHatch extends Entity implements TraceableEntity {
-    @Shadow
-    public abstract ItemStack getItem();
-
     public onGroundEggAutoHatch(EntityType<?> type, Level world) {
         super(type, world);
     }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;discard()V", ordinal = 1, shift = At.Shift.BEFORE))
+    @Shadow
+    public abstract ItemStack getItem();
+
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/item/ItemEntity;discard()V", ordinal = 1))
     private void tickInject(CallbackInfo ci) {
 
         if (!ModConfigs.chicken_egg_despawn_tryhatch)
@@ -43,7 +43,7 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
             BlockState blockState = this.level().getBlockState(this.blockPosition().below());
 
             //hatch on haybale only
-            if (blockState.getBlock() != Blocks.HAY_BLOCK)
+            if (!compare.isHasTag(blockState.getBlock(), "diversity:egg_hatchable"))
                 return;
 
             int count = this.getItem().getCount();
