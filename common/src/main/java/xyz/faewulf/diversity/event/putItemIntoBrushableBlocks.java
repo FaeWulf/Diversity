@@ -64,6 +64,7 @@ public class putItemIntoBrushableBlocks {
                 ((ICustomBrushableBlockEntity) brushableBlockEntity).setItem(treasure);
 
                 //mainHand.consume(1, player);
+                player.swing(hand, true);
                 ItemStackMethod.consume(mainHand, 1, player);
 
                 world.playSound(null, player.blockPosition(), SoundEvents.SAND_PLACE, SoundSource.PLAYERS, 1.0f, 1.0f);

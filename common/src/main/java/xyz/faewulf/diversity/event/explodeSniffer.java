@@ -65,6 +65,7 @@ public class explodeSniffer {
                     ((ICustomSniffer) entity).setSnortType(typeSnort.GUN_POWDER);
 
 
+                player.swing(hand, true);
                 //player.getItemInHand(hand).consume(1, player);
                 ItemStackMethod.consume(player.getItemInHand(hand), 1, player);
 

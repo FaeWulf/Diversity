@@ -82,6 +82,7 @@ public class useClockOnBlock {
                         .append(next);
 
                 player.displayClientMessage(feedBack, true);
+                player.swing(hand, true);
                 return InteractionResult.CONSUME;
             }
         }
