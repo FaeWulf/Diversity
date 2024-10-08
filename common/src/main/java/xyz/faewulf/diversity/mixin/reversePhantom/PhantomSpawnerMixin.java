@@ -16,10 +16,7 @@ public abstract class PhantomSpawnerMixin implements CustomSpawner {
     private int tickModify(int original, @Local ServerPlayer serverPlayer) {
 
         if (ModConfigs.reverse_phantom) {
-            System.out.println("ticking");
-            System.out.println(serverPlayer.getName());
             if (serverPlayer instanceof PlayerSleepStat playerSleepStat) {
-                System.out.println(playerSleepStat.diversity_Multiloader$getSleepStreak());
                 return Math.clamp(playerSleepStat.diversity_Multiloader$getSleepStreak() * 24000L, 1, Integer.MAX_VALUE);
             }
         }

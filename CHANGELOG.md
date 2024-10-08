@@ -26,7 +26,7 @@
 
 ### Removed
 
-- Check slime chunk command (replace with `slime chunk detector` feature).
+- Check slime chunk command (replaced with `slime chunk detector` feature).
 
 ### Fixed
 

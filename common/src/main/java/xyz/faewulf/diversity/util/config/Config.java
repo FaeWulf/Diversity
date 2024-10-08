@@ -6,11 +6,15 @@ import xyz.faewulf.diversity.Constants;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 
 public class Config {
 
     public static final String path = "config/diversity.toml";
+    public static final String old_path = "config/diversity.json";
+
     public static final Class<?> configClass = ModConfigs.class;
     public static final String translatePath = "diversity.config.";
     private static boolean alreadyInit = false;
@@ -78,6 +82,11 @@ public class Config {
     }
 
     private static void loadFromFile(String filePath) {
+
+        if (Files.exists(Path.of(old_path))) {
+            Constants.LOG.warn("Detected the old configuration file 'Diversity.json'. Starting from version 2.0.1, the mod has transitioned to using 'Diversity.toml' for configuration. Sorry for the inconvenient!");
+        }
+
         try (FileConfig reader = FileConfig.of(filePath)) {
             // Parse the TOML file
             reader.load();
