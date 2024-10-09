@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true"/>
+    <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true" alt="banner"/>
 </p>
 
 ---
@@ -10,27 +10,20 @@ Diversity is a Minecraft Fabric mod that introduces a wide range of features to 
 quality of life improvements to new mob behaviors and random sh*t, this mod offers a little bit of everything. The
 mod is designed to work on server-side only installations as well.
 
-**Current feature: 51 (+9 in latest version)**
-
-Features don't exist in 1.20.1:
-
-- 1 tick Delay Bulb Block
-- Random size fishes
-- Smaller bee
-- Mace rotates blocks
-- (custom enchantments doesn't data driven/ turn off to make it work server-side only)
+**Current feature: 57 (+6 in the latest version)**
 
 ### What's new?
 
-- Day counter
-- Wandering trader announcer
-- Trident can call thunderstorm
-- Attack while holding torch will light target on fire
-- Eat Glow Berries gives glow effect
-- Wet sponge will eventually dry in hot biomes
-- Cobblestone generator from lava+water Y-level below 8 will generate deepslate instead
-- Cat has 9 lives (Disable by default)
-- Can't use elytra in rain, water (Disable by default)
+- Goat drops wool and mutton.
+- Shear can be used on `Saplings`, `Bamboo`, `Vine` and `Sugar cane` to prevent it from growing.
+- Using the clock will show current time.
+- End stone is cheese (Disabled by default, only in 1.21)
+- Reverse phantom spawn condition.
+  (Phantom will spawn if the player continuously sleeps skipping the night, default:
+  false)
+- Slime chunk detector: Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will
+  emit
+  particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.
 
 ## Features
 
@@ -230,9 +223,25 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
+  <summary>Shear prevents plants grow</summary>
+  <p>Shear can be used on `Saplings`, `Bamboo`, `Vine` and `Sugar cane` to prevent it from growing.</p>
+  <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/shearPreventPlantGrow.gif?raw=true" alt="ShearPreventPlantGrow">
+</details>
+
+<details>
   <summary>Spyglass "What is that?"</summary>
   <p>See additional block/entity information (noteblock, trailspawner cooldown, redstone power, xp stored inside furnace,...) with a Spyglass, default radius is 5 blocks, zoom with Spyglass will extend to 32 blocks</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/item/spyglassWhatIsThat-min.gif?raw=true" alt="spyglassHUD">
+</details>
+
+<details>
+  <summary>Slime chunk detector</summary>
+  <p> Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will emit particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.</p>
+</details>
+
+<details>
+  <summary>Clock shows time</summary>
+  <p>Use the clock to show the current world's time.</p>
 </details>
 
 <details>
@@ -285,6 +294,11 @@ Then you can place block that inside the bundle.</p>
 - Faewulf
 </p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/entity/ExplodeSniffer.gif?raw=true" alt="Explosive Sniffer">
+</details>
+
+<details>
+  <summary>Goat drops wool and mutton</summary>
+  <p>Goat drops wool and mutton when killed.</p>
 </details>
 
 <details>
@@ -354,11 +368,6 @@ Then you can place block that inside the bundle.</p>
 ### Commands
 
 <details>
-  <summary>/slimechunkcheck</summary>
-  <p>Command to check if standing chunk is slime chunk or not.</p>
-</details>
-
-<details>
   <summary>/emote</summary>
   <p>Perform sound like meow, purr, purroew, and woof in chat. Inspired by plugin [PlayerMeowing](https://modrinth.com/plugin/playermeowing)</p>
 </details>
@@ -369,6 +378,16 @@ Then you can place block that inside the bundle.</p>
   <summary>Hydrophobic elytra (disable by default)</summary>
   <p>Elytra can't be use in rain, or in water.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/cursed/hydrophobic_elytra-min.gif?raw=true" alt="Hydrophobic_elytra">
+</details>
+
+<details>
+  <summary>End stone is cheese (disable by default) (only 1.21)</summary>
+  <p>you can eat end stone :)</p>
+</details>
+
+<details>
+  <summary>Reverse phantom spawn condition. (disable by default)</summary>
+  <p>Phantom will spawn if the player continuously sleeps skipping the night.</p>
 </details>
 
 ## Usage
@@ -389,10 +408,12 @@ correctly.
 
 Currently there are only 2 permission right now:
 
-| Feature          | Permission                |
-|:-----------------|:--------------------------|
-| /emote           | diversity.emote           |
-| /slimechunkcheck | diversity.slimechunkcheck |
+| Feature           | Permission                 |
+|:------------------|:---------------------------|
+| /emote            | diversity.emote            |
+| /slimechunkcheck* | diversity.slimechunkcheck* |
+
+- (*) Removed in v2.1.0
 
 ---
 
