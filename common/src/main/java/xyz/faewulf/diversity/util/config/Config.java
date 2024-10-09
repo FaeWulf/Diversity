@@ -3,6 +3,7 @@ package xyz.faewulf.diversity.util.config;
 import com.electronwill.nightconfig.core.file.FileConfig;
 import xyz.faewulf.diversity.Constants;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -88,6 +89,12 @@ public class Config {
         }
 
         try (FileConfig reader = FileConfig.of(filePath)) {
+
+            //create directory if doesn't exist
+            File dir = new File("config");
+            if (!dir.exists())
+                dir.mkdir();
+
             // Parse the TOML file
             reader.load();
 
