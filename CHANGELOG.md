@@ -8,6 +8,7 @@
 - Reverse phantom spawn condition.
   (Phantom will spawn if the player continuously sleeps skipping the night, default:
   false)
+- End stone is cheese. (default: disable)
 - Slime chunk detector: Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will
   emit
   particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.
