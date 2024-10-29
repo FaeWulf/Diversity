@@ -53,7 +53,6 @@ public abstract class PlayerMixin extends Player implements PlayerSleepStat {
     private void tickInject(CallbackInfo ci) {
         if (this.serverLevel().getDayTime() % 24000L == 20 && this.diversity_Multiloader$hasSleep == 0) {
             this.diversity_Multiloader$sleepStrike = 0;
-            System.out.println("reset: " + this.diversity_Multiloader$getSleepStreak());
         }
 
         if (this.serverLevel().getDayTime() % 24000L > 20) {
