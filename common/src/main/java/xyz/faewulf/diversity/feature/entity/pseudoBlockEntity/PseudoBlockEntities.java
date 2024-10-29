@@ -23,8 +23,13 @@ public class PseudoBlockEntities {
                     .setParent(Blocks.SUGAR_CANE, Blocks.BAMBOO_SAPLING, Blocks.BAMBOO)
                     .setParentTag("minecraft:saplings", "diversity:trimmable")
                     .setDiscardWhenFunction(t -> {
-                        BlockState blockState = t.level().getBlockState(t.blockPosition().above());
-                        return blockState.getBlock() != Blocks.AIR;
+                        BlockState blockStateAbove = t.level().getBlockState(t.blockPosition().above());
+                        BlockState blockStateThis = t.level().getBlockState(t.blockPosition());
+
+                        if (blockStateThis.getBlock() == Blocks.VINE)
+                            return false;
+
+                        return blockStateAbove.getBlock() != Blocks.AIR;
                     })
     );
 
