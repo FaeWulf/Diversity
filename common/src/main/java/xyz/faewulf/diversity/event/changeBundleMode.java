@@ -30,7 +30,7 @@ public class changeBundleMode {
                 if (!stack.isEmpty()) {
                     if (stack.getItem() instanceof BundleItem bundleItem && serverPlayer.isShiftKeyDown()) {
 
-                        if (serverPlayer.getCooldowns().isOnCooldown(stack.getItem())) {
+                        if (serverPlayer.getCooldowns().isOnCooldown(stack)) {
                             return InteractionResult.PASS;
                         }
 
@@ -50,7 +50,7 @@ public class changeBundleMode {
 
                         serverPlayer.displayClientMessage(Component.literal("Changed mode to: " + modeText), true);
                         world.playSound(null, serverPlayer.blockPosition(), SoundEvents.BUNDLE_INSERT, SoundSource.PLAYERS, 0.5f, 1.5f);
-                        serverPlayer.getCooldowns().addCooldown(stack.getItem(), 20);
+                        serverPlayer.getCooldowns().addCooldown(stack, 20);
 
                         return InteractionResult.CONSUME;
                     }

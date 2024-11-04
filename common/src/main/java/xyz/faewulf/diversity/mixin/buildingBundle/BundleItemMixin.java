@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.mixin.buildingBundle;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
@@ -15,12 +15,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.inventory.tooltip.BundleTooltip;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
@@ -33,8 +34,11 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.math.Fraction;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -47,14 +51,29 @@ import xyz.faewulf.diversity.util.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(value = BundleItem.class, priority = 1)
 public abstract class BundleItemMixin extends Item implements ICustomBundleItem {
+    @Shadow
+    @Final
+    private ResourceLocation openBackModel;
+
+    @Shadow
+    @Final
+    private static int FULL_BAR_COLOR;
+
+    @Shadow
+    @Final
+    private static int BAR_COLOR;
+
     public BundleItemMixin(Properties settings) {
         super(settings);
     }
 
+    //Todo: Enchant in enchant table
+    /*
     @Override
     public int getEnchantmentValue() {
         return 1;
@@ -64,21 +83,60 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     public boolean isEnchantable(@NotNull ItemStack stack) {
         return true;
     }
+     */
 
-    //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
-    @ModifyExpressionValue(method = "appendHoverText", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 1))
-    private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
-        ItemEnchantments t = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+    //override the weight value when pass the bundlecontens to the client side for rendering the fullness bar
+    @ModifyReturnValue(method = "getTooltipImage", at = @At(value = "RETURN"))
+    private Optional<TooltipComponent> getTooltipImageReturnModify(Optional<TooltipComponent> original, @Local(argsOnly = true) ItemStack stack) {
+        if (!stack.has(DataComponents.HIDE_TOOLTIP) && !stack.has(DataComponents.HIDE_ADDITIONAL_TOOLTIP)) {
+            int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            int maxValue = diversity_Multiloader$getMaxSize(stack);
 
-        AtomicInteger level = new AtomicInteger();
-        t.keySet().forEach(enchantmentRegistryEntry -> {
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(stack);
-            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
-                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
-            }
-        });
+            BundleContents bundleContents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
 
-        return Math.max(value, 64 + 64 * level.get());
+            //override to List
+            List<ItemStack> itemStacks = new ArrayList<>();
+            bundleContents.items().forEach(itemStacks::add);
+
+            //create new bundle content
+            BundleContents bundleContents1 = new BundleContents(itemStacks, Fraction.getFraction(usedSpace * 1f / maxValue), bundleContents.getSelectedItem());
+
+            //pass to client renderer
+            return Optional.ofNullable(bundleContents1).map(BundleTooltip::new);
+        } else
+            return original;
+    }
+
+    @Inject(method = "getFullnessDisplay", at = @At(value = "RETURN"), cancellable = true)
+    private static void getFullnessDisplayInject(ItemStack stack, CallbackInfoReturnable<Float> cir) {
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
+
+        cir.setReturnValue(usedSpace * 1f / maxValue);
+        cir.cancel();
+    }
+
+    @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
+    private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
+
+        cir.setReturnValue((int) Math.clamp(Math.floor(13f * usedSpace / maxValue), 1, 13));
+        cir.cancel();
+    }
+
+    @Inject(method = "getBarColor", at = @At(value = "RETURN"), cancellable = true)
+    private void getBarColorInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
+
+        if (usedSpace >= maxValue) {
+            cir.setReturnValue(FULL_BAR_COLOR);
+            cir.cancel();
+        } else {
+            cir.setReturnValue(BAR_COLOR);
+            cir.cancel();
+        }
     }
 
     @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
@@ -96,9 +154,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
-
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
-    private void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
+    private void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
 
         if (!ModConfigs.bundle_place_mode)
             return;
@@ -106,7 +163,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         if (!world.isClientSide && user instanceof ServerPlayer) {
             if (diversity_Multiloader$getMode(user.getItemInHand(hand)) != 0) {
                 diversity_Multiloader$syncBundleContents((ServerPlayer) user);
-                cir.setReturnValue(InteractionResultHolder.fail(user.getItemInHand(hand)));
+                cir.setReturnValue(InteractionResult.FAIL);
             }
         }
     }
@@ -203,7 +260,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         if (!isRefilled) {
             itemStacks.remove(index);
             //System.out.println(itemStacks);
-            player.displayClientMessage(Component.literal("Ran out of " + itemStack.getItem().getDescription().getString()), true);
+            player.displayClientMessage(Component.literal("Ran out of " + itemStack.getItem().getName().getString()), true);
         }
 
         bundleContentsComponent = new BundleContents(itemStacks);
@@ -267,12 +324,28 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
+    private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
         ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
         int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
 
         return 64 + value * 64;
     }
+
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(ItemStack itemStack) {
+        ItemEnchantments t = itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+
+        AtomicInteger level = new AtomicInteger(0);
+        t.keySet().forEach(enchantmentRegistryEntry -> {
+            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
+            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
+                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
+            }
+        });
+
+        return level.get() * 64 + 64;
+    }
+
 
     @Override
     public int diversity_Multiloader$getMode(ItemStack itemStack) {
