@@ -5,6 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -44,7 +45,7 @@ public abstract class TridentEntityMixin extends AbstractArrow {
         if (this.getOwner() instanceof ServerPlayer serverPlayerEntity && this.level() instanceof ServerLevel serverWorld) {
 
             //check game rule
-            if (!serverWorld.getLevelData().getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE))
+            if (!serverWorld.getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE))
                 return;
 
             ItemStack itemStack = this.getPickupItemStackOrigin();
@@ -76,7 +77,7 @@ public abstract class TridentEntityMixin extends AbstractArrow {
                         this.setPickupItemStack(itemStack);
 
                         //summon lightning
-                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverWorld);
+                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverWorld, EntitySpawnReason.TRIGGERED);
                         if (lightningBolt != null) {
                             lightningBolt.setPosRaw(this.getX(), this.getY(), this.getZ());
                             serverWorld.addFreshEntity(lightningBolt);
