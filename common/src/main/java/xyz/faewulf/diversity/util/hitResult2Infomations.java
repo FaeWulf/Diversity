@@ -1,11 +1,13 @@
 package xyz.faewulf.diversity.util;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
@@ -109,10 +112,10 @@ public class hitResult2Infomations {
         if (blockEntity instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity) {
 
             AtomicInteger totalExp = new AtomicInteger();
-            for (Object2IntMap.Entry<ResourceLocation> entry : ((AbstractFurnaceBlockEntityMixin) abstractFurnaceBlockEntity).getRecipesUsed().object2IntEntrySet()) {
-                world.getRecipeManager().byKey(entry.getKey()).ifPresent(recipe -> {
+            for (Reference2IntMap.Entry<ResourceKey<Recipe<?>>> entry : ((AbstractFurnaceBlockEntityMixin) abstractFurnaceBlockEntity).getRecipesUsed().reference2IntEntrySet()) {
+                ((ServerLevel) world).recipeAccess().byKey(entry.getKey()).ifPresent(recipe -> {
                     int multiplier = entry.getIntValue();
-                    float experience = ((AbstractCookingRecipe) recipe.value()).getExperience();
+                    float experience = ((AbstractCookingRecipe) recipe.value()).experience();
 
                     int i = Mth.floor((float) multiplier * experience);
                     float f = Mth.frac((float) multiplier * experience);
