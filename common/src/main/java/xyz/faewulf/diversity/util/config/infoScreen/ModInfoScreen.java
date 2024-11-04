@@ -12,6 +12,7 @@ import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
@@ -184,6 +185,7 @@ public class ModInfoScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         guiGraphics.blit(
+                RenderType::guiTextured,
                 LIGHT_RAYS,
                 0, 0,
                 0, 0,
@@ -212,6 +214,7 @@ public class ModInfoScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         guiGraphics.blit(
+                RenderType::guiTextured,
                 MAIN_IMAGE,
                 -imageSize / 2,  // Center the image on the X axis
                 -imageSize / 2,  // Center the image on the Y axis
@@ -273,6 +276,7 @@ public class ModInfoScreen extends Screen {
 
                 // Draw the tile from the atlas
                 guiGraphics.blit(
+                        RenderType::guiTextured,
                         ATLAS_TEXTURE,
                         x * TILE_SIZE,  // X position on the screen
                         y * TILE_SIZE,  // Y position on the screen

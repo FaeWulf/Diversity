@@ -3,6 +3,7 @@ package xyz.faewulf.diversity.util.config.infoScreen;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import xyz.faewulf.diversity.Constants;
 
@@ -76,6 +77,7 @@ public class rainITem {
         // Draw the texture
 
         guiGraphics.blit(
+                RenderType::guiTextured,
                 RAIN_ITEM,
                 0,  // X position on the screen
                 0,  // Y position on the screen
