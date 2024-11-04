@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.npc.WanderingTraderSpawner;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.CustomSpawner;
@@ -24,6 +25,6 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
         if (world.isClientSide)
             return;
 
-        player.sendSystemMessage(Component.literal("A wandering trader has arrived!").withStyle(ChatFormatting.BLUE));
+        player.displayClientMessage(Component.literal("A wandering trader has arrived!").withStyle(ChatFormatting.BLUE), false);
     }
 }
