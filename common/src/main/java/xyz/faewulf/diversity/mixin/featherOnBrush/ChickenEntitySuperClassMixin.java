@@ -1,5 +1,6 @@
 package xyz.faewulf.diversity.mixin.featherOnBrush;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -39,7 +40,7 @@ public class ChickenEntitySuperClassMixin {
 
             ItemStack drops = new ItemStack(Items.FEATHER);
             drops.setCount(chickenEntity.getRandom().nextIntBetweenInclusive(1, 2));
-            chickenEntity.spawnAtLocation(drops);
+            chickenEntity.spawnAtLocation((ServerLevel) player.level(), drops);
 
             ((ICustomChickenEntity) chickenEntity).diversity_Multiloader$setFeatherCoolDown(12000);
             cir.setReturnValue(InteractionResult.SUCCESS);

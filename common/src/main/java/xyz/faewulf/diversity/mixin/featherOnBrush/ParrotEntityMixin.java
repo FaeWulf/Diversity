@@ -2,6 +2,7 @@ package xyz.faewulf.diversity.mixin.featherOnBrush;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -54,7 +55,7 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
 
         ItemStack drops = new ItemStack(Items.FEATHER);
         drops.setCount(random.nextIntBetweenInclusive(1, 2));
-        this.spawnAtLocation(drops);
+        this.spawnAtLocation((ServerLevel) player.level(), drops);
 
         diversity_Multiloader$featherCoolDown = 24000;
         cir.setReturnValue(InteractionResult.SUCCESS);
