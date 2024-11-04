@@ -3,7 +3,6 @@ package xyz.faewulf.diversity.mixin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Fox;
@@ -18,7 +17,7 @@ import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Fox.class)
-public abstract class FoxBuryItems extends Mob implements VariantHolder<Fox.Type>, ICustomFoxEntity {
+public abstract class FoxBuryItems extends Animal implements VariantHolder<Fox.Variant>, ICustomFoxEntity {
 
     @Unique
     private int diversity_Multiloader$BuryCoolDown = 0;
