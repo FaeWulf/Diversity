@@ -11,15 +11,14 @@ import net.minecraft.world.level.Level;
 public class converter {
     public static Holder<Enchantment> getEnchant(Level world, ResourceKey<Enchantment> enchant) {
         HolderGetter<Enchantment> registryEntryLookup = world.registryAccess()
-                .asGetterLookup()
                 .lookupOrThrow(Registries.ENCHANTMENT);
 
         return registryEntryLookup.getOrThrow(enchant);
     }
 
     public static Holder<Enchantment> getEnchant(Level world, String namespace, String path) {
-        return world.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                .getHolder(ResourceLocation.fromNamespaceAndPath(namespace, path))
+        return world.registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                .get(ResourceLocation.fromNamespaceAndPath(namespace, path))
                 .orElse(null);
 
     }
