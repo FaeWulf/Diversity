@@ -2,10 +2,7 @@ package xyz.faewulf.diversity.mixin;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityDimensions;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TraceableEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -59,7 +56,7 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
                     final EntityDimensions EMPTY_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
 
                     for (int j = 0; j < chickenSpawnCount; ++j) {
-                        Chicken chickenEntity = EntityType.CHICKEN.create(this.level());
+                        Chicken chickenEntity = EntityType.CHICKEN.create(this.level(), EntitySpawnReason.NATURAL);
                         if (chickenEntity != null) {
                             chickenEntity.setAge(-24000);
                             chickenEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
