@@ -2,7 +2,7 @@ package xyz.faewulf.diversity.registry;
 
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.stats.Stats;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
@@ -26,11 +26,9 @@ public class CauldronInteractionRegister {
                 player.awardStat(Stats.USE_CAULDRON);
 
                 LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos);
-
-                return ItemInteractionResult.SUCCESS;
             }
 
-            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         });
     }
 }
