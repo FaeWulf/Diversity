@@ -98,7 +98,7 @@ public class useBonemealOnCoral {
                 MapColor color = block.getMapColor(world, pos);
                 BlockState coralBlockMatchedColor = block;
                 //get all coral blocks
-                Optional<HolderSet.Named<Block>> coralBlocksRegistry = world.registryAccess().registryOrThrow(Registries.BLOCK).getTag(BlockTags.CORAL_BLOCKS);
+                Optional<HolderSet.Named<Block>> coralBlocksRegistry = world.registryAccess().lookupOrThrow(Registries.BLOCK).get(BlockTags.CORAL_BLOCKS);
                 HolderSet.Named<Block> coralBlocks;
 
                 //extra check
