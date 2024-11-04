@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity;
 
-
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
