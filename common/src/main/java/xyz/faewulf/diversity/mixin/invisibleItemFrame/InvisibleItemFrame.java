@@ -1,10 +1,14 @@
 package xyz.faewulf.diversity.mixin.invisibleItemFrame;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,9 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
 
 @Mixin(ItemFrame.class)
-public class InvisibleItemFrame implements ICustomItemFrame {
+public abstract class InvisibleItemFrame extends HangingEntity implements ICustomItemFrame {
     @Unique
     private boolean diversity_Multiloader$isInvisible;
+
+    protected InvisibleItemFrame(EntityType<? extends HangingEntity> entityType, Level level) {
+        super(entityType, level);
+    }
 
     //add invisible if holding item
     @Inject(method = "setItem(Lnet/minecraft/world/item/ItemStack;Z)V", at = @At("TAIL"))
@@ -32,11 +40,11 @@ public class InvisibleItemFrame implements ICustomItemFrame {
     }
 
     //onBreak
-    @Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/world/entity/Entity;)V")
-    private void onBreak(Entity entity, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/Entity;)V")
+    private void onBreak(ServerLevel serverLevel, Entity entity, CallbackInfo ci) {
         if (diversity_Multiloader$isInvisible) {
             ItemStack extraItem = new ItemStack(Items.GLASS_PANE);
-            ((ItemFrame) (Object) this).spawnAtLocation(extraItem);
+            this.spawnAtLocation(serverLevel, extraItem);
         }
     }
 

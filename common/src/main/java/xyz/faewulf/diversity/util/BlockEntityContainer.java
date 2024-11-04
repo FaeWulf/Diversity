@@ -1,5 +1,6 @@
 package xyz.faewulf.diversity.util;
 
+import net.minecraft.server.level.ServerLevel;
 import xyz.faewulf.diversity.mixin.clickThrough.ChestBlockMixin;
 import xyz.faewulf.diversity.mixin.shulkerBoxLabel.ShulkerBoxBlockMixin;
 import net.minecraft.core.BlockPos;
@@ -32,7 +33,7 @@ public class BlockEntityContainer {
             return false;
 
         //if contains container
-        if (blockEntity instanceof MenuProvider namedScreenHandlerFactory) {
+        if (blockEntity instanceof MenuProvider namedScreenHandlerFactory && player.level() instanceof ServerLevel serverLevel) {
 
             //case for chest
             if (blockEntity instanceof ChestBlockEntity chestBlockEntity) {
@@ -44,7 +45,7 @@ public class BlockEntityContainer {
                     //replica of default chest open event
                     player.openMenu(chestScreenHandler);
                     player.awardStat(Stats.CUSTOM.get(Stats.OPEN_CHEST));
-                    PiglinAi.angerNearbyPiglins(player, true);
+                    PiglinAi.angerNearbyPiglins(serverLevel, player, true);
 
                     return true;
                 }
@@ -57,12 +58,11 @@ public class BlockEntityContainer {
                 if (ShulkerBoxBlockMixin.invokeCanOpen(blockState, player.level(), pos, shulkerBoxBlockEntity)) {
                     player.openMenu(shulkerBoxBlockEntity);
                     player.awardStat(Stats.OPEN_SHULKER_BOX);
-                    PiglinAi.angerNearbyPiglins(player, true);
+                    PiglinAi.angerNearbyPiglins(serverLevel, player, true);
                 }
 
                 return true;
             }
-
 
             //other case
             player.openMenu(namedScreenHandlerFactory);
