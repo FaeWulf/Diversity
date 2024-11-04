@@ -1,4 +1,4 @@
-# Changelog v2.1.1
+# Changelog v2.1.2
 
 ### Added
 
@@ -7,5 +7,3 @@
 ### Removed
 
 ### Fixed
-
-- Game does not launch on neoforge version
