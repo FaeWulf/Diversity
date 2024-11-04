@@ -1,6 +1,7 @@
 package xyz.faewulf.diversity.mixin.torchFireAttack;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
@@ -26,11 +27,8 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
     @Shadow
     public abstract void igniteForTicks(int ticks);
 
-    @Shadow
-    protected abstract void checkFallDamage(double heightDifference, boolean onGround, BlockState state, BlockPos landedPosition);
-
-    @Inject(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;actuallyHurt(Lnet/minecraft/world/damagesource/DamageSource;F)V"))
-    private void damageInject(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;actuallyHurt(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/damagesource/DamageSource;F)V"))
+    private void damageInject(ServerLevel level, DamageSource source, float p_376610_, CallbackInfoReturnable<Boolean> cir) {
 
         if (!ModConfigs.torch_burn_target)
             return;
