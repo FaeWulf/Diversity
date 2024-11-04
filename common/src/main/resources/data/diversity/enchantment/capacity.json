@@ -3,9 +3,8 @@
     "translate": "enchantment.diversity.capacity",
     "fallback": "Capacity"
   },
-  "supported_items": [
-    "minecraft:bundle"
-  ],
+  "supported_items": "#minecraft:bundles",
+  "primary_items": "#minecraft:bundles",
   "weight": 3,
   "max_level": 3,
   "anvil_cost": 2,

@@ -7,9 +7,7 @@
     " g "
   ],
   "key": {
-    "g": {
-      "item": "minecraft:gravel"
-    }
+    "g": "minecraft:gravel"
   },
   "result": {
     "id": "minecraft:suspicious_gravel",
