@@ -3,8 +3,8 @@ package xyz.faewulf.diversity.mixin.randomSizeFishes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.AgeableWaterCreature;
 import net.minecraft.world.entity.animal.Squid;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -15,13 +15,13 @@ import xyz.faewulf.diversity.inter.entity.ICustomSquidEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Squid.class)
-public abstract class SquidEntityMixin extends WaterAnimal implements ICustomSquidEntity {
+public abstract class SquidEntityMixin extends AgeableWaterCreature implements ICustomSquidEntity {
 
     @Unique
     private float diversity_Multiloader$size = (float) (this.random.nextGaussian() * 0.2 + 1.2);
 
-    protected SquidEntityMixin(EntityType<? extends WaterAnimal> entityType, Level world) {
-        super(entityType, world);
+    protected SquidEntityMixin(EntityType<? extends AgeableWaterCreature> p_364107_, Level p_360956_) {
+        super(p_364107_, p_360956_);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
