@@ -17,6 +17,7 @@ public class CustomLootTables {
 
     public static final ResourceKey<LootTable> FOX_BURY = register("entity/fox_bury_behavior");
     public static final ResourceKey<LootTable> SNIFFER_MOSS_BLOCK = register("entity/sniffer_moss");
+    public static final ResourceKey<LootTable> HERO_GIFT = register("entity/hero_gift");
 
     private static ResourceKey<LootTable> register(String id) {
         return registerLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, id)));

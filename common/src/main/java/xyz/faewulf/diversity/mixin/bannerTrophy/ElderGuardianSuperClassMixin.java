@@ -1,6 +1,7 @@
 package xyz.faewulf.diversity.mixin.bannerTrophy;
 
 import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
@@ -28,11 +29,12 @@ public abstract class ElderGuardianSuperClassMixin extends Entity implements Att
     private void onDeathInject(DamageSource damageSource, CallbackInfo ci) {
 
         if (!ModConfigs.banner_trohpy) return;
-
-        if ((Object) this instanceof ElderGuardian elderGuardianEntity) {
-            ItemStack wardenBanner = CustomBanner.elderGuardianBanner(elderGuardianEntity.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
-            wardenBanner.setCount(1);
-            elderGuardianEntity.spawnAtLocation(wardenBanner);
+        if (this.level() instanceof ServerLevel serverLevel) {
+            if ((Object) this instanceof ElderGuardian elderGuardianEntity) {
+                ItemStack wardenBanner = CustomBanner.elderGuardianBanner(elderGuardianEntity.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
+                wardenBanner.setCount(1);
+                elderGuardianEntity.spawnAtLocation(serverLevel, wardenBanner);
+            }
         }
     }
 }

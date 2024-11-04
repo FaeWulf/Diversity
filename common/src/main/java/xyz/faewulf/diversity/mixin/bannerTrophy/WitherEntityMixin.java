@@ -4,7 +4,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
@@ -18,7 +17,7 @@ import xyz.faewulf.diversity.util.CustomBanner;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(WitherBoss.class)
-public abstract class WitherEntityMixin extends Monster implements PowerableMob, RangedAttackMob {
+public abstract class WitherEntityMixin extends Monster implements RangedAttackMob {
 
     protected WitherEntityMixin(EntityType<? extends Monster> entityType, Level world) {
         super(entityType, world);
@@ -29,7 +28,8 @@ public abstract class WitherEntityMixin extends Monster implements PowerableMob,
 
         if (!ModConfigs.banner_trohpy) return;
 
-        ItemEntity itemEntity = this.spawnAtLocation(CustomBanner.witherBanner(this.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
+        ItemEntity itemEntity = this.spawnAtLocation(world, CustomBanner.witherBanner(this.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN)));
+
         if (itemEntity != null) {
             itemEntity.setExtendedLifetime();
         }
