@@ -21,7 +21,6 @@ public class invisibleItemFrame {
         if (!ModConfigs.invisible_frame)
             return InteractionResult.PASS;
 
-
         //if not item frame
         //if not mainhand
         if ((entity.getType() == EntityType.ITEM_FRAME || entity.getType() == EntityType.GLOW_ITEM_FRAME)
