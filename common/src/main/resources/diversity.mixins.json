@@ -31,6 +31,7 @@
     "clickThrough.ItemFrame",
     "clickThrough.WallSign",
     "clockHUD.ItemMixin",
+    "core.invoker.ItemEntityInvoker",
     "core.PseudoBlockEntity.ServerEntityMixin",
     "core.PseudoBlockEntity.TextDisplayMixin",
     "dayCounter.ServerWorldMixin",
@@ -95,7 +96,8 @@
     "tridentSummonLightning.TridentEntityMixin",
     "usableSuspiciousBlock.BrushableBlockEntityMixin",
     "wanderingTraderAnnouncer.WanderingTraderManagerMixin",
-    "waxedBlockIndicator.serverPlayerMixin"
+    "waxedBlockIndicator.serverPlayerMixin",
+    "xpCrops.BlockMixin"
   ],
   "client": [],
   "server": [],

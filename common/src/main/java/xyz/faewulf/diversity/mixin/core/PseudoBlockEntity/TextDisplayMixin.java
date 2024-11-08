@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,7 +45,7 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
     private Function<Display, Boolean> diversity_Multiloader$discardWhenFunction;
 
     @Unique
-    private List<String> diversity_Multiloader$parentTag;
+    private List<String> diversity_Multiloader$parentTag = new ArrayList<>();
 
 
     public TextDisplayMixin(EntityType<?> pEntityType, Level pLevel) {
@@ -89,7 +90,8 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
                     this.diversity_Multiloader$parent.add(block.toString());
                 }
 
-                this.diversity_Multiloader$parentTag = List.of(builder.getParentTag());
+                if (builder.getParentTag() != null)
+                    this.diversity_Multiloader$parentTag = List.of(builder.getParentTag());
 
                 this.diversity_Multiloader$blockTickFunction = builder.getBlockTickFunction();
                 this.diversity_Multiloader$discardWhenFunction = builder.getDiscardWhenFunction();
@@ -123,9 +125,18 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
                 hasTagInList = true;
         }
 
-        if (!(this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) || hasTagInList)
-                || diversity_Multiloader$isBlockEntityAlreadyExist()
-                || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this))
+        //3 criteria to pass this check (remove pseudoEntityBlock)
+        //1: current block is in the <List>parent (block name) or in parentTag if have any)
+        //2: no duplicate pseudoEntityBlock in the pos
+        //3: custom check function returns false
+
+        if (!this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) && !(!diversity_Multiloader$parentTag.isEmpty() && !hasTagInList)) {
+            this.discard();
+            return;
+        }
+
+        if (diversity_Multiloader$isBlockEntityAlreadyExist()
+                || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this)) //false
         ) {
             this.discard();
             return;
@@ -176,7 +187,7 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
     }
 
     @Override
-    public void diversity_Multiloader$setParentTag(String[] parentTag) {
+    public void diversity_Multiloader$setParentTag(@NotNull String[] parentTag) {
         this.diversity_Multiloader$parentTag = List.of(parentTag);
     }
 }

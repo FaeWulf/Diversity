@@ -19,6 +19,9 @@
     "main": [
       "xyz.faewulf.diversity.Diversity"
     ],
+    "fabric-gametest": [
+      "xyz.faewulf.diversity.util.gameTests.registerGameTests"
+    ],
     "modmenu": [
       "xyz.faewulf.diversity.config.ModMenuIntegration"
     ]
