@@ -17,10 +17,11 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.inter.entity.ICustomAbstractFish;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(AbstractFish.class)
-public abstract class FishEntityMixin extends WaterAnimal implements Bucketable {
+public abstract class FishEntityMixin extends WaterAnimal implements Bucketable, ICustomAbstractFish {
     @Unique
     private float diversity_Multiloader$size = (float) (this.random.nextGaussian() * 0.2 + 1);
 
@@ -30,20 +31,6 @@ public abstract class FishEntityMixin extends WaterAnimal implements Bucketable 
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void initInject(EntityType<? extends Salmon> entityType, Level world, CallbackInfo ci) {
-        diversity_Multiloader$reCalculateSize();
-    }
-
-    @Inject(method = "saveToBucketTag", at = @At("TAIL"))
-    private void copyDataToStackInject(ItemStack stack, CallbackInfo ci) {
-        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, nbtCompound -> nbtCompound.putFloat("diversity:Size", this.diversity_Multiloader$size));
-    }
-
-    @Inject(method = "loadFromBucketTag", at = @At("TAIL"))
-    private void copyDataFromNbt(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:Size")) {
-            this.diversity_Multiloader$size = nbt.getFloat("diversity:Size");
-        }
-
         diversity_Multiloader$reCalculateSize();
     }
 
@@ -60,8 +47,18 @@ public abstract class FishEntityMixin extends WaterAnimal implements Bucketable 
         diversity_Multiloader$reCalculateSize();
     }
 
-    @Unique
-    private void diversity_Multiloader$reCalculateSize() {
+    @Override
+    public float diversity_Multiloader$getSize() {
+        return this.diversity_Multiloader$size;
+    }
+
+    @Override
+    public void diversity_Multiloader$setSize(float value) {
+        this.diversity_Multiloader$size = value;
+    }
+
+    @Override
+    public void diversity_Multiloader$reCalculateSize() {
         if (diversity_Multiloader$size < 0.6f)
             diversity_Multiloader$size = 0.6f;
 
