@@ -26,11 +26,16 @@ public class PseudoBlockEntityBuilder {
 
         if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
             pseudoBlockEntity.diversity_Multiloader$setEntityType(this.diversity_type);
-            pseudoBlockEntity.diversity_Multiloader$setParentBlockType(this.parent);
             pseudoBlockEntity.diversity_Multiloader$setBlockTickFunction(this.blockTickFunction);
             pseudoBlockEntity.diversity_Multiloader$setDiscardWhenFunction(this.discardWhenFunction);
             pseudoBlockEntity.diversity_Multiloader$setDelayTick(this.tickDelay);
-            pseudoBlockEntity.diversity_Multiloader$setParentTag(this.parentTag);
+
+            if (this.parentTag != null)
+                pseudoBlockEntity.diversity_Multiloader$setParentTag(this.parentTag);
+
+            if (this.parent != null)
+                pseudoBlockEntity.diversity_Multiloader$setParentBlockType(this.parent);
+
         }
 
         return display;

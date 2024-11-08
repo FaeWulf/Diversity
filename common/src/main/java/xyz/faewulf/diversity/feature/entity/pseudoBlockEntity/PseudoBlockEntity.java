@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -53,5 +54,5 @@ public interface PseudoBlockEntity {
 
     List<String> diversity_Multiloader$getParentTag();
 
-    void diversity_Multiloader$setParentTag(String... tag);
+    void diversity_Multiloader$setParentTag(@NotNull String... tag);
 }
