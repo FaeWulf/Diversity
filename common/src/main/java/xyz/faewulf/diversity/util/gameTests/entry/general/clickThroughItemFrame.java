@@ -72,8 +72,7 @@ public class clickThroughItemFrame {
     @GameTest(template = registerGameTests.DEFAULT)
     public void test_sign(GameTestHelper helper) {
 
-        if (!ModConfigs.click_through_itemframe)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+        if (!ModConfigs.click_through_itemframe) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
 
         helper.setBlock(4, 2, 5, Blocks.CHEST);
         helper.setBlock(4, 2, 4, Blocks.OAK_WALL_SIGN);

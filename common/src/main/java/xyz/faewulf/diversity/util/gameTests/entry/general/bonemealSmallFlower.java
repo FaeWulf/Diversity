@@ -7,6 +7,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.gameTests.TestGroup;
 import xyz.faewulf.diversity.util.gameTests.registerGameTests;
 
@@ -14,6 +15,8 @@ import xyz.faewulf.diversity.util.gameTests.registerGameTests;
 public class bonemealSmallFlower {
     @GameTest(template = registerGameTests.DEFAULT)
     public void test_normal(GameTestHelper helper) {
+
+        if (!ModConfigs.bonemeal_small_flower) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
 
@@ -54,6 +57,8 @@ public class bonemealSmallFlower {
     @GameTest(template = registerGameTests.DEFAULT)
     public void test_not_spread(GameTestHelper helper) {
 
+        if (!ModConfigs.bonemeal_small_flower) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
 
         BlockPos dispenserPos = new BlockPos(4, 3, 5);
@@ -93,6 +98,8 @@ public class bonemealSmallFlower {
     @GameTest(template = registerGameTests.DEFAULT)
     public void test_not_mycelium(GameTestHelper helper) {
 
+        if (!ModConfigs.bonemeal_small_flower) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
 
         BlockPos dispenserPos = new BlockPos(4, 3, 5);
@@ -131,6 +138,8 @@ public class bonemealSmallFlower {
 
     @GameTest(template = registerGameTests.DEFAULT)
     public void test_blacklist(GameTestHelper helper) {
+
+        if (!ModConfigs.bonemeal_small_flower) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
 
