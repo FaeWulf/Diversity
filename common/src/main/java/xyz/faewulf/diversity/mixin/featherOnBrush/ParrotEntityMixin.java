@@ -57,6 +57,7 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         drops.setCount(random.nextIntBetweenInclusive(1, 2));
         this.spawnAtLocation((ServerLevel) player.level(), drops);
 
+        player.swing(hand, true);
         diversity_Multiloader$featherCoolDown = 24000;
         cir.setReturnValue(InteractionResult.SUCCESS);
         cir.cancel();
