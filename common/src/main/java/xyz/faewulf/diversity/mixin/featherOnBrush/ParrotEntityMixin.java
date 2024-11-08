@@ -63,6 +63,8 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         this.spawnAtLocation(drops);
 
         multiLoader_1_20_1$featherCoolDown = 24000;
+        player.swing(hand, true);
+        multiLoader_1_20_1$featherCoolDown = 24000;
         cir.setReturnValue(InteractionResult.SUCCESS);
         cir.cancel();
     }
