@@ -75,6 +75,15 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return true;
     }
 
+    @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
+    private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int usedSpace = getContentWeight(stack);
+        int maxValue = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, stack) * 64 + 64;
+
+        cir.setReturnValue((int) Math.floor(13f * usedSpace / maxValue));
+        cir.cancel();
+    }
+
     //bundle tooltip
     //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
     @ModifyExpressionValue(method = "appendHoverText", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 0))
@@ -153,30 +162,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         });
     }
-
-
-
-
-    /*
-    //no needed
-    @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BundleItem;add(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)I"))
-    private void onClickedInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction clickType, Player player, SlotAccess cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
-        //((ICustomBundleContentBuilder) this).setMaxSize(this.getMaxSize(player.level(), stack));
-        ((ICustomBundleContentBuilder) this).setMaxSize(3);
-    }
-
-    @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BundleItem;add(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)I", ordinal = 0))
-    private void onStackClickedInject(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir) {
-        //((ICustomBundleContentBuilder) this).setMaxSize(this.getMaxSize(player.level(), stack));
-        ((ICustomBundleContentBuilder) this).setMaxSize(3);
-    }
-
-    @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/BundleItem;add(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/item/ItemStack;)I"))
-    private void onStackClickedInject2(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir) {
-        //((ICustomBundleContentBuilder) this).setMaxSize(this.getMaxSize(player.level(), stack));
-        ((ICustomBundleContentBuilder) this).setMaxSize(3);
-    }
-     */
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
