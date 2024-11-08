@@ -43,11 +43,10 @@ public class ChickenEntitySuperClassMixin {
             chickenEntity.spawnAtLocation((ServerLevel) player.level(), drops);
 
             ((ICustomChickenEntity) chickenEntity).diversity_Multiloader$setFeatherCoolDown(12000);
+
+            player.swing(hand, true);
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
         }
-
-
     }
-
 }
