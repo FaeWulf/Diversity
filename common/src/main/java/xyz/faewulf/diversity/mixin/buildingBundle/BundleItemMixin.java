@@ -72,19 +72,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         super(settings);
     }
 
-    //Todo: Enchant in enchant table
-    /*
-    @Override
-    public int getEnchantmentValue() {
-        return 1;
-    }
-
-    @Override
-    public boolean isEnchantable(@NotNull ItemStack stack) {
-        return true;
-    }
-     */
-
     //override the weight value when pass the bundlecontens to the client side for rendering the fullness bar
     @ModifyReturnValue(method = "getTooltipImage", at = @At(value = "RETURN"))
     private Optional<TooltipComponent> getTooltipImageReturnModify(Optional<TooltipComponent> original, @Local(argsOnly = true) ItemStack stack) {
@@ -217,11 +204,23 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                         serverWorld.playSound(
                                 null,
                                 context.getClickedPos(),
+                                SoundEvents.BUNDLE_DROP_CONTENTS,
+                                SoundSource.BLOCKS,
+                                1f,
+                                1f
+                        );
+
+                        serverWorld.playSound(
+                                null,
+                                context.getClickedPos(),
                                 soundEvent,
                                 SoundSource.BLOCKS,
                                 1f,
-                                0.8F
+                                0.8f
                         );
+
+                        player.swing(context.getHand(), true);
+                        return InteractionResult.CONSUME;
                     }
                 }
             }
