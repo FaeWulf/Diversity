@@ -55,6 +55,21 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         super(settings);
     }
 
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(ItemStack itemStack) {
+        ItemEnchantments t = itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+
+        AtomicInteger level = new AtomicInteger(0);
+        t.keySet().forEach(enchantmentRegistryEntry -> {
+            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
+            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
+                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
+            }
+        });
+
+        return level.get() * 64 + 64;
+    }
+
     @Override
     public int getEnchantmentValue() {
         return 1;
@@ -68,17 +83,16 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
     @ModifyExpressionValue(method = "appendHoverText", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 1))
     private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
-        ItemEnchantments t = stack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+        return diversity_Multiloader$getMaxSize(stack);
+    }
 
-        AtomicInteger level = new AtomicInteger();
-        t.keySet().forEach(enchantmentRegistryEntry -> {
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(stack);
-            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
-                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
-            }
-        });
+    @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
+    private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
 
-        return Math.max(value, 64 + 64 * level.get());
+        cir.setReturnValue((int) Math.clamp(Math.floor(13f * usedSpace / maxValue), 1, 13));
+        cir.cancel();
     }
 
     @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
@@ -95,7 +109,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     private void onStackClickedInject2(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
         ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
     }
-
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void use(Level world, Player user, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
