@@ -27,6 +27,7 @@
     "clickThrough.ItemFrameMixin",
     "clickThrough.WallSign",
     "ClockHUD.ItemMixin",
+    "core.invoker.ItemEntityInvoker",
     "core.PseudoBlockEntity.ServerEntityMixin",
     "core.PseudoBlockEntity.TextDisplayMixin",
     "CustomEnchantHandle.ModifyForBackupEnchantMixin",
@@ -76,7 +77,8 @@
     "TridentSummonLightning.TridentEntityMixin",
     "usableSuspiciousBlock.BrushableBlockEntityMixin",
     "WanderingTraderAnnouncer.WanderingTraderManagerMixin",
-    "waxedBlockIndicator.serverPlayerMixin"
+    "waxedBlockIndicator.serverPlayerMixin",
+    "xpCrops.BlockMixin"
   ],
   "client": [],
   "server": [],

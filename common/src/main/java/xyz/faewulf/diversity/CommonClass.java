@@ -1,5 +1,7 @@
 package xyz.faewulf.diversity;
 
+import net.minecraft.SharedConstants;
+import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.CustomLootTables;
 
@@ -17,5 +19,12 @@ public class CommonClass {
 
         //registry
         CauldronInteractionRegister.register();
+
+        //for debug/testing
+        if (Services.PLATFORM.isDevelopmentEnvironment())
+            SharedConstants.IS_RUNNING_IN_IDE = true;
+
+        //load config, moved to util.mixinPlugin.ConditionalMixinPlugin method: onLoad()
+        //Config.init();
     }
 }

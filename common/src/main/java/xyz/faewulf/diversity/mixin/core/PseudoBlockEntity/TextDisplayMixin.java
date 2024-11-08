@@ -126,9 +126,18 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
                 hasTagInList = true;
         }
 
-        if (!(this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) || hasTagInList)
-                || diversity_Multiloader$isBlockEntityAlreadyExist()
-                || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this))
+        //3 criteria to pass this check (remove pseudoEntityBlock)
+        //1: current block is in the <List>parent (block name) or in parentTag if have any)
+        //2: no duplicate pseudoEntityBlock in the pos
+        //3: custom check function returns false
+
+        if (!this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) && !(!diversity_Multiloader$parentTag.isEmpty() && !hasTagInList)) {
+            this.discard();
+            return;
+        }
+
+        if (diversity_Multiloader$isBlockEntityAlreadyExist()
+                || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this)) //false
         ) {
             this.discard();
             return;

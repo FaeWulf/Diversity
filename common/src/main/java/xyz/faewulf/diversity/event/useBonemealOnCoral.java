@@ -5,10 +5,10 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.BaseCoralPlantTypeBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -55,19 +54,14 @@ public class useBonemealOnCoral {
             BlockState block = world.getBlockState(hitResult.getBlockPos());
             BlockPos pos = hitResult.getBlockPos();
 
-            ResourceKey<Biome> currentBiome;
-
-            if (world.getBiome(pos).unwrapKey().isPresent()) {
-                currentBiome = world.getBiome(pos).unwrapKey().get();
-            } else
-                return InteractionResult.PASS;
+            Holder<Biome> currentBiome = world.getBiome(pos);
 
             //check valid criteria
             if (block.is(BlockTags.CORALS)
                     && !compare.isHasTag(block.getBlock(), "diversity:bonemeal_blacklist")
                     && block.getValue(BaseCoralPlantTypeBlock.WATERLOGGED)
                     && world.getFluidState(pos.above()).is(FluidTags.WATER)
-                    && currentBiome.equals(Biomes.WARM_OCEAN)
+                    && currentBiome.is(BiomeTags.PRODUCES_CORALS_FROM_BONEMEAL)
             ) {
 
                 if (world.random.nextFloat() >= 0.15D) {

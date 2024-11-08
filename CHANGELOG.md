@@ -8,5 +8,4 @@
 
 ### Fixed
 
-- Removed console spam messages.
-- "Shear prevents plant grows" doesn't work on vine.
+- Game does not launch on neoforge version
