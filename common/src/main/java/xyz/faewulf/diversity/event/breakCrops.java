@@ -20,11 +20,7 @@ public class breakCrops {
 
         if (serverLevel instanceof ServerLevel serverWorld) {
             if (state.getBlock() instanceof CropBlock cropBlock) {
-
-                int age = cropBlock.getAge(state);
-                int maxAge = cropBlock.getMaxAge();
-
-                if (age == maxAge)
+                if (cropBlock.isMaxAge(state))
                     ExperienceOrb.award(serverWorld, pos.getCenter(), serverWorld.random.nextIntBetweenInclusive(0, 1));
             }
         }
