@@ -1,5 +1,19 @@
 package xyz.faewulf.diversity.platform.services;
 
+import com.google.common.reflect.ClassPath;
+import xyz.faewulf.diversity.Constants;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public interface IPlatformHelper {
 
     /**
@@ -33,4 +47,53 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
+
+    /**
+     * Finds all classes in the specified package that are annotated with a specific annotation.
+     *
+     * @param scannedPackage The package to search in.
+     * @return A list of classes annotated with the specified annotation.
+     */
+    default List<Class<?>> findClasses(String scannedPackage) {
+        String scannedPath = scannedPackage.replace('.', '/');
+        URL scannedUrl = Thread.currentThread().getContextClassLoader().getResource(scannedPath);
+        if (scannedUrl == null) {
+            throw new IllegalArgumentException(String.format("Unable to get resources from path '%s'. Are you sure the package '%s' exists?", scannedPath, scannedPackage));
+        }
+        File scannedDir = new File(scannedUrl.getFile());
+        List<Class<?>> classes = new ArrayList<>();
+
+        try {
+            for (File file : Objects.requireNonNull(scannedDir.listFiles())) {
+                classes.addAll(find(file, scannedPackage));
+            }
+        } catch (NullPointerException e) {
+            return classes;
+        }
+
+        return classes;
+    }
+
+    private static List<Class<?>> find(File file, String scannedPackage) {
+        List<Class<?>> classes = new ArrayList<>();
+        String resource = scannedPackage + '.' + file.getName();
+        if (file.isDirectory()) {
+            try {
+                for (File child : Objects.requireNonNull(file.listFiles())) {
+                    classes.addAll(find(child, resource));
+                }
+            } catch (NullPointerException e) {
+                return classes;
+            }
+        } else if (resource.endsWith(".class")) {
+            int endIndex = resource.length() - ".class".length();
+            String className = resource.substring(0, endIndex);
+            try {
+                classes.add(Class.forName(className));
+            } catch (ClassNotFoundException ignore) {
+            }
+        }
+        return classes;
+    }
+
 }
