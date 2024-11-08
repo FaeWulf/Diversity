@@ -46,6 +46,7 @@ public class useBonemealOnCoral {
         if (world.isClientSide)
             return InteractionResult.PASS;
 
+
         Item item = player.getItemInHand(hand).getItem();
 
         if (item == Items.BONE_MEAL) {
