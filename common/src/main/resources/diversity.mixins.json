@@ -24,7 +24,6 @@
     "bonemealCoral.CoralFanMixin",
     "bonemealCoral.CoralFeatureInvoker",
     "bonemealCoral.CoralMixin",
-    "bonemealSmallFlower.BoneMealItemMixin",
     "bonemealSmallFlower.FlowerBlockMixin",
     "buildingBundle.BlockItemInvoker",
     "buildingBundle.BlockItemMixin",
