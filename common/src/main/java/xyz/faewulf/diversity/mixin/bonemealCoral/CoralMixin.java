@@ -39,7 +39,7 @@ public class CoralMixin implements ICustomBonemealable {
     @Override
     public boolean Diversity$isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
 
-        if (!ModConfigs.bonemeal_small_flower) return false;
+        if (!ModConfigs.bonemeal_coral_fan) return false;
 
         Holder<Biome> currentBiome = level.getBiome(pos);
         return
