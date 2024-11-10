@@ -13,11 +13,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.inter.ICustomBonemealable;
 import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(FlowerBlock.class)
 public class FlowerBlockMixin implements ICustomBonemealable {
     @Override
     public boolean Diversity$isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+
+        if (!ModConfigs.bonemeal_small_flower) return false;
         //small flower
         //not in blacklist tag
         //standing on block with rich_soil tag

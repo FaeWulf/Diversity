@@ -27,6 +27,7 @@ import net.minecraft.world.level.material.MapColor;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.inter.ICustomBonemealable;
 import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.Optional;
 
@@ -37,6 +38,9 @@ public class CoralFanMixin implements ICustomBonemealable {
 
     @Override
     public boolean Diversity$isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
+
+        if (!ModConfigs.bonemeal_small_flower) return false;
+
         Holder<Biome> currentBiome = level.getBiome(pos);
         return
                 !compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist")
@@ -87,13 +91,11 @@ public class CoralFanMixin implements ICustomBonemealable {
         }
 
 
-        if (level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
-                    pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, // Position (above the block)
-                    7, // Number of particles
-                    0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
-                    0.1 // Particle speed
-            );
-        }
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, // Position (above the block)
+                7, // Number of particles
+                0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
+                0.1 // Particle speed
+        );
     }
 }

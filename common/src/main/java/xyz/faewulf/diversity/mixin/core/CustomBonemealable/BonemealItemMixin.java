@@ -39,7 +39,7 @@ public abstract class BonemealItemMixin extends Item {
     }
 
     //server side swing
-    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/context/UseOnContext;getPlayer()Lnet/minecraft/world/entity/player/Player;", ordinal = 0))
+    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V", ordinal = 0))
     private void useOnInject(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         if (context.getPlayer() != null)
             context.getPlayer().swing(context.getHand(), true);
