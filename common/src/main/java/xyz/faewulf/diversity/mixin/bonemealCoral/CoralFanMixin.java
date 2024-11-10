@@ -91,13 +91,11 @@ public class CoralFanMixin implements ICustomBonemealable {
         }
 
 
-        if (level instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
-                    pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, // Position (above the block)
-                    7, // Number of particles
-                    0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
-                    0.1 // Particle speed
-            );
-        }
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, // Position (above the block)
+                7, // Number of particles
+                0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
+                0.1 // Particle speed
+        );
     }
 }
