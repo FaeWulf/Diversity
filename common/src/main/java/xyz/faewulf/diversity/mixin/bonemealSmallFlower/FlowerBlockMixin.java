@@ -1,6 +1,7 @@
 package xyz.faewulf.diversity.mixin.bonemealSmallFlower;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
@@ -55,6 +56,13 @@ public class FlowerBlockMixin implements ICustomBonemealable {
                         if (compare.isHasTag(blockState.getBlock(), "diversity:rich_soil")) {
                             level.setBlock(blockPos, state, Block.UPDATE_ALL);
                         }
+
+                        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
+                                blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, // Position (above the block)
+                                7, // Number of particles
+                                0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
+                                0.1 // Particle speed
+                        );
                     }
                 }
             }
@@ -67,5 +75,12 @@ public class FlowerBlockMixin implements ICustomBonemealable {
             }
             ++l;
         }
+
+        level.sendParticles(ParticleTypes.HAPPY_VILLAGER, // Bonemeal-like particles
+                pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, // Position (above the block)
+                7, // Number of particles
+                0.3, 0.3, 0.3, // Particle spread on X, Y, Z axes
+                0.1 // Particle speed
+        );
     }
 }
