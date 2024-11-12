@@ -44,6 +44,9 @@ public class ModConfigs {
     @Entry(category = "general", name = "Click through sign/itemframe")
     public static boolean click_through_itemframe = true;
 
+    @Entry(category = "general", name = "Faster minecart")
+    public static boolean faster_minecart = true;
+
     @Entry(category = "general", name = "Faster oxidization")
     public static boolean faster_oxidization = true;
 
