@@ -44,6 +44,7 @@ public class Diversity implements ModInitializer {
             putItemIntoBrushableBlocks.register();
             useClockOnBlock.register();
             useShearOnBlock.register();
+            onRightClickCropBlocks.register();
         });
     }
 
