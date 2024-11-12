@@ -18,6 +18,23 @@ public class CustomLootTables {
     public static final ResourceKey<LootTable> FOX_BURY = register("entity/fox_bury_behavior");
     public static final ResourceKey<LootTable> SNIFFER_MOSS_BLOCK = register("entity/sniffer_moss");
 
+    public static final ResourceKey<LootTable> PICKPOCKET_ARMORER = register("villager/armorer");
+    public static final ResourceKey<LootTable> PICKPOCKET_BUTCHER = register("villager/butcher");
+    public static final ResourceKey<LootTable> PICKPOCKET_CARTOGRAPHER = register("villager/cartographer");
+    public static final ResourceKey<LootTable> PICKPOCKET_CLERIC = register("villager/cleric");
+    public static final ResourceKey<LootTable> PICKPOCKET_FARMER = register("villager/farmer");
+    public static final ResourceKey<LootTable> PICKPOCKET_FISHERMAN = register("villager/fisherman");
+    public static final ResourceKey<LootTable> PICKPOCKET_FLETCHER = register("villager/fletcher");
+    public static final ResourceKey<LootTable> PICKPOCKET_LEATHERWORKER = register("villager/leatherworker");
+    public static final ResourceKey<LootTable> PICKPOCKET_LIBRARIAN = register("villager/librarian");
+    public static final ResourceKey<LootTable> PICKPOCKET_MASON = register("villager/mason");
+    public static final ResourceKey<LootTable> PICKPOCKET_NITWIT = register("villager/nitwit");
+    public static final ResourceKey<LootTable> PICKPOCKET_NONE = register("villager/none");
+    public static final ResourceKey<LootTable> PICKPOCKET_SHEPHERD = register("villager/shepherd");
+    public static final ResourceKey<LootTable> PICKPOCKET_TOOLSMITH = register("villager/toolsmith");
+    public static final ResourceKey<LootTable> PICKPOCKET_WEAPONSMITH = register("villager/weaponsmith");
+
+
     private static ResourceKey<LootTable> register(String id) {
         return registerLootTable(ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, id)));
     }

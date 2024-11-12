@@ -81,6 +81,7 @@
     "registryLoadBlocker.TagGroupLoaderMixin",
     "reversePhantom.PhantomSpawnerMixin",
     "reversePhantom.PlayerMixin",
+    "shearPickpocketVillager.villagerMixin",
     "shearPreventPlantGrow.BambooSaplingBlockMixin",
     "shearPreventPlantGrow.BambooStalkBlockMixin",
     "shearPreventPlantGrow.SaplingBlockMixin",
