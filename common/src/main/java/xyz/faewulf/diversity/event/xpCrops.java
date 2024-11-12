@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-public class breakCrops {
+public class xpCrops {
 
     public static void run(Level serverLevel, Player player, BlockPos pos, BlockState state) {
         if (!ModConfigs.xp_crops)
