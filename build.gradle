@@ -81,7 +81,7 @@ subprojects { subproject ->
 
             setDebug(!confirm_publish.toBoolean())
 
-            setGameVersions(minecraft_version, "1.21.1")
+            setGameVersions(minecraft_version)
             setVersion(project.version)
             setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
             setVersionType(version_type)
