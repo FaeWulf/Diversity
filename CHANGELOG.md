@@ -2,15 +2,13 @@
 
 ### Added
 
+- Right-click mature crop will harvest and auto replant for you.
+- Hoe can harvest multiple crops. Default is 3x3, diamond and netherite gives 5x5.
+
 ### Changed
 
-- Crop drops XP now also drops from nature causes.
-- `Renewable Coral` now accept biomes have tag `produces_corals_from_bonemeal`.
-- Dispenser now can trigger `Bone meal coral` and `Bone meal small flower`.
-- Swing animation when brushing `chicken` and `parrot` for feathers.
+- Added enchantment description for custom enchantment.
 
 ### Removed
 
 ### Fixed
-
-- Random game crash from placing down WetSponge

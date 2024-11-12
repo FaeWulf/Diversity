@@ -86,6 +86,9 @@ public class ModConfigs {
     @Entry(category = "item", name = "Clock shows current time")
     public static boolean clock_shows_time = true;
 
+    @Entry(category = "item", name = "Hoe harvests crops")
+    public static boolean hoe_harvest_crop = true;
+
     @Entry(category = "item", name = "Mace rotate blocks")
     public static boolean mace_rotate_block = true;
 
