@@ -45,6 +45,7 @@
   "diversity.config.shulker_label.tooltip": "- Shulker box will shows its custom name upon placed.\n- Sneaking while place will prevent this feature.",
   "diversity.config.usable_suspicious_block.tooltip": "- You can add items (by shift right-click) into empty suspicious sand and gravel.",
   "diversity.config.xp_crops.tooltip": "- Gain xp from harvesting crops.",
+  "diversity.config.hoe_harvest_crop.tooltip": "- Mature crops now can be harvest and auto replant with right-click.\n- Use hoe will give 3x3 harvest radius.\n- Diamond and Netherite hoe gives 5x5 radius.",
   "diversity.config.more_enchantment.tooltip": "- Add weaker versions of the four protection enchantments.\n- These provide extra protection with effects identical to the originals but at only 25% of their original power.",
   "diversity.config.silent_nametag.tooltip": "- Nametag contains 'silent' or 'shutup' will make mobs silent\n- Not case sensitive or requires any space.",
   "diversity.config.baby_nametag.tooltip": "- Nametag contains 'baby' will force baby animals never grow up.\n- Not case sensitive or requires any space.\n- Example: \"Baby\", \"ThisIsBaby\"",
