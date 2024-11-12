@@ -98,6 +98,9 @@ public class ModConfigs {
     @Entry(category = "item", name = "Trident can call thunder storm")
     public static boolean trident_call_thunder = true;
 
+    @Entry(category = "item", name = "Shear can pickpocket villager")
+    public static boolean shear_can_pickpocket_villager = true;
+
     @Entry(category = "item", name = "Shear prevents plant from growing")
     public static boolean shear_prevent_growing = true;
 
