@@ -47,6 +47,7 @@
     "edibleEndStone.ServerPlayerMixin",
     "enchantTableAcceptFurtherBookshelf.EnchantingTableBlockMixin",
     "farmlandTrample.FarmlandMixin",
+    "fasterMineCart.AbstractMinecartMixin",
     "fastOxidizationCopper.OxidizableBlockMixin",
     "fastOxidizationCopper.OxidizableBulbBlockMixin",
     "fastOxidizationCopper.OxidizableDoorBlockMixin",
