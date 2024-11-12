@@ -40,6 +40,7 @@
     "DeepslateGenerator.LavaFluidMixin",
     "enchantTableAcceptFurtherBookshelf.EnchantingTableBlockMixin",
     "farmlandTrample.FarmlandMixin",
+    "fasterMineCart.AbstractMinecartMixin",
     "fastOxidizationCopper.OxidizableBlockMixin",
     "fastOxidizationCopper.OxidizableSlabBlockMixin",
     "fastOxidizationCopper.OxidizableStairBlockMixin",
