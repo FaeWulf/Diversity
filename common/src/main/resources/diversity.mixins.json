@@ -93,6 +93,7 @@
     "shulkerBoxLabel.TextDisplayEntityMixin",
     "slimeChunkHint.EntityMixin",
     "smallerBee.BeeEntityMixin",
+    "snowGolemProducesPowderSnow.SnowGolemMixin",
     "spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin",
     "spyglassWhatIsThat.BeaconBlockEntityMixin",
     "spyglassWhatIsThat.BrewingStandBlockEntityMixin",
