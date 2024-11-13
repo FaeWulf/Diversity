@@ -158,6 +158,9 @@ public class ModConfigs {
     @Entry(category = "entity", name = "Smaller bee")
     public static boolean smaller_bee = true;
 
+    @Entry(category = "entity", name = "Snow Golem produces powder snow")
+    public static boolean snow_golem_produces_powder_snow = true;
+
     @Entry(category = "entity", name = "Wandering trader announcer")
     public static boolean wandering_trader_announcer = true;
 
