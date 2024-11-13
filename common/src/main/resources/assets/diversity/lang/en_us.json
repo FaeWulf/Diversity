@@ -67,6 +67,7 @@
   "diversity.config.prevent_tamed_horse_wandering.tooltip": "- Horses, donkeys, and mules can fit in boats!",
   "diversity.config.random_size_fishes.tooltip": "- Fish and squid now come in random sizes.",
   "diversity.config.smaller_bee.tooltip": "- Bees are now half their default size.",
+  "diversity.config.snow_golem_produces_powder_snow.tooltip": "- Snow Golem stands inside a Cauldron will produce Powder snow over time.",
   "diversity.config.emote.tooltip": "- Perform sound like meow, purr, purroew, and woof if chat or via /emote command.",
   "diversity.config.slime_chunk_check.tooltip": "- Holding 'Slime Ball`, 'Slime Block', or items with the 'diversity:slime_detector' tag will emit particles and sound when in a slime chunk.\n- With a 10% chance while walking/running and 70% chance when sneaking.",
   "diversity.config.wet_sponge_dry_in_warm_biome .tooltip": "- Wet sponge placed in warm biome will eventually dried out.",
