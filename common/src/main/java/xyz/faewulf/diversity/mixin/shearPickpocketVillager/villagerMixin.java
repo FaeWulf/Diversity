@@ -2,7 +2,7 @@ package xyz.faewulf.diversity.mixin.shearPickpocketVillager;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -29,6 +30,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.CustomLootTables;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
+import xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -45,7 +48,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
     }
 
     @Unique
-    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
+    private static ResourceLocation diversity_Multiloader$getPickPocketLootTable(String name) {
         switch (name) {
             case "armorer" -> {
                 return CustomLootTables.PICKPOCKET_ARMORER;
@@ -94,9 +97,6 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             }
         }
     }
-
-    @Shadow
-    public abstract VillagerData getVillagerData();
 
     @Shadow
     public abstract void setVillagerData(VillagerData data);
@@ -107,56 +107,8 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             this.Diversity$pickpocket_cooldown--;
     }
 
-    @Unique
-    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
-        switch (name) {
-            case "armorer" -> {
-                return CustomLootTables.PICKPOCKET_ARMORER;
-            }
-            case "butcher" -> {
-                return CustomLootTables.PICKPOCKET_BUTCHER;
-            }
-            case "cartographer" -> {
-                return CustomLootTables.PICKPOCKET_CARTOGRAPHER;
-            }
-            case "cleric" -> {
-                return CustomLootTables.PICKPOCKET_CLERIC;
-            }
-            case "farmer" -> {
-                return CustomLootTables.PICKPOCKET_FARMER;
-            }
-            case "fisherman" -> {
-                return CustomLootTables.PICKPOCKET_FISHERMAN;
-            }
-            case "fletcher" -> {
-                return CustomLootTables.PICKPOCKET_FLETCHER;
-            }
-            case "leatherworker" -> {
-                return CustomLootTables.PICKPOCKET_LEATHERWORKER;
-            }
-            case "librarian" -> {
-                return CustomLootTables.PICKPOCKET_LIBRARIAN;
-            }
-            case "mason" -> {
-                return CustomLootTables.PICKPOCKET_MASON;
-            }
-            case "nitwit" -> {
-                return CustomLootTables.PICKPOCKET_NITWIT;
-            }
-            case "shepherd" -> {
-                return CustomLootTables.PICKPOCKET_SHEPHERD;
-            }
-            case "toolsmith" -> {
-                return CustomLootTables.PICKPOCKET_TOOLSMITH;
-            }
-            case "weaponsmith" -> {
-                return CustomLootTables.PICKPOCKET_WEAPONSMITH;
-            }
-            default -> {
-                return CustomLootTables.PICKPOCKET_NONE;
-            }
-        }
-    }
+    @Shadow
+    public abstract @NotNull VillagerData getVillagerData();
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveDataInject(CompoundTag compound, CallbackInfo ci) {
@@ -192,7 +144,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             //System.out.println(job + " " + jobLevel);
 
             //generate loot
-            LootTable loottable = serverLevel.getServer().reloadableRegistries().getLootTable(diversity_Multiloader$getPickPocketLootTable(job));
+            LootTable loottable = serverLevel.getServer().getLootData().getLootTable(diversity_Multiloader$getPickPocketLootTable(job));
             LootParams lootparams = new LootParams.Builder(serverLevel)
                     .withParameter(LootContextParams.ORIGIN, this.position())
                     .withParameter(LootContextParams.THIS_ENTITY, this)
@@ -238,7 +190,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
                 this.setVillagerData(new VillagerData(old.getType(), VillagerProfession.NONE, 1));
 
                 //add particle effect
-                ((ServerLevel) this.level()).sendParticles(
+                serverLevel.sendParticles(
                         ParticleTypes.EXPLOSION_EMITTER,
                         this.getX(), this.getY(), this.getZ(),
                         1,
@@ -249,11 +201,11 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             }
 
             //damage shear
-            player.getItemInHand(hand).hurtAndBreak(1, player, getSlotForHand(hand));
+            ItemStackMethod.hurtAndBreak(player.getItemInHand(hand), 1, player, LivingEntityMethod.getSlotForHand(hand));
 
             //sound effect
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BUNDLE_DROP_CONTENTS, SoundSource.PLAYERS, 1.0f, 1.0f);
-            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0f, 1.0f);
+            serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BUNDLE_DROP_CONTENTS, SoundSource.PLAYERS, 1.0f, 1.0f);
+            serverLevel.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.SHEEP_SHEAR, SoundSource.PLAYERS, 1.0f, 1.0f);
 
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
