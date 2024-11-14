@@ -6,12 +6,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
+import xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -33,7 +34,7 @@ public class shearDefusesTnt {
                 && compare.isHasTag(item, "diversity:tnt_defuser")
         ) {
 
-            if (entity.getRandom().nextFloat() < 0.15f)
+            if (level.getRandom().nextFloat() < 0.15f)
                 entity.remove(Entity.RemovalReason.KILLED);
 
 //            ItemStack itemStack = new ItemStack(Items.TNT, 1);
@@ -42,7 +43,7 @@ public class shearDefusesTnt {
 //            level.addFreshEntity(item1);
 
             player.swing(hand, true);
-            player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            ItemStackMethod.hurtAndBreak(player.getItemInHand(hand), 1, player, LivingEntityMethod.getSlotForHand(hand));
             entity.playSound(SoundEvents.SHEEP_SHEAR, 1.0f, 1.0f);
 
             //game event
