@@ -2,9 +2,9 @@ package xyz.faewulf.diversity.mixin.fasterMineCart;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,16 +14,17 @@ import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(AbstractMinecart.class)
-public abstract class AbstractMinecartMixin extends VehicleEntity {
-    public AbstractMinecartMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+public abstract class AbstractMinecartMixin extends Entity {
 
     @Unique
     private BlockPos diversity_Multiloader$lastPos;
 
     @Unique
     private double diversity_Multiloader$lastMaxSpeedMult = 1;
+
+    public AbstractMinecartMixin(EntityType<?> $$0, Level $$1) {
+        super($$0, $$1);
+    }
 
     @ModifyReturnValue(method = "getMaxSpeed", at = @At("RETURN"))
     private double getMaxSpeedModifyReturnValue(double original) {
