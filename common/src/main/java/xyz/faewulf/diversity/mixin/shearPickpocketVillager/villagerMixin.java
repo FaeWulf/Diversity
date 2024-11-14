@@ -11,13 +11,15 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ReputationEventHandler;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,20 +32,10 @@ import xyz.faewulf.diversity.util.CustomLootTables;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
+import java.util.List;
+
 @Mixin(Villager.class)
 public abstract class villagerMixin extends AbstractVillager implements ReputationEventHandler, VillagerDataHolder {
-
-    @Shadow
-    public abstract VillagerData getVillagerData();
-
-    @Shadow
-    public abstract void handleEntityEvent(byte id);
-
-    @Shadow
-    public abstract Brain<Villager> getBrain();
-
-    @Shadow
-    public abstract void setVillagerData(VillagerData data);
 
     @Unique
     private int Diversity$pickpocket_cooldown = 0;
@@ -51,6 +43,63 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
     public villagerMixin(EntityType<? extends AbstractVillager> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Unique
+    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
+        switch (name) {
+            case "armorer" -> {
+                return CustomLootTables.PICKPOCKET_ARMORER;
+            }
+            case "butcher" -> {
+                return CustomLootTables.PICKPOCKET_BUTCHER;
+            }
+            case "cartographer" -> {
+                return CustomLootTables.PICKPOCKET_CARTOGRAPHER;
+            }
+            case "cleric" -> {
+                return CustomLootTables.PICKPOCKET_CLERIC;
+            }
+            case "farmer" -> {
+                return CustomLootTables.PICKPOCKET_FARMER;
+            }
+            case "fisherman" -> {
+                return CustomLootTables.PICKPOCKET_FISHERMAN;
+            }
+            case "fletcher" -> {
+                return CustomLootTables.PICKPOCKET_FLETCHER;
+            }
+            case "leatherworker" -> {
+                return CustomLootTables.PICKPOCKET_LEATHERWORKER;
+            }
+            case "librarian" -> {
+                return CustomLootTables.PICKPOCKET_LIBRARIAN;
+            }
+            case "mason" -> {
+                return CustomLootTables.PICKPOCKET_MASON;
+            }
+            case "nitwit" -> {
+                return CustomLootTables.PICKPOCKET_NITWIT;
+            }
+            case "shepherd" -> {
+                return CustomLootTables.PICKPOCKET_SHEPHERD;
+            }
+            case "toolsmith" -> {
+                return CustomLootTables.PICKPOCKET_TOOLSMITH;
+            }
+            case "weaponsmith" -> {
+                return CustomLootTables.PICKPOCKET_WEAPONSMITH;
+            }
+            default -> {
+                return CustomLootTables.PICKPOCKET_NONE;
+            }
+        }
+    }
+
+    @Shadow
+    public abstract VillagerData getVillagerData();
+
+    @Shadow
+    public abstract void setVillagerData(VillagerData data);
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickInject(CallbackInfo ci) {
@@ -72,6 +121,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
                 player.isShiftKeyDown()
                         && compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown <= 0
+                        && level() instanceof ServerLevel serverLevel
         ) {
             String job = this.getVillagerData().getProfession().name();
             int jobLevel = this.getVillagerData().getLevel();
@@ -79,14 +129,19 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             //System.out.println(job + " " + jobLevel);
 
             //generate loot
-            this.dropFromGiftLootTable(
-                    (ServerLevel) level(),
-                    diversity_Multiloader$getPickPocketLootTable(job),
-                    (level, itemStack1) -> {
-                        ItemEntity itementity = new ItemEntity(this.level(), blockPos.x, blockPos.y, blockPos.z, itemStack1);
-                        itementity.setDefaultPickUpDelay();
-                        level.addFreshEntity(itementity);
-                    });
+            LootTable loottable = serverLevel.getServer().reloadableRegistries().getLootTable(diversity_Multiloader$getPickPocketLootTable(job));
+            LootParams lootparams = new LootParams.Builder(serverLevel)
+                    .withParameter(LootContextParams.ORIGIN, this.position())
+                    .withParameter(LootContextParams.THIS_ENTITY, this)
+                    .create(LootContextParamSets.GIFT);
+
+            List<ItemStack> itemStackList = loottable.getRandomItems(lootparams);
+
+            for (ItemStack stack : itemStackList) {
+                ItemEntity itementity = new ItemEntity(this.level(), blockPos.x, blockPos.y, blockPos.z, stack);
+                itementity.setDefaultPickUpDelay();
+                serverLevel.addFreshEntity(itementity);
+            }
 
             //only stealing behind has only a small % to make villager noticed
             boolean sneaky = compare.isEntity2BehindEntity1(this, player);
@@ -102,7 +157,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
 
             //caculate fail chance
             if (this.random.nextFloat() > successChance)
-                this.hurtServer((ServerLevel) level(), this.damageSources().playerAttack(player), 0);
+                this.hurt(this.damageSources().playerAttack(player), 0);
 
             //Below codes will try to lower villager's job level
 
@@ -169,57 +224,6 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
     private void readAdditionalSaveDataInject(CompoundTag compound, CallbackInfo ci) {
         if (compound.contains("diversity:pickpocket_cooldown", CompoundTag.TAG_INT)) {
             this.Diversity$pickpocket_cooldown = compound.getInt("diversity:pickpocket_cooldown");
-        }
-    }
-
-    @Unique
-    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
-        switch (name) {
-            case "armorer" -> {
-                return CustomLootTables.PICKPOCKET_ARMORER;
-            }
-            case "butcher" -> {
-                return CustomLootTables.PICKPOCKET_BUTCHER;
-            }
-            case "cartographer" -> {
-                return CustomLootTables.PICKPOCKET_CARTOGRAPHER;
-            }
-            case "cleric" -> {
-                return CustomLootTables.PICKPOCKET_CLERIC;
-            }
-            case "farmer" -> {
-                return CustomLootTables.PICKPOCKET_FARMER;
-            }
-            case "fisherman" -> {
-                return CustomLootTables.PICKPOCKET_FISHERMAN;
-            }
-            case "fletcher" -> {
-                return CustomLootTables.PICKPOCKET_FLETCHER;
-            }
-            case "leatherworker" -> {
-                return CustomLootTables.PICKPOCKET_LEATHERWORKER;
-            }
-            case "librarian" -> {
-                return CustomLootTables.PICKPOCKET_LIBRARIAN;
-            }
-            case "mason" -> {
-                return CustomLootTables.PICKPOCKET_MASON;
-            }
-            case "nitwit" -> {
-                return CustomLootTables.PICKPOCKET_NITWIT;
-            }
-            case "shepherd" -> {
-                return CustomLootTables.PICKPOCKET_SHEPHERD;
-            }
-            case "toolsmith" -> {
-                return CustomLootTables.PICKPOCKET_TOOLSMITH;
-            }
-            case "weaponsmith" -> {
-                return CustomLootTables.PICKPOCKET_WEAPONSMITH;
-            }
-            default -> {
-                return CustomLootTables.PICKPOCKET_NONE;
-            }
         }
     }
 }
