@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -24,6 +23,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
+import xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -135,7 +136,7 @@ public class rightClickCropBlocks {
 
                                 //damage item
                                 if (usingHoe)
-                                    player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                                    ItemStackMethod.hurtAndBreak(player.getItemInHand(hand), 1, player, LivingEntityMethod.getSlotForHand(hand));
 
                                 shouldConsumeAction = true;
                             }

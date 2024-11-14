@@ -1,12 +1,12 @@
 package xyz.faewulf.diversity.event_handler;
 
 import net.minecraft.world.InteractionResult;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import xyz.faewulf.diversity.Constants;
 
-@EventBusSubscriber(modid = Constants.MOD_ID)
+@Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class onRightClickCropBlocks {
     @SubscribeEvent
     public static void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {

@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.faewulf.diversity.util.config.ModConfigs;
@@ -30,7 +29,7 @@ public class harvestCrop {
             }
         }
 
-        Player player = helper.makeMockPlayer(GameType.SURVIVAL);
+        Player player = helper.makeMockSurvivalPlayer();
         ItemStack itemStack = new ItemStack(Items.IRON_HOE, 1);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
