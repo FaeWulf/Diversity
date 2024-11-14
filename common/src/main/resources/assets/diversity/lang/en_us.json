@@ -41,6 +41,7 @@
   "diversity.config.clock_shows_time.tooltip": "- Use Clock to show current time.",
   "diversity.config.shear_prevent_growing.tooltip": "- Shear can be used on Saplings, Bamboo, Vine and Sugar cane to prevent it from growing",
   "diversity.config.shear_can_pickpocket_villager.tooltip": "- Pickpocket villager using Shear while sneaking.\n- Pickpocket from the front has a high chance of making them angry; reduce it by pickpocketing from behind, or completely nullify it with invisibility potion.\n- Pickpocketing has a chance to reset their profession. The higher the profession level, the lower the chance of it resetting.",
+  "diversity.config.shear_defuses_tnt.tooltip": "- Shears can be used on primed TNT to give a chance to defuse it.",
   "diversity.config.spyglass_what_is_that.tooltip": "- See additional block/entity information with a Spyglass, default radius is 5 blocks.\n- Zoom with Spyglass will extend to 32 blocks.",
   "diversity.config.invisible_frame.tooltip": "- Make item frames invisible by sneak + right-clicking a non-dyed glass pane into them.\n- They stay invisible when holding an item, otherwise, they emit particles as indicators.",
   "diversity.config.faster_minecart.tooltip": "- Rail placed on `Gravel` will make Minecart and its variants travel faster.",
