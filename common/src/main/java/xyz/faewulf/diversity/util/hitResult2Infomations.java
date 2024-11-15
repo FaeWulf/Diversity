@@ -26,9 +26,9 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BeaconBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;
