@@ -7,7 +7,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.decoration.ItemFrame;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,8 +17,6 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.gameTests.TestGroup;
 import xyz.faewulf.diversity.util.gameTests.registerGameTests;
-
-import java.util.List;
 
 @TestGroup
 public class clickThroughItemFrame {

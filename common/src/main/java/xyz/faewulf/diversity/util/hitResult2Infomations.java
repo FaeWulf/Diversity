@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.util;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Reference2IntMap;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -8,7 +7,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -33,10 +31,10 @@ import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerData;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BeaconBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.spyglassWhatIsThat.TrialSpawnerDataMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.TrialSpawnerDataMixin;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -2,9 +2,6 @@ package xyz.faewulf.diversity.util.config;
 
 public class ModConfigs {
 
-    @Entry(category = "general", name = "Enable permission system")
-    public static boolean permission_enable = false;
-
     @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true)
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
@@ -175,6 +172,9 @@ public class ModConfigs {
 
     @Entry(category = "cursed", name = "Reverse phantom spawn condition")
     public static boolean reverse_phantom = false;
+
+    @Entry(category = "command", name = "Enable permission system")
+    public static boolean permission_enable = false;
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;

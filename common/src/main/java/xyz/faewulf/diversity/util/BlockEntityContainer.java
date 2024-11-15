@@ -1,9 +1,7 @@
 package xyz.faewulf.diversity.util;
 
-import net.minecraft.server.level.ServerLevel;
-import xyz.faewulf.diversity.mixin.clickThrough.ChestBlockMixin;
-import xyz.faewulf.diversity.mixin.shulkerBoxLabel.ShulkerBoxBlockMixin;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.monster.piglin.PiglinAi;
@@ -14,6 +12,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import xyz.faewulf.diversity.mixin.general.clickThrough.ChestBlockMixin;
+import xyz.faewulf.diversity.mixin.general.shulkerBoxLabel.ShulkerBoxBlockMixin;
 
 public class BlockEntityContainer {
 

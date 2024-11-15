@@ -1,23 +1,16 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.MoverType;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.GameType;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.faewulf.diversity.util.config.ModConfigs;

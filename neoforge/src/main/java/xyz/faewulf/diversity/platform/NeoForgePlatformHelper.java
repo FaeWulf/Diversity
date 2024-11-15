@@ -2,13 +2,10 @@ package xyz.faewulf.diversity.platform;
 
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
-import org.spongepowered.asm.mixin.injection.Group;
 import xyz.faewulf.diversity.platform.services.IPlatformHelper;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
 

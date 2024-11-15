@@ -6,18 +6,14 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.Chicken;
 import net.minecraft.world.entity.animal.Parrot;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
 import xyz.faewulf.diversity.util.gameTests.TestGroup;
 import xyz.faewulf.diversity.util.gameTests.registerGameTests;
 
