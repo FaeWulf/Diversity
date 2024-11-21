@@ -1,4 +1,4 @@
-# Changelog v2.1.3
+# Changelog v2.2.0
 
 ### Added
 
