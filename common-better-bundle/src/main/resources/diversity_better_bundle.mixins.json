@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "xyz.faewulf.diversity.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "core.increaseStackSize.DataComponentTypesMixin",
+    "core.increaseStackSize.ItemStackMixin",
+    "core.registryLoadBlocker.RegistryLoaderMixin",
+    "core.registryLoadBlocker.TagGroupLoaderMixin",
+    "buildingBundle.BlockItemInvoker",
+    "buildingBundle.BlockItemMixin",
+    "buildingBundle.BuilderMixin",
+    "buildingBundle.BundleContentComponentInvoker",
+    "buildingBundle.BundleItemMixin",
+    "buildingBundle.ModifyComponentMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
+}
+

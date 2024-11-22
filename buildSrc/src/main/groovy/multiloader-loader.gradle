@@ -11,14 +11,61 @@ configurations {
     }
 }
 
-dependencies {
-    compileOnly(project(':common')) {
-        capabilities {
-            requireCapability "$group:$mod_id"
-        }
+processResources {
+
+    var expandProps = [
+            'version'                      : version,
+            'group'                        : project.group, //Else we target the task's group.
+            'minecraft_version'            : minecraft_version,
+            'minecraft_version_max'        : minecraft_version_max,
+            'minecraft_version_range'      : minecraft_version_range,
+            'fabric_version'               : fabric_version,
+            'fabric_loader_version'        : fabric_loader_version,
+            'mod_name'                     : mod_name,
+            'mod_author'                   : mod_author,
+            'mod_id'                       : mod_id,
+            'license'                      : license,
+            'description'                  : project.description,
+            'neoforge_version'             : neoforge_version,
+            'neoforge_loader_version_range': neoforge_loader_version_range,
+            "forge_version"                : forge_version,
+            "forge_loader_version_range"   : forge_loader_version_range,
+            'credits'                      : credits,
+            'java_version'                 : java_version
+    ]
+
+    //better bundle
+    if (project.name.contains("better-bundle")) {
+        expandProps.put('mod_name', mod_name_better_bundle)
+        expandProps.put('mod_id', mod_id_better_bundle)
+        expandProps.put('description', description_better_bundle)
     }
-    commonJava project(path: ':common', configuration: 'commonJava')
-    commonResources project(path: ':common', configuration: 'commonResources')
+
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {
+        expand expandProps
+    }
+    inputs.properties(expandProps)
+}
+
+dependencies {
+    //better bundle
+    if (project.name.contains("better-bundle")) {
+        compileOnly(project(':common-better-bundle')) {
+            capabilities {
+                requireCapability "$group:$mod_id"
+            }
+        }
+        commonJava project(path: ':common-better-bundle', configuration: 'commonJava')
+        commonResources project(path: ':common-better-bundle', configuration: 'commonResources')
+    } else {
+        compileOnly(project(':common')) {
+            capabilities {
+                requireCapability "$group:$mod_id"
+            }
+        }
+        commonJava project(path: ':common', configuration: 'commonJava')
+        commonResources project(path: ':common', configuration: 'commonResources')
+    }
 }
 
 tasks.named('compileJava', JavaCompile) {
