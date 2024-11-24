@@ -18,7 +18,7 @@ public class CapacityEnchantment extends Enchantment implements ICustomEnchantCa
 
     @Override
     public int getMinCost(int $$0) {
-        return 5 + ($$0 - 1) * 8;
+        return 6 + ($$0 - 1) * 12;
     }
 
     @Override
