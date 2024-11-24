@@ -164,9 +164,6 @@ public class ModConfigs {
     @Entry(category = "entity", name = "Wandering trader announcer")
     public static boolean wandering_trader_announcer = true;
 
-    @Entry(category = "recipe", name = "Bundle recipe", require_restart = true)
-    public static boolean bundle_recipe = true;
-
     @Entry(category = "recipe", name = "Suspicious sand/gravel recipe", require_restart = true)
     public static boolean sus_sand_recipe = true;
 
@@ -181,7 +178,6 @@ public class ModConfigs {
 
     @Entry(category = "command", name = "Enable permission system")
     public static boolean permission_enable = false;
-
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
