@@ -9,6 +9,7 @@
     "core.invoker.ItemEntityInvoker",
     "core.PseudoBlockEntity.ServerEntityMixin",
     "core.PseudoBlockEntity.TextDisplayMixin",
+    "core.recipeLoadBlocker.RecipeManagerMixin",
     "curse.reversePhantom.PhantomSpawnerMixin",
     "curse.reversePhantom.PlayerMixin",
     "entity.FoxBuryItems",
