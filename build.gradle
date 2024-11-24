@@ -11,14 +11,14 @@ plugins {
 //custom task
 tasks.register('copyJars', Copy) {
 
-    dependsOn ':fabric:build', ':neoforge:build' // Make sure subprojects are built
+    dependsOn ':fabric-better-bundle:build', ':neoforge-better-bundle:build' // Make sure subprojects are built
 
-    from('fabric/build/libs') {
+    from('fabric-better-bundle/build/libs') {
         include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
 
-    from('neoforge/build/libs') {
+    from('neoforge-better-bundle/build/libs') {
         include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
@@ -28,7 +28,7 @@ tasks.register('copyJars', Copy) {
 
 // Trigger the copyJars task after the subprojects' builds are done
 gradle.projectsEvaluated {
-    copyJars.mustRunAfter ':fabric:build', ':neoforge:build'
+    copyJars.mustRunAfter ':fabric-better-bundle:build', ':neoforge-better-bundle:build'
 }
 
 // Add a custom task to trigger the copy process
@@ -37,7 +37,7 @@ tasks.register('buildAll') {
     description = 'Builds and copies the main JARs from subprojects to the root build folder.'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:build', ':neoforge:build', copyJars
+    dependsOn ':fabric-better-bundle:build', ':neoforge-better-bundle:build', copyJars
 }
 
 // Tasks for publish
@@ -46,7 +46,7 @@ tasks.register('publishAllToModrinth') {
     description = 'Publish all subproject artifacts to Modrinth'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:publishModrinth', ':neoforge:publishModrinth'
+    dependsOn ':fabric-better-bundle:publishModrinth', ':neoforge-better-bundle:publishModrinth'
 }
 
 tasks.register('publishAllToCurseforge') {
@@ -54,7 +54,7 @@ tasks.register('publishAllToCurseforge') {
     description = 'Publish all subproject artifacts to Curseforge'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:publishCurseforge', ':neoforge:publishCurseforge'
+    dependsOn ':fabric-better-bundle:publishCurseforge', ':neoforge-better-bundle:publishCurseforge'
 }
 
 tasks.register('publishAllToAll') {

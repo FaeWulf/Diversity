@@ -1,0 +1,23 @@
+{
+  "description": {
+    "translate": "enchantment.diversity_better_bundle.capacity",
+    "fallback": "Capacity"
+  },
+  "supported_items": [
+    "minecraft:bundle"
+  ],
+  "weight": 3,
+  "max_level": 3,
+  "anvil_cost": 2,
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 5
+  },
+  "min_cost": {
+    "base": 6,
+    "per_level_above_first": 12
+  },
+  "slots": [
+    "any"
+  ]
+}
