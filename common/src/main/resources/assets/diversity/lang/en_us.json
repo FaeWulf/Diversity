@@ -83,6 +83,8 @@
   "diversity.config.reverse_phantom.tooltip": "- Phantom will spawn if player continuously sleep skipping the night.",
   "diversity.config.wandering_trader_announcer.tooltip": "- Announce in chat when wandering trader appears.",
   "diversity.config.wet_sponge_dry_in_warm_biome.tooltip": "- Wet sponge placed in warm biome will eventually dry out.",
+  "diversity.config.bundle_recipe.tooltip": "- Add recipe for bundle.",
+  "diversity.config.sus_sand_recipe.tooltip": "- Add recipe for suspicious sand/gravel.",
   "diversity.config.enum.weatherType.DISABLE": "Disable",
   "diversity.config.enum.weatherType.RAIN_ONLY": "Keep rain only",
   "diversity.config.enum.weatherType.ALL_WEATHER": "Keep all weathers",
@@ -94,6 +96,7 @@
   "diversity.config.category.general": "General features",
   "diversity.config.category.command": "Commands",
   "diversity.config.category.cursed": "Cursed",
+  "diversity.config.category.recipe": "Recipe",
   "diversity.config.category.item": "Item features",
   "diversity.config.require_restart": "⚠ This feature requires restarting the game to apply the changes."
 }
