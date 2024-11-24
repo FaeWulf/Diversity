@@ -10,14 +10,14 @@ plugins {
 //custom task
 tasks.register('copyJars', Copy) {
 
-    dependsOn ':fabric:build', ':forge:build' // Make sure subprojects are built
+    dependsOn ':fabric-better-bundle:build', ':forge-better-bundle:build' // Make sure subprojects are built
 
-    from('fabric/build/libs') {
+    from('fabric-better-bundle/build/libs') {
         include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
 
-    from('forge/build/libs') {
+    from('forge-better-bundle/build/libs') {
         include("*${project.version}.jar")
         exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
     }
@@ -27,7 +27,7 @@ tasks.register('copyJars', Copy) {
 
 // Trigger the copyJars task after the subprojects' builds are done
 gradle.projectsEvaluated {
-    copyJars.mustRunAfter ':fabric:build', ':forge:build'
+    copyJars.mustRunAfter ':fabric-better-bundle:build', ':forge-better-bundle:build'
 }
 
 // Add a custom task to trigger the copy process
@@ -36,7 +36,7 @@ tasks.register('buildAll') {
     description = 'Builds and copies the main JARs from subprojects to the root build folder.'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:build', ':forge:build', copyJars
+    dependsOn ':fabric-better-bundle:build', ':forge-better-bundle:build', copyJars
 }
 
 // Tasks for publish
@@ -45,7 +45,7 @@ tasks.register('publishAllToModrinth') {
     description = 'Publish all subproject artifacts to Modrinth'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:publishModrinth', ':forge:publishModrinth'
+    dependsOn ':fabric-better-bundle:publishModrinth', ':forge-better-bundle:publishModrinth'
 }
 
 tasks.register('publishAllToCurseforge') {
@@ -53,7 +53,7 @@ tasks.register('publishAllToCurseforge') {
     description = 'Publish all subproject artifacts to Curseforge'
 
     //delete(fileTree("build/"))
-    dependsOn ':fabric:publishCurseforge', ':forge:publishCurseforge'
+    dependsOn ':fabric-better-bundle:publishCurseforge', ':forge-better-bundle:publishCurseforge'
 }
 
 tasks.register('publishAllToAll') {
@@ -141,6 +141,13 @@ subprojects { subproject ->
                 "license"                   : license,
                 "description"               : project.description
         ]
+
+        //better bundle
+        if (subproject.name.contains("better-bundle")) {
+            expandProps.put('mod_name', mod_name_better_bundle)
+            expandProps.put('mod_id', mod_id_better_bundle)
+            expandProps.put('description', description_better_bundle)
+        }
 
         filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
             expand expandProps
