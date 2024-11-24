@@ -12,6 +12,7 @@
     "core.invoker.ItemEntityInvoker",
     "core.PseudoBlockEntity.ServerEntityMixin",
     "core.PseudoBlockEntity.TextDisplayMixin",
+    "core.recipeLoadBlocker.RecipeManagerMixin",
     "core.registryLoadBlocker.RegistryLoaderMixin",
     "core.registryLoadBlocker.TagGroupLoaderMixin",
     "curse.edibleEndStone.LivingEntityMixin",
