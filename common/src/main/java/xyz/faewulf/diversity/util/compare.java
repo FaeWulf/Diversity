@@ -50,6 +50,27 @@ public class compare {
 
     }
 
+    public static boolean isBlock(String name, Block block) {
+        // Get the ResourceLocation of the block from the registry
+        ResourceLocation resourceLocation = BuiltInRegistries.BLOCK.getKey(block);
+
+        // Convert to a string (e.g., "minecraft:dirt")
+        String id = resourceLocation != null ? resourceLocation.toString() : "unknown:block";
+
+        return id.equalsIgnoreCase(name);
+    }
+
+    public static boolean isItem(String name, Item item) {
+        // Get the ResourceLocation of the block from the registry
+        ResourceLocation resourceLocation = BuiltInRegistries.ITEM.getKey(item);
+
+        // Convert to a string (e.g., "minecraft:dirt")
+        String id = resourceLocation != null ? resourceLocation.toString() : "unknown:item";
+
+        return id.equalsIgnoreCase(name);
+    }
+
+
     public static boolean isEntity2BehindEntity1(LivingEntity entity1, LivingEntity entity2) {
         // Villager's facing direction vector
         Vec3 entity1ViewVector = entity1.getViewVector(1.0F);
