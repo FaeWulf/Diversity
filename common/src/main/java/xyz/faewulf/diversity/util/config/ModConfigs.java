@@ -90,7 +90,7 @@ public class ModConfigs {
     public static boolean clock_shows_time = true;
 
     @Entry(category = "item", name = "Hoe harvests crops")
-    public static boolean hoe_harvest_crop = true;
+    public static allowHarvestType hoe_harvest_crop = allowHarvestType.ALL;
 
     @Entry(category = "item", name = "Mace rotate blocks")
     public static boolean mace_rotate_block = true;
@@ -194,4 +194,7 @@ public class ModConfigs {
         ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE
     }
 
+    public enum allowHarvestType {
+        ALL, HOE_ONLY, HAND_ONLY, DISABLE
+    }
 }
