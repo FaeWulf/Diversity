@@ -19,7 +19,7 @@ public class harvestCrop {
     @GameTest(template = registerGameTests.DEFAULT)
     public void test(GameTestHelper helper) {
 
-        if (!ModConfigs.hoe_harvest_crop)
+        if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.DISABLE)
             helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
 
 
