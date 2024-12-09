@@ -15,10 +15,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.CocoaBlock;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.NetherWartBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
@@ -33,7 +30,7 @@ public class rightClickCropBlocks {
 
     public static InteractionResult run(Level level, Player player, InteractionHand hand, BlockHitResult hitResult) {
 
-        if (!ModConfigs.hoe_harvest_crop)
+        if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.DISABLE)
             return InteractionResult.PASS;
 
         //first filter
@@ -48,6 +45,14 @@ public class rightClickCropBlocks {
 
             //is using hoe
             boolean usingHoe = compare.isHasTag(mainHandItem.getItem(), "diversity:crop_harvester") && enableRadius(blockState);
+
+            // If mode is HAND_ONLY, then force use hand regardless of holding hoe or not
+            if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.HAND_ONLY)
+                usingHoe = false;
+
+            // If mode is HOE_ONLY then check for holding hoe, if not then cancel
+            if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.HOE_ONLY && !usingHoe)
+                return InteractionResult.PASS;
 
             //radius trigger
             int radius = 1;
@@ -90,10 +95,15 @@ public class rightClickCropBlocks {
                                 //Handle check if having seed in loot, or not then use seed in player inventory
                                 boolean alreadyTakeSeed = false;
                                 for (ItemStack itemStack : itemStacks) {
+
+                                    if (shouldNotDropSeed(currentBlockState.getBlock(), itemStack.getItem()))
+                                        itemStack.setCount(0);
+
                                     //check if is seed, then remove 1
                                     if (!alreadyTakeSeed && isSeed(itemStack.getItem(), currentBlockState)) {
                                         alreadyTakeSeed = true;
-                                        itemStack.shrink(1);
+                                        if (shouldTakeSeed(currentBlockState.getBlock()))
+                                            itemStack.shrink(1);
                                     }
 
                                     //check if empty
@@ -112,7 +122,8 @@ public class rightClickCropBlocks {
                                         ItemStack stack = player.getInventory().getItem(i);
                                         if (!stack.isEmpty() && isSeed(stack.getItem(), currentBlockState)) {
                                             alreadyTakeSeed = true;
-                                            stack.shrink(1);
+                                            if (shouldTakeSeed(currentBlockState.getBlock()))
+                                                stack.shrink(1);
                                             break;
                                         }
                                     }
@@ -121,6 +132,9 @@ public class rightClickCropBlocks {
                                 //if taken seed then replace crop
                                 if (alreadyTakeSeed)
                                     replaceCrop(serverLevel, currentBlockState, currentBlock);
+                                else {
+                                    replaceCrop(serverLevel, Blocks.AIR.defaultBlockState(), currentBlock);
+                                }
 
                                 //replica of breaking block
                                 serverLevel.playSound(null, targetBlock, currentBlockState.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
@@ -167,7 +181,30 @@ public class rightClickCropBlocks {
                 || blockState.getBlock() instanceof NetherWartBlock;
     }
 
+    private static boolean shouldTakeSeed(Block block) {
+        if (compare.isBlock("farmersdelight:tomatoes", block))
+            return false;
+
+        return true;
+    }
+
+    private static boolean shouldNotDropSeed(Block block, Item item) {
+        if (
+                compare.isBlock("farmersdelight:tomatoes", block)
+                        && compare.isItem("farmersdelight:tomato_seeds", item)
+        )
+            return true;
+
+        return false;
+    }
+
+
     private static boolean isSeed(Item target, BlockState blockState) {
+
+        // Case for farmerdelight:tomatoes
+        if (compare.isBlock("farmersdelight:tomatoes", blockState.getBlock()))
+            return true;
+
         return target instanceof BlockItem blockItem && blockItem.getBlock() == blockState.getBlock();
     }
 
