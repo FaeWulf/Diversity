@@ -30,8 +30,9 @@ public abstract class FluidBlockMixin extends Block implements BucketPickup {
         else {
             if (world.getFluidState(blockPos).isSource())
                 return state;
-            else
+            else {
                 return Blocks.COBBLED_DEEPSLATE.defaultBlockState();
+            }
         }
     }
 }

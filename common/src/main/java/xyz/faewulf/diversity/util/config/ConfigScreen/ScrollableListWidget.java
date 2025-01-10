@@ -18,7 +18,6 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
 
     private static final int SCROLLBAR_OFFSET = 7;
 
-
     public ScrollableListWidget(Minecraft $$0, int $$1, int $$2, int $$3, int $$4, int $$5) {
         super($$0, $$1, $$2, $$4, $$5);
 
@@ -40,11 +39,6 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
         ListEntry e = new ListEntry(entryInfo, widget);
         addEntry(e);
 
-    }
-
-    @Override
-    protected int getScrollbarPosition() {
-        return width - SCROLLBAR_OFFSET;
     }
 
     @Override

@@ -58,10 +58,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class BundleItemMixin extends Item implements ICustomBundleItem {
     @Shadow
     @Final
-    private ResourceLocation openBackModel;
-
-    @Shadow
-    @Final
     private static int FULL_BAR_COLOR;
 
     @Shadow

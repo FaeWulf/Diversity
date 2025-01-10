@@ -13,12 +13,14 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -29,8 +31,8 @@ public abstract class EntityMixin {
     @Final
     protected RandomSource random;
 
-    @Inject(method = "playStepSound", at = @At("TAIL"))
-    private void playStepSoundMixin(BlockPos pPos, BlockState pState, CallbackInfo ci) {
+    @Inject(method = "vibrationAndSoundEffectsFromBlock", at = @At("HEAD"))
+    private void playStepSoundMixin(BlockPos pos, BlockState state, boolean playStepSound, boolean broadcastGameEvent, Vec3 entityPos, CallbackInfoReturnable<Boolean> cir) {
 
         if (!ModConfigs.slime_chunk_check)
             return;
