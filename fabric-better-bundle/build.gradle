@@ -33,7 +33,7 @@ dependencies {
 }
 
 loom {
-    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    def aw = project(':common-better-bundle').file("src/main/resources/${mod_id_better_bundle}.accesswidener")
     if (aw.exists()) {
         accessWidenerPath.set(aw)
     }
