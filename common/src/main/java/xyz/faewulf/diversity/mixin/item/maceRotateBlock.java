@@ -48,7 +48,7 @@ public abstract class maceRotateBlock extends Item {
                 context.getLevel().playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.ITEM_FRAME_ROTATE_ITEM, SoundSource.PLAYERS, 0.7f, 0.6f);
 
                 context.getItemInHand().hurtAndBreak(1, serverPlayerEntity, LivingEntity.getSlotForHand(context.getHand()));
-
+                context.getPlayer().swing(context.getHand(), true);
                 return InteractionResult.SUCCESS;
             }
         }
