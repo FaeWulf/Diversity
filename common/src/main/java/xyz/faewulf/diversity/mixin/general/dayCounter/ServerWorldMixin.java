@@ -54,10 +54,23 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     @Inject(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;setDayTime(J)V"))
     private void tickTimeInject(CallbackInfo ci) {
 
-        if (!ModConfigs.day_counter)
+        if (ModConfigs.day_counter == ModConfigs.announceDay.DISABLE)
             return;
 
         if (this.dimensionType().hasSkyLight() && this.getDayTime() % 24000L == 0) {
+
+            //per 10 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_10_DAY && (this.getDayTime() / 24000L + 1L) % 10 != 0)
+                return;
+
+            //per 50 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 50 != 0)
+                return;
+
+            //per 100 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 100 != 0)
+                return;
+
             diversity_Multiloader$beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
@@ -85,6 +98,11 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
 
                 boolean playSound = true;
                 int cut_pos = (int) ((current_time - begin_time) / 3);
+
+                if (cut_pos < 0) {
+                    diversity_Multiloader$beginAnnounce = false;
+                    return;
+                }
 
                 if (cut_pos > message.length()) {
                     cut_pos = message.length();
