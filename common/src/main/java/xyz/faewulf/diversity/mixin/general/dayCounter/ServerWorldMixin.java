@@ -40,10 +40,6 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     @Unique
     private boolean diversity_Multiloader$beginAnnounce = false;
 
-    protected ServerWorldMixin(WritableLevelData properties, ResourceKey<Level> registryRef, RegistryAccess registryManager, Holder<DimensionType> dimensionEntry, Supplier<ProfilerFiller> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
-        super(properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess, maxChainedNeighborUpdates);
-    }
-
     @Shadow
     public abstract List<ServerPlayer> players();
 
