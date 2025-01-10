@@ -27,7 +27,7 @@ public class ModConfigs {
     public static boolean bonemeal_coral_fan = true;
 
     @Entry(category = "general", name = "Day counter")
-    public static boolean day_counter = true;
+    public static announceDay day_counter = announceDay.PER_1_DAY;
 
     @Entry(category = "general", name = "Deepslate generator")
     public static boolean deepslate_generator = true;
@@ -188,6 +188,10 @@ public class ModConfigs {
 
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
+    }
+
+    public enum announceDay {
+        DISABLE, PER_1_DAY, PER_10_DAY, PER_50_DAY, PER_100_DAY
     }
 
     public enum inspectType {

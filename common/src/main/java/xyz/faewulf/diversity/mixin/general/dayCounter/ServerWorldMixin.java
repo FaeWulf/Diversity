@@ -38,7 +38,11 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     private long end_time;
 
     @Unique
-    private boolean multiLoader_1_20_1$beginAnnounce = false;
+    private boolean diversity_Multiloader$beginAnnounce = false;
+
+    protected ServerWorldMixin(WritableLevelData properties, ResourceKey<Level> registryRef, RegistryAccess registryManager, Holder<DimensionType> dimensionEntry, Supplier<ProfilerFiller> profiler, boolean isClient, boolean debugWorld, long biomeAccess, int maxChainedNeighborUpdates) {
+        super(properties, registryRef, registryManager, dimensionEntry, profiler, isClient, debugWorld, biomeAccess, maxChainedNeighborUpdates);
+    }
 
     @Shadow
     public abstract List<ServerPlayer> players();
@@ -53,37 +57,55 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     @Inject(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;setDayTime(J)V"))
     private void tickTimeInject(CallbackInfo ci) {
 
-        if (!ModConfigs.day_counter)
+        if (ModConfigs.day_counter == ModConfigs.announceDay.DISABLE)
             return;
 
         if (this.dimensionType().hasSkyLight() && this.getDayTime() % 24000L == 0) {
-            multiLoader_1_20_1$beginAnnounce = true;
+
+            //per 10 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_10_DAY && (this.getDayTime() / 24000L + 1L) % 10 != 0)
+                return;
+
+            //per 50 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 50 != 0)
+                return;
+
+            //per 100 day
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 100 != 0)
+                return;
+
+            diversity_Multiloader$beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
-            end_time = begin_time + message.length() * 2 + 20 * 4;
+            end_time = begin_time + message.length() * 3 + 20 * 4;
         }
 
-        multiLoader_1_20_1$announceNewDay();
+        diversity_Multiloader$announceNewDay();
     }
 
     @Unique
-    private void multiLoader_1_20_1$announceNewDay() {
-        if (!multiLoader_1_20_1$beginAnnounce)
+    private void diversity_Multiloader$announceNewDay() {
+        if (!diversity_Multiloader$beginAnnounce)
             return;
 
         final long current_time = this.getDayTime();
 
         if (current_time > end_time) {
-            multiLoader_1_20_1$beginAnnounce = false;
+            diversity_Multiloader$beginAnnounce = false;
             return;
         }
 
-        if ((current_time - begin_time) % 2 == 0) {
+        if ((current_time - begin_time) % 3 == 0) {
             String message = "Day #" + (current_time / 24000L + 1L) + " has arrived!";
             for (ServerPlayer player : this.players()) {
 
                 boolean playSound = true;
-                int cut_pos = (int) ((current_time - begin_time) / 2);
+                int cut_pos = (int) ((current_time - begin_time) / 3);
+
+                if (cut_pos < 0) {
+                    diversity_Multiloader$beginAnnounce = false;
+                    return;
+                }
 
                 if (cut_pos > message.length()) {
                     cut_pos = message.length();
