@@ -65,7 +65,7 @@ public class registerGameTests {
             return functions;
 
         } catch (IllegalArgumentException a) {
-            return null;
+            return new ArrayList<>();
         }
     }
 
