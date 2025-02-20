@@ -130,7 +130,7 @@ public class ModInfoScreen extends Screen {
                 Button.builder(
                                 Component.literal("Close"),
                                 button -> this.onClose())
-                        .width(70).build()
+                        .width(100).build()
                 , 1
         );
 
