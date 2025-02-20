@@ -130,7 +130,6 @@ public class ModInfoScreen extends Screen {
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float delta) {
         //background
         this.renderBackground(guiGraphics, mouseX, mouseY, delta);
-        settingButton.setFocused(false);
         // Render other screen elements (if any)
         super.render(guiGraphics, mouseX, mouseY, delta);
     }
