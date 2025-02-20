@@ -3,12 +3,15 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle'
     id 'org.spongepowered.mixin'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
     maven {
         url = "https://api.modrinth.com/maven"
+    }
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net/'
     }
 }
 
@@ -101,7 +104,7 @@ dependencies {
     implementation("com.electronwill.night-config:core:3.6.0")
     implementation("com.electronwill.night-config:toml:3.6.0")
 
-    implementation('cpw.mods:securejarhandler') { version { strictly '0.9.45' } }
+    //implementation('cpw.mods:securejarhandler') { version { strictly '0.9.45' } }
 }
 
 tasks.withType(JavaCompile).configureEach {
