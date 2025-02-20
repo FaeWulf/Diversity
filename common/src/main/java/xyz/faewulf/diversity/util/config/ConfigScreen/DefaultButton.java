@@ -13,16 +13,6 @@ public class DefaultButton extends Button {
     }
 
     @Override
-    public boolean isFocused() {
-        return false;
-    }
-
-    @Override
-    public void setFocused(boolean $$0) {
-        super.setFocused(false);
-    }
-
-    @Override
     public void renderString(GuiGraphics graphics, Font textRenderer, int color) {
         Font font = Minecraft.getInstance().font;
         PoseStack pose = graphics.pose();
