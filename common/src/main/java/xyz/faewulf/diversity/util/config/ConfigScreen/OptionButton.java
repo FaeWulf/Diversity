@@ -115,16 +115,6 @@ public class OptionButton extends Button {
         return !value.equals(lastValue);
     }
 
-    @Override
-    public boolean isFocused() {
-        return false;
-    }
-
-    @Override
-    public void setFocused(boolean $$0) {
-        super.setFocused(false);
-    }
-
     // Trims text to fit within the specified width and adds ellipsis if necessary
     private String trimTextWithEllipsis(String text, int maxWidth, Font textRenderer) {
         if (textRenderer.width(text) <= maxWidth) {
