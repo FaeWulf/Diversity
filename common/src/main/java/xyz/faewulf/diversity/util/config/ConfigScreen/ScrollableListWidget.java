@@ -9,6 +9,7 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
+import xyz.faewulf.diversity.util.config.ConfigScreen.Components.DefaultButton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -100,6 +101,7 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
         @Override
         public void render(GuiGraphics context, int index, int y, int x, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float tickDelta) {
 
+            // Render all buttons except default button
             for (int i = 0; i < elements.size() - 1; i++) {
                 AbstractWidget abstractWidget = elements.get(i);
                 int width = (entryWidth - 2 - DEFAULT_BUTTON_SIZE) / (elements.size() - 1);
@@ -110,6 +112,7 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
                 abstractWidget.render(context, mouseX, mouseY, tickDelta);
             }
 
+            // Render default button
             this.defaultButton.setWidth(20);
             this.defaultButton.setX(x + entryWidth - DEFAULT_BUTTON_SIZE - 2 - SCROLLBAR_OFFSET / 2);
             this.defaultButton.setY(y);
