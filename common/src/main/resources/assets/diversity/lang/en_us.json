@@ -18,6 +18,7 @@
   "diversity.config.undo": "Undo",
   "diversity.config.cancel": "Quit without Save",
   "diversity.config.reset": "Reset",
+  "diversity.config.default.tooltip": "Reset this field to it's default value.",
   "diversity.config.save.tooltip": "Save all changes.",
   "diversity.config.exit.tooltip": "Exit Config Screen.",
   "diversity.config.undo.tooltip": "Revert all options to their pre-edit state.",
@@ -96,11 +97,11 @@
   "diversity.config.enum.allowHarvestType.HOE_ONLY": "Hoe only",
   "diversity.config.enum.allowHarvestType.HAND_ONLY": "Hand only",
   "diversity.config.enum.allowHarvestType.DISABLE": "Disable",
-  "diversity.config.category.entity": "Entity features",
-  "diversity.config.category.general": "General features",
+  "diversity.config.category.entity": "Entity",
+  "diversity.config.category.general": "General",
   "diversity.config.category.command": "Commands",
   "diversity.config.category.cursed": "Cursed",
   "diversity.config.category.recipe": "Recipe",
-  "diversity.config.category.item": "Item features",
+  "diversity.config.category.item": "Item",
   "diversity.config.require_restart": "⚠ This feature requires restarting the game to apply the changes."
 }
