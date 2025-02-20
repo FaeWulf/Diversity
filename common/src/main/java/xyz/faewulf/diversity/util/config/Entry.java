@@ -12,6 +12,8 @@ public @interface Entry {
 
     String category(); // Category to group similar configs
 
+    String group() default "Others"; // Category to group similar configs
+
     String info() default "";  // Extra information or tooltip
 
     boolean require_restart() default false;
