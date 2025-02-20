@@ -72,6 +72,7 @@ public class ConfigScreen extends Screen {
 
     public static GridLayout infoTab;
     public static String currentInfo;
+    public static boolean updateCall = false;
 
     //part components
 
@@ -115,7 +116,7 @@ public class ConfigScreen extends Screen {
         TabNavigationBar.Builder tabBuilder = TabNavigationBar.builder(this.tabManager, this.width);
 
         configMap.forEach((s, stringEntryTypeMap) -> { //create tab for each category
-            tabBuilder.addTabs(new ConfigTab(Component.literal(s), stringEntryTypeMap));
+            tabBuilder.addTabs(new ConfigTab(s, stringEntryTypeMap));
         });
 
 
@@ -279,6 +280,12 @@ public class ConfigScreen extends Screen {
             pushList(this.searchBar.getValue());
         }
 
+        // To handle re render when using group buttons
+        if (updateCall) {
+            updateCall = false;
+            this.pushListWithoutSetScroll(this.searchBar == null ? null : this.searchBar.getValue());
+        }
+
         //checking for save
         //checking between CONFIG_VALUES and CONFIG_ENTRIES, if different then trigger save button and cancel button
         //CONFIG_VALUES is for reference only, don't change it here
@@ -350,6 +357,13 @@ public class ConfigScreen extends Screen {
     private void pushList(String filter) {
         if (this.slw == null)
             return;
+        pushListWithoutSetScroll(filter);
+        this.slw.setScrollAmount(0);
+    }
+
+    private void pushListWithoutSetScroll(@Nullable String filter) {
+        if (this.slw == null || this.searchBar == null)
+            return;
 
         this.selectedTab = this.tabManager.getCurrentTab();
         this.slw.clear();
@@ -357,16 +371,19 @@ public class ConfigScreen extends Screen {
         if (this.selectedTab instanceof ConfigTab configTab) {
             configTab.tabEntries.forEach((entryType, buttons) -> {
 
-                if (filter == null || filter.isEmpty()) {
+                if (!entryType.visibleInConfig) {
+                    return;
+                }
+
+                if (entryType.pseudoEntry) {
+                    this.slw.addRow(entryType, buttons.toArray(new AbstractWidget[]{}));
+                } else if (filter == null || filter.isEmpty()) {
                     this.slw.addRow(entryType, buttons.toArray(new AbstractWidget[]{}));
                 } else if (entryType.name.contains(filter.toLowerCase())) {
                     this.slw.addRow(entryType, buttons.toArray(new AbstractWidget[]{}));
                 }
-
             });
         }
-
-        this.slw.setScrollAmount(0);
     }
 
     @Override
