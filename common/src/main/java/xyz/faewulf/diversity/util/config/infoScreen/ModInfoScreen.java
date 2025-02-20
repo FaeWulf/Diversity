@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -25,15 +26,20 @@ import java.util.Random;
 
 public class ModInfoScreen extends Screen {
 
-    private static final ResourceLocation MAIN_IMAGE = new ResourceLocation(Constants.MOD_ID, "textures/gui/d.png");
-    private static final ResourceLocation LIGHT_RAYS = new ResourceLocation(Constants.MOD_ID, "textures/gui/light_rays.png");
+    private static final ResourceLocation MAIN_IMAGE = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/d.png");
+    private static final ResourceLocation LIGHT_RAYS = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/light_rays.png");
+
+    // Icon
+    private static final ResourceLocation ICON_DISCORD = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/discord");
+    private static final ResourceLocation ICON_KOFI = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/kofi");
+    private static final ResourceLocation ICON_GITHUB = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/github");
     private final Screen parent;
     private final Minecraft client;
 
     private final List<rainITem> fallingEntities = new ArrayList<>();
 
     //background
-    public static final ResourceLocation ATLAS_TEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/gui/atlas_background.png");
+    public static final ResourceLocation ATLAS_TEXTURE = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/atlas_background.png");
 
     //background
     private final int ATLAS_SIZE = 32 * 3; // number of atlas tile
@@ -43,11 +49,12 @@ public class ModInfoScreen extends Screen {
     private int tilesY;
 
     //logo
-    private final float logo_offset_Y = 0.6f;
+    private final float logo_offset_Y = 0.5f;
 
     //comps
-    private GridLayout buttonLayout;
-    private GridLayout infoLayout;
+    private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 100, 100);
+    private GridLayout contentLayout;
+    private GridLayout footerLayout;
     private Button settingButton;
 
     private float time = 0.0f;  // Time variable to track animation
@@ -82,44 +89,82 @@ public class ModInfoScreen extends Screen {
             fallingEntities.add(new rainITem(texture, x, y, velocityX, velocityY, rotationSpeed, this.width, this.height));
         }
 
-        this.buttonLayout = new GridLayout();
-        this.infoLayout = new GridLayout();
+        //buttons
+        this.contentLayout = new GridLayout();
+        this.footerLayout = new GridLayout();
 
-        GridLayout.RowHelper rowHelper = buttonLayout.createRowHelper(1);
-        rowHelper.defaultCellSetting().padding(4);
+        GridLayout.RowHelper rowHelper = contentLayout.createRowHelper(1);
+        rowHelper.defaultCellSetting().padding(4).alignHorizontallyCenter();
 
         settingButton = rowHelper.addChild(
                 Button.builder(
                         Component.literal("Configuration..."),
                         button -> this.client.setScreen(ConfigScreen.getScreen(this))).build()
+                , 3
         );
 
-        rowHelper.addChild(
+
+        GridLayout.RowHelper rowHelperFooterLayout = footerLayout.createRowHelper(5);
+        rowHelperFooterLayout.defaultCellSetting().alignHorizontallyCenter().padding(2);
+
+        rowHelperFooterLayout.addChild(
                 Button.builder(
-                        Component.literal("Close"),
-                        button -> this.onClose()).build()
+                                Component.literal("🌐"),
+                                button -> this.openWebLink("https://faewulf.xyz/diversity"))
+                        .width(20).build()
         );
 
-        GridLayout.RowHelper rowHelperInfoLayout = infoLayout.createRowHelper(2);
-        rowHelperInfoLayout.defaultCellSetting().padding(2);
-
-        rowHelperInfoLayout.addChild(
-                Button.builder(
-                                Component.literal("Website"),
-                                button -> this.openWebLink("https://faewulf.xyz/"))
-                        .width(50).build()
+        rowHelperFooterLayout.addChild(
+                SpriteIconButton.builder(
+                                Component.literal("Kofi").withStyle(ChatFormatting.RED),
+                                button -> this.openWebLink("https://ko-fi.com/faewulf"),
+                                true
+                        )
+                        .size(20, 20)
+                        .sprite(ICON_KOFI, 20, 20)
+                        .build()
+                , 1
         );
 
-        rowHelperInfoLayout.addChild(
+        rowHelperFooterLayout.addChild(
                 Button.builder(
+                                Component.literal("Close"),
+                                button -> this.onClose())
+                        .width(70).build()
+                , 1
+        );
+
+        rowHelperFooterLayout.addChild(
+                SpriteIconButton.builder(
                                 Component.literal("Discord").withStyle(ChatFormatting.BLUE),
-                                button -> this.openWebLink("https://discord.com/invite/xZneCTcEvb"))
-                        .width(50).build()
+                                button -> this.openWebLink("https://faewulf.xyz/discord"),
+                                true
+                        )
+                        .size(20, 20)
+                        .sprite(ICON_DISCORD, 16, 16)
+                        .build()
+                , 1
+        );
+
+        rowHelperFooterLayout.addChild(
+                SpriteIconButton.builder(
+                                Component.literal("Github"),
+                                button -> this.openWebLink("https://github.com/FaeWulf/Diversity"),
+                                true
+                        )
+                        .size(20, 20)
+                        .sprite(ICON_GITHUB, 16, 16)
+                        .build()
+                , 1
         );
 
         //add comp to screen renderer
-        buttonLayout.visitWidgets(this::addRenderableWidget);
-        infoLayout.visitWidgets(this::addRenderableWidget);
+        //buttonLayout.visitWidgets(this::addRenderableWidget);
+        //infoLayout.visitWidgets(this::addRenderableWidget);
+
+        this.layout.addToContents(contentLayout);
+        this.layout.addToFooter(footerLayout);
+        this.layout.visitWidgets(this::addRenderableWidget);
 
         //init reposition
         repositionElements();
@@ -236,12 +281,14 @@ public class ModInfoScreen extends Screen {
 
         generateRandomTileMap();
 
-        if (this.buttonLayout != null && this.infoLayout != null) {
-            this.buttonLayout.arrangeElements();
-            this.infoLayout.arrangeElements();
-            FrameLayout.alignInRectangle(this.buttonLayout, 0, 0, this.width, this.height, 0.5f, 0.8f);
-            FrameLayout.alignInRectangle(this.infoLayout, 0, 0, this.width, this.height, 1f, 1f);
-        }
+//        if (this.buttonLayout != null && this.infoLayout != null) {
+//            this.buttonLayout.arrangeElements();
+//            this.infoLayout.arrangeElements();
+//            FrameLayout.alignInRectangle(this.buttonLayout, 0, 0, this.width, this.height, 0.5f, 0.7f);
+//            FrameLayout.alignInRectangle(this.infoLayout, 0, 0, this.width, this.height, 1f, 1f);
+//        }
+
+        this.layout.arrangeElements();
 
         fallingEntities.forEach(rainITem -> rainITem.updateScreenSize(this.width, this.height));
     }
