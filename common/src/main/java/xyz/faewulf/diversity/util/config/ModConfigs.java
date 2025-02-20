@@ -182,6 +182,9 @@ public class ModConfigs {
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
 
+    @Entry(category = "command", name = "temp number ")
+    public static int temp = 2000;
+
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
     }
