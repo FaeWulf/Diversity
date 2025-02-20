@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.util.config.ConfigScreen;
+package xyz.faewulf.diversity.util.config.ConfigScreen.Components;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
