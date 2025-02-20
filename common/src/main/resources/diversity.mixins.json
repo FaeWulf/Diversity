@@ -44,6 +44,7 @@
     "general.bonemealCoral.CoralFeatureInvoker",
     "general.bonemealCoral.CoralMixin",
     "general.bonemealSmallFlower.FlowerBlockMixin",
+    "general.bundleEnchantments.VillagerTradesMixin",
     "general.clickThrough.ChestBlockMixin",
     "general.clickThrough.ItemFrameMixin",
     "general.clickThrough.WallSign",

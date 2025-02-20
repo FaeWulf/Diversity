@@ -5,8 +5,12 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
+import xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen;
+
+import java.util.Objects;
 
 import static xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen.CONFIG_VALUES;
 
@@ -31,6 +35,20 @@ public class NumberButtonInfo extends StringWidget {
         }
 
         setMessage(valueStatusIndicator);
+
+        if (isMouseOver(mouseX, mouseY) && !Objects.equals(this.entryInfo.name, ConfigScreen.currentInfo)) {
+
+            ConfigScreen.infoTab_Title.setMessage(Component.literal(this.entryInfo.humanizeName).withStyle(ChatFormatting.BOLD));
+
+            MutableComponent info = Component.translatable("diversity.config." + this.entryInfo.name + ".tooltip");
+
+            if (this.entryInfo.require_restart)
+                info.append(Component.literal("\n\n").append(Component.translatable("diversity.config.require_restart").withStyle(ChatFormatting.GOLD)));
+
+            ConfigScreen.infoTab_Info.setMessage(info);
+            ConfigScreen.infoTab.arrangeElements();
+            ConfigScreen.currentInfo = this.entryInfo.name;
+        }
 
         super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
     }
