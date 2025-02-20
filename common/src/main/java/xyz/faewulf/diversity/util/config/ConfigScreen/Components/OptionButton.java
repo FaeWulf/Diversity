@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.util.config.ConfigScreen;
+package xyz.faewulf.diversity.util.config.ConfigScreen.Components;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -9,7 +9,9 @@ import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import org.jetbrains.annotations.NotNull;
+import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.util.config.ConfigLoaderFromAnnotation;
+import xyz.faewulf.diversity.util.config.ConfigScreen.ConfigScreen;
 
 import java.util.Objects;
 
@@ -64,12 +66,13 @@ public class OptionButton extends Button {
         Font font = Minecraft.getInstance().font;
 
         String leftValue = getMessage().getString();
-        String rightValue;
+        String rightValue = "";
         try {
             Object object = entryInfo.targetField.get(null);
             rightValue = object.toString();
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            Constants.LOG.error("[Diversity] Something went wrong with the Option button...");
+            e.printStackTrace();
         }
 
         Component component = Component.literal(rightValue);
@@ -107,7 +110,9 @@ public class OptionButton extends Button {
         try {
             value = this.entryInfo.targetField.get(null);
         } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+            Constants.LOG.error("[Diversity] Something went wrong with the Option button...");
+            e.printStackTrace();
+            return false;
         }
 
         Object lastValue = CONFIG_VALUES.get(this.entryInfo.name);
