@@ -27,7 +27,7 @@ public class VillagerTradesMixin {
         Int2ObjectMap<VillagerTrades.ItemListing[]> leatherTrades = TRADES.get(VillagerProfession.LEATHERWORKER);
         if (leatherTrades != null) {
             leatherTrades.put(1, diversity$extendTradeArray(leatherTrades.get(1), new VillagerTrades.EnchantBookForEmeralds(1, CustomEnchantmentTags.LEATHER_WORKER_BOOK_TRADE)));
-            leatherTrades.put(1, diversity$extendTradeArray(leatherTrades.get(3), new VillagerTrades.EnchantBookForEmeralds(1, CustomEnchantmentTags.LEATHER_WORKER_BOOK_TRADE)));
+            leatherTrades.put(3, diversity$extendTradeArray(leatherTrades.get(3), new VillagerTrades.EnchantBookForEmeralds(1, CustomEnchantmentTags.LEATHER_WORKER_BOOK_TRADE)));
         }
 
         // Update the TRADES map
