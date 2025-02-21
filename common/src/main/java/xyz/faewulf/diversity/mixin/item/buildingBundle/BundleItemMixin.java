@@ -70,16 +70,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return level.get() * 64 + 64;
     }
 
-    @Override
-    public int getEnchantmentValue() {
-        return 1;
-    }
-
-    @Override
-    public boolean isEnchantable(@NotNull ItemStack stack) {
-        return true;
-    }
-
     //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
     @ModifyExpressionValue(method = "appendHoverText", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 1))
     private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
