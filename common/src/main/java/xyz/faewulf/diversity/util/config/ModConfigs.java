@@ -2,25 +2,25 @@ package xyz.faewulf.diversity.util.config;
 
 public class ModConfigs {
 
-    @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true)
+    @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true, group = "Enchantments")
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
     @Entry(category = "general", name = "1 tick delay copper bulb")
     public static boolean copper_bulb_tick_delay = false;
 
-    @Entry(category = "general", name = "Backup Enchantments", require_restart = true)
+    @Entry(category = "general", name = "Backup Enchantments", require_restart = true, group = "Enchantments")
     public static boolean more_enchantment = true;
 
-    @Entry(category = "general", name = "Bundle's Enchantment", require_restart = true)
+    @Entry(category = "general", name = "Bundle's Enchantment", require_restart = true, group = "Enchantments")
     public static boolean bundle_enchantment = true;
 
     @Entry(category = "general", name = "Banner trophies")
     public static boolean banner_trohpy = true;
 
-    @Entry(category = "general", name = "Bonemeal small flowers")
+    @Entry(category = "general", name = "Bonemeal small flowers", group = "Bonemeal")
     public static boolean bonemeal_small_flower = true;
 
-    @Entry(category = "general", name = "Bonemeal coral fan/block")
+    @Entry(category = "general", name = "Bonemeal coral fan/block", group = "Bonemeal")
     public static boolean bonemeal_coral_fan = true;
 
     @Entry(category = "general", name = "Day counter", group = "Day counter")
@@ -38,10 +38,10 @@ public class ModConfigs {
     @Entry(category = "general", name = "Wash filled map with Cauldron")
     public static boolean cauldron_washing_map = true;
 
-    @Entry(category = "general", name = "Invisible item frame")
+    @Entry(category = "general", name = "Invisible item frame", group = "Item frame/Sign")
     public static boolean invisible_frame = true;
 
-    @Entry(category = "general", name = "Click through sign/itemframe")
+    @Entry(category = "general", name = "Click through sign/itemframe", group = "Item frame/Sign")
     public static boolean click_through_itemframe = true;
 
     @Entry(category = "general", name = "Faster minecart")
@@ -83,10 +83,10 @@ public class ModConfigs {
     @Entry(category = "item", name = "Bundle place function")
     public static boolean bundle_place_mode = true;
 
-    @Entry(category = "item", name = "Check Villagers schedule")
+    @Entry(category = "item", name = "Check Villagers schedule", group = "Item: Clock")
     public static boolean check_villager_schedule = true;
 
-    @Entry(category = "item", name = "Clock shows current time")
+    @Entry(category = "item", name = "Clock shows current time", group = "Item: Clock")
     public static boolean clock_shows_time = true;
 
     @Entry(category = "item", name = "Hoe harvests crops")
@@ -98,19 +98,19 @@ public class ModConfigs {
     @Entry(category = "item", name = "Trident can call thunder storm")
     public static boolean trident_call_thunder = true;
 
-    @Entry(category = "item", name = "Shear can pickpocket villager")
+    @Entry(category = "item", name = "Shear can pickpocket villager", group = "Item: Shear")
     public static boolean shear_can_pickpocket_villager = true;
 
-    @Entry(category = "item", name = "Shear can defuse TNT")
+    @Entry(category = "item", name = "Shear can defuse TNT", group = "Item: Shear")
     public static boolean shear_defuses_tnt = true;
 
-    @Entry(category = "item", name = "Shear prevents plant from growing")
+    @Entry(category = "item", name = "Shear prevents plant from growing", group = "Item: Shear")
     public static boolean shear_prevent_growing = true;
 
-    @Entry(category = "item", name = "Spyglass what is that?", info = "[ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE]")
+    @Entry(category = "item", name = "Spyglass what is that?", info = "[ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE]", group = "Item: Spyglass")
     public static inspectType spyglass_what_is_that = inspectType.ALL;
 
-    @Entry(category = "item", name = "Waxed copper indicator")
+    @Entry(category = "item", name = "Waxed copper indicator", group = "Item: Spyglass")
     public static boolean waxed_copper_indicator = true;
 
     @Entry(category = "item", name = "Slime chunk detector")
@@ -119,10 +119,10 @@ public class ModConfigs {
     @Entry(category = "entity", name = "9 lives cat")
     public static boolean _9_lives_cat = false;
 
-    @Entry(category = "entity", name = "Baby nametag")
+    @Entry(category = "entity", name = "Baby nametag", group = "Nametag")
     public static boolean baby_nametag = true;
 
-    @Entry(category = "entity", name = "Silent nametag")
+    @Entry(category = "entity", name = "Silent nametag", group = "Nametag")
     public static boolean silent_nametag = true;
 
     @Entry(category = "entity", name = "Brushable parrot/chicken")
@@ -131,25 +131,28 @@ public class ModConfigs {
     @Entry(category = "entity", name = "Chicken egg try hatch on despawn")
     public static boolean chicken_egg_despawn_tryhatch = true;
 
-    @Entry(category = "entity", name = "Explosive sniffer")
+    @Entry(category = "entity", name = "Explosive sniffer", group = "Sniffer")
     public static boolean explosive_sniffer = true;
 
-    @Entry(category = "entity", name = "Sniffer sniff moss block")
+    @Entry(category = "entity", name = "Sniffer sniff moss block", group = "Sniffer")
     public static boolean sniffer_get_spore = true;
 
-    @Entry(category = "entity", name = "Fox bury items")
+    @Entry(category = "entity", name = "Fox bury items", group = "Fox")
     public static boolean fox_bury_items = true;
 
-    @Entry(category = "entity", name = "Pat you pets")
+    @Entry(category = "entity", name = "Fox auto breed from berries", group = "Fox")
+    public static boolean fox_auto_breed = true;
+
+    @Entry(category = "entity", name = "Pat you pets", group = "Tameable mobs")
     public static boolean pet_patting = true;
 
     @Entry(category = "entity", name = "Piglin treats golden trimmed armor as golden armor")
     public static boolean piglin_goldenTrimmedArmor = true;
 
-    @Entry(category = "entity", name = "Horse can seat on boat")
+    @Entry(category = "entity", name = "Horse can seat on boat", group = "Tameable mobs")
     public static boolean horse_can_seat_on_boat = true;
 
-    @Entry(category = "entity", name = "No tamed horse wandering")
+    @Entry(category = "entity", name = "No tamed horse wandering", group = "Tameable mobs")
     public static boolean prevent_tamed_horse_wandering = true;
 
     @Entry(category = "entity", name = "Rabbit breed after eats carrot crops")
@@ -184,9 +187,6 @@ public class ModConfigs {
 
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
-
-    @Entry(category = "command", name = "temp number ")
-    public static int temp = 2000;
 
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
