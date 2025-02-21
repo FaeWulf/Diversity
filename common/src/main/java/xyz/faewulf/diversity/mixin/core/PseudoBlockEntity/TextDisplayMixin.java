@@ -130,11 +130,23 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
         //2: no duplicate pseudoEntityBlock in the pos
         //3: custom check function returns false
 
-        if (!this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()) && !(!diversity_Multiloader$parentTag.isEmpty() && !hasTagInList)) {
+        boolean haveToDelete = true;
+
+        // If currentBlock is in parent list (1)
+        if (this.diversity_Multiloader$parent.contains(currentBlock.getBlock().toString()))
+            haveToDelete = false;
+
+        // If currentBlock is in parentTag (1)
+        if (haveToDelete && hasTagInList) {
+            haveToDelete = false;
+        }
+
+        if (haveToDelete) {
             this.discard();
             return;
         }
 
+        // 2 and 3
         if (diversity_Multiloader$isBlockEntityAlreadyExist()
                 || (this.diversity_Multiloader$discardWhenFunction != null && this.diversity_Multiloader$discardWhenFunction.apply((Display) (Object) this)) //false
         ) {
