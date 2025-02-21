@@ -26,8 +26,11 @@ public class ModConfigs {
     @Entry(category = "general", name = "Bonemeal coral fan/block")
     public static boolean bonemeal_coral_fan = true;
 
-    @Entry(category = "general", name = "Day counter")
+    @Entry(category = "general", name = "Day counter", group = "Day counter")
     public static announceDay day_counter = announceDay.PER_1_DAY;
+
+    @Entry(category = "general", name = "Ticks per day", group = "Day counter")
+    public static int day_counter_tick_per_day = 24000;
 
     @Entry(category = "general", name = "Deepslate generator")
     public static boolean deepslate_generator = true;
