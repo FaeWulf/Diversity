@@ -20,7 +20,7 @@ public class NumberButton extends EditBox {
     private boolean isFirstTime = true;
 
     public NumberButton(Font font, int width, int height, Component message, ConfigLoaderFromAnnotation.EntryInfo entryInfo) {
-        super(font, width, height, message);
+        super(font, 0, 0, width, height, message);
 
         this.entryInfo = entryInfo;
 

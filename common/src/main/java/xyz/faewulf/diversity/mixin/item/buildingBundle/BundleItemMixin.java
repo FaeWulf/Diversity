@@ -65,16 +65,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         super(settings);
     }
 
-    @Override
-    public int getEnchantmentValue() {
-        return 1;
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
-        return true;
-    }
-
     @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
     private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         int usedSpace = getContentWeight(stack);
