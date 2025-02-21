@@ -57,23 +57,23 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
         if (ModConfigs.day_counter == ModConfigs.announceDay.DISABLE)
             return;
 
-        if (this.dimensionType().hasSkyLight() && this.getDayTime() % 24000L == 0) {
+        if (this.dimensionType().hasSkyLight() && this.getDayTime() % ModConfigs.day_counter_tick_per_day == 0) {
 
             //per 10 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_10_DAY && (this.getDayTime() / 24000L + 1L) % 10 != 0)
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_10_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 10 != 0)
                 return;
 
             //per 50 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 50 != 0)
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 50 != 0)
                 return;
 
             //per 100 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / 24000L + 1L) % 100 != 0)
+            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 100 != 0)
                 return;
 
             diversity_Multiloader$beginAnnounce = true;
             begin_time = this.getDayTime();
-            String message = "Day #" + (this.getDayTime() / 24000L + 1L) + " has arrived!";
+            String message = "Day #" + (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
             end_time = begin_time + message.length() * 3 + 20 * 4;
         }
 
@@ -93,7 +93,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
         }
 
         if ((current_time - begin_time) % 3 == 0) {
-            String message = "Day #" + (current_time / 24000L + 1L) + " has arrived!";
+            String message = "Day #" + (current_time / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
             for (ServerPlayer player : this.players()) {
 
                 boolean playSound = true;
