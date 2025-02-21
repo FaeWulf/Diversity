@@ -116,9 +116,8 @@ public class ScrollableListWidget extends ContainerObjectSelectionList<Scrollabl
             // (Because int the init<>, when entryInfo == null (GroupButton doesn't have entryInfo), it doesn't put default button to the elements list
             // So below is a special render handler for GroupButton
             if (entryInfo.pseudoEntry) {
-                if (elements.getFirst() instanceof GroupButton groupButton) {
+                if (elements.get(0) instanceof GroupButton groupButton) {
                     groupButton.setWidth(entryWidth);
-                    groupButton.setHeight(20);
                     groupButton.setX(x);
                     groupButton.setY(y);
                     groupButton.render(context, mouseX, mouseY, tickDelta);

@@ -36,6 +36,10 @@ public class RefillEnchantment extends Enchantment implements ICustomEnchantCate
         return $$0.getItem() instanceof BundleItem;
     }
 
+    @Override
+    public boolean isTreasureOnly() {
+        return true;
+    }
 
     @Override
     public boolean isDiscoverable() {

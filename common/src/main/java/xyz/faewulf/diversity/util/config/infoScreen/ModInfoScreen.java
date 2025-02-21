@@ -8,7 +8,7 @@ import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
@@ -31,9 +31,9 @@ public class ModInfoScreen extends Screen {
     private static final ResourceLocation LIGHT_RAYS = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/light_rays.png");
 
     // Icon
-    private static final ResourceLocation ICON_DISCORD = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/discord");
-    private static final ResourceLocation ICON_KOFI = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/kofi");
-    private static final ResourceLocation ICON_GITHUB = ResourceLocation.tryBuild(Constants.MOD_ID, "icon/github");
+    private static final ResourceLocation ICON_DISCORD = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/sprites/icon/discord.png");
+    private static final ResourceLocation ICON_KOFI = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/sprites/icon/kofi.png");
+    private static final ResourceLocation ICON_GITHUB = ResourceLocation.tryBuild(Constants.MOD_ID, "textures/gui/sprites/icon/github.png");
     private final Screen parent;
     private final Minecraft client;
 
@@ -118,14 +118,8 @@ public class ModInfoScreen extends Screen {
                         .build()
         );
 
-        var iconButton = SpriteIconButton.builder(
-                        Component.literal("Kofi").withStyle(ChatFormatting.RED),
-                        button -> this.openWebLink("https://ko-fi.com/faewulf"),
-                        true
-                )
-                .size(20, 20)
-                .sprite(ICON_KOFI, 20, 20)
-                .build();
+        var iconButton = new ImageButton(20, 20, 20, 20, 0, 0, 20, ICON_KOFI, 32, 64, button -> this.openWebLink("https://ko-fi.com/faewulf"));
+
         iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.kofi.tooltip")));
 
         rowHelperFooterLayout.addChild(iconButton, 1);
@@ -138,27 +132,13 @@ public class ModInfoScreen extends Screen {
                 , 1
         );
 
-        iconButton = SpriteIconButton.builder(
-                        Component.literal("Discord").withStyle(ChatFormatting.BLUE),
-                        button -> this.openWebLink("https://faewulf.xyz/discord"),
-                        true
-                )
-                .size(20, 20)
-                .sprite(ICON_DISCORD, 16, 16)
-                .build();
+        iconButton = new ImageButton(20, 20, 20, 20, 0, 0, 20, ICON_DISCORD, 32, 64, button -> this.openWebLink("https://faewulf.xyz/discord"));
 
         iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.discord.tooltip")));
 
         rowHelperFooterLayout.addChild(iconButton, 1);
 
-        iconButton = SpriteIconButton.builder(
-                        Component.literal("Github"),
-                        button -> this.openWebLink("https://github.com/FaeWulf/Diversity"),
-                        true
-                )
-                .size(20, 20)
-                .sprite(ICON_GITHUB, 16, 16)
-                .build();
+        iconButton = new ImageButton(20, 20, 20, 20, 0, 0, 20, ICON_GITHUB, 32, 64, button -> this.openWebLink("https://github.com/FaeWulf/Diversity"));
 
         iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.github.tooltip")));
 
@@ -200,8 +180,6 @@ public class ModInfoScreen extends Screen {
 
         // Draw the wobbling main image in the center
         drawWobblingImage(guiGraphics);
-
-        settingButton.setFocused(false);
 
         // Render other screen elements (if any)
         super.render(guiGraphics, mouseX, mouseY, delta);
