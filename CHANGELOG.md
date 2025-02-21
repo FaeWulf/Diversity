@@ -1,17 +1,19 @@
-# Changelog v2.2.2
+# Changelog v2.3.0
 
 ### Added
 
-- support 1.21.4
+- New `Day counter` option to change daytime tick (only change if you know what you are doing).
+- Fox auto breed after eat berries.
 
 ### Changed
 
-- Added swing animation for `mace rotates block`
-- Now `Day counter` has 4 options: announce per `1 day`, `10 days`, `50 days`, `100 days`. Default is `1 day`.
+- Bundle's enchantments no longer obtain via enchanting. For rebalance purpose, all bundle enchantments will move to
+  leather worker trade instead.
 
 ### Removed
 
+- Obtain bundle's enchantments via enchanting table.
+
 ### Fixed
 
-- Day counter announce crash if daytime is negative.
-- `Edible endstone` is not edible.
+- Inconsistency behavior of `Shear prevents plants grow`
