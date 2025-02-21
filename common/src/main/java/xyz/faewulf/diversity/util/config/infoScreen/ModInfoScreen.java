@@ -9,6 +9,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.SpriteIconButton;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
@@ -111,20 +112,23 @@ public class ModInfoScreen extends Screen {
                 Button.builder(
                                 Component.literal("🌐"),
                                 button -> this.openWebLink("https://faewulf.xyz/diversity"))
-                        .width(20).build()
+
+                        .width(20)
+                        .tooltip(Tooltip.create(Component.translatable("diversity.info.website.tooltip")))
+                        .build()
         );
 
-        rowHelperFooterLayout.addChild(
-                SpriteIconButton.builder(
-                                Component.literal("Kofi").withStyle(ChatFormatting.RED),
-                                button -> this.openWebLink("https://ko-fi.com/faewulf"),
-                                true
-                        )
-                        .size(20, 20)
-                        .sprite(ICON_KOFI, 20, 20)
-                        .build()
-                , 1
-        );
+        var iconButton = SpriteIconButton.builder(
+                        Component.literal("Kofi").withStyle(ChatFormatting.RED),
+                        button -> this.openWebLink("https://ko-fi.com/faewulf"),
+                        true
+                )
+                .size(20, 20)
+                .sprite(ICON_KOFI, 20, 20)
+                .build();
+        iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.kofi.tooltip")));
+
+        rowHelperFooterLayout.addChild(iconButton, 1);
 
         rowHelperFooterLayout.addChild(
                 Button.builder(
@@ -134,29 +138,31 @@ public class ModInfoScreen extends Screen {
                 , 1
         );
 
-        rowHelperFooterLayout.addChild(
-                SpriteIconButton.builder(
-                                Component.literal("Discord").withStyle(ChatFormatting.BLUE),
-                                button -> this.openWebLink("https://faewulf.xyz/discord"),
-                                true
-                        )
-                        .size(20, 20)
-                        .sprite(ICON_DISCORD, 16, 16)
-                        .build()
-                , 1
-        );
+        iconButton = SpriteIconButton.builder(
+                        Component.literal("Discord").withStyle(ChatFormatting.BLUE),
+                        button -> this.openWebLink("https://faewulf.xyz/discord"),
+                        true
+                )
+                .size(20, 20)
+                .sprite(ICON_DISCORD, 16, 16)
+                .build();
 
-        rowHelperFooterLayout.addChild(
-                SpriteIconButton.builder(
-                                Component.literal("Github"),
-                                button -> this.openWebLink("https://github.com/FaeWulf/Diversity"),
-                                true
-                        )
-                        .size(20, 20)
-                        .sprite(ICON_GITHUB, 16, 16)
-                        .build()
-                , 1
-        );
+        iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.discord.tooltip")));
+
+        rowHelperFooterLayout.addChild(iconButton, 1);
+
+        iconButton = SpriteIconButton.builder(
+                        Component.literal("Github"),
+                        button -> this.openWebLink("https://github.com/FaeWulf/Diversity"),
+                        true
+                )
+                .size(20, 20)
+                .sprite(ICON_GITHUB, 16, 16)
+                .build();
+
+        iconButton.setTooltip(Tooltip.create(Component.translatable("diversity.info.github.tooltip")));
+
+        rowHelperFooterLayout.addChild(iconButton, 1);
 
         //add comp to screen renderer
         //buttonLayout.visitWidgets(this::addRenderableWidget);
