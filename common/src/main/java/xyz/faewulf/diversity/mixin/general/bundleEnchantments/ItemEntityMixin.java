@@ -69,7 +69,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
             if (value1 + value2 > 0 && item.getItem() instanceof ICustomBundleVacuum) {
 
-                if (value2 >= 0)
+                if (value2 > 0)
                     bundles.addFirst(item);
                 else
                     bundles.add(item);
