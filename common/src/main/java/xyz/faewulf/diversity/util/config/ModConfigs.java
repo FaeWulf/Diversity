@@ -188,6 +188,9 @@ public class ModConfigs {
     @Entry(category = "command", name = "Emote commands")
     public static boolean emote = true;
 
+    @Entry(category = "compatibility", name = "EasyShulkerBoxes Compatibility Layer", require_restart = true)
+    public static boolean easy_shulker_box_compat = true;
+
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
     }
