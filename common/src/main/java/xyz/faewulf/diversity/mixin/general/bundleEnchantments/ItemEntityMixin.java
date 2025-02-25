@@ -32,18 +32,6 @@ import java.util.UUID;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements TraceableEntity {
-    @Shadow
-    public abstract boolean ignoreExplosion(Explosion p_364217_);
-
-    @Shadow
-    @Nullable
-    private UUID target;
-
-    @Shadow
-    private int pickupDelay;
-
-    @Shadow
-    public abstract boolean dampensVibrations();
 
     public ItemEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
