@@ -29,12 +29,32 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
+import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.TrialSpawnerDataMixin;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class hitResult2Infomations {
     public static Component parseBlockState(Level world, Player player, BlockPos blockPos) {
+
+        // Get configs based on zooming or not
+        boolean showDistance = true;
+        boolean showDirection = true;
+        boolean showInfo = true;
+        boolean showName = true;
+
+        if (player.isScoping()) {
+            showInfo = ModConfigs.spyglass_what_is_that_zoom_show_infos;
+            showDirection = ModConfigs.spyglass_what_is_that_zoom_show_direction;
+            showDistance = ModConfigs.spyglass_what_is_that_zoom_show_distance;
+            showName = ModConfigs.spyglass_what_is_that_zoom_show_block_name;
+        } else {
+            showInfo = ModConfigs.spyglass_what_is_that_normal_show_infos;
+            showDirection = ModConfigs.spyglass_what_is_that_normal_show_direction;
+            showDistance = ModConfigs.spyglass_what_is_that_normal_show_distance;
+            showName = ModConfigs.spyglass_what_is_that_normal_show_block_name;
+        }
 
         Direction playerDirection = player.getDirection();
         BlockState blockState = world.getBlockState(blockPos);
@@ -92,7 +112,7 @@ public class hitResult2Infomations {
         }
 
         //furnace
-        if (blockEntity instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity) {
+        if (blockEntity instanceof AbstractFurnaceBlockEntity abstractFurnaceBlockEntity && showInfo) {
 
             AtomicInteger totalExp = new AtomicInteger();
             for (Object2IntMap.Entry<ResourceLocation> entry : ((AbstractFurnaceBlockEntityMixin) abstractFurnaceBlockEntity).getRecipesUsed().object2IntEntrySet()) {
@@ -118,13 +138,13 @@ public class hitResult2Infomations {
 
 
         //redstonne dust
-        if (blockState.hasProperty(BlockStateProperties.POWER)) {
+        if (blockState.hasProperty(BlockStateProperties.POWER) && showInfo) {
             int power = blockState.getValue(BlockStateProperties.POWER);
             result.append(Component.literal(" ⚡" + power).withStyle(ChatFormatting.RED));
         }
 
         //beehive
-        if (blockState.hasProperty(BeehiveBlock.HONEY_LEVEL)) {
+        if (blockState.hasProperty(BeehiveBlock.HONEY_LEVEL) && showInfo) {
             int level = blockState.getValue(BlockStateProperties.LEVEL_HONEY);
             result.append(Component.literal(" \uD83C\uDF6F" + level).withStyle(ChatFormatting.GOLD));
 
@@ -133,13 +153,13 @@ public class hitResult2Infomations {
         }
 
         //brewing stand
-        if (blockEntity instanceof BrewingStandBlockEntity brewingStandBlockEntity) {
+        if (blockEntity instanceof BrewingStandBlockEntity brewingStandBlockEntity && showInfo) {
             int fuel = ((BrewingStandBlockEntityMixin) brewingStandBlockEntity).getFuel();
             result.append(Component.literal(" Fuel: " + fuel).withStyle(ChatFormatting.GOLD));
         }
 
         //beacon
-        if (blockEntity instanceof BeaconBlockEntity beaconBlockEntity) {
+        if (blockEntity instanceof BeaconBlockEntity beaconBlockEntity && showInfo) {
             int level = ((BeaconBlockEntityMixin) beaconBlockEntity).getLevels();
             result.append(Component.literal(" Level: " + level).withStyle(ChatFormatting.GREEN));
             result.append(Component.literal(" Radius: " + (level * 10 + 10)).withStyle(ChatFormatting.DARK_AQUA));
@@ -147,7 +167,7 @@ public class hitResult2Infomations {
         }
 
         //distance
-        if (player.isScoping()) {
+        if (showDistance) {
             BlockPos playerPos = player.blockPosition();
 
             BlockPos distance = blockPos.subtract(playerPos);
@@ -196,6 +216,21 @@ public class hitResult2Infomations {
 
     public static Component parseLivingEntity(Level world, Player player, Entity entity) {
 
+        // Get configs based on zooming or not
+        boolean showDistance = true;
+        boolean showInfo = true;
+        boolean showName = true;
+
+        if (player.isScoping()) {
+            showInfo = ModConfigs.spyglass_what_is_that_zoom_show_infos;
+            showDistance = ModConfigs.spyglass_what_is_that_zoom_show_distance;
+            showName = ModConfigs.spyglass_what_is_that_zoom_show_block_name;
+        } else {
+            showInfo = ModConfigs.spyglass_what_is_that_normal_show_infos;
+            showDistance = ModConfigs.spyglass_what_is_that_normal_show_distance;
+            showName = ModConfigs.spyglass_what_is_that_normal_show_block_name;
+        }
+
         MutableComponent result = Component.empty();
         DecimalFormat df = new DecimalFormat("#.#");
 
@@ -208,7 +243,7 @@ public class hitResult2Infomations {
         result.append(entity.getName());
 
         //living entity
-        if (entity instanceof LivingEntity livingEntity) {
+        if (entity instanceof LivingEntity livingEntity && showInfo) {
             //hp
 
             float hp = Math.round(livingEntity.getHealth() * 10.0f) / 10.0f;
@@ -220,7 +255,7 @@ public class hitResult2Infomations {
         }
 
         //horse
-        if (entity instanceof AbstractHorse abstractHorseEntity) {
+        if (entity instanceof AbstractHorse abstractHorseEntity && showInfo) {
             double speed = abstractHorseEntity.getAttributes().getValue(Attributes.MOVEMENT_SPEED);
             double jump = abstractHorseEntity.getAttributes().getValue(Attributes.JUMP_STRENGTH);
 
@@ -232,7 +267,7 @@ public class hitResult2Infomations {
         }
 
         //llama, donkey, every entity has chest
-        if (entity instanceof AbstractChestedHorse abstractDonkeyEntity) {
+        if (entity instanceof AbstractChestedHorse abstractDonkeyEntity && showInfo) {
             String slot = df.format(3L * abstractDonkeyEntity.getInventoryColumns());
             result.append(" |");
             result.append(Component.literal(" Slots:").withStyle(ChatFormatting.GOLD));
@@ -241,7 +276,7 @@ public class hitResult2Infomations {
 
 
         //tame check
-        if (entity instanceof OwnableEntity tameable) {
+        if (entity instanceof OwnableEntity tameable && showInfo) {
             if (tameable.getOwnerUUID() != null) {
                 result.append(" |");
                 result.append(Component.literal(" Tamed").withStyle(ChatFormatting.GREEN));
@@ -250,7 +285,7 @@ public class hitResult2Infomations {
 
 
         //Animal entity
-        if (entity instanceof Animal animalEntity) {
+        if (entity instanceof Animal animalEntity && showInfo) {
             int breedAge = animalEntity.getAge();
             if (breedAge > 0) {
                 result.append(" |");
@@ -258,7 +293,7 @@ public class hitResult2Infomations {
             }
         }
 
-        if (player.isScoping()) {
+        if (showDistance) {
             BlockPos playerPos = player.blockPosition();
 
             BlockPos distance = entity.blockPosition().subtract(playerPos);
