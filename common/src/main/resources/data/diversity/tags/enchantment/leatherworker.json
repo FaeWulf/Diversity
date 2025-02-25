@@ -1,6 +1,8 @@
 {
   "values": [
     "diversity:capacity",
+    "diversity:vacuum",
+    "diversity:selective_vacuum",
     "diversity:refill"
   ]
 }

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.data.CustomEnchantment;
+import xyz.faewulf.diversity.registry.CustomEnchantment;
 
 import java.util.Collection;
 import java.util.List;
