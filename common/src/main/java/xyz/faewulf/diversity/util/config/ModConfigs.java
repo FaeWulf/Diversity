@@ -110,6 +110,36 @@ public class ModConfigs {
     @Entry(category = "item", name = "Spyglass what is that?", info = "[ALL, BLOCK_ONLY, ENTITY_ONLY, DISABLE]", group = "Item: Spyglass")
     public static inspectType spyglass_what_is_that = inspectType.ALL;
 
+    @Entry(category = "item", name = "Normal inspect range", group = "Item: Spyglass")
+    public static int spyglass_what_is_that_normal_distance = 5;
+
+    @Entry(category = "item", name = "Normal mode: Show block's name", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_normal_show_block_name = true;
+
+    @Entry(category = "item", name = "Normal mode: Show distance", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_normal_show_distance = false;
+
+    @Entry(category = "item", name = "Normal mode: Show block's direction", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_normal_show_direction = true;
+
+    @Entry(category = "item", name = "Normal mode: Show hidden infos", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_normal_show_infos = true;
+
+    @Entry(category = "item", name = "Inspect range when zooming", group = "Item: Spyglass")
+    public static int spyglass_what_is_that_zoom_distance = 32;
+
+    @Entry(category = "item", name = "Zoom mode: Show block's name", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_zoom_show_block_name = true;
+
+    @Entry(category = "item", name = "Zoom mode: Show distance", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_zoom_show_distance = true;
+
+    @Entry(category = "item", name = "Zoom mode: Show block's direction", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_zoom_show_direction = true;
+
+    @Entry(category = "item", name = "Zoom mode: Show hidden infos", group = "Item: Spyglass")
+    public static boolean spyglass_what_is_that_zoom_show_infos = true;
+
     @Entry(category = "item", name = "Waxed copper indicator", group = "Item: Spyglass")
     public static boolean waxed_copper_indicator = true;
 
