@@ -49,7 +49,7 @@ public abstract class serverPlayerMixin extends Player {
             }
             multiLoader_1_20_1$spyGlassHUDcooldown = 0;
 
-            int distance = this.isScoping() ? 32 : 5;
+            int distance = this.isScoping() ? ModConfigs.spyglass_what_is_that_zoom_distance : ModConfigs.spyglass_what_is_that_normal_distance;
 
             HitResult hit = this.pick(distance, 0, false);
 
