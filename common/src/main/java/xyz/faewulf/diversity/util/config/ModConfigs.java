@@ -182,7 +182,7 @@ public class ModConfigs {
     @Entry(category = "entity", name = "Horse can seat on boat", group = "Tameable mobs")
     public static boolean horse_can_seat_on_boat = true;
 
-    @Entry(category = "entity", name = "No tamed horse wandering", group = "Tameable mobs")
+    @Entry(category = "entity", name = "No saddled mobs wandering", group = "Tameable mobs")
     public static boolean prevent_tamed_horse_wandering = true;
 
     @Entry(category = "entity", name = "Rabbit breed after eats carrot crops")
