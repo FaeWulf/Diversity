@@ -1,56 +1,38 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomBundleVacuum;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.diversity.util.CustomEnchant;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Stream;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements TraceableEntity {
-    @Shadow
-    public abstract boolean ignoreExplosion(Explosion p_364217_);
-
-    @Shadow
-    @Nullable
-    private UUID target;
-
-    @Shadow
-    private int pickupDelay;
-
-    @Shadow
-    public abstract boolean dampensVibrations();
 
     public ItemEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
-    private void playerTouchInject(Player entity, CallbackInfo ci, @Local ItemStack itemstack, @Local int i) {
+    private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
 
         // Check if player holding any vacuum bundle
         // Then return the first one
@@ -62,15 +44,13 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 continue;
 
             // Check if has vacuum bundle
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(item);
-            int value1 = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "vacuum"));
-            int value2 = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "selective_vacuum"));
-
+            int value1 = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.VACUUM, item);
+            int value2 = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.SELECTIVE_VACUUM, item);
 
             if (value1 + value2 > 0 && item.getItem() instanceof ICustomBundleVacuum) {
 
                 if (value2 > 0)
-                    bundles.addFirst(item);
+                    bundles.add(0, item);
                 else
                     bundles.add(item);
 
@@ -92,13 +72,12 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 break;
 
             // lets handle vacuum
-            if (bundle != null && targetItemStack != null && bundle.get(DataComponents.BUNDLE_CONTENTS) instanceof BundleContents bundleContentsComponent) {
+            if (bundle != null && targetItemStack != null) {
 
                 // Check for selective vacuum
                 boolean isSelective = false;
 
-                ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(bundle);
-                int checkEnchant = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "selective_vacuum"));
+                int checkEnchant = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.SELECTIVE_VACUUM, bundle);
 
                 if (checkEnchant > 0)
                     isSelective = true;
@@ -109,9 +88,9 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 int stackMultiplier = 64 / itemStackWillPutInto.getMaxStackSize();
                 int realStackSizeOfTheItemWillPutInto = stackMultiplier * itemStackWillPutInto.getCount();
 
-                int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight(), 64);
+                int usedSlotInBundle = BundleItemInvoker.getContentWeightInvoked(bundle);
 
-                final int maxBundleSize = diversity_Multiloader$getMaxSize(this.level(), bundle);
+                final int maxBundleSize = 64 + 64 * EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, bundle);
 
                 if (usedSlotInBundle >= maxBundleSize)
                     continue;
@@ -124,12 +103,48 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                     continue;
 
                 // Put target itemStack into the bundle stacks
-                List<ItemStack> itemStacksInBundle = new ArrayList<>(bundleContentsComponent.itemCopyStream().toList());
+
+                //convert into list
+                Stream<ItemStack> itemStackStream = BundleItemInvoker.getContentsInvoked(bundle);
+                if (itemStackStream == null)
+                    continue;
+
+                List<ItemStack> itemStacksInBundle = new LinkedList<>(itemStackStream.toList());
 
                 boolean hasInsert = false;
                 for (ItemStack itemStackInBundle : itemStacksInBundle) {
+
                     if (itemStackInBundle.getItem() == itemStackWillPutInto.getItem()) {
-                        itemStackInBundle.grow(numberOfItemWillPut);
+
+                        // Prevent 1.20.1 item disappear if stack > 64
+                        int countInBundle = itemStackInBundle.getCount();
+                        int maxSize = itemStackInBundle.getMaxStackSize();
+
+                        if (countInBundle + numberOfItemWillPut > maxSize) {
+                            int slotLeft = maxSize - countInBundle;
+
+                            numberOfItemWillPut -= slotLeft;
+
+                            itemStackInBundle.grow(slotLeft);
+
+                            // Insert new stack if the target stack is full, until no count left
+                            while (numberOfItemWillPut > maxSize) {
+                                numberOfItemWillPut -= maxSize;
+                                ItemStack newItemStack = itemStackWillPutInto.copy();
+                                newItemStack.setCount(maxSize);
+                                itemStacksInBundle.add(newItemStack);
+                            }
+
+                            // last stack
+                            if (numberOfItemWillPut > 0) {
+                                ItemStack newItemStack = itemStackWillPutInto.copy();
+                                newItemStack.setCount(numberOfItemWillPut);
+                                itemStacksInBundle.add(newItemStack);
+                            }
+
+                        } else {
+                            itemStackInBundle.grow(numberOfItemWillPut);
+                        }
                         hasInsert = true;
                         break;
                     }
@@ -138,9 +153,23 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 // if not exist then add instead
                 // And not selective vacuum (selective vacuum only insert item that exists in the bundle
                 if (!hasInsert && !isSelective) {
-                    ItemStack newItemStack = itemStackWillPutInto.copy();
-                    newItemStack.setCount(numberOfItemWillPut);
-                    itemStacksInBundle.add(newItemStack);
+
+                    int maxSize = itemStackWillPutInto.getMaxStackSize();
+
+                    // Insert new stack if the target stack is full, until no count left
+                    while (numberOfItemWillPut > maxSize) {
+                        numberOfItemWillPut -= maxSize;
+                        ItemStack newItemStack = itemStackWillPutInto.copy();
+                        newItemStack.setCount(maxSize);
+                        itemStacksInBundle.add(newItemStack);
+                    }
+
+                    // last stack
+                    if (numberOfItemWillPut > 0) {
+                        ItemStack newItemStack = itemStackWillPutInto.copy();
+                        newItemStack.setCount(numberOfItemWillPut);
+                        itemStacksInBundle.add(newItemStack);
+                    }
 
                     hasInsert = true;
                 }
@@ -155,19 +184,32 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 insertAmount -= numberOfItemWillPut;
 
                 // update bundle data
-                bundleContentsComponent = new BundleContents(itemStacksInBundle);
-
-                bundle.set(DataComponents.BUNDLE_CONTENTS, bundleContentsComponent);
-
+                diversity$saveItemListToBundle(itemStacksInBundle, bundle);
             }
         }
     }
 
     @Unique
-    private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
-        ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
+    private void diversity$saveItemListToBundle(List<ItemStack> itemStackList, ItemStack bundle) {
 
-        return 64 + value * 64;
+        CompoundTag bundleTag = bundle.getOrCreateTag();
+
+        // Get the 'Items' ListTag, or create a new one if it doesn't exist
+        ListTag itemsTagList = new ListTag();
+
+        // Add each item from the list into the bundle's NBT data
+        for (ItemStack item : itemStackList) {
+            if (!item.isEmpty()) {
+                CompoundTag itemTag = new CompoundTag();
+                item.save(itemTag); // Save the ItemStack data into the CompoundTag
+                itemsTagList.add(itemTag); // Add the CompoundTag to the ListTag
+            }
+        }
+
+        // Update the 'Items' tag in the bundle's NBT data
+        bundleTag.put("Items", itemsTagList);
+
+        // Apply the updated NBT data back to the bundle
+        bundle.setTag(bundleTag);
     }
 }

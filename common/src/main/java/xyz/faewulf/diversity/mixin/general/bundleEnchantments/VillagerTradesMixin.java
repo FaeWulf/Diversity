@@ -1,18 +1,8 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.EnchantedBookItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
-import net.minecraft.world.item.trading.MerchantOffer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,9 +10,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.CustomEnchant;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
 

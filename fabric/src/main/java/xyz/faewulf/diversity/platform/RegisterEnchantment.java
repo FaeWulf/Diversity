@@ -15,6 +15,8 @@ public class RegisterEnchantment {
         if (ModConfigs.bundle_enchantment) {
             CustomEnchant.CAPACITY = Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(Constants.MOD_ID, "capacity"), new CapacityEnchantment());
             CustomEnchant.REFILL = Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(Constants.MOD_ID, "refill"), new RefillEnchantment());
+            CustomEnchant.VACUUM = Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(Constants.MOD_ID, "vacuum"), new VacuumEnchantment());
+            CustomEnchant.SELECTIVE_VACUUM = Registry.register(BuiltInRegistries.ENCHANTMENT, new ResourceLocation(Constants.MOD_ID, "selective_vacuum"), new SelectiveVacuumEnchantment());
         }
 
         if (ModConfigs.more_enchantment) {

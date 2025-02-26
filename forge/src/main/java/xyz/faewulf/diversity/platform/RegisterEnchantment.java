@@ -7,6 +7,8 @@ import net.minecraftforge.registries.RegistryObject;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.EnchantHandler.CapacityEnchantment;
 import xyz.faewulf.diversity.EnchantHandler.RefillEnchantment;
+import xyz.faewulf.diversity.EnchantHandler.SelectiveVacuumEnchantment;
+import xyz.faewulf.diversity.EnchantHandler.VacuumEnchantment;
 import xyz.faewulf.diversity.enchant.BackupBlastProtectionEnchantment;
 import xyz.faewulf.diversity.enchant.BackupFireProtectionEnchantment;
 import xyz.faewulf.diversity.enchant.BackupProjectileProtectionEnchantment;
@@ -19,6 +21,8 @@ public class RegisterEnchantment {
 
     public static RegistryObject<Enchantment> CAPACITY;
     public static RegistryObject<Enchantment> REFILL;
+    public static RegistryObject<Enchantment> VACUUM;
+    public static RegistryObject<Enchantment> SELECTIVE_VACUUM;
     public static RegistryObject<Enchantment> BACKUP_PROTECTION;
     public static RegistryObject<Enchantment> BACKUP_FIRE_PROTECTION;
     public static RegistryObject<Enchantment> BACKUP_BLAST_PROTECTION;
@@ -36,6 +40,8 @@ public class RegisterEnchantment {
         if (ModConfigs.bundle_enchantment) {
             CAPACITY = ENCHANTMENTS.register("capacity", CapacityEnchantment::new);
             REFILL = ENCHANTMENTS.register("refill", RefillEnchantment::new);
+            VACUUM = ENCHANTMENTS.register("refill", VacuumEnchantment::new);
+            SELECTIVE_VACUUM = ENCHANTMENTS.register("refill", SelectiveVacuumEnchantment::new);
         }
 
     }

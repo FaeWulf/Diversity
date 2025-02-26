@@ -29,7 +29,6 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.AbstractFurnaceBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
-import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.TrialSpawnerDataMixin;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.text.DecimalFormat;
@@ -66,16 +65,17 @@ public class hitResult2Infomations {
         //System.out.println(blockState.getProperties());
 
         //name
-        result.append(Component.literal(block.getName().getString()));
+        if (showName)
+            result.append(Component.literal(block.getName().getString()));
 
         //direction
-        if (blockState.hasProperty(BlockStateProperties.FACING)) {
+        if (blockState.hasProperty(BlockStateProperties.FACING) && showDirection) {
             Direction blockDirection = blockState.getValue(BlockStateProperties.FACING);
             result.append(Component.literal(" " + getRelativeFacing(playerDirection, blockDirection, false, false)).withStyle(ChatFormatting.AQUA));
         }
 
         //other horizontal facing
-        if (blockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING)) {
+        if (blockState.hasProperty(BlockStateProperties.HORIZONTAL_FACING) && showDirection) {
             Direction blockDirection = blockState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 
             if (blockEntity != null)
@@ -85,25 +85,25 @@ public class hitResult2Infomations {
         }
 
         //Hopper case
-        if (blockState.hasProperty(HopperBlock.FACING)) {
+        if (blockState.hasProperty(HopperBlock.FACING) && showDirection) {
             Direction blockDirection = blockState.getValue(HopperBlock.FACING);
             result.append(Component.literal(" " + getRelativeFacing(playerDirection, blockDirection, false, false)).withStyle(ChatFormatting.AQUA));
         }
 
 
         //redstone enabled
-        if (blockState.hasProperty(BlockStateProperties.ENABLED)) {
+        if (blockState.hasProperty(BlockStateProperties.ENABLED) && showInfo) {
             if (!blockState.getValue(BlockStateProperties.ENABLED))
                 result.append(Component.literal(" disabled").withStyle(ChatFormatting.DARK_RED));
         }
 
-        if (blockState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+        if (blockState.hasProperty(BlockStateProperties.WATERLOGGED) && showInfo) {
             if (blockState.getValue(BlockStateProperties.WATERLOGGED))
                 result.append(Component.literal(" waterlogged").withStyle(ChatFormatting.DARK_AQUA));
         }
 
         //noteBlock
-        if (blockState.hasProperty(BlockStateProperties.NOTE)) {
+        if (blockState.hasProperty(BlockStateProperties.NOTE) && showInfo) {
             int note = blockState.getValue(BlockStateProperties.NOTE);
             NoteBlockInstrument instrument = blockState.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT);
 
@@ -235,12 +235,14 @@ public class hitResult2Infomations {
         DecimalFormat df = new DecimalFormat("#.#");
 
         //villager
-        if (entity instanceof ZombieVillager zombieVillagerEntity) {
+        if (entity instanceof ZombieVillager zombieVillagerEntity && showName) {
             result.append(converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
         }
 
-        result.append(" ");
-        result.append(entity.getName());
+        if (showName) {
+            result.append(" ");
+            result.append(entity.getName());
+        }
 
         //living entity
         if (entity instanceof LivingEntity livingEntity && showInfo) {
@@ -301,7 +303,6 @@ public class hitResult2Infomations {
             result.append(" |");
             result.append(Component.literal(" \uD83D\uDCCF" + df.format(distanceGeometry)));
         }
-
 
         return result;
 
