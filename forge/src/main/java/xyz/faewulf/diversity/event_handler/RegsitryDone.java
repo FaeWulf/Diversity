@@ -18,6 +18,12 @@ public class RegsitryDone {
         if (RegisterEnchantment.REFILL != null)
             CustomEnchant.REFILL = RegisterEnchantment.REFILL.get();
 
+        if (RegisterEnchantment.VACUUM != null)
+            CustomEnchant.VACUUM = RegisterEnchantment.VACUUM.get();
+
+        if (RegisterEnchantment.SELECTIVE_VACUUM != null)
+            CustomEnchant.SELECTIVE_VACUUM = RegisterEnchantment.SELECTIVE_VACUUM.get();
+
         if (RegisterEnchantment.BACKUP_PROTECTION != null)
             CustomEnchant.BACKUP_PROTECTION = RegisterEnchantment.BACKUP_PROTECTION.get();
 

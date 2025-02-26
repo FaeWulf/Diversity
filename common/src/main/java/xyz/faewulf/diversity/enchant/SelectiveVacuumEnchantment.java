@@ -8,33 +8,42 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import xyz.faewulf.diversity.inter.ICustomEnchantCategory;
 import xyz.faewulf.diversity.util.CustomEnchantCategory;
 
-public class CapacityEnchantment extends Enchantment implements ICustomEnchantCategory {
+public class SelectiveVacuumEnchantment extends Enchantment implements ICustomEnchantCategory {
 
     private final CustomEnchantCategory category = CustomEnchantCategory.BUNDLE;
 
-    public CapacityEnchantment() {
+    public SelectiveVacuumEnchantment() {
         super(Rarity.COMMON, EnchantmentCategory.VANISHABLE, new EquipmentSlot[]{EquipmentSlot.MAINHAND});
     }
 
+    @Override
+    protected boolean checkCompatibility(Enchantment $$0) {
+        return !($$0 instanceof VacuumEnchantment);
+    }
 
     @Override
     public int getMinCost(int $$0) {
-        return 6 + ($$0 - 1) * 12;
+        return 22;
     }
 
     @Override
     public int getMaxCost(int $$0) {
-        return 20 + ($$0 - 1) * 10;
+        return 30;
     }
 
     @Override
     public int getMaxLevel() {
-        return 3;
+        return 1;
     }
 
     @Override
     public boolean canEnchant(ItemStack $$0) {
         return $$0.getItem() instanceof BundleItem;
+    }
+
+    @Override
+    public boolean isTreasureOnly() {
+        return true;
     }
 
     @Override
