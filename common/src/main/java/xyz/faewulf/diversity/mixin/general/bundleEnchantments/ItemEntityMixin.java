@@ -38,7 +38,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
     }
 
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
-    private void playerTouchInject(Player entity, CallbackInfo ci, @Local ItemStack itemstack, @Local int i) {
+    private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
 
         // Check if player holding any vacuum bundle
         // Then return the first one
