@@ -1,6 +1,7 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Explosion;
@@ -24,7 +26,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomBundleVacuum;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
+import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,10 +65,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 continue;
 
             // Check if has vacuum bundle
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(item);
-            int value1 = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "vacuum"));
-            int value2 = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "selective_vacuum"));
-
+            int value1 = EnchantHelper.getEnchantLevelFromItem(this.level(), item, Constants.MOD_ID, "vacuum");
+            int value2 = EnchantHelper.getEnchantLevelFromItem(this.level(), item, Constants.MOD_ID, "selective_vacuum");
 
             if (value1 + value2 > 0 && item.getItem() instanceof ICustomBundleVacuum) {
 
@@ -98,9 +99,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 boolean isSelective = false;
 
                 ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(bundle);
-                int checkEnchant = itemEnchantmentsComponent.getLevel(converter.getEnchant(this.level(), Constants.MOD_ID, "selective_vacuum"));
 
-                if (checkEnchant > 0)
+                if (EnchantHelper.hasEnchantment(this.level(), bundle, Constants.MOD_ID, "selective_vacuum"))
                     isSelective = true;
 
                 ItemStack itemStackWillPutInto = targetItemStack;
@@ -164,10 +164,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
     }
 
     @Unique
-    private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
-        ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
-
+    private static int diversity_Multiloader$getMaxSize(Level level, ItemStack itemStack) {
+        int value = EnchantHelper.getEnchantLevelFromItem(level, itemStack, Constants.MOD_ID, "capacity");
         return 64 + value * 64;
     }
 }

@@ -12,7 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class shearDefusesTnt {
@@ -30,7 +30,7 @@ public class shearDefusesTnt {
                 && hand == InteractionHand.MAIN_HAND
                 && hitResult == null
                 && level instanceof ServerLevel serverLevel
-                && compare.isHasTag(item, "diversity:tnt_defuser")
+                && Compare.isHasTag(item, "diversity:tnt_defuser")
         ) {
 
             if (entity.getRandom().nextFloat() < 0.15f)

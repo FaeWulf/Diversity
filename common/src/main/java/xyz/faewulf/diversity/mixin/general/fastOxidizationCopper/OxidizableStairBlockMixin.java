@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.util.CopperUtils;
+import xyz.faewulf.lib.util.block.CopperUtils;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(WeatheringCopperStairBlock.class)
