@@ -19,9 +19,6 @@
     "main": [
       "xyz.faewulf.diversity.Diversity"
     ],
-    "fabric-gametest": [
-      "xyz.faewulf.diversity.util.gameTests.registerGameTests"
-    ],
     "modmenu": [
       "xyz.faewulf.diversity.config.ModMenuIntegration"
     ]
@@ -29,7 +26,7 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/xZneCTcEvb"
+        "modmenu.discord": "https://faewulf.xyz/discord"
       },
       "update_checker": true
     }
@@ -43,6 +40,7 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
+    "faewulf_lib": ">=1.2.0",
     "minecraft": ">=${minecraft_version} <=${minecraft_version_max}",
     "java": ">=${java_version}"
   }

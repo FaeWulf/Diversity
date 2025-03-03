@@ -19,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
+import xyz.faewulf.lib.util.EnchantHelper;
 
 @Mixin(ThrownTrident.class)
 public abstract class TridentEntityMixin extends AbstractArrow {
@@ -62,8 +63,8 @@ public abstract class TridentEntityMixin extends AbstractArrow {
                 if (itemEnchantmentsComponent != null && !itemEnchantmentsComponent.isEmpty()) {
 
                     //check channeling
-                    Holder<Enchantment> channeling = converter.getEnchant(this.level(), ResourceLocation.DEFAULT_NAMESPACE, "channeling");
-                    int value = itemEnchantmentsComponent.getLevel(channeling);
+                    Holder<Enchantment> channeling = EnchantHelper.getEnchant(this.level(), ResourceLocation.DEFAULT_NAMESPACE, "channeling");
+                    int value = channeling != null ? itemEnchantmentsComponent.getLevel(channeling) : 0;
 
                     if (value > 0) {
                         //set durability

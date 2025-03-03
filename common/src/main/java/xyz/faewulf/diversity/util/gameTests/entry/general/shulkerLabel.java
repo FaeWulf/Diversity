@@ -16,15 +16,16 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 import java.util.List;
 
 @TestGroup
 public class shulkerLabel {
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 1000)
+    @GameTest(template = DEFAULT, timeoutTicks = 1000)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.shulker_label)

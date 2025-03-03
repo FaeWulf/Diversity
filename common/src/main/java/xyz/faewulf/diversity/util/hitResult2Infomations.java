@@ -35,6 +35,7 @@ import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixi
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.TrialSpawnerDataMixin;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Converter;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -110,7 +111,7 @@ public class hitResult2Infomations {
             int note = blockState.getValue(BlockStateProperties.NOTE);
             NoteBlockInstrument instrument = blockState.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT);
 
-            result.append(Component.literal(" " + converter.getNoteCharacter(note)).withStyle(ChatFormatting.GOLD));
+            result.append(Component.literal(" " + Converter.getNoteCharacter(note)).withStyle(ChatFormatting.GOLD));
             result.append(Component.literal(" " + instrument.name()).withStyle(ChatFormatting.GOLD));
         }
 
@@ -119,7 +120,7 @@ public class hitResult2Infomations {
             TrialSpawnerData trialSpawnerData = trialSpawnerBlockEntity.getTrialSpawner().getData();
             if (!trialSpawnerData.isCooldownFinished((ServerLevel) world)) {
                 long cooldown = ((TrialSpawnerDataMixin) trialSpawnerData).getCooldownEndsAt();
-                result.append(Component.literal(" ⌛" + converter.tick2Time(cooldown - world.getGameTime())).withStyle(ChatFormatting.RED));
+                result.append(Component.literal(" ⌛" + Converter.tick2Time(cooldown - world.getGameTime())).withStyle(ChatFormatting.RED));
             }
         }
 
@@ -246,17 +247,17 @@ public class hitResult2Infomations {
 
         //entity variation
         if (entity instanceof Wolf wolfEntity && showName) {
-            result.append(converter.UppercaseFirstLetter(wolfEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
+            result.append(Converter.UppercaseFirstLetter(wolfEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
         }
 
         //cat
         if (entity instanceof Cat catEntity && showName) {
-            result.append(converter.UppercaseFirstLetter(catEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
+            result.append(Converter.UppercaseFirstLetter(catEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
         }
 
         //villager
         if (entity instanceof ZombieVillager zombieVillagerEntity && showName) {
-            result.append(converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
+            result.append(Converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
         }
 
         if (showName) {
@@ -283,9 +284,9 @@ public class hitResult2Infomations {
 
             result.append(" |");
             result.append(Component.literal(" ➠").withStyle(ChatFormatting.BLUE));
-            result.append(Component.literal(df.format(converter.genericSpeed2BlockPerSecond(speed))));
+            result.append(Component.literal(df.format(Converter.genericSpeed2BlockPerSecond(speed))));
             result.append(Component.literal(" ⇡").withStyle(ChatFormatting.GREEN));
-            result.append(Component.literal(df.format(converter.horseJumpStrength2JumpHeight(jump))));
+            result.append(Component.literal(df.format(Converter.horseJumpStrength2JumpHeight(jump))));
         }
 
         //llama, donkey, every entity has chest
@@ -311,7 +312,7 @@ public class hitResult2Infomations {
             int breedAge = animalEntity.getAge();
             if (breedAge > 0) {
                 result.append(" |");
-                result.append(Component.literal(" ⌛Breed:" + converter.tick2Time(breedAge)).withStyle(ChatFormatting.GOLD));
+                result.append(Component.literal(" ⌛Breed:" + Converter.tick2Time(breedAge)).withStyle(ChatFormatting.GOLD));
             }
         }
 

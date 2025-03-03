@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
 
 @Mixin(Item.class)
 public abstract class ItemMixin implements FeatureElement, ItemLike {
@@ -35,7 +35,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
             return;
 
         if (this.asItem() == Items.CLOCK) {
-            user.displayClientMessage(Component.literal("\uD83D\uDD59 " + converter.tick2MinecraftTime(world.getDayTime())).withStyle(ChatFormatting.GOLD), true);
+            user.displayClientMessage(Component.literal("\uD83D\uDD59 " + Converter.tick2MinecraftTime(world.getDayTime())).withStyle(ChatFormatting.GOLD), true);
         }
     }
 }
