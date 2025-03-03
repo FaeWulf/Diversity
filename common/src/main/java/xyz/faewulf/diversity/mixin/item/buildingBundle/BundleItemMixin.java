@@ -270,9 +270,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Unique
     private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
-        ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
-
+        int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
         return 64 + value * 64;
     }
 

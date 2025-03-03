@@ -14,7 +14,7 @@ dependencies {
 
     //lib
     implementation("com.electronwill.night-config:toml:3.6.0")
-    implementation "curse.maven:faewulfs-lib-1209568:6258767"
+    implementation "curse.maven:faewulfs-lib-1209568:6258780"
 }
 
 neoForge {
@@ -22,7 +22,7 @@ neoForge {
     // Automatically enable neoforge AccessTransformers if the file exists
     def at = project(':common-better-bundle').file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
+        accessTransformers.from(at.absolutePath)
     }
     parchment {
         minecraftVersion = parchment_minecraft
