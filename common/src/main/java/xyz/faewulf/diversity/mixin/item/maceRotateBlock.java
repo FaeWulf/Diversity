@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.getNextBlockState;
+import xyz.faewulf.lib.util.block.BlockStateUtils;
 
 @Mixin(MaceItem.class)
 public abstract class maceRotateBlock extends Item {
@@ -36,7 +36,7 @@ public abstract class maceRotateBlock extends Item {
                 return InteractionResult.PASS;
 
             BlockState currentBlock = context.getLevel().getBlockState(context.getClickedPos());
-            BlockState blockState = getNextBlockState.getNextState(currentBlock);
+            BlockState blockState = BlockStateUtils.getNextState(currentBlock);
             BlockPos blockPos = context.getClickedPos();
 
             if (blockState != null && blockState.canSurvive(context.getLevel(), blockPos)) {

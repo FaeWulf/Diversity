@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,9 +1,11 @@
 package xyz.faewulf.diversity.mixin.general.farmlandTrample;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -14,7 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
+import xyz.faewulf.lib.util.EnchantHelper;
 
 @Mixin(FarmBlock.class)
 public class FarmlandMixin {
@@ -26,7 +29,11 @@ public class FarmlandMixin {
             return;
 
         if (entity instanceof LivingEntity livingEntity) {
-            if (EnchantmentHelper.getEnchantmentLevel(converter.getEnchant(world, Enchantments.FEATHER_FALLING), livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
+            Holder<Enchantment> enchantmentHolder = EnchantHelper.getEnchant(world, Enchantments.FEATHER_FALLING);
+            if ((
+                    enchantmentHolder != null && EnchantmentHelper.getEnchantmentLevel(enchantmentHolder, livingEntity) > 0
+            )
+                    || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
                 ci.cancel();
             }
         }

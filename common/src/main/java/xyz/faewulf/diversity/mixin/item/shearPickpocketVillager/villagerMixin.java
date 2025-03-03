@@ -10,6 +10,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ReputationEventHandler;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -27,8 +28,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.CustomLootTables;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.entity.EntityUtils;
 
 @Mixin(Villager.class)
 public abstract class villagerMixin extends AbstractVillager implements ReputationEventHandler, VillagerDataHolder {
@@ -70,7 +72,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         //no cooldown
         if (
                 player.isShiftKeyDown()
-                        && compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
+                        && Compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown <= 0
         ) {
             String job = this.getVillagerData().getProfession().name();
@@ -89,7 +91,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
                     });
 
             //only stealing behind has only a small % to make villager noticed
-            boolean sneaky = compare.isEntity2BehindEntity1(this, player);
+            boolean sneaky = EntityUtils.isEntity2BehindEntity1(this, player);
 
             //villager can't see player (hiding between block, or using invisibility potion, no % to notice
             boolean stealth = !this.hasLineOfSight(player) || player.hasEffect(MobEffects.INVISIBILITY);
@@ -144,7 +146,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         //still on cooldown
         if (
                 player.isShiftKeyDown()
-                        && compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
+                        && Compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown > 0
         ) {
 
@@ -158,6 +160,23 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
         }
+    }
+
+    @Unique
+    private boolean diversity$isEntity2BehindEntity1(LivingEntity entity1, LivingEntity entity2) {
+        // Todo: fix
+        // Villager's facing direction vector
+        Vec3 entity1ViewVector = entity1.getViewVector(1.0F);
+
+        // Vector from villager to player
+        Vec3 toEntity2 = entity2.position().subtract(entity1.position()).normalize();
+
+        // Calculate the angle between the two vectors
+        double dotProduct = entity1ViewVector.dot(toEntity2);
+        double angle = Math.acos(dotProduct);
+
+        // If angle is close to π (180 degrees), the player is behind the villager
+        return angle >= Math.PI / 2 && angle <= Math.PI;
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

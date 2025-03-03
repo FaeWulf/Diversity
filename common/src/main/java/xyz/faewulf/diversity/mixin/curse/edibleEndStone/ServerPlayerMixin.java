@@ -19,7 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.Collections;
-import java.util.List;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {

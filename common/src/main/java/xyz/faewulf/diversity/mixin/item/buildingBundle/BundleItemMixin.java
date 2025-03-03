@@ -47,7 +47,8 @@ import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
+import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -317,16 +318,12 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         if (world.isClientSide)
             return false;
 
-        ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "refill"));
-        return value > 0;
+        return EnchantHelper.hasEnchantment(world, itemStack, Constants.MOD_ID, "refill");
     }
 
     @Unique
     private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
-        ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-        int value = itemEnchantmentsComponent.getLevel(converter.getEnchant(world, Constants.MOD_ID, "capacity"));
-
+        int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
         return 64 + value * 64;
     }
 

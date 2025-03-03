@@ -13,14 +13,17 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.Converter;
+
+import xyz.faewulf.lib.util.EnchantHelper;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class _9livesCat {
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs._9_lives_cat)
@@ -30,7 +33,7 @@ public class _9livesCat {
         Cat cat = helper.spawn(EntityType.CAT, new BlockPos(4, 2, 4).getCenter());
 
         ItemStack itemStack = new ItemStack(Items.DIAMOND_AXE, 1);
-        itemStack.enchant(converter.getEnchant(helper.getLevel(), Enchantments.SHARPNESS), 5);
+        itemStack.enchant(EnchantHelper.getEnchant(helper.getLevel(), Enchantments.SHARPNESS), 5);
 
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
 
