@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.pseudoBlockEntityUtil;
 
@@ -35,7 +35,7 @@ public class useShearOnBlock {
 
             BlockState block = world.getBlockState(hitResult.getBlockPos());
 
-            if (compare.isHasTag(block.getBlock(), "diversity:trimmable") || compare.isHasTag(block.getBlock(), "minecraft:saplings")) {
+            if (Compare.isHasTag(block.getBlock(), "diversity:trimmable") || Compare.isHasTag(block.getBlock(), "minecraft:saplings")) {
 
                 if (pseudoBlockEntityUtil.getBlockEntity(world, hitResult.getBlockPos()) != null)
                     return InteractionResult.PASS;

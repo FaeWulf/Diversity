@@ -27,6 +27,8 @@ dependencies {
 
     //include(modImplementation "org.ow2.asm:asm-tree:9.7")
 
+    modImplementation "curse.maven:faewulfs-lib-1209568:6258766"
+
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")
     include(modImplementation "com.electronwill.night-config:toml:3.6.0")

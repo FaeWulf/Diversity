@@ -20,7 +20,6 @@
     "curse.reversePhantom.PhantomSpawnerMixin",
     "curse.reversePhantom.PlayerMixin",
     "entity.FoxBuryItems",
-    "entity.preventSaddledMobMovement.ModdedEntityTamedNoWanderingMixin",
     "entity.HorseFitInBoatMixin",
     "entity.onGroundEggAutoHatch",
     "entity.SnifferSniffStuff",
@@ -38,6 +37,7 @@
     "entity.patYourPet.DogEntityMixin",
     "entity.patYourPet.HorseEntityMixin",
     "entity.patYourPet.ParrotEntityMixin",
+    "entity.preventSaddledMobMovement.ModdedEntityTamedNoWanderingMixin",
     "entity.preventSaddledMobMovement.RandomStrollGoalMixin",
     "entity.preventSaddledMobMovement.WaterAvoidingRandomStrollGoalMixin",
     "entity.rabbitAutoBreedWithCarotPlant.EatCarrotCropGoalMixin",
@@ -118,6 +118,6 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }
 

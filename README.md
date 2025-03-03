@@ -2,6 +2,31 @@
     <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/banner2.png?raw=true" alt="banner"/>
 </p>
 
+<div align="center">
+    <a href="https://github.com/FaeWulf/" target="_blank">
+        <img alt="github" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/github_vector.svg">
+    </a>
+    <a href="https://www.curseforge.com/members/faewulf/projects" target="_blank">
+        <img alt="curseforge" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/curseforge_vector.svg">
+    </a>
+    <a href="https://modrinth.com/user/FaeWulf" target="_blank">
+        <img alt="modrinth" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/available/modrinth_vector.svg"> 
+    </a>
+    <a href="https://faewulf.xyz/discord/" target="_blank">
+        <img alt="discord-singular" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/social/discord-singular_vector.svg">
+    </a>
+</div>
+
+
+<div align="center">
+    <a href="https://ko-fi.com/faewulf" target="_blank">
+        <img alt="kofi-singular" height="40" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-singular_vector.svg">
+    </a>
+    <a href="https://www.paypal.com/paypalme/faewulf" target="_blank">
+        <img alt="paypal-singular" height="40" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/paypal-singular_vector.svg">
+    </a>
+</div>
+
 ---
 
 ## Overview
@@ -426,6 +451,15 @@ mod's issues tracker.
 
 For support, feature requests, or bug reports, please visit the mod's GitHub issues page.
 or join my Discord server: [link](https://discord.gg/xZneCTcEvb)
+
+<div align="center">
+    <a href="https://ko-fi.com/faewulf" target="_blank">
+        <img alt="kofi-singular" height="40" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/kofi-singular_vector.svg">
+    </a>
+    <a href="https://www.paypal.com/paypalme/faewulf" target="_blank">
+        <img alt="paypal-singular" height="40" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/compact/donate/paypal-singular_vector.svg">
+    </a>
+</div>
 
 ## License
 

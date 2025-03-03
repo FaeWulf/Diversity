@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixin;
+import xyz.faewulf.lib.util.mixinPlugin.ConditionalMixin;
 
 import java.util.List;
 

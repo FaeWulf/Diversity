@@ -14,14 +14,16 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.Converter;
+import xyz.faewulf.lib.util.EnchantHelper;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class preventFarmlandTrampling {
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.prevent_farmland_trampling)
@@ -42,7 +44,7 @@ public class preventFarmlandTrampling {
                     //test for feather falling
                     Zombie zombie_armor = helper.spawnWithNoFreeWill(EntityType.HUSK, new BlockPos(4, 4, 2).getCenter());
                     ItemStack feather_boots = new ItemStack(Items.DIAMOND_BOOTS);
-                    feather_boots.enchant(converter.getEnchant(helper.getLevel(), Enchantments.FEATHER_FALLING), 1);
+                    feather_boots.enchant(EnchantHelper.getEnchant(helper.getLevel(), Enchantments.FEATHER_FALLING), 1);
                     zombie_armor.setItemSlot(EquipmentSlot.FEET, feather_boots);
 
                     //test for default behavior

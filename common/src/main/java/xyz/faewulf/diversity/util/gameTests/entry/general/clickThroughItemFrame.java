@@ -15,12 +15,13 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class clickThroughItemFrame {
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void test_itemFrame(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe)
@@ -70,7 +71,7 @@ public class clickThroughItemFrame {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void test_sign(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe) helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
