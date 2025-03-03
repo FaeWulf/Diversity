@@ -24,7 +24,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
-    modImplementation "curse.maven:faewulfs-lib-1209568:6258766"
+    modImplementation "curse.maven:faewulfs-lib-1209568:6258771"
 
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")
