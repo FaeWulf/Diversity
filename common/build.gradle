@@ -35,7 +35,7 @@ dependencies {
     //config
     compileOnly("com.electronwill.night-config:toml:3.6.0")
 
-    implementation "curse.maven:faewulfs-lib-1209568:6258767"
+    implementation "curse.maven:faewulfs-lib-1209568:6258772"
 }
 
 configurations {
