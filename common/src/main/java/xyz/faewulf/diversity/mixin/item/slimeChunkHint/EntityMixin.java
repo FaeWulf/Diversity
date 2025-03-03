@@ -19,9 +19,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Entity.class)
@@ -53,7 +52,7 @@ public abstract class EntityMixin {
             //for each hand
             for (ItemStack itemStack : serverPlayer.getHandSlots()) {
                 //if has tag
-                if (compare.isHasTag(itemStack.getItem(), "diversity:slime_detector"))
+                if (Compare.isHasTag(itemStack.getItem(), "diversity:slime_detector"))
                     holdingSlimeBlock = true;
             }
 

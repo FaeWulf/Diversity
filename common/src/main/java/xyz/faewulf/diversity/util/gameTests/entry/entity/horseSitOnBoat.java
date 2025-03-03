@@ -11,13 +11,14 @@ import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.entity.vehicle.Raft;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class horseSitOnBoat {
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void test1(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
@@ -38,7 +39,7 @@ public class horseSitOnBoat {
                 }).thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void test2(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(LivingEntity.class)
@@ -36,7 +36,7 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
         if (entityAttacker != null) {
             if (entityAttacker instanceof LivingEntity livingEntity) {
                 livingEntity.getHandSlots().forEach(itemStack -> {
-                    if (compare.isHasTag(itemStack.getItem(), "diversity:flame_weapon")) {
+                    if (Compare.isHasTag(itemStack.getItem(), "diversity:flame_weapon")) {
                         this.igniteForTicks(100);
                     }
                 });
