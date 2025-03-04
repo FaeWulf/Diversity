@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.entity.ICustomChickenEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-import static xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod.getSlotForHand;
+import static xyz.faewulf.lib.util.missingMethod.LivingEntityMethod.getSlotForHand;
 
 @Mixin(Animal.class)
 public class ChickenEntitySuperClassMixin {

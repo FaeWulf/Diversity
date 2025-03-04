@@ -26,7 +26,7 @@ public class FarmlandMixin {
 
         if (entity instanceof LivingEntity livingEntity) {
             //equivalent for
-            //if (EnchantmentHelper.getEnchantmentLevel(converter.getEnchant(world, Enchantments.FEATHER_FALLING), livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
+            //if (EnchantmentHelper.getEnchantmentLevel(Converter.getEnchant(world, Enchantments.FEATHER_FALLING), livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
             //:
             if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, livingEntity) > 0 || livingEntity.hasEffect(MobEffects.SLOW_FALLING)) {
                 ci.cancel();

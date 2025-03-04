@@ -122,6 +122,7 @@
   "diversity.config.category.item": "Item",
   "diversity.config.category.compatibility": "Compatibility",
   "diversity.config.require_restart": "⚠ This feature requires restarting the game to apply the changes.",
+  "diversity.info.configurations": "Configurations",
   "diversity.info.website.tooltip": "Visit mod's website",
   "diversity.info.kofi.tooltip": "Visit author's Ko-fi",
   "diversity.info.discord.tooltip": "Visit mod's discord server",

@@ -30,9 +30,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.CustomLootTables;
-import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
-import xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
+import xyz.faewulf.lib.util.missingMethod.ItemStackMethod;
+import xyz.faewulf.lib.util.missingMethod.LivingEntityMethod;
+import xyz.faewulf.lib.util.entity.EntityUtils;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
@@ -134,7 +135,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         //no cooldown
         if (
                 player.isShiftKeyDown()
-                        && compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
+                        && Compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown <= 0
                         && level() instanceof ServerLevel serverLevel
         ) {
@@ -159,7 +160,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             }
 
             //only stealing behind has only a small % to make villager noticed
-            boolean sneaky = compare.isEntity2BehindEntity1(this, player);
+            boolean sneaky = EntityUtils.isEntity2BehindEntity1(this, player);
 
             //villager can't see player (hiding between block, or using invisibility potion, no % to notice
             boolean stealth = !this.hasLineOfSight(player) || player.hasEffect(MobEffects.INVISIBILITY);
@@ -214,7 +215,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         //still on cooldown
         if (
                 player.isShiftKeyDown()
-                        && compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
+                        && Compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown > 0
         ) {
 

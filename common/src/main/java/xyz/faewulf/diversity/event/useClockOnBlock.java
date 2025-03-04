@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.converter;
+import xyz.faewulf.lib.util.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class useClockOnBlock {
 
                 if (timeLeft != -1)
                     feedBack.append(" | Time left: ")
-                            .append(Component.literal(converter.tick2Time(timeLeft)));
+                            .append(Component.literal(Converter.tick2Time(timeLeft)));
 
                 feedBack.append(" | Next: ")
                         .append(next);

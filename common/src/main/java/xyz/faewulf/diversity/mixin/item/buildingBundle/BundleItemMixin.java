@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
 import xyz.faewulf.diversity.util.CustomEnchant;
-import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
+import xyz.faewulf.lib.util.missingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.*;

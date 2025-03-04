@@ -31,6 +31,8 @@ dependencies {
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")
     include(modImplementation "com.electronwill.night-config:toml:3.6.0")
+
+    modImplementation "curse.maven:faewulfs-lib-1209568:6258784"
 }
 
 loom {

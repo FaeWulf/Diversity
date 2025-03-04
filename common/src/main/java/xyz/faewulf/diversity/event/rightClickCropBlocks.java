@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
-import xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.missingMethod.ItemStackMethod;
+import xyz.faewulf.lib.util.missingMethod.LivingEntityMethod;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class rightClickCropBlocks {
             BlockState blockState = level.getBlockState(targetBlock);
 
             //is using hoe
-            boolean usingHoe = compare.isHasTag(mainHandItem.getItem(), "diversity:crop_harvester") && enableRadius(blockState);
+            boolean usingHoe = Compare.isHasTag(mainHandItem.getItem(), "diversity:crop_harvester") && enableRadius(blockState);
 
             // If mode is HAND_ONLY, then force use hand regardless of holding hoe or not
             if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.HAND_ONLY)
@@ -59,7 +59,7 @@ public class rightClickCropBlocks {
             int radius = 1;
 
             //if tier 2 hoe
-            if (usingHoe && compare.isHasTag(mainHandItem.getItem(), "diversity:tier2_hoe"))
+            if (usingHoe && Compare.isHasTag(mainHandItem.getItem(), "diversity:tier2_hoe"))
                 radius = 2;
 
             //not using hoe
@@ -183,7 +183,7 @@ public class rightClickCropBlocks {
     }
 
     private static boolean shouldTakeSeed(Block block) {
-        if (compare.isBlock("farmersdelight:tomatoes", block))
+        if (Compare.isBlock("farmersdelight:tomatoes", block))
             return false;
 
         return true;
@@ -191,8 +191,8 @@ public class rightClickCropBlocks {
 
     private static boolean shouldNotDropSeed(Block block, Item item) {
         if (
-                compare.isBlock("farmersdelight:tomatoes", block)
-                        && compare.isItem("farmersdelight:tomato_seeds", item)
+                Compare.isBlock("farmersdelight:tomatoes", block)
+                        && Compare.isItem("farmersdelight:tomato_seeds", item)
         )
             return true;
 
@@ -203,7 +203,7 @@ public class rightClickCropBlocks {
     private static boolean isSeed(Item target, BlockState blockState) {
 
         // Case for farmerdelight:tomatoes
-        if (compare.isBlock("farmersdelight:tomatoes", blockState.getBlock()))
+        if (Compare.isBlock("farmersdelight:tomatoes", blockState.getBlock()))
             return true;
 
         return target instanceof BlockItem blockItem && blockItem.getBlock() == blockState.getBlock();
