@@ -8,17 +8,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.Blocks;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
 
 import java.util.List;
+
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class trophyBanner {
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void trophyBanner_Wither(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -36,7 +38,7 @@ public class trophyBanner {
         helper.runAfterDelay(20 * 2, () -> {
 
             for (ItemEntity item : items) {
-                if (compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
+                if (Compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
                     helper.succeed();
                     return;
                 }
@@ -46,7 +48,7 @@ public class trophyBanner {
         });
     }
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void trophyBanner_Warden(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -64,7 +66,7 @@ public class trophyBanner {
         helper.runAfterDelay(20 * 2, () -> {
 
             for (ItemEntity item : items) {
-                if (compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
+                if (Compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
                     helper.succeed();
                     return;
                 }
@@ -74,7 +76,7 @@ public class trophyBanner {
         });
     }
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void trophyBanner_EnderDragon(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -92,7 +94,7 @@ public class trophyBanner {
         helper.runAfterDelay(20 * 2, () -> {
 
             for (ItemEntity item : items) {
-                if (compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
+                if (Compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
                     helper.succeed();
                     return;
                 }
@@ -102,7 +104,7 @@ public class trophyBanner {
         });
     }
 
-    @GameTest(template = registerGameTests.DEFAULT)
+    @GameTest(template = DEFAULT)
     public void trophyBanner_ElderGuardian(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -120,7 +122,7 @@ public class trophyBanner {
         helper.runAfterDelay(20 * 2, () -> {
 
             for (ItemEntity item : items) {
-                if (compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
+                if (Compare.isHasTag(item.getItem().getItem(), "minecraft:banners")) {
                     helper.succeed();
                     return;
                 }

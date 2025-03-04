@@ -12,13 +12,14 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class _9livesCat {
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs._9_lives_cat)

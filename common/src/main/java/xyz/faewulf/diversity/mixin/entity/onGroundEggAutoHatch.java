@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(ItemEntity.class)
@@ -43,7 +43,7 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
             BlockState blockState = this.level().getBlockState(this.blockPosition().below());
 
             //hatch on haybale only
-            if (!compare.isHasTag(blockState.getBlock(), "diversity:egg_hatchable"))
+            if (!Compare.isHasTag(blockState.getBlock(), "diversity:egg_hatchable"))
                 return;
 
             int count = this.getItem().getCount();

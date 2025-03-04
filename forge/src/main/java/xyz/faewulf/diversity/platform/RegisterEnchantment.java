@@ -40,8 +40,8 @@ public class RegisterEnchantment {
         if (ModConfigs.bundle_enchantment) {
             CAPACITY = ENCHANTMENTS.register("capacity", CapacityEnchantment::new);
             REFILL = ENCHANTMENTS.register("refill", RefillEnchantment::new);
-            VACUUM = ENCHANTMENTS.register("refill", VacuumEnchantment::new);
-            SELECTIVE_VACUUM = ENCHANTMENTS.register("refill", SelectiveVacuumEnchantment::new);
+            VACUUM = ENCHANTMENTS.register("vacuum", VacuumEnchantment::new);
+            SELECTIVE_VACUUM = ENCHANTMENTS.register("selective_vacuum", SelectiveVacuumEnchantment::new);
         }
 
     }

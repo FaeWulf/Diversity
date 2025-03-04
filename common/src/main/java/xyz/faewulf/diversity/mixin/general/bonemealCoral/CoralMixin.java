@@ -26,7 +26,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import net.minecraft.world.level.material.MapColor;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.inter.ICustomBonemealable;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.Optional;
@@ -43,7 +43,7 @@ public class CoralMixin implements ICustomBonemealable {
 
         Holder<Biome> currentBiome = level.getBiome(pos);
         return
-                !compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist")
+                !Compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist")
                         && state.getValue(BaseCoralPlantTypeBlock.WATERLOGGED)
                         && level.getFluidState(pos.above()).is(FluidTags.WATER)
                         && currentBiome.is(BiomeTags.PRODUCES_CORALS_FROM_BONEMEAL);

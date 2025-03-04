@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.inter.ICustomBonemealable;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(FlowerBlock.class)
@@ -26,8 +26,8 @@ public class FlowerBlockMixin implements ICustomBonemealable {
         //not in blacklist tag
         //standing on block with rich_soil tag
         return state.is(BlockTags.SMALL_FLOWERS)
-                && !compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist")
-                && compare.isHasTag(level.getBlockState(pos.below()).getBlock(), "diversity:rich_soil");
+                && !Compare.isHasTag(state.getBlock(), "diversity:bonemeal_blacklist")
+                && Compare.isHasTag(level.getBlockState(pos.below()).getBlock(), "diversity:rich_soil");
     }
 
     @Override
@@ -51,7 +51,7 @@ public class FlowerBlockMixin implements ICustomBonemealable {
                     BlockPos blockPos = new BlockPos(m + o, r, pos.getZ() - n + p);
                     if (!blockPos.equals(pos) && random.nextInt(12) == 0 && level.getBlockState(blockPos).is(Blocks.AIR)) {
                         BlockState blockState = level.getBlockState(blockPos.below());
-                        if (compare.isHasTag(blockState.getBlock(), "diversity:rich_soil")) {
+                        if (Compare.isHasTag(blockState.getBlock(), "diversity:rich_soil")) {
                             level.setBlock(blockPos, state, Block.UPDATE_ALL);
                         }
 

@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-import static xyz.faewulf.diversity.util.MissingMethod.LivingEntityMethod.getSlotForHand;
+import static xyz.faewulf.lib.util.missingMethod.LivingEntityMethod.getSlotForHand;
 
 @Mixin(Parrot.class)
 public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements VariantHolder<Parrot.Variant>, FlyingAnimal, ICustomParrotEntity {

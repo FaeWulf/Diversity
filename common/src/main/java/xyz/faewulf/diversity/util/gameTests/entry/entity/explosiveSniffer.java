@@ -12,12 +12,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
+
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class explosiveSniffer {
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_gunpowder(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -46,7 +48,7 @@ public class explosiveSniffer {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_blaze_powder(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -75,7 +77,7 @@ public class explosiveSniffer {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_glowstone_dust(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -104,7 +106,7 @@ public class explosiveSniffer {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_redstone_dust(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -133,7 +135,7 @@ public class explosiveSniffer {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_sugar(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -162,7 +164,7 @@ public class explosiveSniffer {
                 .thenSucceed();
     }
 
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 600)
+    @GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_bonemeal(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)

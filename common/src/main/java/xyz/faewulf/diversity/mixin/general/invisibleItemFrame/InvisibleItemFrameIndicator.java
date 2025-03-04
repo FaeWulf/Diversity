@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
-import xyz.faewulf.diversity.util.MissingMethod.EntityMethod;
+import xyz.faewulf.lib.util.missingMethod.EntityMethod;
 
 @Mixin(HangingEntity.class)
 public abstract class InvisibleItemFrameIndicator extends Entity {

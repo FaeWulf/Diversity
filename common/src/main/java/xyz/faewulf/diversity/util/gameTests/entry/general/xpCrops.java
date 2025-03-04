@@ -8,14 +8,16 @@ import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.gameTests.TestGroup;
-import xyz.faewulf.diversity.util.gameTests.registerGameTests;
 
 import java.util.List;
 
+import xyz.faewulf.lib.util.gameTests.TestGroup;
+
+import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
+
 @TestGroup
 public class xpCrops {
-    @GameTest(template = registerGameTests.DEFAULT, timeoutTicks = 200)
+    @GameTest(template = DEFAULT, timeoutTicks = 200)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.xp_crops)

@@ -1,5 +1,10 @@
 package xyz.faewulf.diversity.util.config;
 
+import xyz.faewulf.diversity.Constants;
+import xyz.faewulf.lib.util.config.Entry;
+import xyz.faewulf.lib.util.config.ModConfig;
+
+@ModConfig(mod_id = Constants.MOD_ID)
 public class ModConfigs {
 
     @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true, group = "Enchantments")

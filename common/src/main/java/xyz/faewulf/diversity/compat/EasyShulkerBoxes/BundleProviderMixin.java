@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import xyz.faewulf.diversity.util.CustomEnchant;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixin;
+import xyz.faewulf.lib.util.mixinPlugin.ConditionalMixin;
 
 @Pseudo
 @ConditionalMixin(configClass = ModConfigs.class, fieldName = "easy_shulker_box_compat")

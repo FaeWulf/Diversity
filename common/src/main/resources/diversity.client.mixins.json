@@ -11,5 +11,5 @@
   "client": [
     "AnvilMixin"
   ],
-  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }

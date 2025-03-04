@@ -34,6 +34,8 @@ dependencies {
 
     compileOnly("org.ow2.asm:asm-tree:9.3")
 
+    modImplementation "curse.maven:faewulfs-lib-1209568:6258785"
+
     //config
     compileOnly("com.electronwill.night-config:toml:3.6.0")
 }

@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntityBuilder;
-import xyz.faewulf.diversity.util.compare;
+import xyz.faewulf.lib.util.Compare;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,7 +122,7 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
         //checking tag
         boolean hasTagInList = false;
         for (String s : diversity_Multiloader$parentTag) {
-            if (compare.isHasTag(currentBlock.getBlock(), s))
+            if (Compare.isHasTag(currentBlock.getBlock(), s))
                 hasTagInList = true;
         }
 

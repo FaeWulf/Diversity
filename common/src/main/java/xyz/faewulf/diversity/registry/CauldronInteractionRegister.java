@@ -6,7 +6,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
-import xyz.faewulf.diversity.util.MissingMethod.ItemStackMethod;
+import xyz.faewulf.lib.util.missingMethod.ItemStackMethod;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 public class CauldronInteractionRegister {

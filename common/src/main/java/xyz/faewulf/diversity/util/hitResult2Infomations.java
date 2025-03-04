@@ -30,6 +30,7 @@ import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.AbstractFurnaceBlockE
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BeaconBlockEntityMixin;
 import xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat.BrewingStandBlockEntityMixin;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Converter;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -107,7 +108,7 @@ public class hitResult2Infomations {
             int note = blockState.getValue(BlockStateProperties.NOTE);
             NoteBlockInstrument instrument = blockState.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT);
 
-            result.append(Component.literal(" " + converter.getNoteCharacter(note)).withStyle(ChatFormatting.GOLD));
+            result.append(Component.literal(" " + Converter.getNoteCharacter(note)).withStyle(ChatFormatting.GOLD));
             result.append(Component.literal(" " + instrument.name()).withStyle(ChatFormatting.GOLD));
         }
 
@@ -236,7 +237,7 @@ public class hitResult2Infomations {
 
         //villager
         if (entity instanceof ZombieVillager zombieVillagerEntity && showName) {
-            result.append(converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
+            result.append(Converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
         }
 
         if (showName) {
@@ -263,9 +264,9 @@ public class hitResult2Infomations {
 
             result.append(" |");
             result.append(Component.literal(" ➠").withStyle(ChatFormatting.BLUE));
-            result.append(Component.literal(df.format(converter.genericSpeed2BlockPerSecond(speed))));
+            result.append(Component.literal(df.format(Converter.genericSpeed2BlockPerSecond(speed))));
             result.append(Component.literal(" ⇡").withStyle(ChatFormatting.GREEN));
-            result.append(Component.literal(df.format(converter.horseJumpStrength2JumpHeight(jump))));
+            result.append(Component.literal(df.format(Converter.horseJumpStrength2JumpHeight(jump))));
         }
 
         //llama, donkey, every entity has chest
@@ -291,7 +292,7 @@ public class hitResult2Infomations {
             int breedAge = animalEntity.getAge();
             if (breedAge > 0) {
                 result.append(" |");
-                result.append(Component.literal(" ⌛Breed:" + converter.tick2Time(breedAge)).withStyle(ChatFormatting.GOLD));
+                result.append(Component.literal(" ⌛Breed:" + Converter.tick2Time(breedAge)).withStyle(ChatFormatting.GOLD));
             }
         }
 
