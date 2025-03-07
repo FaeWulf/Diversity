@@ -43,15 +43,17 @@ repositories {
         url = 'https://maven.blamejared.com'
     }
 
-    // Curseforge maven
+    // Modrinth
     exclusiveContent {
         forRepository {
             maven {
-                url "https://cursemaven.com"
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
             }
         }
+        //forRepositories(fg.repository) // Only add this if you're using ForgeGradle, otherwise remove this line
         filter {
-            includeGroup "curse.maven"
+            includeGroup "maven.modrinth"
         }
     }
 }
