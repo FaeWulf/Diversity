@@ -38,6 +38,7 @@
   "diversity.config.bundle_place_mode.tooltip": "- Switch to place mode by holding bundle and shift-leftclick to the ground.\n- Then you can place block that inside the bundle.",
   "diversity.config.bundle_enchantment.tooltip": "- Add 2 enchantment for bundle (refill and capacity).",
   "diversity.config.banner_trohpy.tooltip": "- Add some Ominous banner-like banners as trophy. Obtains via boss drops, etc.",
+  "diversity.config.beacon_extended.tooltip": "- Extends the beacon's range and duration beyond level 4!\n- Each layer past level 4 adds 20 blocks in range, up to level 10.",
   "diversity.config.waxed_copper_indicator.tooltip": "- Waxed copper blocks will emit particles if holding a spyglass while sneaking.",
   "diversity.config.rabbit_eat_carrot_crops.tooltip": "- Rabbit can breed after eat carrot crops.",
   "diversity.config.mace_rotate_block.tooltip": "- Use mace (sneaking + right-click) to rotate directional blocks if possible.",

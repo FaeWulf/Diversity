@@ -173,9 +173,13 @@ public class hitResult2Infomations {
         //beacon
         if (blockEntity instanceof BeaconBlockEntity beaconBlockEntity && showInfo) {
             int level = ((BeaconBlockEntityMixin) beaconBlockEntity).getLevels();
-            result.append(Component.literal(" Level: " + level).withStyle(ChatFormatting.GREEN));
-            result.append(Component.literal(" Radius: " + (level * 10 + 10)).withStyle(ChatFormatting.DARK_AQUA));
+            int range = (level * 10 + 10);
 
+            if (level > 4)
+                range += (level - 4) * 10;
+
+            result.append(Component.literal(" Level: " + level).withStyle(ChatFormatting.GREEN));
+            result.append(Component.literal(" Radius: " + range).withStyle(ChatFormatting.DARK_AQUA));
         }
 
         //distance
