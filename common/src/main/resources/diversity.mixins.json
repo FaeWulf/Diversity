@@ -43,6 +43,7 @@
     "general.bannerTrophy.GiveGiftsToHeroTaskMixin",
     "general.bannerTrophy.WardenSuperClassMixin",
     "general.bannerTrophy.WitherEntityMixin",
+    "general.beaconExtended.BeaconBlockEntityMixin",
     "general.bonemealCoral.CoralFanMixin",
     "general.bonemealCoral.CoralFeatureInvoker",
     "general.bonemealCoral.CoralMixin",

@@ -22,6 +22,9 @@ public class ModConfigs {
     @Entry(category = "general", name = "Banner trophies")
     public static boolean banner_trohpy = true;
 
+    @Entry(category = "general", name = "Beacon extended")
+    public static boolean beacon_extended = true;
+
     @Entry(category = "general", name = "Bonemeal small flowers", group = "Bonemeal")
     public static boolean bonemeal_small_flower = true;
 
