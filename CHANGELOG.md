@@ -2,6 +2,8 @@
 
 ### Added
 
+- `Beacon Extended` module extends the beacon's range and duration beyond level 4! Each layer past level 4 adds 20
+  blocks in range, up to level 10.
 - New `Day counter` option to change daytime tick (only change if you know what you are doing).
 - Fox auto breed after eat berries.
 - Two new enchantments for Bundle: `Vacuum` (sucks all newly picked-up item from inv) and `Selective Vacuum` (only sucks
