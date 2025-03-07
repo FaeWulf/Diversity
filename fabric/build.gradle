@@ -21,7 +21,7 @@ dependencies {
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
     //include(modImplementation("com.moulberry:mixinconstraints:1.0.1"))
 
-    modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-fabric,${minecraft_version}"
+    modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-fabric,1.21.1"
 
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")
