@@ -29,7 +29,7 @@ dependencies {
     //config
     compileOnly("com.electronwill.night-config:toml:3.6.0")
 
-    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,${minecraft_version}"
+    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,1.21.1"
 }
 
 configurations {
