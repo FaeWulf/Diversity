@@ -99,19 +99,31 @@ subprojects { subproject ->
                     setLoaders("Fabric", "Quilt")
                     setDisplayName("[Fabric ${minecraft_version}] ${mod_name} v${project.version}")
                     modrinthDepends {
-                        required "fabric-api"
+                        required "fabric-api", "faewulfslib"
                     }
                     curseDepends {
-                        required "fabric-api"
+                        required "fabric-api", 'faewulfs-lib'
                     }
                     break
                 case "forge":
                     setLoaders("Forge", "NeoForge")
                     setDisplayName("[Forge ${minecraft_version}] ${mod_name} v${project.version}")
+                    modrinthDepends {
+                        required "faewulfslib"
+                    }
+                    curseDepends {
+                        required 'faewulfs-lib'
+                    }
                     break
                 case "neoforge":
                     setLoaders("NeoForge")
                     setDisplayName("[NeoForge ${minecraft_version}] ${mod_name} v${project.version}")
+                    modrinthDepends {
+                        required "faewulfslib"
+                    }
+                    curseDepends {
+                        required 'faewulfs-lib'
+                    }
                     break
             }
         }
