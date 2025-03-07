@@ -5,10 +5,6 @@ plugins {
 
 repositories {
     maven {
-        url = "https://api.modrinth.com/maven"
-    }
-
-    maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
@@ -24,7 +20,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
 
-    modImplementation "curse.maven:faewulfs-lib-1209568:6258766"
+    modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-fabric,${minecraft_version}"
 
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")

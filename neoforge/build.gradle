@@ -3,18 +3,12 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
-repositories {
-    maven {
-        url = "https://api.modrinth.com/maven"
-    }
-}
-
 dependencies {
     //implementation("com.moulberry:mixinconstraints:1.0.1")
 
     //lib
     implementation("com.electronwill.night-config:toml:3.6.0")
-    implementation "curse.maven:faewulfs-lib-1209568:6258767"
+    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,${minecraft_version}"
 }
 
 neoForge {
