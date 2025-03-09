@@ -83,7 +83,14 @@ subprojects { subproject ->
 
             setGameVersions(minecraft_version)
             setVersion(project.version)
-            setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
+
+            if(subproject.name.contains("better-bundle")) {
+                setChangelog(file("${subproject.rootDir}/CHANGELOG_BETTER_BUNDLE.md"))
+            }
+            else {
+                setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
+            }
+
             setVersionType(version_type)
 
             // Set different artifacts for each subproject

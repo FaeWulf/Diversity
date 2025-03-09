@@ -12,13 +12,24 @@ configurations {
 }
 
 dependencies {
-    compileOnly(project(':common')) {
-        capabilities {
-            requireCapability "$group:$mod_id"
+    if (project.name.contains("better-bundle")) {
+        compileOnly(project(':common-better-bundle')) {
+            capabilities {
+                requireCapability "$group:$mod_id_better_bundle"
+            }
         }
+        commonJava project(path: ':common-better-bundle', configuration: 'commonJava')
+        commonResources project(path: ':common-better-bundle', configuration: 'commonResources')
     }
-    commonJava project(path: ':common', configuration: 'commonJava')
-    commonResources project(path: ':common', configuration: 'commonResources')
+    else {
+        compileOnly(project(':common')) {
+            capabilities {
+                requireCapability "$group:$mod_id"
+            }
+        }
+        commonJava project(path: ':common', configuration: 'commonJava')
+        commonResources project(path: ':common', configuration: 'commonResources')
+    }
 }
 
 tasks.named('compileJava', JavaCompile) {
