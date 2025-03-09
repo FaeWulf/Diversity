@@ -5,10 +5,6 @@ plugins {
 
 repositories {
     maven {
-        url = "https://api.modrinth.com/maven"
-    }
-
-    maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/"
     }
@@ -22,10 +18,10 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation("com.terraformersmc:modmenu:11.0.0")
+    modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
     //include(modImplementation("com.moulberry:mixinconstraints:1.0.1"))
-
     //include(modImplementation "org.ow2.asm:asm-tree:9.7")
+    modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-fabric,1.21.1"
 
     //lib
     include(modImplementation "com.electronwill.night-config:core:3.6.0")
@@ -38,7 +34,7 @@ loom {
         accessWidenerPath.set(aw)
     }
     mixin {
-        defaultRefmapName.set("${mod_id}.refmap.json")
+        defaultRefmapName.set("${mod_id_better_bundle}.refmap.json")
     }
     runs {
         client {

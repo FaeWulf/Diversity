@@ -17,31 +17,30 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "xyz.faewulf.diversity.Diversity"
-    ],
-    "fabric-gametest": [
-      "xyz.faewulf.diversity.util.gameTests.registerGameTests"
+      "xyz.faewulf.diversity_better_bundle.Diversity"
     ],
     "modmenu": [
-      "xyz.faewulf.diversity.config.ModMenuIntegration"
+      "xyz.faewulf.diversity_better_bundle.config.ModMenuIntegration"
     ]
   },
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/xZneCTcEvb"
+        "modmenu.discord": "https://faewulf.xyz/discord"
       },
       "update_checker": true
     }
   },
   "mixins": [
-    "compat.mixins.json",
+    "${mod_id}.compat.mixins.json",
+    "${mod_id}.client.mixins.json",
     "${mod_id}.mixins.json",
     "${mod_id}.fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
+    "faewulf_lib": ">=1.2.0",
     "minecraft": ">=${minecraft_version} <=${minecraft_version_max}",
     "java": ">=${java_version}"
   }
