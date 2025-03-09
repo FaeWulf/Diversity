@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "blocks",
+  "pattern": [
+    " s ",
+    "s s",
+    " s "
+  ],
+  "key": {
+    "s": "minecraft:sand"
+  },
+  "result": {
+    "id": "minecraft:suspicious_sand",
+    "count": 4
+  }
+}

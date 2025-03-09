@@ -4,7 +4,12 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    if (project.name.contains("better-bundle")) {
+        archivesName = "${mod_id_better_bundle}-${project.name.replaceAll("-better-bundle", "")}-${minecraft_version}"
+    }
+    else {
+        archivesName = "${mod_id}-${project.name}-${minecraft_version}"
+    }
 }
 
 java {
@@ -62,9 +67,19 @@ repositories {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
     configurations."$variant".outgoing {
+        capability("$group:${project.name}:$version")
         capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
         capability("$group:$mod_id:$version")
+
+        if (project.name.contains("better-bundle")) {
+            capability("$group:$mod_id_better_bundle-${project.name}-${minecraft_version}:$version")
+            capability("$group:$mod_id_better_bundle:$version")
+        }
+        else {
+            capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
+            capability("$group:$mod_id:$version")
+        }
+
     }
     publishing.publications.configureEach {
         suppressPomMetadataWarningsFor(variant)
@@ -82,7 +97,12 @@ jar {
         rename { "${it}_${mod_name}" }
     }
 
-    from(rootProject.file("CHANGELOG.md"))
+    if (project.name.contains("better-bundle")) {
+        from(rootProject.file("CHANGELOG_BETTER_BUNDLE.md"))
+    }
+    else {
+        from(rootProject.file("CHANGELOG.md"))
+    }
 
     manifest {
         attributes([

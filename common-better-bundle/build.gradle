@@ -3,13 +3,6 @@ plugins {
     id 'net.neoforged.moddev'
 }
 
-repositories {
-    maven {
-        url = "https://api.modrinth.com/maven"
-    }
-    mavenCentral()
-}
-
 neoForge {
     neoFormVersion = neo_form_version
     // Automatically enable AccessTransformers if the file exists
@@ -34,6 +27,8 @@ dependencies {
 
     //config
     compileOnly("com.electronwill.night-config:toml:3.6.0")
+
+    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,${minecraft_version}"
 }
 
 configurations {
