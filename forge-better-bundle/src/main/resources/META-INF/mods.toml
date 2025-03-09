@@ -24,3 +24,9 @@ mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
+[[dependencies.${mod_id}]]
+modId = "faewulf_lib"
+mandatory = true
+versionRange = "1.2.0"
+ordering = "NONE"
+side = "BOTH"

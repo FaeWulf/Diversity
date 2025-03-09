@@ -1,11 +1,10 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "xyz.faewulf.diversity.mixin",
+  "package": "xyz.faewulf.diversity_better_bundle.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "EnchantmentHelperMixin",
     "events.BlockItemMixin"
   ],
   "client": [],

@@ -1,11 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "xyz.faewulf.diversity.mixin",
+  "package": "xyz.faewulf.diversity_better_bundle.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "core.recipeLoadBlocker.RecipeManagerMixin",
+    "general.bundleEnchantments.BundleItemInvoker",
+    "general.bundleEnchantments.ItemEntityMixin",
+    "general.bundleEnchantments.VacuumBundleItemMixin",
+    "general.bundleEnchantments.VillagerTradesMixin",
     "item.buildingBundle.BlockItemInvoker",
     "item.buildingBundle.BlockItemMixin",
     "item.buildingBundle.BundleItemMixin"
@@ -15,6 +19,6 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "plugin": "xyz.faewulf.diversity.util.mixinPlugin.ConditionalMixinPlugin"
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }
 
