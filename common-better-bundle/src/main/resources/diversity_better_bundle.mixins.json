@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "xyz.faewulf.diversity_better_bundle.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_18",
+  "mixins": [
+    "core.increaseStackSize.DataComponentTypesMixin",
+    "core.increaseStackSize.ItemStackMixin",
+    "core.registryLoadBlocker.RegistryLoaderMixin",
+    "core.registryLoadBlocker.TagGroupLoaderMixin",
+    "general.bundleEnchantments.ItemEntityMixin",
+    "general.bundleEnchantments.VacuumBundleItemMixin",
+    "general.bundleEnchantments.VillagerTradesMixin",
+    "item.buildingBundle.BlockItemInvoker",
+    "item.buildingBundle.BlockItemMixin",
+    "item.buildingBundle.BuilderMixin",
+    "item.buildingBundle.BundleContentComponentInvoker",
+    "item.buildingBundle.BundleItemMixin"
+  ],
+  "client": [],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
+}
+

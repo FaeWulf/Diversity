@@ -1,0 +1,22 @@
+{
+  "description": {
+    "translate": "enchantment.diversity_better_bundle.refill",
+    "fallback": "Refill"
+  },
+  "supported_items": "#minecraft:bundles",
+  "primary_items": "#minecraft:bundles",
+  "weight": 1,
+  "max_level": 1,
+  "anvil_cost": 4,
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "any"
+  ]
+}

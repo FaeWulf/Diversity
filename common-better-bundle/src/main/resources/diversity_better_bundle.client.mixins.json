@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "xyz.faewulf.diversity_better_bundle.mixinClient",
+  "compatibilityLevel": "JAVA_18",
+  "refmap": "${mod_id}.refmap.json",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+  ],
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
+}
