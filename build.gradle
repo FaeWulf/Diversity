@@ -8,19 +8,27 @@ plugins {
     id "com.hypherionmc.modutils.modpublisher" version "2.1.6" apply false
 }
 
+// Define additional subprojects
+def additionalVariants = ["better-bundle"] // Add more as needed
+
+// Define base projects
+def baseProjects = ["fabric", "neoforge"]
+
+// Generate all project names dynamically
+def allProjects = baseProjects + additionalVariants.collectMany { variant ->
+    baseProjects.collect { it + "-${variant}" }
+}
+
 //custom task
 tasks.register('copyJars', Copy) {
 
-    dependsOn ':fabric:build', ':neoforge:build' // Make sure subprojects are built
+    dependsOn allProjects.collect { ":$it:build" } // Build all projects first
 
-    from('fabric/build/libs') {
-        include("*${project.version}.jar")
-        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
-    }
-
-    from('neoforge/build/libs') {
-        include("*${project.version}.jar")
-        exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+    allProjects.each { subproject ->
+        from("${subproject}/build/libs") {
+            include("*${project.version}.jar")
+            exclude('*-javadoc.jar', '*-sources.jar', '*-orphaned.jar')
+        }
     }
 
     into 'build/'
@@ -28,41 +36,32 @@ tasks.register('copyJars', Copy) {
 
 // Trigger the copyJars task after the subprojects' builds are done
 gradle.projectsEvaluated {
-    copyJars.mustRunAfter ':fabric:build', ':neoforge:build'
+    copyJars.mustRunAfter allProjects.collect { ":$it:build" }
 }
 
 // Add a custom task to trigger the copy process
 tasks.register('buildAll') {
     group = 'build'  // Assign to a visible group in Gradle tab
     description = 'Builds and copies the main JARs from subprojects to the root build folder.'
-
-    //delete(fileTree("build/"))
-    dependsOn ':fabric:build', ':neoforge:build', copyJars
+    dependsOn(allProjects.collect { ":$it:build" } + copyJars)
 }
 
 // Tasks for publish
 tasks.register('publishAllToModrinth') {
-    group = 'publish'  // Assign to a visible group in Gradle tab
+    group = 'publish'
     description = 'Publish all subproject artifacts to Modrinth'
-
-    //delete(fileTree("build/"))
-    dependsOn ':fabric:publishModrinth', ':neoforge:publishModrinth'
+    dependsOn(allProjects.collect { ":$it:publishModrinth" })
 }
 
 tasks.register('publishAllToCurseforge') {
-    group = 'publish'  // Assign to a visible group in Gradle tab
+    group = 'publish'
     description = 'Publish all subproject artifacts to Curseforge'
-
-    //delete(fileTree("build/"))
-    dependsOn ':fabric:publishCurseforge', ':neoforge:publishCurseforge'
+    dependsOn(allProjects.collect { ":$it:publishCurseforge" })
 }
 
 tasks.register('publishAllToAll') {
-    group = 'publish'  // Assign to a visible group in Gradle tab
+    group = 'publish'
     description = 'Publish all subproject artifacts to Modrinth and Curseforge'
-
-
-    //delete(fileTree("build/"))
     dependsOn publishAllToModrinth, publishAllToCurseforge
 }
 
@@ -73,31 +72,50 @@ subprojects { subproject ->
 
 
     subproject.afterEvaluate {
+
+        // Sub project check
+        def isBetterBundle = subproject.name.contains("better-bundle")
+
         publisher {
             apiKeys {
                 modrinth System.getenv("MODRINTH_TOKEN")
                 curseforge System.getenv("CURSEFORGE_TOKEN")
             }
 
-            setDebug(!confirm_publish.toBoolean())
+            if (isBetterBundle)
+                setDebug(!confirm_publish_better_bundle.toBoolean())
+            else
+                setDebug(!confirm_publish.toBoolean())
 
             setGameVersions(minecraft_version)
             setVersion(project.version)
-            setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
             setVersionType(version_type)
 
             // Set different artifacts for each subproject
-            setArtifact("${subproject.rootDir}/build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
             setDisableMalwareScanner(true)
             setDisableEmptyJarCheck(true)
-            setModrinthID(modrinth_id)
-            setCurseID(curseforge_id)
+
+            def artifactName = mod_name
+
+            if (isBetterBundle) {
+                setArtifact("${subproject.rootDir}/build/${mod_id_better_bundle}-${subproject.name.replaceAll("-better-bundle", "")}-${minecraft_version}-${project.version}.jar")
+                setModrinthID(modrinth_id_better_bundle)
+                setCurseID(curseforge_id_better_bundle)
+                setChangelog(file("${subproject.rootDir}/CHANGELOG_BETTER_BUNDLE.md"))
+                artifactName = mod_name_better_bundle
+            } else {
+                setArtifact("${subproject.rootDir}/build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
+                setModrinthID(modrinth_id)
+                setCurseID(curseforge_id)
+                setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
+            }
+
 
             // Configure loaders and dependencies per subproject
             switch (subproject.name) {
                 case "fabric":
                     setLoaders("Fabric", "Quilt")
-                    setDisplayName("[Fabric ${minecraft_version}] ${mod_name} v${project.version}")
+                    setDisplayName("[Fabric ${minecraft_version}] ${artifactName} v${project.version}")
                     modrinthDepends {
                         required "fabric-api", "faewulfslib"
                     }
@@ -107,7 +125,7 @@ subprojects { subproject ->
                     break
                 case "forge":
                     setLoaders("Forge", "NeoForge")
-                    setDisplayName("[Forge ${minecraft_version}] ${mod_name} v${project.version}")
+                    setDisplayName("[Forge ${minecraft_version}] ${artifactName} v${project.version}")
                     modrinthDepends {
                         required "faewulfslib"
                     }
@@ -117,7 +135,7 @@ subprojects { subproject ->
                     break
                 case "neoforge":
                     setLoaders("NeoForge")
-                    setDisplayName("[NeoForge ${minecraft_version}] ${mod_name} v${project.version}")
+                    setDisplayName("[NeoForge ${minecraft_version}] ${artifactName} v${project.version}")
                     modrinthDepends {
                         required "faewulfslib"
                     }
