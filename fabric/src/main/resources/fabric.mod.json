@@ -40,7 +40,7 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
-    "faewulf_lib": ">=1.2.0",
+    "faewulf_lib": ">=${faewulfs_lib_version}",
     "minecraft": ">=${minecraft_version} <=${minecraft_version_max}",
     "java": ">=${java_version}"
   }

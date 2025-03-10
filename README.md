@@ -35,20 +35,20 @@ Diversity is a Minecraft Fabric mod that introduces a wide range of features to 
 quality of life improvements to new mob behaviors and random sh*t, this mod offers a little bit of everything. The
 mod is designed to work on server-side only installations as well.
 
-**Current feature: 57 (+6 in the latest version)**
+**Current feature: 67 (+5 in the latest version)**
 
-### What's new?
+### What's new in 2.3.0?
 
-- Goat drops wool and mutton.
-- Shear can be used on `Saplings`, `Bamboo`, `Vine` and `Sugar cane` to prevent it from growing.
-- Using the clock will show current time.
-- End stone is cheese (Disabled by default, only in 1.21)
-- Reverse phantom spawn condition.
-  (Phantom will spawn if the player continuously sleeps skipping the night, default:
-  false)
-- Slime chunk detector: Holding a `Slime Ball`, `Slime Block`, or items with the `diversity:slime_detector` tag will
-  emit
-  particles and sound when in a slime chunk, with a 10% chance while walking/running and 70% chance when sneaking.
+- Now require to install `Faewulf's Lib` as a library dependency. Sorry for the inconvenient.
+- `Beacon Extended` module extends the beacon's range and duration beyond level 4! Each layer past level 4 adds 20
+  blocks in range, up to level 10.
+- New `Day counter` option to change daytime tick (only change if you know what you are doing).
+- Fox auto breed after eat berries.
+- Two new enchantments for Bundle: `Vacuum` (sucks all newly picked-up item from inv) and `Selective Vacuum` (only sucks
+  the same items exist in bundle).
+- Extra config option for `Spy glass what is that?` (use range, show info, distance, name).
+- `No saddled mobs wandering` (replaces `No tamed horse wandering`) now affect all mob that can wear saddle. (Modded
+  mobs supported)
 
 ## Features
 
@@ -93,6 +93,11 @@ mod is designed to work on server-side only installations as well.
 </details>
 
 <details>
+  <summary>`Beacon Extended` </summary>
+  <p>Extends the beacon's range and duration beyond level 4! Each layer past level 4 adds 20 blocks in range, up to level 10.</p>
+</details>
+
+<details>
   <summary>Trophy banners</summary>
   <p>Add some Ominous banner-like banners as trophy. Obtains via boss drops, Shepherd Villager's gifts (Hero of the Village),...</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/trophyBanner.png?raw=true" alt="Trophy banners">
@@ -100,7 +105,7 @@ mod is designed to work on server-side only installations as well.
 
 <details>
   <summary>Bundle enchantments</summary>
-  <p>Add 2 enchantment for bundle (refill and capacity). If mod installed in client-side, slot indicator will calculate correctly.</p>
+  <p>Add 4 enchantment for bundle (refill, capacity, vacuum and selective vacuum) Those enchants only can be found in `leatherworker` trade. If mod installed in client-side, slot indicator will calculate correctly.</p>
   <img src="https://github.com/FaeWulf/public-imgs/blob/main/mods/Diversity/QoL/bundleEnchantment-min.gif?raw=true" alt="Bundle enchantments">
 </details>
 
@@ -386,6 +391,10 @@ Then you can place block that inside the bundle.</p>
 </details>
 
 <details>
+  <summary>Fox can breed after eat berries.</summary>
+</details>
+
+<details>
   <summary>Wandering trader announcer</summary>
   <p>Send a message to player when wandering trader appears.</p>
 </details>
@@ -422,6 +431,7 @@ Almost all features can be toggle via config file: config/diversity.toml
 ## Required mods
 
 - Fabric API
+- Faewulf's Lib
 - (Optional) Permission manager mod like "Luck Perms"
 
 ## Permissions
