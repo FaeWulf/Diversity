@@ -76,7 +76,6 @@ dependencies {
     }
 
     //lib
-    implementation("com.electronwill.night-config:toml:3.6.0")
     modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-forge,${minecraft_version}"
 }
 

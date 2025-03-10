@@ -35,8 +35,6 @@ dependencies {
     compileOnly("org.ow2.asm:asm-tree:9.3")
 
     //config
-    compileOnly("com.electronwill.night-config:toml:3.6.0")
-
     implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,${minecraft_version}"
 }
 

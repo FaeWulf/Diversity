@@ -19,9 +19,6 @@
     "main": [
       "xyz.faewulf.diversity.Diversity"
     ],
-    "fabric-gametest": [
-      "xyz.faewulf.diversity.util.gameTests.registerGameTests"
-    ],
     "modmenu": [
       "xyz.faewulf.diversity.config.ModMenuIntegration"
     ]
@@ -44,7 +41,7 @@
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
-    "faewulf_lib": ">=1.2.0",
+    "faewulf_lib": ">=${faewulfs_lib_version}",
     "java": ">=17"
   },
   "accessWidener": "diversity.accesswidener"
