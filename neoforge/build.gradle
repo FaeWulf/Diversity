@@ -7,7 +7,6 @@ dependencies {
     //implementation("com.moulberry:mixinconstraints:1.0.1")
 
     //lib
-    implementation("com.electronwill.night-config:toml:3.6.0")
     implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,${minecraft_version}"
 }
 
