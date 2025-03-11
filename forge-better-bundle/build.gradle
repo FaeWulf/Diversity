@@ -19,10 +19,10 @@ repositories {
 mixin {
     add(sourceSets.main, "${mod_id_better_bundle}.refmap.json")
 
-    config("${mod_id_better_bundle}.mixins.json")
     config("${mod_id_better_bundle}.forge.mixins.json")
     config("${mod_id_better_bundle}.client.mixins.json")
     config("${mod_id_better_bundle}.compat.mixins.json")
+    config("${mod_id_better_bundle}.mixins.json")
 }
 
 legacyForge {
@@ -83,7 +83,7 @@ dependencies {
 jar {
     finalizedBy('reobfJar')
     manifest.attributes([
-            "MixinConfigs": "${mod_id_better_bundle}.mixins.json,${mod_id_better_bundle}.forge.mixins.json"
+            "MixinConfigs": "${mod_id_better_bundle}.mixins.json, ${mod_id_better_bundle}.forge.mixins.json"
     ])
 }
 

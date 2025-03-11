@@ -6,8 +6,7 @@ plugins {
 base {
     if (project.name.contains("better-bundle")) {
         archivesName = "${mod_id_better_bundle}-${project.name.replaceAll("-better-bundle", "")}-${minecraft_version}"
-    }
-    else {
+    } else {
         archivesName = "${mod_id}-${project.name}-${minecraft_version}"
     }
 }
@@ -73,8 +72,7 @@ repositories {
         if (project.name.contains("better-bundle")) {
             capability("$group:$mod_id_better_bundle-${project.name}-${minecraft_version}:$version")
             capability("$group:$mod_id_better_bundle:$version")
-        }
-        else {
+        } else {
             capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
             capability("$group:$mod_id:$version")
         }
@@ -98,8 +96,7 @@ jar {
 
     if (project.name.contains("better-bundle")) {
         from(rootProject.file("CHANGELOG_BETTER_BUNDLE.md"))
-    }
-    else {
+    } else {
         from(rootProject.file("CHANGELOG.md"))
     }
 
@@ -135,7 +132,8 @@ processResources {
             "forge_version"                : forge_version,
             "forge_loader_version_range"   : forge_loader_version_range,
             'credits'                      : credits,
-            'java_version'                 : java_version
+            'java_version'                 : java_version,
+            'faewulfs_lib_version'         : faewulfs_lib_version
     ]
 
     //better bundle
@@ -146,7 +144,7 @@ processResources {
     }
 
 
-    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', 'META-INF/forge.mods.toml', '*.mixins.json']) {
+    filesMatching(['pack.mcmeta', 'fabric.mod.json', 'META-INF/mods.toml', '*.mixins.json']) {
         expand expandProps
     }
     inputs.properties(expandProps)

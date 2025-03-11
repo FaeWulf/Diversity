@@ -26,7 +26,7 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/xZneCTcEvb"
+        "modmenu.discord": "https://faewulf.xyz/discord"
       },
       "update_checker": true
     }
@@ -40,9 +40,9 @@
   "depends": {
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
-    "faewulf_lib": ">=1.2.0",
-    "java": ">=17"
+    "faewulf_lib": ">=${faewulfs_lib_version}",
+    "minecraft": ">=${minecraft_version} <=${minecraft_version_max}",
+    "java": ">=${java_version}"
   },
   "accessWidener": "diversity_better_bundle.accesswidener"
 }

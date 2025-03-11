@@ -12,6 +12,7 @@ configurations {
 }
 
 dependencies {
+    //better bundle
     if (project.name.contains("better-bundle")) {
         compileOnly(project(':common-better-bundle')) {
             capabilities {
@@ -20,8 +21,7 @@ dependencies {
         }
         commonJava project(path: ':common-better-bundle', configuration: 'commonJava')
         commonResources project(path: ':common-better-bundle', configuration: 'commonResources')
-    }
-    else {
+    } else {
         compileOnly(project(':common')) {
             capabilities {
                 requireCapability "$group:$mod_id"

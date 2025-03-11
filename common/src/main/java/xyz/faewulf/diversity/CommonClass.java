@@ -19,7 +19,6 @@ public class CommonClass {
 //        }
 
         ConfigHelper.register(xyz.faewulf.diversity.Constants.MOD_ID, ModConfigs.class);
-        GameTestHelper.register("xyz.faewulf.diversity.util.gameTests.entry");
 
         CustomLootTables.init();
 
@@ -27,8 +26,10 @@ public class CommonClass {
         CauldronInteractionRegister.register();
 
         //for debug/testing
-        if (Services.PLATFORM.isDevelopmentEnvironment())
+        if (Services.PLATFORM.isDevelopmentEnvironment()) {
+            GameTestHelper.register("xyz.faewulf.diversity.util.gameTests.entry");
             SharedConstants.IS_RUNNING_IN_IDE = true;
+        }
 
         //load config, moved to util.mixinPlugin.ConditionalMixinPlugin method: onLoad()
         //Config.init();
