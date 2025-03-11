@@ -28,8 +28,8 @@ dependencies {
     modImplementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-fabric,${minecraft_version}"
 
     //lib
-    include(modImplementation "com.electronwill.night-config:core:3.6.0")
-    include(modImplementation "com.electronwill.night-config:toml:3.6.0")
+    modImplementation "com.electronwill.night-config:core:3.6.0"
+    modImplementation "com.electronwill.night-config:toml:3.6.0"
 }
 
 loom {
