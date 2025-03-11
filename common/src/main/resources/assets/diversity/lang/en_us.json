@@ -36,7 +36,7 @@
   "diversity.config.bigger_radius_bookshelf_for_enchantingTable.tooltip": "- Enchanting table can accept bookshelves placed two blocks away.",
   "diversity.config.copper_bulb_tick_delay.tooltip": "- Make copper bulb block delay 1 tick like in the snapshot.",
   "diversity.config.bundle_place_mode.tooltip": "- Switch to place mode by holding bundle and shift-leftclick to the ground.\n- Then you can place block that inside the bundle.",
-  "diversity.config.bundle_enchantment.tooltip": "- Add 2 enchantment for bundle (refill and capacity).",
+  "diversity.config.bundle_enchantment.tooltip": "- Add 4 enchantment for bundle (refill, capacity, vacuum and selective vacuum).",
   "diversity.config.banner_trohpy.tooltip": "- Add some Ominous banner-like banners as trophy. Obtains via boss drops, etc.",
   "diversity.config.beacon_extended.tooltip": "- Extends the beacon's range and duration beyond level 4!\n- Each layer past level 4 adds 20 blocks in range, up to level 10.",
   "diversity.config.waxed_copper_indicator.tooltip": "- Waxed copper blocks will emit particles if holding a spyglass while sneaking.",
