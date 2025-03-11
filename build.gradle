@@ -82,11 +82,6 @@ subprojects { subproject ->
                 curseforge System.getenv("CURSEFORGE_TOKEN")
             }
 
-            if (isBetterBundle)
-                setDebug(!confirm_publish_better_bundle.toBoolean())
-            else
-                setDebug(!confirm_publish.toBoolean())
-
             setGameVersions(minecraft_version)
             setVersion(project.version)
             setVersionType(version_type)
@@ -98,12 +93,14 @@ subprojects { subproject ->
             def artifactName = mod_name
 
             if (isBetterBundle) {
+                setDebug(!confirm_publish_better_bundle.toBoolean())
                 setArtifact("${subproject.rootDir}/build/${mod_id_better_bundle}-${subproject.name.replaceAll("-better-bundle", "")}-${minecraft_version}-${project.version}.jar")
                 setModrinthID(modrinth_id_better_bundle)
                 setCurseID(curseforge_id_better_bundle)
                 setChangelog(file("${subproject.rootDir}/CHANGELOG_BETTER_BUNDLE.md"))
                 artifactName = mod_name_better_bundle
             } else {
+                setDebug(!confirm_publish.toBoolean())
                 setArtifact("${subproject.rootDir}/build/${mod_id}-${subproject.name}-${minecraft_version}-${project.version}.jar")
                 setModrinthID(modrinth_id)
                 setCurseID(curseforge_id)

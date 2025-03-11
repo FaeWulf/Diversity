@@ -35,7 +35,7 @@ side = "BOTH"
 [[dependencies.${mod_id}]]
 modId = "faewulf_lib"
 type="required" #mandatory (Can be one of "required", "optional", "incompatible" or "discouraged")
-versionRange = "1.2.0"
+versionRange = "[${faewulfs_lib_version},)"
 ordering = "NONE"
 side = "BOTH"
 
