@@ -69,7 +69,6 @@ repositories {
     configurations."$variant".outgoing {
         capability("$group:${project.name}:$version")
         capability("$group:${base.archivesName.get()}:$version")
-        capability("$group:$mod_id:$version")
 
         if (project.name.contains("better-bundle")) {
             capability("$group:$mod_id_better_bundle-${project.name}-${minecraft_version}:$version")
