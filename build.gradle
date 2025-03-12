@@ -107,9 +107,9 @@ subprojects { subproject ->
                 setChangelog(file("${subproject.rootDir}/CHANGELOG.md"))
             }
 
-
+            def platformName = subproject.name.split("-")[0];
             // Configure loaders and dependencies per subproject
-            switch (subproject.name) {
+            switch (platformName) {
                 case "fabric":
                     setLoaders("Fabric", "Quilt")
                     setDisplayName("[Fabric ${minecraft_version}] ${artifactName} v${project.version}")
