@@ -1,33 +1,12 @@
-# Changelog v2.3.0
+# Changelog v2.3.1
 
-### Added
-
-- Now require to install `Faewulf's Lib` as a library dependency. Sorry for the inconvenient.
-- `Beacon Extended` module extends the beacon's range and duration beyond level 4! Each layer past level 4 adds 20
-  blocks in range, up to level 10.
-- New `Day counter` option to change daytime tick (only change if you know what you are doing).
-- Fox auto breed after eat berries.
-- Two new enchantments for Bundle: `Vacuum` (sucks all newly picked-up item from inv) and `Selective Vacuum` (only sucks
-  the same items exist in bundle).
-- Extra config option for `Spy glass what is that?` (use range, show info, distance, name).
-- `No saddled mobs wandering` (replaces `No tamed horse wandering`) now affect all mob that can wear saddle. (Modded
-  mobs supported)
+To see full change log, see `CHANGELOG_FULL.md` in mod's jar.</br>
+Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree/sub-mod-1.21.3/CHANGELOG_FULL.md)
 
 ### Changed
 
-- `No tamed horse wandering` renamed to `No saddled mobs wandering` in favor of its new behavior.
-- `No saddled mobs wandering` affected mobs able to move when luring (example luring pig with carrot), avoiding water,
-  panicking.
-  They only stand still in idle mode.
-- Bundle's enchantments are no longer obtained via enchanting.
-  For rebalance purpose, all bundle enchantments will move to
-  leather worker trade instead.
-
-### Removed
-
-- Obtain bundle's enchantments via enchanting table.
+- Require Faewulf's Lib version 1.2.2
 
 ### Fixed
 
-- Compatibility with `EasyShulkerBoxes`.
-- Inconsistency behavior of `Shear prevents plants grow`.
+- Game crash when load the mod server-side.

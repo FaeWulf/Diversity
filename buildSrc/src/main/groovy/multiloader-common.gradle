@@ -100,6 +100,8 @@ jar {
         from(rootProject.file("CHANGELOG.md"))
     }
 
+    from(rootProject.file("CHANGELOG_FULL.md"))
+
     manifest {
         attributes([
                 'Specification-Title'   : mod_name,
