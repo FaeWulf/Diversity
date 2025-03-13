@@ -3,8 +3,8 @@
     "translate": "enchantment.diversity.selective_vacuum",
     "fallback": "Selective Vacuum"
   },
-  "supported_items": "#minecraft:bundles",
-  "primary_items": "#minecraft:bundles",
+  "supported_items": "minecraft:bundle",
+  "primary_items": "minecraft:bundle",
   "weight": 1,
   "max_level": 1,
   "anvil_cost": 4,
