@@ -1,6 +1,17 @@
 # Changelog
 
-## [2.3.1] - 2025-9-14
+## [2.3.2] - 2025-3-14
+
+### Added
+
+- Bundle now shows tooltip about place function switcher.
+- Forge support, bugs expected.
+
+### Changed
+
+- Bundle enchantments can not apply to bundle.
+
+## [2.3.1] - 2025-3-9
 
 ### Changed
 

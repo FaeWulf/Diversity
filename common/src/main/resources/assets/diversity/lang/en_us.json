@@ -127,5 +127,7 @@
   "diversity.info.website.tooltip": "Visit mod's website",
   "diversity.info.kofi.tooltip": "Visit author's Ko-fi",
   "diversity.info.discord.tooltip": "Visit mod's discord server",
-  "diversity.info.github.tooltip": "Visit mod's github"
+  "diversity.info.github.tooltip": "Visit mod's github",
+  "item.diversity.bundle.change_mode.description": "Sneak + Punch the ground",
+  "item.diversity.bundle.change_mode.description_2": "to switch bundle mode."
 }
