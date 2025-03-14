@@ -98,6 +98,7 @@
     "item.buildingBundle.BuilderMixin",
     "item.buildingBundle.BundleContentComponentInvoker",
     "item.buildingBundle.BundleItemMixin",
+    "item.buildingBundle.ItemStackMixin",
     "item.clockHUD.ItemMixin",
     "item.shearPickpocketVillager.villagerMixin",
     "item.shearPreventPlantGrow.BambooSaplingBlockMixin",

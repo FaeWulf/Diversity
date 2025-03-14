@@ -17,7 +17,7 @@
     "item.buildingBundle.BlockItemMixin",
     "item.buildingBundle.BuilderMixin",
     "item.buildingBundle.BundleContentComponentInvoker",
-    "item.buildingBundle.BundleItemMixin"
+    "item.buildingBundle.BundleItemMixin", "item.buildingBundle.ItemStackMixin"
   ],
   "client": [],
   "server": [],

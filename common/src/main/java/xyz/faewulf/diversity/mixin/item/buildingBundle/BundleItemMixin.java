@@ -43,7 +43,6 @@ import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
 import xyz.faewulf.diversity.util.config.ModConfigs;
-import xyz.faewulf.lib.util.Converter;
 import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
