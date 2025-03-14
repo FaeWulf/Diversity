@@ -27,8 +27,8 @@ public abstract class ItemStackMixin implements DataComponentHolder {
     private void addExtraTooltip(Item.TooltipContext tooltipContext, Player player, TooltipFlag tooltipFlag, CallbackInfoReturnable<List<Component>> cir) {
         if (this.getItem() instanceof BundleItem && ModConfigs.bundle_place_mode) {
             List<Component> tooltip = cir.getReturnValue();
-            tooltip.add(Component.translatable("item.diversity.bundle.change_mode.description").withStyle(ChatFormatting.DARK_GRAY));
-            tooltip.add(Component.translatable("item.diversity.bundle.change_mode.description_2").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("item.diversity_better_bundle.bundle.change_mode.description").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable("item.diversity_better_bundle.bundle.change_mode.description_2").withStyle(ChatFormatting.DARK_GRAY));
             cir.setReturnValue(tooltip);
         }
     }
