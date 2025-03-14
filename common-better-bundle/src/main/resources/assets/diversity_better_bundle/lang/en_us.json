@@ -41,5 +41,7 @@
   "diversity_better_bundle.info.website.tooltip": "Visit mod's website",
   "diversity_better_bundle.info.kofi.tooltip": "Visit author's Ko-fi",
   "diversity_better_bundle.info.discord.tooltip": "Visit mod's discord server",
-  "diversity_better_bundle.info.github.tooltip": "Visit mod's github"
+  "diversity_better_bundle.info.github.tooltip": "Visit mod's github",
+  "item.diversity_better_bundle.bundle.change_mode.description": "Sneak + Punch the ground",
+  "item.diversity_better_bundle.bundle.change_mode.description_2": "to switch bundle mode."
 }

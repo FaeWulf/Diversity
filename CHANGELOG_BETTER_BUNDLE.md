@@ -1,15 +1,13 @@
-# Changelog v2.3.1
+# Changelog v2.3.2
+
+To see full change log, see `CHANGELOG_FULL.md` in mod's jar.</br>
+Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree/sub-mod-1.21.3/CHANGELOG_FULL.md)
 
 ### Added
 
-- Now require to install `Faewulf's Lib` as a library dependency. Sorry for the inconvenient.
+- Bundle now shows tooltip about place function switcher.
+- Forge support, bugs expected.
 
 ### Changed
 
-- Bundle's enchantments are no longer obtained via enchanting.
-  For rebalance purpose, all bundle enchantments will move to
-  leather worker trade instead.
-
-### Removed
-
-- Obtain bundle's enchantments via enchanting table.
+- Bundle enchantments can not apply to bundle.
