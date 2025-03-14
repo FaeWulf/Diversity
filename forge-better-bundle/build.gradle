@@ -11,6 +11,7 @@ mixin {
     config("${mod_id_better_bundle}.compat.mixins.json")
     config("${mod_id_better_bundle}.forge.mixins.json")
 }
+
 jar {
     manifest {
         attributes["MixinConfigs"] = "${mod_id_better_bundle}.mixins.json,${mod_id_better_bundle}.forge.mixins.json"
@@ -82,7 +83,7 @@ dependencies {
     // Forge's hack fix
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
-    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-forge,1.21.1"
+    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-forge,${minecraft_version}"
 
     // Mixin extra
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
@@ -91,17 +92,27 @@ dependencies {
     }
 }
 
-tasks.named('jarJar') {
-    archiveClassifier.set('')
-}
-
 tasks.named("jar", Jar) {
     archiveClassifier.set('orphaned')
+}
+
+tasks.named("sourcesJar").configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Ignore duplicate files
 }
 
 // Force jarJar run when build, why forge?
 tasks.named("build").configure {
     dependsOn tasks.named("jarJar")
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Ignore duplicate files
+
+    filesMatching("META-INF/accesstransformer.cfg") {
+        if (project.name.contains("forge") && !project.name.contains("neoforge")) {
+            exclude("META-INF/accesstransformer.cfg") // Prevent common AT from being added
+        }
+    }
 }
 
 publishing {

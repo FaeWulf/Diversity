@@ -5,7 +5,6 @@ plugins {
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
 
-
 mixin {
     config("${mod_id}.mixins.json")
     config("${mod_id}.client.mixins.json")
@@ -33,7 +32,7 @@ minecraft {
     // This location is hardcoded in Forge and can not be changed.
     // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
     // Forge still uses SRG names during compile time, so we cannot use the common AT's
-    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at =  file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
         accessTransformer = at
     }
@@ -84,7 +83,7 @@ dependencies {
     // Forge's hack fix
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
-    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-forge,1.21.1"
+    implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-forge,${minecraft_version}"
 
     // Mixin extra
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
@@ -93,17 +92,27 @@ dependencies {
     }
 }
 
-tasks.named('jarJar') {
-    archiveClassifier.set('')
-}
-
 tasks.named("jar", Jar) {
     archiveClassifier.set('orphaned')
+}
+
+tasks.named("sourcesJar").configure {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Ignore duplicate files
 }
 
 // Force jarJar run when build, why forge?
 tasks.named("build").configure {
     dependsOn tasks.named("jarJar")
+}
+
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE // Ignore duplicate files
+
+    filesMatching("META-INF/accesstransformer.cfg") {
+        if (project.name.contains("forge") && !project.name.contains("neoforge")) {
+            exclude("META-INF/accesstransformer.cfg") // Prevent common AT from being added
+        }
+    }
 }
 
 publishing {

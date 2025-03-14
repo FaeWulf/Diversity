@@ -91,6 +91,7 @@ sourcesJar {
     }
 }
 
+
 jar {
     from(rootProject.file('LICENSE')) {
         rename { "${it}_${mod_name}" }
@@ -115,6 +116,26 @@ jar {
                 'Implementation-Vendor' : mod_author,
                 'Built-On-Minecraft'    : minecraft_version
         ])
+    }
+}
+
+if (project.name.contains("forge") && !project.name.contains("neoforge")) {
+    afterEvaluate {
+        tasks.named('jarJar').configure {
+            archiveClassifier.set('')
+
+            from(rootProject.file('LICENSE')) {
+                rename { "${it}_${mod_name}" }
+            }
+
+            if (project.name.contains("better-bundle")) {
+                from(rootProject.file("CHANGELOG_BETTER_BUNDLE.md"))
+            } else {
+                from(rootProject.file("CHANGELOG.md"))
+            }
+
+            from(rootProject.file("CHANGELOG_FULL.md"))
+        }
     }
 }
 
