@@ -41,7 +41,6 @@
     "entity.preventSaddledMobMovement.RandomStrollGoalMixin",
     "entity.preventSaddledMobMovement.WaterAvoidingRandomStrollGoalMixin",
     "entity.rabbitAutoBreedWithCarotPlant.EatCarrotCropGoalMixin",
-    "entity.randomSizeFishes.BucketableMixin",
     "entity.randomSizeFishes.FishEntityMixin",
     "entity.randomSizeFishes.SquidEntityMixin",
     "entity.randomSizeFishes.SquidEntitySuperClassMixin",
