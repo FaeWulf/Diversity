@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin.item.buildingBundle;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.component.DataComponentHolder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BundleItem;
@@ -18,13 +17,13 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 import java.util.List;
 
 @Mixin(ItemStack.class)
-public abstract class ItemStackMixin implements DataComponentHolder {
+public abstract class ItemStackMixin {
 
     @Shadow
     public abstract Item getItem();
 
     @Inject(method = "getTooltipLines", at = @At(value = "RETURN"), cancellable = true)
-    private void addExtraTooltip(Item.TooltipContext tooltipContext, Player player, TooltipFlag tooltipFlag, CallbackInfoReturnable<List<Component>> cir) {
+    private void addExtraTooltip(Player player, TooltipFlag isAdvanced, CallbackInfoReturnable<List<Component>> cir) {
         if (this.getItem() instanceof BundleItem && ModConfigs.bundle_place_mode) {
             List<Component> tooltip = cir.getReturnValue();
             tooltip.add(Component.translatable("item.diversity.bundle.change_mode.description").withStyle(ChatFormatting.DARK_GRAY));

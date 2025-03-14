@@ -12,7 +12,7 @@
     "general.bundleEnchantments.VillagerTradesMixin",
     "item.buildingBundle.BlockItemInvoker",
     "item.buildingBundle.BlockItemMixin",
-    "item.buildingBundle.BundleItemMixin"
+    "item.buildingBundle.BundleItemMixin", "item.buildingBundle.ItemStackMixin"
   ],
   "client": [],
   "server": [],
