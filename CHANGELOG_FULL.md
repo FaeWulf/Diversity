@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.3] - 2025-3-17
+
+### Fixed
+
+- Issue where Farmer trades replaced by leatherworker trades.
+
 ## [2.3.2] - 2025-3-14
 
 ### Added
