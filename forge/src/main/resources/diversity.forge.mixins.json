@@ -3,7 +3,8 @@
   "minVersion": "0.8",
   "package": "xyz.faewulf.diversity.mixin",
   "compatibilityLevel": "JAVA_18",
-  "mixins": [],
+  "refmap": "${mod_id}.refmap.json",
+  "mixins": ["forge.general.fasterMinecart.AbstractMinecartMixin"],
   "client": [],
   "server": [],
   "injectors": {
