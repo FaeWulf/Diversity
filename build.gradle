@@ -121,7 +121,7 @@ subprojects { subproject ->
                     }
                     break
                 case "forge":
-                    setLoaders("Forge", "NeoForge")
+                    setLoaders("Forge")
                     setDisplayName("[Forge ${minecraft_version}] ${artifactName} v${project.version}")
                     modrinthDepends {
                         required "faewulfslib"

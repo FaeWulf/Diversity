@@ -1,13 +1,9 @@
-# Changelog v2.3.2
+# Changelog v2.3.4
 
 To see full change log, see `CHANGELOG_FULL.md` in mod's jar.</br>
 Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree/sub-mod-1.21.3/CHANGELOG_FULL.md)
 
-### Added
+### Fixed
 
-- Bundle now shows tooltip about place function switcher.
-- Forge support, bugs expected.
-
-### Changed
-
-- Bundle enchantments cannot apply to bundle.
+- Issue where Farmer trades replaced by leatherworker trades.
+- `Faster minecart` now works properly on Forge/NeoForge.
