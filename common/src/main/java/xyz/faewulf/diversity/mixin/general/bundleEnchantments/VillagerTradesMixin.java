@@ -30,7 +30,7 @@ public class VillagerTradesMixin {
         }
 
         // Update the TRADES map
-        TRADES.put(VillagerProfession.FARMER, leatherTrades);
+        TRADES.put(VillagerProfession.LEATHERWORKER, leatherTrades);
     }
 
     @Unique
