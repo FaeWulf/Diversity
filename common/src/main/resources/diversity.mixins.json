@@ -89,6 +89,7 @@
     "general.shulkerBoxLabel.DisplayEntityMixins",
     "general.shulkerBoxLabel.ShulkerBoxBlockMixin",
     "general.shulkerBoxLabel.TextDisplayEntityMixin",
+    "general.sugarcaneOnMud.SugarCaneBlockMixin",
     "general.torchFireAttack.LivingEntityMixin",
     "general.usableSuspiciousBlock.BrushableBlockEntityMixin",
     "general.xpCrops.BlockMixin",
