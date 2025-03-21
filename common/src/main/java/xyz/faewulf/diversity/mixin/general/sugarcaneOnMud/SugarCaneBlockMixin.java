@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(SugarCaneBlock.class)
 public abstract class SugarCaneBlockMixin extends Block {
@@ -20,8 +21,12 @@ public abstract class SugarCaneBlockMixin extends Block {
 
     @Inject(method = "canSurvive", at = @At("RETURN"), cancellable = true)
     private void canSurviveModifyResult(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+
+        if (!ModConfigs.mud_sugarcane)
+            return;
+
         BlockState blockState = level.getBlockState(pos.below());
-        if(blockState.getBlock() == Blocks.MUD)
+        if (blockState.getBlock() == Blocks.MUD)
             cir.setReturnValue(true);
     }
 }
