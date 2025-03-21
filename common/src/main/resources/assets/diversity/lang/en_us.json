@@ -28,6 +28,7 @@
   "diversity.config.undo.tooltip": "Revert all options to their pre-edit state.",
   "diversity.config.cancel.tooltip": "Exit Config Screen without saving any changes.",
   "diversity.config.reset.tooltip": "Reset all options to their default, can be undo.",
+  "diversity.config.mud_sugarcane.tooltip": "- Sugarcane doesn't need nearby water when planted on mud, as mud already contains water.",
   "diversity.config.bonemeal_small_flower.tooltip": "- Small flowers can be bonemeal to spread itself on Mycelium.",
   "diversity.config.bonemeal_coral_fan.tooltip": "- Coral fan/block can be bonemeal to grow into corals (Warm ocean only)",
   "diversity.config.permission_enable.tooltip": "- Enable this if you want to use permission mode for commands.",
