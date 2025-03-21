@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -220,6 +221,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                         );
 
                         player.swing(context.getHand(), true);
+                        player.awardStat(Stats.ITEM_USED.get(blockItem));
+
                         return InteractionResult.CONSUME;
                     }
                 }
