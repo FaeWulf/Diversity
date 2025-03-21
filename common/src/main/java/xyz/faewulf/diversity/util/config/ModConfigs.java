@@ -233,6 +233,9 @@ public class ModConfigs {
     @Entry(category = "compatibility", name = "EasyShulkerBoxes Compatibility Layer", require_restart = true)
     public static boolean easy_shulker_box_compat = true;
 
+    @Entry(category = "compatibility", name = "Enchancement Compatibility Layer", require_restart = true)
+    public static boolean enchancement_compat = true;
+
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
     }

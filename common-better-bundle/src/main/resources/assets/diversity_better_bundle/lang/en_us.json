@@ -23,6 +23,7 @@
   "diversity_better_bundle.config.bundle_place_mode.tooltip": "- Switch to place mode by holding bundle and shift-leftclick to the ground.\n- Then you can place block that inside the bundle.",
   "diversity_better_bundle.config.bundle_enchantment.tooltip": "- Add 4 enchantment for bundle (refill, capacity, vacuum and selective vacuum).",
   "diversity_better_bundle.config.easy_shulker_box_compat.tooltip": "- EasyShulkerBoxes compatibility layer for bundles.\n- Allow capacity enchantment to work with this mod.",
+  "diversity_better_bundle.config.enchancement_compat.tooltip": "- Enchancement compatibility layer for bundles modules.\n- Allow bundle enchantments to work with this mod.",
   "diversity_better_bundle.config.category.general": "General",
   "diversity_better_bundle.config.category.compatibility": "Compatibility",
   "diversity_better_bundle.config.require_restart": "⚠ This feature requires restarting the game to apply the changes.",
