@@ -64,7 +64,7 @@ public class ModConfigs {
     @Entry(category = "general", name = "No level limit anvil", require_restart = true)
     public static boolean no_level_limit_anvil = true;
 
-    @Entry(category = "general", name = "Prevent farmland trampling")
+    @Entry(category = "general", name = "Prevent farmland trampling", group = "Agriculture")
     public static boolean prevent_farmland_trampling = true;
 
     @Entry(category = "general", name = "Torch burns target")
@@ -82,8 +82,11 @@ public class ModConfigs {
     @Entry(category = "general", name = "Usable suspicious block")
     public static boolean usable_suspicious_block = true;
 
-    @Entry(category = "general", name = "XP crops")
+    @Entry(category = "general", name = "XP crops", group = "Agriculture")
     public static boolean xp_crops = true;
+
+    @Entry(category = "general", name = "Mud support sugarcane", group = "Agriculture")
+    public static boolean mud_sugarcane = true;
 
     @Entry(category = "general", name = "Wet sponge dry in warm biome")
     public static boolean wet_sponge_dry_in_warm_biome = true;
