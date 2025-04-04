@@ -1,5 +1,12 @@
 # Changelog
 
+# [2.3.4] - 2025-3-18
+
+### Fixed
+
+- Issue where Farmer trades replaced by leatherworker trades.
+- `Faster minecart` now works properly on Forge/NeoForge.
+
 ## [2.3.2] - 2025-3-14
 
 ### Added
