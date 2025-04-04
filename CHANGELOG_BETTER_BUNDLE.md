@@ -1,8 +1,12 @@
-# Changelog v2.3.4
+# Changelog v2.4.0
 
 To see full change log, see `CHANGELOG_FULL.md` in mod's jar.</br>
 Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree/sub-mod-1.21.3/CHANGELOG_FULL.md)
 
+### Added
+
+- Compatibility with `Enchancement` mod.
+
 ### Fixed
 
-- Issue where Farmer trades replaced by leatherworker trades.
+- Blocks placed via bundle now award stats like normal block place behavior.
