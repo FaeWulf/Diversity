@@ -18,7 +18,7 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 @Mixin(PiglinAi.class)
 public abstract class PiglinBrainMixin {
 
-    @Inject(method = "isPlayerHoldingLovedItem", at = @At("TAIL"), cancellable = true)
+    @Inject(method = "isWearingSafeArmor", at = @At("TAIL"), cancellable = true)
     private static void wearGoldArmorInject(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
 
         if (!ModConfigs.piglin_goldenTrimmedArmor)
