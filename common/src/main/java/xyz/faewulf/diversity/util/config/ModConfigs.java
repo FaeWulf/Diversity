@@ -32,10 +32,13 @@ public class ModConfigs {
     public static boolean bonemeal_coral_fan = true;
 
     @Entry(category = "general", name = "Day counter", group = "Day counter")
-    public static announceDay day_counter = announceDay.PER_1_DAY;
+    public static int day_counter = 1;
 
     @Entry(category = "general", name = "Ticks per day", group = "Day counter")
     public static int day_counter_tick_per_day = 24000;
+
+    @Entry(category = "general", name = "Message tick speed", group = "Day counter", require_restart = true)
+    public static int day_counter_speed = 3;
 
     @Entry(category = "general", name = "Deepslate generator")
     public static boolean deepslate_generator = true;
