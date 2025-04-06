@@ -17,6 +17,6 @@ public class ModConfigs {
     @Entry(category = "general", name = "EasyShulkerBoxes Compatibility Layer", require_restart = true, group = "Compatibility Layer")
     public static boolean easy_shulker_box_compat = true;
 
-    @Entry(category = "compatibility", name = "Enchancement Compatibility Layer", require_restart = true, group = "Compatibility Layer")
+    @Entry(category = "general", name = "Enchancement Compatibility Layer", require_restart = true, group = "Compatibility Layer")
     public static boolean enchancement_compat = true;
 }
