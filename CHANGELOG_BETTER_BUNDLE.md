@@ -5,8 +5,12 @@ Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree
 
 ### Added
 
+- Support 1.21.5
 - Compatibility with `Enchancement` mod.
 
 ### Fixed
 
 - Blocks placed via bundle now award stats like normal block place behavior.
+- Critical issue where bundle gets deleted if placing bucket of powder snow. To prevent the issue or prevent an item can
+  be placed by bundle, use the tag
+  `diversity:bundle_place_mode_blacklist`.
