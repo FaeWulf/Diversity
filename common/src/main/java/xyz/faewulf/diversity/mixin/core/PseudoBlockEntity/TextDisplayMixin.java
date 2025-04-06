@@ -76,8 +76,8 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:pseudoType", Tag.TAG_STRING)) {
-            this.diversity_type = nbt.getString("diversity:pseudoType");
+        if (nbt.contains("diversity:pseudoType")) {
+            this.diversity_type = nbt.getString("diversity:pseudoType").orElse("");
 
             //based on the type, set all the relative variable using PseudoBlockEntityBuilder
             PseudoBlockEntityBuilder builder = PseudoBlockEntities.PseudoBlockEntityList.get(this.diversity_type);

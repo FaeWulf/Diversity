@@ -14,7 +14,7 @@ public abstract class WorldMixin {
     @Shadow
     public abstract long getDayTime();
 
-    @Inject(method = "isDay", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "isBrightOutside", at = @At("RETURN"), cancellable = true)
     private void isDayInject(CallbackInfoReturnable<Boolean> cir) {
 
         //modify sleep behavior only for mode 2

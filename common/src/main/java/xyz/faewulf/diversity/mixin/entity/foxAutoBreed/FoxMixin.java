@@ -1,8 +1,6 @@
 package xyz.faewulf.diversity.mixin.entity.foxAutoBreed;
 
-import net.minecraft.client.renderer.block.model.Variant;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.level.Level;
@@ -13,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Fox.class)
-public abstract class FoxMixin extends Animal implements VariantHolder<Variant> {
+public abstract class FoxMixin extends Animal {
     protected FoxMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }

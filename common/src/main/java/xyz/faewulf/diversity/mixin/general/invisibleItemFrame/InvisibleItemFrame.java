@@ -56,7 +56,7 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("isInvisible")) {
-            this.diversity_Multiloader$isInvisible = nbt.getBoolean("isInvisible");
+            this.diversity_Multiloader$isInvisible = nbt.getBoolean("isInvisible").orElse(false);
         }
     }
 

@@ -59,7 +59,9 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         // Then return the first one
         List<ItemStack> bundles = new ArrayList<>();
         ItemStack targetItemStack = null;
-        for (ItemStack item : entity.getInventory().items) {
+
+        for (int index = 0; index < entity.getInventory().getContainerSize(); index++  ) {
+            ItemStack item = entity.getInventory().getItem(index);
 
             if (item.isEmpty())
                 continue;

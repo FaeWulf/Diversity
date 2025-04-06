@@ -59,13 +59,12 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
                         Chicken chickenEntity = EntityType.CHICKEN.create(this.level(), EntitySpawnReason.NATURAL);
                         if (chickenEntity != null) {
                             chickenEntity.setAge(-24000);
-                            chickenEntity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                            chickenEntity.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                             if (!chickenEntity.fudgePositionAfterSizeChange(EMPTY_DIMENSIONS)) {
                                 break;
                             }
 
                             this.level().addFreshEntity(chickenEntity);
-
                         }
                     }
                 }

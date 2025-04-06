@@ -31,8 +31,8 @@ public class ChickenEntityMixin implements ICustomChickenEntity {
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:featherCoolDown", Tag.TAG_ANY_NUMERIC)) {
-            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown");
+        if (nbt.contains("diversity:featherCoolDown")) {
+            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown").orElse(0);
         }
     }
 

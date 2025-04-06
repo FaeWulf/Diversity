@@ -8,6 +8,8 @@ import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.entity.BannerPatterns;
@@ -25,8 +27,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_BOTTOM, DyeColor.BLACK)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Warden Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Warden Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 
@@ -43,8 +46,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.SKULL, DyeColor.BLACK)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Wither Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Wither Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 
@@ -62,8 +66,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLUE)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Elder Guardian Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Elder Guardian Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 
@@ -86,8 +91,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.TRIANGLES_BOTTOM, DyeColor.BLACK)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Ender Dragon Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Ender Dragon Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 
@@ -107,8 +113,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.PURPLE)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Dragon Egg Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Dragon Egg Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 
@@ -125,8 +132,9 @@ public class CustomBanner {
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.CIRCLE_MIDDLE, DyeColor.LIME)
                 .build();
         itemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
-        itemStack.set(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE);
-        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Hero of the Village Banner").withStyle(ChatFormatting.GOLD));
+        itemStack.set(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.BANNER_PATTERNS, true));
+        itemStack.set(DataComponents.ITEM_NAME, Component.literal("Hero of the Village Banner"));
+        itemStack.set(DataComponents.RARITY, Rarity.UNCOMMON);
         return itemStack;
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.level.Level;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -32,7 +33,7 @@ public class emote {
                                 .executes(context -> emote.play(context, SoundEvents.CAT_PURREOW))
                         )
                         .then(Commands.literal("woof")
-                                .executes(context -> emote.play(context, SoundEvents.WOLF_AMBIENT))
+                                .executes(context -> emote.play(context, SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.SoundSet.CLASSIC).ambientSound().value()))
                         )
         );
 

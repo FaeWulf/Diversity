@@ -42,7 +42,7 @@ public abstract class FishEntityMixin extends WaterAnimal implements Bucketable,
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:Size")) {
-            this.diversity_Multiloader$size = nbt.getFloat("diversity:Size");
+            this.diversity_Multiloader$size = nbt.getFloat("diversity:Size").orElse(1f);
         }
         diversity_Multiloader$reCalculateSize();
     }
@@ -55,7 +55,7 @@ public abstract class FishEntityMixin extends WaterAnimal implements Bucketable,
     @Inject(method = "loadFromBucketTag", at = @At("TAIL"))
     private void loadFromBucketTagInject(CompoundTag tag, CallbackInfo ci) {
         if (tag.contains("diversity:Size")) {
-            diversity_Multiloader$setSize(tag.getFloat("diversity:Size"));
+            diversity_Multiloader$setSize(tag.getFloat("diversity:Size").orElse(1f));
         }
         diversity_Multiloader$reCalculateSize();
     }

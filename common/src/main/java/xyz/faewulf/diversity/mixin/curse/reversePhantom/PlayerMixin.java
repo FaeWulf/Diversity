@@ -68,11 +68,11 @@ public abstract class PlayerMixin extends Player implements PlayerSleepStat {
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void loadDataInject(CompoundTag pCompound, CallbackInfo ci) {
-        if (pCompound.contains("diversity:sleep_strike", Tag.TAG_INT))
-            this.diversity_Multiloader$sleepStrike = pCompound.getInt("diversity:sleep_strike");
+        if (pCompound.contains("diversity:sleep_strike"))
+            this.diversity_Multiloader$sleepStrike = pCompound.getInt("diversity:sleep_strike").orElse(0);
 
-        if (pCompound.contains("diversity:has_sleep", Tag.TAG_INT))
-            this.diversity_Multiloader$hasSleep = pCompound.getInt("diversity:has_sleep");
+        if (pCompound.contains("diversity:has_sleep"))
+            this.diversity_Multiloader$hasSleep = pCompound.getInt("diversity:has_sleep").orElse(0);
     }
 
 

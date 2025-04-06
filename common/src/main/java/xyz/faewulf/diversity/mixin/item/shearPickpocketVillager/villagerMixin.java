@@ -1,6 +1,8 @@
 package xyz.faewulf.diversity.mixin.item.shearPickpocketVillager;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -75,8 +77,8 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
                         && Compare.isHasTag(itemStack.getItem(), "diversity:pickpocket_tool")
                         && Diversity$pickpocket_cooldown <= 0
         ) {
-            String job = this.getVillagerData().getProfession().name();
-            int jobLevel = this.getVillagerData().getLevel();
+            String job = this.getVillagerData().profession().value().name().getString();
+            int jobLevel = this.getVillagerData().level();
             Vec3 blockPos = this.blockPosition().getCenter();
             //System.out.println(job + " " + jobLevel);
 
@@ -119,7 +121,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
                 //reset
                 VillagerData old = this.getVillagerData();
 
-                this.setVillagerData(new VillagerData(old.getType(), VillagerProfession.NONE, 1));
+                this.setVillagerData(new VillagerData(old.type(), BuiltInRegistries.VILLAGER_PROFESSION.getOrThrow(VillagerProfession.NONE), 1));
 
                 //add particle effect
                 ((ServerLevel) this.level()).sendParticles(
@@ -186,8 +188,8 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(CompoundTag compound, CallbackInfo ci) {
-        if (compound.contains("diversity:pickpocket_cooldown", CompoundTag.TAG_INT)) {
-            this.Diversity$pickpocket_cooldown = compound.getInt("diversity:pickpocket_cooldown");
+        if (compound.contains("diversity:pickpocket_cooldown")) {
+            this.Diversity$pickpocket_cooldown = compound.getInt("diversity:pickpocket_cooldown").orElse(0);
         }
     }
 

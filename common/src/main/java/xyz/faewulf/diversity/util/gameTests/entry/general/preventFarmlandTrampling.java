@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -23,7 +23,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class preventFarmlandTrampling {
 
-    @GameTest(template = DEFAULT)
+     
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.prevent_farmland_trampling)

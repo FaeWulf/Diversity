@@ -1,9 +1,11 @@
 package xyz.faewulf.diversity.mixin.entity.preventSaddledMobMovement;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Saddleable;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,9 +22,9 @@ public abstract class WaterAvoidingRandomStrollGoalMixin extends RandomStrollGoa
 
     @Inject(method = "getPosition", at = @At("HEAD"), cancellable = true)
     private void getPositionInject(CallbackInfoReturnable<Vec3> cir) {
-
-        if (this.mob instanceof Saddleable saddleable && !this.mob.isInWater() && ModConfigs.prevent_tamed_horse_wandering) {
-            if (saddleable.isSaddled()) {
+        if (!this.mob.isInWater() && ModConfigs.prevent_tamed_horse_wandering) {
+            ItemStack itemStack = this.mob.getItemBySlot(EquipmentSlot.SADDLE);
+            if (!itemStack.isEmpty()) {
                 cir.setReturnValue(null);
                 cir.cancel();
             }

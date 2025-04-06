@@ -8,6 +8,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -50,11 +52,13 @@ public abstract class EntityMixin {
             boolean holdingSlimeBlock = false;
 
             //for each hand
-            for (ItemStack itemStack : serverPlayer.getHandSlots()) {
-                //if has tag
-                if (Compare.isHasTag(itemStack.getItem(), "diversity:slime_detector"))
-                    holdingSlimeBlock = true;
-            }
+            Item item = serverPlayer.getItemBySlot(EquipmentSlot.MAINHAND).getItem();
+            if (Compare.isHasTag(item, "diversity:slime_detector"))
+                holdingSlimeBlock = true;
+
+            item = serverPlayer.getItemBySlot(EquipmentSlot.OFFHAND).getItem();
+            if (Compare.isHasTag(item, "diversity:slime_detector"))
+                holdingSlimeBlock = true;
 
             if (serverPlayer.level() instanceof ServerLevel serverLevel && holdingSlimeBlock) {
 

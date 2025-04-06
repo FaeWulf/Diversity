@@ -22,7 +22,7 @@ public class SquidEntitySuperClassMixin {
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if ((Object) this instanceof ICustomSquidEntity iCustomSquidEntity) {
             if (nbt.contains("diversity:Size")) {
-                iCustomSquidEntity.diversity_Multiloader$setSize(nbt.getFloat("diversity:Size"));
+                iCustomSquidEntity.diversity_Multiloader$setSize(nbt.getFloat("diversity:Size").orElse(1f));
             }
             iCustomSquidEntity.diversity_Multiloader$reCalculateSize();
         }

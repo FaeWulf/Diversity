@@ -21,7 +21,7 @@ public abstract class PreventSetSpawnPoint {
     public abstract void sendSystemMessage(Component pComponent);
 
     @Inject(method = "setRespawnPosition", at = @At("HEAD"), cancellable = true)
-    private void setSpawnPointMixin(ResourceKey<Level> dimension, @Nullable BlockPos pos, float angle, boolean forced, boolean sendMessage, CallbackInfo ci) {
+    private void setSpawnPointMixin(ServerPlayer.RespawnConfig p_405460_, boolean p_9162_, CallbackInfo ci) {
 
         if (!ModConfigs.prevent_setSpawn_onSleep)
             return;

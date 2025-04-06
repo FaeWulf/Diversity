@@ -75,7 +75,7 @@
             {
               "function": "minecraft:set_components",
               "components": {
-                "minecraft:item_name": "{ \"color\": \"gold\", \"text\": \"Hero of the Village Banner\"}",
+                "minecraft:item_name": "Hero of the Village Banner",
                 "minecraft:banner_patterns": [
                   {
                     "color": "red",
@@ -110,7 +110,12 @@
                     "pattern": "minecraft:circle"
                   }
                 ],
-                "minecraft:hide_additional_tooltip": {}
+                "minecraft:tooltip_display": {
+                  "hidden_components": [
+                    "minecraft:banner_patterns"
+                  ]
+                },
+                "minecraft:rarity": "uncommon"
               }
             }
           ]

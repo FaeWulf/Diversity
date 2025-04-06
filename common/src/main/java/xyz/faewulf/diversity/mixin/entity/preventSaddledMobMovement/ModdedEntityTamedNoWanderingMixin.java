@@ -2,7 +2,9 @@ package xyz.faewulf.diversity.mixin.entity.preventSaddledMobMovement;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,12 +29,9 @@ public abstract class ModdedEntityTamedNoWanderingMixin extends Entity implement
         }
 
         if ((Object) this instanceof Mob mob) {
-
-
-            if (mob instanceof Saddleable saddleable &&
-                    !EntityType.getKey(mob.getType()).getNamespace().equals("minecraft")
-            ) {
-                if (saddleable.isSaddled()) {
+            if (!EntityType.getKey(mob.getType()).getNamespace().equals("minecraft")) {
+                ItemStack itemStack = mob.getItemBySlot(EquipmentSlot.SADDLE);
+                if (!itemStack.isEmpty()) {
                     original.call(instance, Vec3.ZERO);
                     return;
                 }

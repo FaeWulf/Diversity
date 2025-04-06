@@ -55,7 +55,7 @@ public class DisplayEntityMixins implements ICustomDisplayEntity {
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:type")) {
-            this.diversity_Multiloader$type = nbt.getInt("diversity:type");
+            this.diversity_Multiloader$type = nbt.getInt("diversity:type").orElse(0);
         }
     }
 

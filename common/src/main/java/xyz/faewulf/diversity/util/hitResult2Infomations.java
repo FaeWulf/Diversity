@@ -15,7 +15,7 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.monster.ZombieVillager;
@@ -252,7 +252,7 @@ public class hitResult2Infomations {
 
         //entity variation
         if (entity instanceof Wolf wolfEntity && showName) {
-            result.append(Converter.UppercaseFirstLetter(wolfEntity.getVariant().getRegisteredName().replace("minecraft:", "").replace("_", " ")));
+            result.append(Converter.UppercaseFirstLetter(wolfEntity.getName().getString().replace("minecraft:", "").replace("_", " ")));
         }
 
         //cat
@@ -262,7 +262,7 @@ public class hitResult2Infomations {
 
         //villager
         if (entity instanceof ZombieVillager zombieVillagerEntity && showName) {
-            result.append(Converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().getProfession().toString())));
+            result.append(Converter.UppercaseFirstLetter((zombieVillagerEntity.getVillagerData().profession().value().toString())));
         }
 
         if (showName) {
@@ -305,7 +305,7 @@ public class hitResult2Infomations {
 
         //tame check
         if (entity instanceof OwnableEntity tameable && showInfo) {
-            if (tameable.getOwnerUUID() != null) {
+            if (tameable.getOwner() != null) {
                 result.append(" |");
                 result.append(Component.literal(" Tamed").withStyle(ChatFormatting.GREEN));
             }

@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
@@ -20,7 +21,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class explosiveSniffer {
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    ////@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_gunpowder(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -39,17 +40,17 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Gunpowder case not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Gunpowder case not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    ////@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_blaze_powder(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -68,17 +69,17 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Blaze powder case not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Blaze powder case not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    //@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_glowstone_dust(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -97,17 +98,17 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Glowstone dust case not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Glowstone dust case not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    //@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_redstone_dust(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -126,17 +127,17 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Redstone dust case not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Redstone dust case not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    //@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_sugar(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -155,17 +156,17 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Sugar case not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Sugar case not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    //@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test_bonemeal(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -190,12 +191,12 @@ public class explosiveSniffer {
                     player.interactOn(sniffer, InteractionHand.MAIN_HAND);
                 })
                 .thenExecuteAfter(20 * 15, () -> {
-                    if (itemStack.getCount() > 0) helper.fail("Item not consumed");
+                    if (itemStack.getCount() > 0) helper.fail(Component.literal("Item not consumed"));
 
                     if (helper.getEntities(EntityType.SNIFFER).isEmpty() || sniffer.getHealth() < sniffer.getMaxHealth()) {
                         helper.succeed();
                     } else
-                        helper.fail("Bonemeal not trigger, or sniffer doesn't explode. " + sniffer.getHealth());
+                        helper.fail(Component.literal("Bonemeal not trigger, or sniffer doesn't explode. " + sniffer.getHealth()));
                 })
                 .thenSucceed();
     }

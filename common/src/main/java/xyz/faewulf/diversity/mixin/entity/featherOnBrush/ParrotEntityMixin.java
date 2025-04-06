@@ -7,7 +7,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.animal.ShoulderRidingEntity;
@@ -26,7 +25,7 @@ import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Parrot.class)
-public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements VariantHolder<Parrot.Variant>, FlyingAnimal, ICustomParrotEntity {
+public abstract class ParrotEntityMixin  extends ShoulderRidingEntity implements FlyingAnimal, ICustomParrotEntity {
 
     @Unique
     private int diversity_Multiloader$featherCoolDown = 0;
@@ -78,8 +77,8 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:featherCoolDown", Tag.TAG_ANY_NUMERIC)) {
-            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown");
+        if (nbt.contains("diversity:featherCoolDown")) {
+            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown").orElse(0);
         }
     }
 

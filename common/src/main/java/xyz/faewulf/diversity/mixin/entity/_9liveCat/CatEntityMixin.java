@@ -4,9 +4,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.CatVariant;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.entity.ICustomCatEntity;
 
 @Mixin(Cat.class)
-public abstract class CatEntityMixin extends TamableAnimal implements VariantHolder<Holder<CatVariant>>, ICustomCatEntity {
+public abstract class CatEntityMixin extends TamableAnimal implements ICustomCatEntity {
     @Unique
     private int diversity_Multiloader$lives = 8;
 
@@ -32,7 +30,7 @@ public abstract class CatEntityMixin extends TamableAnimal implements VariantHol
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("diversity:lives")) {
-            this.diversity_Multiloader$lives = nbt.getInt("diversity:lives");
+            this.diversity_Multiloader$lives = nbt.getInt("diversity:lives").orElse(0);
         } else
             this.diversity_Multiloader$lives = 9;
     }

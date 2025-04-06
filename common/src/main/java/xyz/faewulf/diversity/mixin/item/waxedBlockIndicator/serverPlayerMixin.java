@@ -26,18 +26,12 @@ public abstract class serverPlayerMixin extends Player {
     @Unique
     private int diversity_SpyglassUseTime = 0;
 
-    @Shadow
-    public abstract ServerLevel serverLevel();
-
-    @Shadow
-    public abstract void sendSystemMessage(Component message);
-
-    @Shadow
-    public abstract void dismountTo(double destX, double destY, double destZ);
-
     public serverPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
         super(world, pos, yaw, gameProfile);
     }
+
+    @Shadow
+    public abstract ServerLevel serverLevel();
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {

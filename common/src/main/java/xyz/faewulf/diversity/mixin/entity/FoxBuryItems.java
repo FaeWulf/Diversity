@@ -3,7 +3,6 @@ package xyz.faewulf.diversity.mixin.entity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.level.Level;
@@ -17,7 +16,7 @@ import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Fox.class)
-public abstract class FoxBuryItems extends Animal implements VariantHolder<Fox.Variant>, ICustomFoxEntity {
+public abstract class FoxBuryItems extends Animal implements ICustomFoxEntity {
 
     @Unique
     private int diversity_Multiloader$BuryCoolDown = 0;
@@ -49,8 +48,8 @@ public abstract class FoxBuryItems extends Animal implements VariantHolder<Fox.V
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:buryCooldown", Tag.TAG_ANY_NUMERIC)) {
-            this.diversity_Multiloader$BuryCoolDown = nbt.getInt("diversity:buryCooldown");
+        if (nbt.contains("diversity:buryCooldown")) {
+            this.diversity_Multiloader$BuryCoolDown = nbt.getInt("diversity:buryCooldown").orElse(0);
         }
     }
 

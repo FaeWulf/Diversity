@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
 import net.minecraft.world.level.Level;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
@@ -35,7 +36,7 @@ public class playerChatEmote {
         if (content.contains("purroew"))
             soundShouldPLay.add(SoundEvents.CAT_PURREOW);
         if (content.contains("woof"))
-            soundShouldPLay.add(SoundEvents.WOLF_AMBIENT);
+            soundShouldPLay.add(SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.SoundSet.CLASSIC).ambientSound().value());
 
         soundShouldPLay.forEach(soundEvent -> {
             world.playSound(null, sender.blockPosition(), soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);

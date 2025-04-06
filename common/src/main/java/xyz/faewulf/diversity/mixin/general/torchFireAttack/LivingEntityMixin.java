@@ -2,10 +2,8 @@ package xyz.faewulf.diversity.mixin.general.torchFireAttack;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Attackable;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,11 +33,19 @@ public abstract class LivingEntityMixin extends Entity implements Attackable {
 
         if (entityAttacker != null) {
             if (entityAttacker instanceof LivingEntity livingEntity) {
-                livingEntity.getHandSlots().forEach(itemStack -> {
-                    if (Compare.isHasTag(itemStack.getItem(), "diversity:flame_weapon")) {
-                        this.igniteForTicks(100);
-                    }
-                });
+
+                Item checker = livingEntity.getItemBySlot(EquipmentSlot.MAINHAND).getItem();
+
+                if (Compare.isHasTag(checker, "diversity:flame_weapon")) {
+                    this.igniteForTicks(100);
+                    return;
+                }
+
+                checker = livingEntity.getItemBySlot(EquipmentSlot.OFFHAND).getItem();
+
+                if (Compare.isHasTag(checker, "diversity:flame_weapon")) {
+                    this.igniteForTicks(100);
+                }
             }
         }
     }

@@ -33,8 +33,8 @@ public class PlayerDataSaver implements IPlayerDataSaver {
 
     @Inject(method = "load", at = @At("HEAD"))
     protected void readNbt(CompoundTag nbt, CallbackInfo info) {
-        if (nbt.contains("faewulf.diversity", 10)) {
-            diversity_Multiloader$persistentData = nbt.getCompound("faewulf.diversity");
+        if (nbt.contains("faewulf.diversity")) {
+            diversity_Multiloader$persistentData = nbt.getCompound("faewulf.diversity").orElse(null);
         }
     }
 }
