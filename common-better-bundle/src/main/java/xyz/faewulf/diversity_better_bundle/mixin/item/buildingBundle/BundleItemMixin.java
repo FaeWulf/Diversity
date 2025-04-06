@@ -30,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
-import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -108,11 +107,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     //override the weight value when pass the bundlecontens to the client side for rendering the fullness bar
     @ModifyReturnValue(method = "getTooltipImage", at = @At(value = "RETURN"))
     private Optional<TooltipComponent> getTooltipImageReturnModify(Optional<TooltipComponent> original, @Local(argsOnly = true) ItemStack stack) {
-        TooltipDisplay tooltipdisplay = stack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
-
-        if (!tooltipdisplay.shows(DataComponents.BUNDLE_CONTENTS)) {
-            return original;
-        } else {
+        if (!stack.has(DataComponents.HIDE_TOOLTIP) && !stack.has(DataComponents.HIDE_ADDITIONAL_TOOLTIP)) {
             int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
             int maxValue = diversity_Multiloader$getMaxSize(stack);
 
@@ -127,7 +122,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
             //pass to client renderer
             return Optional.ofNullable(bundleContents1).map(BundleTooltip::new);
-        }
+        } else
+            return original;
     }
 
     @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
@@ -363,7 +359,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         CustomData customData = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 
         if (customData.contains("diversity:mode"))
-            return customData.copyTag().getInt("diversity:mode").orElse(0);
+            return customData.copyTag().getInt("diversity:mode");
         return 0;
     }
 
