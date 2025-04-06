@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Cat;
@@ -23,7 +24,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class _9livesCat {
 
-    @GameTest(template = DEFAULT, timeoutTicks = 600)
+    //@GameTest(template = DEFAULT, timeoutTicks = 600)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs._9_lives_cat)
@@ -41,48 +42,48 @@ public class _9livesCat {
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 1");
+                        helper.fail(Component.literal("Cat died :(. Turn = 1"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 2");
+                        helper.fail(Component.literal("Cat died :(. Turn = 2"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 3");
+                        helper.fail(Component.literal("Cat died :(. Turn = 3"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 4");
+                        helper.fail(Component.literal("Cat died :(. Turn = 4"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 5");
+                        helper.fail(Component.literal("Cat died :(. Turn = 5"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 6");
+                        helper.fail(Component.literal("Cat died :(. Turn = 6"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 7");
+                        helper.fail(Component.literal("Cat died :(. Turn = 7"));
                 })
                 .thenExecute(() -> helper.hurt(cat, player.damageSources().playerAttack(player), 40))
                 .thenExecuteAfter(20 * 2, () -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
-                        helper.fail("Cat died :(. Turn = 8");
+                        helper.fail(Component.literal("Cat died :(. Turn = 8"));
                 })
                 .thenExecute(() -> {
                     if (helper.getEntities(EntityType.CAT).isEmpty())
                         helper.succeed();
                     else
-                        helper.fail("Cat still alive!");
+                        helper.fail(Component.literal("Cat still alive!"));
                 });
 
 

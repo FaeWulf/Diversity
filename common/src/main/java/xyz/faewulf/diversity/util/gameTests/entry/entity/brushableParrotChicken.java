@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
@@ -22,7 +23,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class brushableParrotChicken {
 
-    @GameTest(template = DEFAULT)
+
     public void test_parrot(GameTestHelper helper) {
 
         if (!ModConfigs.brushable_parrot_chicken)
@@ -44,13 +45,13 @@ public class brushableParrotChicken {
                     helper.assertItemEntityPresent(Items.FEATHER);
 
                     if (itemStack.getDamageValue() == 0)
-                        helper.fail("Shear not get damage.");
+                        helper.fail(Component.literal("Shear not get damage."));
                 })
                 .thenSucceed();
     }
 
 
-    @GameTest(template = DEFAULT)
+     
     public void test_chicken(GameTestHelper helper) {
 
         if (!ModConfigs.brushable_parrot_chicken)
@@ -72,7 +73,7 @@ public class brushableParrotChicken {
                     helper.assertItemEntityPresent(Items.FEATHER);
 
                     if (itemStack.getDamageValue() == 0)
-                        helper.fail("Shear not get damage.");
+                        helper.fail(Component.literal("Shear not get damage."));
                 })
                 .thenSucceed();
     }

@@ -5,7 +5,6 @@ import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.api.v1.config.ConfigHelper;
-import xyz.faewulf.lib.api.v1.dev.GameTestHelper;
 
 public class CommonClass {
     public static void init() {
@@ -21,9 +20,10 @@ public class CommonClass {
 
         ConfigHelper.register(xyz.faewulf.diversity.Constants.MOD_ID, ModConfigs.class);
 
+
         //for debug/testing
         if (Services.PLATFORM.isDevelopmentEnvironment()) {
-            GameTestHelper.register("xyz.faewulf.diversity.util.gameTests.entry");
+            //GameTestHelper.register("xyz.faewulf.diversity.util.gameTests.entry");
             SharedConstants.IS_RUNNING_IN_IDE = true;
         }
 

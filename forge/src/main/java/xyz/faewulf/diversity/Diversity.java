@@ -1,13 +1,19 @@
 package xyz.faewulf.diversity;
 
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import xyz.faewulf.lib.api.v1.config.ConfigScreenHelper;
 import xyz.faewulf.lib.util.config.infoScreen.ModInfoScreen;
+
+import java.util.function.Consumer;
 
 @Mod(Constants.MOD_ID)
 public class Diversity {

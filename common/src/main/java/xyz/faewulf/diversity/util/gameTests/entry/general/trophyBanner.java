@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,7 +21,7 @@ import java.util.List;
 @TestGroup
 public class trophyBanner {
 
-    @GameTest(template = DEFAULT)
+
     public void trophyBanner_Wither(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -44,11 +45,11 @@ public class trophyBanner {
                 }
             }
 
-            helper.fail("No banner drop");
+            helper.fail(Component.literal("No banner drop"));
         });
     }
 
-    @GameTest(template = DEFAULT)
+
     public void trophyBanner_Warden(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -72,11 +73,11 @@ public class trophyBanner {
                 }
             }
 
-            helper.fail("No banner drop");
+            helper.fail(Component.literal("No banner drop"));
         });
     }
 
-    @GameTest(template = DEFAULT)
+
     public void trophyBanner_EnderDragon(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -100,11 +101,11 @@ public class trophyBanner {
                 }
             }
 
-            helper.fail("No banner drop");
+            helper.fail(Component.literal("No banner drop"));
         });
     }
 
-    @GameTest(template = DEFAULT)
+
     public void trophyBanner_ElderGuardian(GameTestHelper helper) {
 
         if (!ModConfigs.banner_trohpy)
@@ -128,7 +129,7 @@ public class trophyBanner {
                 }
             }
 
-            helper.fail("No banner drop");
+            helper.fail(Component.literal("No banner drop"));
         });
     }
 }

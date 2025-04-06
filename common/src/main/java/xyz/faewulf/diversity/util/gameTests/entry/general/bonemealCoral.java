@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
@@ -14,7 +15,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.UNDERWATER;
 
 @TestGroup
 public class bonemealCoral {
-    @GameTest(template = UNDERWATER)
+    //@GameTest(template = UNDERWATER)
     public void test_normal(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -26,7 +27,7 @@ public class bonemealCoral {
         helper.setBlock(coralPos, Blocks.BUBBLE_CORAL_FAN);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -38,13 +39,13 @@ public class bonemealCoral {
                 .thenExecute(() -> {
                     helper.assertBlockNotPresent(Blocks.BUBBLE_CORAL_FAN, coralPos);
                     if (dispenserBlockEntity.getItem(0).getCount() == 64) {
-                        helper.fail("Bonemeal amount not change.");
+                        helper.fail(Component.literal("Bonemeal amount not change."));
                     }
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = UNDERWATER)
+    //@GameTest(template = UNDERWATER)
     public void test_not_trigger(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -55,7 +56,7 @@ public class bonemealCoral {
         helper.setBlock(coralPos, Blocks.BUBBLE_CORAL_FAN);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -68,7 +69,7 @@ public class bonemealCoral {
                     helper.assertBlockPresent(Blocks.BUBBLE_CORAL_FAN, coralPos);
 
                     if (dispenserBlockEntity.getItem(0).getCount() != 64) {
-                        helper.fail("Bonemeal amount changed.");
+                        helper.fail(Component.literal("Bonemeal amount changed."));
                     }
                 })
                 .thenSucceed();

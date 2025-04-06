@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.animal.horse.Donkey;
@@ -18,7 +19,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class horseSitOnBoat {
 
-    @GameTest(template = DEFAULT)
+     
     public void test1(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
@@ -35,11 +36,11 @@ public class horseSitOnBoat {
                 })
                 .thenExecuteAfter(20 * 2, () -> {
                     if (boat.getPassengers().size() != 2)
-                        helper.fail(boat.getPassengers().toString());
+                        helper.fail(Component.literal(boat.getPassengers().toString()));
                 }).thenSucceed();
     }
 
-    @GameTest(template = DEFAULT)
+     
     public void test2(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
@@ -56,7 +57,7 @@ public class horseSitOnBoat {
                 })
                 .thenExecuteAfter(20 * 2, () -> {
                     if (boat.getPassengers().size() != 2)
-                        helper.fail(boat.getPassengers().toString());
+                        helper.fail(Component.literal(boat.getPassengers().toString()));
                 }).thenSucceed();
     }
 }

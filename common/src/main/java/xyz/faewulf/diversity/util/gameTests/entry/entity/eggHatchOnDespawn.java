@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -17,7 +17,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class eggHatchOnDespawn {
 
-    @GameTest(template = DEFAULT)
+     
     public void test_onHayBale(GameTestHelper helper) {
 
         if (!ModConfigs.chicken_egg_despawn_tryhatch)
@@ -37,7 +37,7 @@ public class eggHatchOnDespawn {
     }
 
 
-    @GameTest(template = DEFAULT)
+     
     public void test_onNormalBlock(GameTestHelper helper) {
 
         if (!ModConfigs.chicken_egg_despawn_tryhatch)

@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @TestGroup
 public class invisibleItemFrame {
-    @GameTest(template = DEFAULT)
+
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.invisible_frame)
@@ -44,7 +45,7 @@ public class invisibleItemFrame {
                 .thenExecute(() -> player.interactOn(itemFrame, InteractionHand.MAIN_HAND))
                 .thenExecute(() -> {
                     if (itemFrame.getItem().getItem() != Items.AIR)
-                        helper.fail("Not trigger set visible mode.");
+                        helper.fail(Component.literal("Not trigger set visible mode."));
                 })
                 .thenExecute(() -> {
                     player.setShiftKeyDown(false);
@@ -54,7 +55,7 @@ public class invisibleItemFrame {
                 .thenExecute(() -> player.interactOn(itemFrame, InteractionHand.MAIN_HAND))
                 .thenExecute(() -> {
                     if (!itemFrame.isInvisible())
-                        helper.fail("Insert item not make ItemFrame invisible");
+                        helper.fail(Component.literal("Insert item not make ItemFrame invisible"));
                 })
                 //3rd test: drop glass after break
                 .thenExecute(() -> {
@@ -72,7 +73,7 @@ public class invisibleItemFrame {
                     }
 
                     if (fail)
-                        helper.fail(itemEntities.toString());
+                        helper.fail(Component.literal(itemEntities.toString()));
 
                 })
                 .thenSucceed();

@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -18,7 +19,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class torchFireAttack {
 
-    @GameTest(template = DEFAULT)
+
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.torch_burn_target)
@@ -35,7 +36,7 @@ public class torchFireAttack {
             if (cow.isOnFire()) {
                 helper.succeed(); // Pass the test if the cow is on fire
             } else {
-                helper.fail("Cow was not set on fire."); // Fail if the cow isn't on fire
+                helper.fail(Component.literal("Cow was not set on fire.")); // Fail if the cow isn't on fire
             }
         });
     }

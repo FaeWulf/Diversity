@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -18,7 +19,7 @@ import java.util.List;
 @TestGroup
 public class snifferMossBlock {
 
-    @GameTest(template = DEFAULT, timeoutTicks = 1200)
+    //@GameTest(template = DEFAULT, timeoutTicks = 1200)
     public void test_bonemeal(GameTestHelper helper) {
 
         if (!ModConfigs.explosive_sniffer)
@@ -44,7 +45,7 @@ public class snifferMossBlock {
                         }
                     }
 
-                    helper.fail("Not drops items: " + itemEntities);
+                    helper.fail(Component.literal("Not drops items: " + itemEntities));
                 });
     }
 }

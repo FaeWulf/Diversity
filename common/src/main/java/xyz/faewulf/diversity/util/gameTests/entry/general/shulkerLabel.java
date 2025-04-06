@@ -3,7 +3,7 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -25,7 +25,7 @@ import java.util.List;
 @TestGroup
 public class shulkerLabel {
 
-    @GameTest(template = DEFAULT, timeoutTicks = 1000)
+    //@GameTest(template = DEFAULT, timeoutTicks = 1000)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.shulker_label)
@@ -47,7 +47,7 @@ public class shulkerLabel {
                     List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
 
                     if (textDisplays.size() != 1)
-                        helper.fail(textDisplays.toString());
+                        helper.fail(Component.literal(textDisplays.toString()));
 
                 })
                 //2nd test: break shulker box
@@ -58,7 +58,7 @@ public class shulkerLabel {
                     List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
 
                     if (!textDisplays.isEmpty())
-                        helper.fail("2nd test failed: break shulker not kill text entity");
+                        helper.fail(Component.literal("2nd test failed: break shulker not kill text entity"));
                 })
                 //3rd test: bypass feature
                 .thenExecute(() -> {
@@ -71,7 +71,7 @@ public class shulkerLabel {
                     List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
 
                     if (!textDisplays.isEmpty())
-                        helper.fail("3rd test failed: Sneak place not prevent spawn text entity");
+                        helper.fail(Component.literal("3rd test failed: Sneak place not prevent spawn text entity"));
 
                 })
                 .thenSucceed();

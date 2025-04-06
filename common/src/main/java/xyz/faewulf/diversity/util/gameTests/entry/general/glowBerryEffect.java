@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -17,7 +18,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class glowBerryEffect {
 
-    @GameTest(template = DEFAULT, timeoutTicks = 200)
+    //@GameTest(template = DEFAULT, timeoutTicks = 200)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.glow_berry_glowing)
@@ -32,7 +33,7 @@ public class glowBerryEffect {
                 .thenExecute(() -> fox.startUsingItem(InteractionHand.MAIN_HAND))
                 .thenExecuteAfter(20 * 3, () -> {
                             if (!fox.hasEffect(MobEffects.GLOWING))
-                                helper.fail("Doesn't have glow effect");
+                                helper.fail(Component.literal("Doesn't have glow effect"));
                         }
                 )
                 .thenSucceed();

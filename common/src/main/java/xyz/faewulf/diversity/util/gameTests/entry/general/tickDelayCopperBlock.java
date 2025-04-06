@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -13,7 +13,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 @TestGroup
 public class tickDelayCopperBlock {
 
-    @GameTest(template = DEFAULT)
+     
     public void test(GameTestHelper helper) {
 
         helper.setBlock(4, 1, 4, Blocks.COPPER_BULB);

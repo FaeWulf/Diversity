@@ -3,6 +3,7 @@ package xyz.faewulf.diversity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity.command.emote;
+import xyz.faewulf.diversity.event.onPreInitGame;
 import xyz.faewulf.diversity.event_handler.*;
 
 public class Diversity implements ModInitializer {
@@ -10,6 +11,7 @@ public class Diversity implements ModInitializer {
     @Override
     public void onInitialize() {
         Constants.LOG.info("Loading");
+
 
         loadCommand();
         loadEvent();
@@ -29,22 +31,21 @@ public class Diversity implements ModInitializer {
 
     private void loadEvent() {
         Constants.LOG.info("Register events...");
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            breakCrops.register();
-            changeBundleMode.register();
-            explodeSniffer.register();
-            hydrophobicElytra.register();
-            invisibleItemFrame.register();
-            invisibleItemFrame.register();
-            placeShulkerBlock.register();
-            placeWetSpongeBlock.register();
-            playerChatEmote.register();
-            putItemIntoBrushableBlocks.register();
-            useClockOnBlock.register();
-            useShearOnBlock.register();
-            onRightClickCropBlocks.register();
-            shearDefusesTnt.register();
-        });
+        onPreInitGame.run();
+        breakCrops.register();
+        changeBundleMode.register();
+        explodeSniffer.register();
+        hydrophobicElytra.register();
+        invisibleItemFrame.register();
+        invisibleItemFrame.register();
+        placeShulkerBlock.register();
+        placeWetSpongeBlock.register();
+        playerChatEmote.register();
+        putItemIntoBrushableBlocks.register();
+        useClockOnBlock.register();
+        useShearOnBlock.register();
+        onRightClickCropBlocks.register();
+        shearDefusesTnt.register();
     }
 
 }

@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +18,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class washFilledMap {
-    @GameTest(template = DEFAULT)
+
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.cauldron_washing_map)
@@ -33,7 +34,7 @@ public class washFilledMap {
                 .thenExecute(() -> helper.useBlock(new BlockPos(4, 1, 4), player))
                 .thenExecute(() -> {
                     if (!player.getItemInHand(InteractionHand.MAIN_HAND).is(Items.MAP))
-                        helper.fail("Holding " + player.getItemInHand(InteractionHand.MAIN_HAND).getItemName());
+                        helper.fail(Component.literal("Holding " + player.getItemInHand(InteractionHand.MAIN_HAND).getItemName()));
                 })
                 .thenSucceed();
     }

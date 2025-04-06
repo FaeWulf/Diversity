@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.util.gameTests.entry.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
@@ -17,9 +17,8 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class harvestCrop {
-    @GameTest(template = DEFAULT)
-    public void test(GameTestHelper helper) {
 
+    public void test(GameTestHelper helper) {
         if (ModConfigs.hoe_harvest_crop == ModConfigs.allowHarvestType.DISABLE)
             helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
 

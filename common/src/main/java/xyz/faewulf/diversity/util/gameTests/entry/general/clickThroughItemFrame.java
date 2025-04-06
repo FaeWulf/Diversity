@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
@@ -21,7 +22,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class clickThroughItemFrame {
-    @GameTest(template = DEFAULT)
+
     public void test_itemFrame(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe)
@@ -45,7 +46,7 @@ public class clickThroughItemFrame {
                 })
                 .thenExecute(() -> {
                     if (itemFrame_normalBlock.getRotation() == 0)
-                        helper.fail("Normal behavior not trigger");
+                        helper.fail(Component.literal("Normal behavior not trigger"));
                 })
                 //2nd test on container block
                 .thenExecute(() -> {
@@ -54,7 +55,7 @@ public class clickThroughItemFrame {
                 })
                 .thenExecute(() -> {
                     if (itemFrame_chest.getRotation() > 0)
-                        helper.fail("Click through not trigger");
+                        helper.fail(Component.literal("Click through not trigger"));
                 })
                 //3rd test; bypass behavior
                 .thenExecute(() -> {
@@ -66,12 +67,12 @@ public class clickThroughItemFrame {
                 })
                 .thenExecuteAfter(2, () -> {
                     if (itemFrame_chest.getRotation() == 0)
-                        helper.fail("Bypass click through not trigger");
+                        helper.fail(Component.literal("Bypass click through not trigger"));
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT)
+
     public void test_sign(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe)
@@ -89,11 +90,11 @@ public class clickThroughItemFrame {
                 //1st test; normal behavior on non container block
                 .thenExecute(() -> {
                     helper.useBlock(new BlockPos(4, 1, 4), player);
-                    BlockEntity blockEntity = helper.getBlockEntity(new BlockPos(4, 1, 5));
+                    BlockEntity blockEntity = helper.getBlockEntity(new BlockPos(4, 1, 5), BlockEntity.class);
 
                     if (blockEntity instanceof ChestBlockEntity chestBlockEntity) {
                         if (chestBlockEntity.getOpenNess(0) == 0)
-                            helper.fail("Normal behavior not trigger");
+                            helper.fail(Component.literal("Normal behavior not trigger"));
                     }
                 })
                 .thenSucceed();

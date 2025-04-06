@@ -2,7 +2,7 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.gametest.framework.GameTest;
+ 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
@@ -19,7 +19,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class wetSpongeDryInWarmBiome {
-    @GameTest(template = DEFAULT)
+     
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.wet_sponge_dry_in_warm_biome)

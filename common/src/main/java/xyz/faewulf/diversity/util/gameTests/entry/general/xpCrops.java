@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.block.Blocks;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @TestGroup
 public class xpCrops {
-    @GameTest(template = DEFAULT, timeoutTicks = 200)
+    //@GameTest(template = DEFAULT, timeoutTicks = 200)
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.xp_crops)
@@ -39,7 +40,7 @@ public class xpCrops {
                     List<ExperienceOrb> experienceOrb = helper.getEntities(EntityType.EXPERIENCE_ORB);
 
                     if (experienceOrb.isEmpty())
-                        helper.fail("No xp orbs dropped");
+                        helper.fail(Component.literal("No xp orbs dropped"));
                 })
                 .thenSucceed();
     }

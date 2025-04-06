@@ -1,8 +1,9 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.gametest.framework.GameTest;
+
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -13,7 +14,7 @@ import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 @TestGroup
 public class bonemealSmallFlower {
-    @GameTest(template = DEFAULT)
+
     public void test_normal(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -23,7 +24,7 @@ public class bonemealSmallFlower {
         helper.setBlock(4, 1, 4, Blocks.MYCELIUM);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -44,13 +45,13 @@ public class bonemealSmallFlower {
                     helper.assertItemEntityPresent(Items.LILY_OF_THE_VALLEY);
 
                     if (dispenserBlockEntity.getItem(0).getCount() == 64) {
-                        helper.fail("Bonemeal amount not change.");
+                        helper.fail(Component.literal("Bonemeal amount not change."));
                     }
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT)
+
     public void test_not_spread(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -60,7 +61,7 @@ public class bonemealSmallFlower {
         helper.setBlock(4, 1, 4, Blocks.MYCELIUM);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -81,13 +82,13 @@ public class bonemealSmallFlower {
                     helper.assertItemEntityNotPresent(Items.LILY_OF_THE_VALLEY);
 
                     if (dispenserBlockEntity.getItem(0).getCount() == 64) {
-                        helper.fail("Bonemeal amount not change.");
+                        helper.fail(Component.literal("Bonemeal amount not change."));
                     }
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT)
+
     public void test_not_mycelium(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -97,7 +98,7 @@ public class bonemealSmallFlower {
         helper.setBlock(4, 1, 4, Blocks.GRASS_BLOCK);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -118,13 +119,13 @@ public class bonemealSmallFlower {
                     helper.assertItemEntityNotPresent(Items.LILY_OF_THE_VALLEY);
 
                     if (dispenserBlockEntity.getItem(0).getCount() != 64) {
-                        helper.fail("Bonemeal amount changed.");
+                        helper.fail(Component.literal("Bonemeal amount changed."));
                     }
                 })
                 .thenSucceed();
     }
 
-    @GameTest(template = DEFAULT)
+
     public void test_blacklist(GameTestHelper helper) {
 
         ItemStack bonemeal = new ItemStack(Items.BONE_MEAL, 64);
@@ -134,7 +135,7 @@ public class bonemealSmallFlower {
         helper.setBlock(4, 1, 4, Blocks.MYCELIUM);
 
         helper.setBlock(dispenserPos, Blocks.DISPENSER.defaultBlockState());
-        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos);
+        DispenserBlockEntity dispenserBlockEntity = helper.getBlockEntity(dispenserPos, DispenserBlockEntity.class);
 
         dispenserBlockEntity.setItem(0, bonemeal);
 
@@ -155,7 +156,7 @@ public class bonemealSmallFlower {
                     helper.assertItemEntityNotPresent(Items.WITHER_ROSE);
 
                     if (dispenserBlockEntity.getItem(0).getCount() != 64) {
-                        helper.fail("Bonemeal amount changed.");
+                        helper.fail(Component.literal("Bonemeal amount changed."));
                     }
                 })
                 .thenSucceed();
