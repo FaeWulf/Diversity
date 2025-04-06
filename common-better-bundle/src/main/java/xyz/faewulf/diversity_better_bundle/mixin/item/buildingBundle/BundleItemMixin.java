@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -43,6 +44,7 @@ import xyz.faewulf.diversity_better_bundle.Constants;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleItem;
 import xyz.faewulf.diversity_better_bundle.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.lib.util.Converter;
 import xyz.faewulf.lib.util.EnchantHelper;
 
@@ -139,7 +141,13 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                 //get all index that is blockItem
                 List<Integer> blockItemList = new ArrayList<>();
                 for (int i = 0; i < bundleContentsComponent.size(); i++) {
-                    if (bundleContentsComponent.getItemUnsafe(i).getItem() instanceof BlockItem) {
+                    Item item = bundleContentsComponent.getItemUnsafe(i).getItem();
+
+                    // if in blacklist then skip
+                    if (Compare.isHasTag(item, "diversity_better_bundle:bundle_place_mode_blacklist"))
+                        continue;
+
+                    if (item instanceof BlockItem) {
                         blockItemList.add(i);
                     }
                 }
@@ -169,6 +177,11 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                                 1f,
                                 0.8F
                         );
+
+                        player.swing(context.getHand(), true);
+                        player.awardStat(Stats.ITEM_USED.get(blockItem));
+
+                        return InteractionResult.CONSUME;
                     }
                 }
             }

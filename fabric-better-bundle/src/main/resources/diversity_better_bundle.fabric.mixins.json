@@ -4,10 +4,7 @@
   "package": "xyz.faewulf.diversity_better_bundle.mixin",
   "refmap": "${mod_id}.refmap.json",
   "compatibilityLevel": "JAVA_21",
-  "mixins": ["fabric.compat.EnchancementCompat"],
-  "mixins": [
-    "events.BlockItemMixin"
-  ],
+  "mixins": ["fabric.compat.EnchancementCompat", "events.BlockItemMixin"],
   "client": [],
   "server": [],
   "injectors": {
