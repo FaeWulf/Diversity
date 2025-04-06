@@ -48,33 +48,22 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     @Shadow
     public abstract @NotNull List<ServerPlayer> players();
 
-    @Shadow
-    public abstract void playSeededSound(@Nullable Player source, double x, double y, double z, @NotNull Holder<SoundEvent> sound, @NotNull SoundSource category, float volume, float pitch, long seed);
-
     @Inject(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;setDayTime(J)V"))
     private void tickTimeInject(CallbackInfo ci) {
 
-        if (ModConfigs.day_counter == ModConfigs.announceDay.DISABLE)
+        if (ModConfigs.day_counter <= 0)
             return;
 
         if (this.dimensionType().hasSkyLight() && this.getDayTime() % ModConfigs.day_counter_tick_per_day == 0) {
 
-            //per 10 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_10_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 10 != 0)
-                return;
-
-            //per 50 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 50 != 0)
-                return;
-
-            //per 100 day
-            if (ModConfigs.day_counter == ModConfigs.announceDay.PER_50_DAY && (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % 100 != 0)
+            //per ... day
+            if ((this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) % ModConfigs.day_counter != 0)
                 return;
 
             diversity_Multiloader$beginAnnounce = true;
             begin_time = this.getDayTime();
             String message = "Day #" + (this.getDayTime() / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
-            end_time = begin_time + message.length() * 3 + 20 * 4;
+            end_time = begin_time + (long) message.length() * ModConfigs.day_counter_speed + 20 * 4;
         }
 
         diversity_Multiloader$announceNewDay();
@@ -92,12 +81,12 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
             return;
         }
 
-        if ((current_time - begin_time) % 3 == 0) {
+        if ((current_time - begin_time) % ModConfigs.day_counter_speed == 0) {
             String message = "Day #" + (current_time / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
             for (ServerPlayer player : this.players()) {
 
                 boolean playSound = true;
-                int cut_pos = (int) ((current_time - begin_time) / 3);
+                int cut_pos = (int) ((current_time - begin_time) / ModConfigs.day_counter_speed);
 
                 if (cut_pos < 0) {
                     diversity_Multiloader$beginAnnounce = false;
