@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 
 @Mixin(SugarCaneBlock.class)
 public abstract class SugarCaneBlockMixin extends Block {
@@ -26,7 +27,8 @@ public abstract class SugarCaneBlockMixin extends Block {
             return;
 
         BlockState blockState = level.getBlockState(pos.below());
-        if (blockState.getBlock() == Blocks.MUD)
+
+        if (Compare.isHasTag(blockState.getBlock(), "diversity:strong_support_sugarcane"))
             cir.setReturnValue(true);
     }
 }
