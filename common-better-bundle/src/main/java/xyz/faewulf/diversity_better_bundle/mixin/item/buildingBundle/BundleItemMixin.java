@@ -30,6 +30,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -48,6 +49,7 @@ import xyz.faewulf.diversity_better_bundle.Constants;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleItem;
 import xyz.faewulf.diversity_better_bundle.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
@@ -69,10 +71,44 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         super(settings);
     }
 
+    @Inject(method = "getFullnessDisplay", at = @At(value = "RETURN"), cancellable = true)
+    private static void getFullnessDisplayInject(ItemStack stack, CallbackInfoReturnable<Float> cir) {
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
+
+        cir.setReturnValue(usedSpace * 1f / maxValue);
+        cir.cancel();
+    }
+
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
+        int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
+        return 64 + value * 64;
+    }
+
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(ItemStack itemStack) {
+        ItemEnchantments t = itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+
+        AtomicInteger level = new AtomicInteger(0);
+        t.keySet().forEach(enchantmentRegistryEntry -> {
+            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
+            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
+                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
+            }
+        });
+
+        return level.get() * 64 + 64;
+    }
+
     //override the weight value when pass the bundlecontens to the client side for rendering the fullness bar
     @ModifyReturnValue(method = "getTooltipImage", at = @At(value = "RETURN"))
     private Optional<TooltipComponent> getTooltipImageReturnModify(Optional<TooltipComponent> original, @Local(argsOnly = true) ItemStack stack) {
-        if (!stack.has(DataComponents.HIDE_TOOLTIP) && !stack.has(DataComponents.HIDE_ADDITIONAL_TOOLTIP)) {
+        TooltipDisplay tooltipdisplay = stack.getOrDefault(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT);
+
+        if (!tooltipdisplay.shows(DataComponents.BUNDLE_CONTENTS)) {
+            return original;
+        } else {
             int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
             int maxValue = diversity_Multiloader$getMaxSize(stack);
 
@@ -87,17 +123,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
             //pass to client renderer
             return Optional.ofNullable(bundleContents1).map(BundleTooltip::new);
-        } else
-            return original;
-    }
-
-    @Inject(method = "getFullnessDisplay", at = @At(value = "RETURN"), cancellable = true)
-    private static void getFullnessDisplayInject(ItemStack stack, CallbackInfoReturnable<Float> cir) {
-        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
-        int maxValue = diversity_Multiloader$getMaxSize(stack);
-
-        cir.setReturnValue(usedSpace * 1f / maxValue);
-        cir.cancel();
+        }
     }
 
     @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
@@ -125,17 +151,17 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Inject(method = "overrideOtherStackedOnMe", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
     private void onClickedInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickAction clickType, Player player, SlotAccess cursorStackReference, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
     @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryInsert(Lnet/minecraft/world/item/ItemStack;)I"))
     private void onStackClickedInject(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
     @Inject(method = "overrideStackedOnOther", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/component/BundleContents$Mutable;tryTransfer(Lnet/minecraft/world/inventory/Slot;Lnet/minecraft/world/entity/player/Player;)I"))
     private void onStackClickedInject2(ItemStack stack, Slot slot, ClickAction clickType, Player player, CallbackInfoReturnable<Boolean> cir, @Local BundleContents.Mutable builder) {
-        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(this.diversity_Multiloader$getMaxSize(player.level(), stack));
+        ((ICustomBundleContentBuilder) builder).diversity_Multiloader$setMaxSize(diversity_Multiloader$getMaxSize(player.level(), stack));
     }
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
@@ -176,7 +202,14 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                 //get all index that is blockItem
                 List<Integer> blockItemList = new ArrayList<>();
                 for (int i = 0; i < bundleContentsComponent.size(); i++) {
-                    if (bundleContentsComponent.getItemUnsafe(i).getItem() instanceof BlockItem) {
+
+                    Item item = bundleContentsComponent.getItemUnsafe(i).getItem();
+
+                    // if in blacklist then skip
+                    if (Compare.isHasTag(item, "diversity_better_bundle:bundle_place_mode_blacklist"))
+                        continue;
+
+                    if (item instanceof BlockItem) {
                         blockItemList.add(i);
                     }
                 }
@@ -189,6 +222,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
                 //if blockItem
                 if (bundleContentsComponent.getItemUnsafe(chosenIndex).getItem() instanceof BlockItem blockItem) {
+
                     //try to place it
                     InteractionResult actionResult = blockItem.useOn(context);
                     //check result Consume or SUCCESS then block is placed then -1 that block from bundle
@@ -319,35 +353,13 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         return EnchantHelper.hasEnchantment(world, itemStack, Constants.MOD_ID, "refill");
     }
 
-    @Unique
-    private static int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
-        int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
-        return 64 + value * 64;
-    }
-
-    @Unique
-    private static int diversity_Multiloader$getMaxSize(ItemStack itemStack) {
-        ItemEnchantments t = itemStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
-
-        AtomicInteger level = new AtomicInteger(0);
-        t.keySet().forEach(enchantmentRegistryEntry -> {
-            ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
-                level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
-            }
-        });
-
-        return level.get() * 64 + 64;
-    }
-
-
     @Override
     public int diversity_Multiloader$getMode(ItemStack itemStack) {
 
         CustomData customData = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 
         if (customData.contains("diversity:mode"))
-            return customData.copyTag().getInt("diversity:mode");
+            return customData.copyTag().getInt("diversity:mode").orElse(0);
         return 0;
     }
 
