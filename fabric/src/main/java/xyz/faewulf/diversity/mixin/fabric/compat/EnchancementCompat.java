@@ -13,13 +13,13 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 @Mixin(targets = "moriyashiine.enchancement.common.util.EnchancementUtil")
 public class EnchancementCompat {
 
-    @Inject(method = "exceedsLimit", at = @At("RETURN"), cancellable = true)
-    private static void exceedsLimitModifyReturnValue(ItemStack stack, int size, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "getNonDefaultEnchantmentsSize", at = @At("RETURN"), cancellable = true)
+    private static void exceedsLimitModifyReturnValue(ItemStack stack, int size, CallbackInfoReturnable<Integer> cir) {
         if (!ModConfigs.enchancement_compat)
             return;
 
         if (stack.getItem() instanceof BundleItem) {
-            cir.setReturnValue(false);
+            cir.setReturnValue(0);
             cir.cancel();
         }
     }
