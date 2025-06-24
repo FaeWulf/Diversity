@@ -40,23 +40,23 @@ public abstract class BonemealItemMixin extends Item {
         }
     }
 
-    // For forge and neoforge, they replaced vanilla code with their code which... doing the same thing? What? Why?
-    @Inject(method = {"applyBonemeal"}, at = @At(value = "HEAD"), cancellable = true, require = 0)
-    private static void growCropInjectForge(ItemStack stack, Level level, BlockPos pos, Player player, CallbackInfoReturnable<Boolean> cir) {
-        BlockState blockstate = level.getBlockState(pos);
-        if (blockstate.getBlock() instanceof ICustomBonemealable iCustomBonemealable && iCustomBonemealable.Diversity$isValidBonemealTarget(level, pos, blockstate)) {
-            if (level instanceof ServerLevel) {
-                if (iCustomBonemealable.Diversity$isBonemealSuccess(level, level.random, pos, blockstate)) {
-                    iCustomBonemealable.Diversity$performBonemeal((ServerLevel) level, level.random, pos, blockstate);
-                }
-
-                stack.shrink(1);
-            }
-
-            cir.setReturnValue(true);
-            cir.cancel();
-        }
-    }
+//    // For forge and neoforge, they replaced vanilla code with their code which... doing the same thing? What? Why?
+//    @Inject(method = {"applyBonemeal"}, at = @At(value = "HEAD"), cancellable = true, require = 0)
+//    private static void growCropInjectForge(ItemStack stack, Level level, BlockPos pos, Player player, CallbackInfoReturnable<Boolean> cir) {
+//        BlockState blockstate = level.getBlockState(pos);
+//        if (blockstate.getBlock() instanceof ICustomBonemealable iCustomBonemealable && iCustomBonemealable.Diversity$isValidBonemealTarget(level, pos, blockstate)) {
+//            if (level instanceof ServerLevel) {
+//                if (iCustomBonemealable.Diversity$isBonemealSuccess(level, level.random, pos, blockstate)) {
+//                    iCustomBonemealable.Diversity$performBonemeal((ServerLevel) level, level.random, pos, blockstate);
+//                }
+//
+//                stack.shrink(1);
+//            }
+//
+//            cir.setReturnValue(true);
+//            cir.cancel();
+//        }
+//    }
 
     //server side swing
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V", ordinal = 0))

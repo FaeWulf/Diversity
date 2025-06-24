@@ -1,6 +1,8 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import com.llamalad7.mixinextras.sugar.Local;
+import com.sun.tools.jconsole.JConsoleContext;
+import com.sun.tools.jconsole.JConsolePlugin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
@@ -31,7 +33,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         super(entityType, level);
     }
 
-    @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
+    @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"))
     private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
 
         if (itemstack.getMaxStackSize() <= 1 || itemstack.isEmpty())
@@ -66,7 +68,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
             }
         }
 
-        int insertAmount = i;
+        int insertAmount = itemstack.getCount();
 
         // For loop through all the bundles
         for (ItemStack bundle : bundles) {
@@ -85,11 +87,10 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 if (checkEnchant > 0)
                     isSelective = true;
 
-                ItemStack itemStackWillPutInto = targetItemStack;
                 //Bundle treats a slot = 64, sign max size 16 fit a slot = 64,
                 //so have to getCount()*4 "(64 / 16 = 4)" to match the bundle size
-                int stackMultiplier = 64 / itemStackWillPutInto.getMaxStackSize();
-                int realStackSizeOfTheItemWillPutInto = stackMultiplier * itemStackWillPutInto.getCount();
+                int stackMultiplier = 64 / targetItemStack.getMaxStackSize();
+                int realStackSizeOfTheItemWillPutInto = stackMultiplier * targetItemStack.getCount();
 
                 int usedSlotInBundle = BundleItemInvoker.getContentWeightInvoked(bundle);
 
@@ -117,7 +118,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 boolean hasInsert = false;
                 for (ItemStack itemStackInBundle : itemStacksInBundle) {
 
-                    if (ItemStack.isSameItemSameTags(itemStackInBundle, itemStackWillPutInto)) {
+                    if (ItemStack.isSameItemSameTags(itemStackInBundle, targetItemStack)) {
 
                         // Prevent 1.20.1 item disappear if stack > 64
                         int countInBundle = itemStackInBundle.getCount();
@@ -126,22 +127,24 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                         if (countInBundle + numberOfItemWillPut > maxSize) {
                             int slotLeft = maxSize - countInBundle;
 
-                            numberOfItemWillPut -= slotLeft;
+                            int numberOfItemWillPutIntoCurrentBundle = numberOfItemWillPut;
+
+                            numberOfItemWillPutIntoCurrentBundle -= slotLeft;
 
                             itemStackInBundle.grow(slotLeft);
 
                             // Insert new stack if the target stack is full, until no count left
-                            while (numberOfItemWillPut > maxSize) {
-                                numberOfItemWillPut -= maxSize;
-                                ItemStack newItemStack = itemStackWillPutInto.copy();
+                            while (numberOfItemWillPutIntoCurrentBundle > maxSize) {
+                                numberOfItemWillPutIntoCurrentBundle -= maxSize;
+                                ItemStack newItemStack = targetItemStack.copy();
                                 newItemStack.setCount(maxSize);
                                 itemStacksInBundle.add(newItemStack);
                             }
 
                             // last stack
-                            if (numberOfItemWillPut > 0) {
-                                ItemStack newItemStack = itemStackWillPutInto.copy();
-                                newItemStack.setCount(numberOfItemWillPut);
+                            if (numberOfItemWillPutIntoCurrentBundle > 0) {
+                                ItemStack newItemStack = targetItemStack.copy();
+                                newItemStack.setCount(numberOfItemWillPutIntoCurrentBundle);
                                 itemStacksInBundle.add(newItemStack);
                             }
 
@@ -157,20 +160,21 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 // And not selective vacuum (selective vacuum only insert item that exists in the bundle
                 if (!hasInsert && !isSelective) {
 
-                    int maxSize = itemStackWillPutInto.getMaxStackSize();
+                    int maxSize = targetItemStack.getMaxStackSize();
+                    int numberOfItemWillPutIntoCurrentBundle = numberOfItemWillPut;
 
                     // Insert new stack if the target stack is full, until no count left
-                    while (numberOfItemWillPut > maxSize) {
-                        numberOfItemWillPut -= maxSize;
-                        ItemStack newItemStack = itemStackWillPutInto.copy();
+                    while (numberOfItemWillPutIntoCurrentBundle > maxSize) {
+                        numberOfItemWillPutIntoCurrentBundle -= maxSize;
+                        ItemStack newItemStack = targetItemStack.copy();
                         newItemStack.setCount(maxSize);
                         itemStacksInBundle.add(newItemStack);
                     }
 
                     // last stack
-                    if (numberOfItemWillPut > 0) {
-                        ItemStack newItemStack = itemStackWillPutInto.copy();
-                        newItemStack.setCount(numberOfItemWillPut);
+                    if (numberOfItemWillPutIntoCurrentBundle > 0) {
+                        ItemStack newItemStack = targetItemStack.copy();
+                        newItemStack.setCount(numberOfItemWillPutIntoCurrentBundle);
                         itemStacksInBundle.add(newItemStack);
                     }
 
@@ -182,7 +186,8 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                     continue;
 
                 //decrease stack
-                itemStackWillPutInto.shrink(numberOfItemWillPut);
+                //System.out.println("has shrink " + numberOfItemWillPut);
+                targetItemStack.shrink(numberOfItemWillPut);
 
                 insertAmount -= numberOfItemWillPut;
 
