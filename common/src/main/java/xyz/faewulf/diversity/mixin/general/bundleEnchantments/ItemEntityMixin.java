@@ -34,6 +34,9 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
     private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
 
+        if (itemstack.getMaxStackSize() <= 1 || itemstack.isEmpty())
+            return;
+
         // Check if player holding any vacuum bundle
         // Then return the first one
         List<ItemStack> bundles = new ArrayList<>();
@@ -58,7 +61,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
             }
 
             // Get ItemStack inside inventory that match picked up item, size must be >=
-            if (item.getItem() == itemstack.getItem() && item.getCount() >= i && targetItemStack == null) {
+            if (ItemStack.isSameItemSameTags(item, itemstack)) {
                 targetItemStack = item;
             }
         }
@@ -114,7 +117,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 boolean hasInsert = false;
                 for (ItemStack itemStackInBundle : itemStacksInBundle) {
 
-                    if (itemStackInBundle.getItem() == itemStackWillPutInto.getItem()) {
+                    if (ItemStack.isSameItemSameTags(itemStackInBundle, itemStackWillPutInto)) {
 
                         // Prevent 1.20.1 item disappear if stack > 64
                         int countInBundle = itemStackInBundle.getCount();
