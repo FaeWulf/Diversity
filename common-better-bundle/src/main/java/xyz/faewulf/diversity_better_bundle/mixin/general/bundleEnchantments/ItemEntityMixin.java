@@ -12,11 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -27,16 +24,9 @@ import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements TraceableEntity {
-    @Shadow
-    @Nullable
-    private UUID target;
-    @Shadow
-    private int pickupDelay;
-
     public ItemEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
@@ -47,19 +37,17 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         return 64 + value * 64;
     }
 
-    @Shadow
-    public abstract boolean ignoreExplosion(Explosion p_364217_);
-
-    @Shadow
-    public abstract boolean dampensVibrations();
-
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
     private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
+
+        if (itemstack.getMaxStackSize() <= 1 || itemstack.isEmpty())
+            return;
 
         // Check if player holding any vacuum bundle
         // Then return the first one
         List<ItemStack> bundles = new ArrayList<>();
         ItemStack targetItemStack = null;
+
         for (int index = 0; index < entity.getInventory().getContainerSize(); index++) {
             ItemStack item = entity.getInventory().getItem(index);
 
@@ -81,7 +69,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
             }
 
             // Get ItemStack inside inventory that match picked up item, size must be >=
-            if (item.getItem() == itemstack.getItem() && item.getCount() >= i && targetItemStack == null) {
+            if (ItemStack.isSameItemSameComponents(item, itemstack)) {
                 targetItemStack = item;
             }
         }
@@ -130,7 +118,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
                 boolean hasInsert = false;
                 for (ItemStack itemStackInBundle : itemStacksInBundle) {
-                    if (itemStackInBundle.getItem() == itemStackWillPutInto.getItem()) {
+                    if (ItemStack.isSameItemSameComponents(itemStackInBundle, itemStackWillPutInto)) {
                         itemStackInBundle.grow(numberOfItemWillPut);
                         hasInsert = true;
                         break;

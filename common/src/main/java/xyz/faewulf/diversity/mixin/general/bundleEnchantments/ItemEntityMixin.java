@@ -45,12 +45,6 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
         return 64 + value * 64;
     }
 
-    @Shadow
-    public abstract boolean ignoreExplosion(Explosion p_364217_);
-
-    @Shadow
-    public abstract boolean dampensVibrations();
-
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
     private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
 
