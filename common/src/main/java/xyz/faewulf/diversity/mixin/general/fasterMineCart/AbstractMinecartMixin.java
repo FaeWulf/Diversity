@@ -2,9 +2,9 @@ package xyz.faewulf.diversity.mixin.general.fasterMineCart;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,24 +14,24 @@ import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(AbstractMinecart.class)
-public abstract class AbstractMinecartMixin extends Entity {
-
-    @Unique
-    private BlockPos diversity_Multiloader$lastPos;
-
-    @Unique
-    private double diversity_Multiloader$lastMaxSpeedMult = 1;
-
-    public AbstractMinecartMixin(EntityType<?> $$0, Level $$1) {
-        super($$0, $$1);
+public abstract class AbstractMinecartMixin extends VehicleEntity {
+    public AbstractMinecartMixin(EntityType<?> entityType, Level level) {
+        super(entityType, level);
     }
 
-    @ModifyReturnValue(method = "getMaxSpeed", at = @At("RETURN"))
+    @Unique
+    private BlockPos diversity$lastPos;
+
+    @Unique
+    private double diversity$lastMaxSpeedMult = 1;
+
+    // getMaxSpeedWithRail is for forge and neoforge, they replaced vanilla code with their code which... doing the same thing? What? Why?
+    @ModifyReturnValue(method = {"getMaxSpeed", "getMaxSpeedWithRail"}, at = @At("RETURN"))
     private double getMaxSpeedModifyReturnValue(double original) {
         if (ModConfigs.faster_minecart) {
 
-            if (this.blockPosition().equals(diversity_Multiloader$lastPos))
-                return original * diversity_Multiloader$lastMaxSpeedMult;
+            if (this.blockPosition().equals(diversity$lastPos))
+                return original * diversity$lastMaxSpeedMult;
 
             BlockState blockStateBelow = this.level().getBlockState(this.blockPosition().below());
 
@@ -39,8 +39,8 @@ public abstract class AbstractMinecartMixin extends Entity {
             if (Compare.isHasTag(blockStateBelow.getBlock(), "diversity:rail_supporter"))
                 multiplier = 2;
 
-            diversity_Multiloader$lastMaxSpeedMult = multiplier;
-            diversity_Multiloader$lastPos = this.blockPosition();
+            diversity$lastMaxSpeedMult = multiplier;
+            diversity$lastPos = this.blockPosition();
 
             return original * multiplier;
         }
