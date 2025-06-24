@@ -2,9 +2,9 @@ package xyz.faewulf.diversity.mixin.general.fasterMineCart;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
-import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(AbstractMinecart.class)
-public abstract class AbstractMinecartMixin extends VehicleEntity {
+public abstract class AbstractMinecartMixin extends Entity {
     public AbstractMinecartMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
@@ -26,7 +26,7 @@ public abstract class AbstractMinecartMixin extends VehicleEntity {
     private double diversity$lastMaxSpeedMult = 1;
 
     // getMaxSpeedWithRail is for forge and neoforge, they replaced vanilla code with their code which... doing the same thing? What? Why?
-    @ModifyReturnValue(method = {"getMaxSpeed", "getMaxSpeedWithRail"}, at = @At("RETURN"))
+    @ModifyReturnValue(method = {"getMaxSpeed"}, at = @At("RETURN"))
     private double getMaxSpeedModifyReturnValue(double original) {
         if (ModConfigs.faster_minecart) {
 
