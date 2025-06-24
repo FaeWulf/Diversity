@@ -66,10 +66,10 @@ public abstract class TridentEntityMixin extends AbstractArrow {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
 
                 //check enchantment
-                if (!enchantments.isEmpty()) {
+                if (!enchantments.isEmpty() && enchantments.containsKey(Enchantments.CHANNELING)) {
 
-                    //check channeling
                     int value = enchantments.get(Enchantments.CHANNELING);
+
                     if (value > 0) {
                         //set durability
                         itemStack.setDamageValue(itemStack.getMaxDamage() - 1);
