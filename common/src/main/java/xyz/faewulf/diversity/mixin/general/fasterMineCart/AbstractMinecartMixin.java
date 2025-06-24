@@ -25,7 +25,8 @@ public abstract class AbstractMinecartMixin extends VehicleEntity {
     @Unique
     private double diversity$lastMaxSpeedMult = 1;
 
-    @ModifyReturnValue(method = "getMaxSpeed", at = @At("RETURN"))
+    // getMaxSpeedWithRail is for forge and neoforge, they replaced vanilla code with their code which... doing the same thing? What? Why?
+    @ModifyReturnValue(method = {"getMaxSpeed", "getMaxSpeedWithRail"}, at = @At("RETURN"))
     private double getMaxSpeedModifyReturnValue(double original) {
         if (ModConfigs.faster_minecart) {
 
@@ -46,6 +47,4 @@ public abstract class AbstractMinecartMixin extends VehicleEntity {
 
         return original;
     }
-
-
 }
