@@ -35,32 +35,34 @@ import java.util.UUID;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements TraceableEntity {
-    @Shadow
-    public abstract boolean ignoreExplosion(Explosion p_364217_);
-
-    @Shadow
-    @Nullable
-    private UUID target;
-
-    @Shadow
-    private int pickupDelay;
-
-    @Shadow
-    public abstract boolean dampensVibrations();
-
     public ItemEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(Level level, ItemStack itemStack) {
+        int value = EnchantHelper.getEnchantLevelFromItem(level, itemStack, Constants.MOD_ID, "capacity");
+        return 64 + value * 64;
+    }
+
+    @Shadow
+    public abstract boolean ignoreExplosion(Explosion p_364217_);
+
+    @Shadow
+    public abstract boolean dampensVibrations();
+
     @Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)
     private void playerTouchInject(Player entity, CallbackInfo ci, @Local(ordinal = 0) ItemStack itemstack, @Local(ordinal = 0) int i) {
+
+        if (itemstack.getMaxStackSize() <= 1 || itemstack.isEmpty())
+            return;
 
         // Check if player holding any vacuum bundle
         // Then return the first one
         List<ItemStack> bundles = new ArrayList<>();
         ItemStack targetItemStack = null;
 
-        for (int index = 0; index < entity.getInventory().getContainerSize(); index++  ) {
+        for (int index = 0; index < entity.getInventory().getContainerSize(); index++) {
             ItemStack item = entity.getInventory().getItem(index);
 
             if (item.isEmpty())
@@ -81,7 +83,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
             }
 
             // Get ItemStack inside inventory that match picked up item, size must be >=
-            if (item.getItem() == itemstack.getItem() && item.getCount() >= i && targetItemStack == null) {
+            if (ItemStack.isSameItemSameComponents(item, itemstack)) {
                 targetItemStack = item;
             }
         }
@@ -130,7 +132,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
                 boolean hasInsert = false;
                 for (ItemStack itemStackInBundle : itemStacksInBundle) {
-                    if (itemStackInBundle.getItem() == itemStackWillPutInto.getItem()) {
+                    if (ItemStack.isSameItemSameComponents(itemStackInBundle, itemStackWillPutInto)) {
                         itemStackInBundle.grow(numberOfItemWillPut);
                         hasInsert = true;
                         break;
@@ -163,11 +165,5 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
             }
         }
-    }
-
-    @Unique
-    private static int diversity_Multiloader$getMaxSize(Level level, ItemStack itemStack) {
-        int value = EnchantHelper.getEnchantLevelFromItem(level, itemStack, Constants.MOD_ID, "capacity");
-        return 64 + value * 64;
     }
 }
