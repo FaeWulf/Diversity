@@ -4,7 +4,7 @@
   "package": "xyz.faewulf.diversity.mixin",
   "compatibilityLevel": "JAVA_18",
   "refmap": "${mod_id}.refmap.json",
-  "mixins": ["forge.general.fasterMinecart.AbstractMinecartMixin"],
+  "mixins": [],
   "client": [],
   "server": [],
   "injectors": {
