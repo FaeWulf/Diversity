@@ -1,4 +1,4 @@
-package xyz.faewulf.diversity.mixin;
+package xyz.faewulf.diversity_better_bundle.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -7,8 +7,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import xyz.faewulf.diversity.inter.ICustomEnchantCategory;
-import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.diversity_better_bundle.inter.ICustomEnchantCategory;
 
 @Mixin(EnchantmentHelper.class)
 public class EnchantmentHelperMixin {
