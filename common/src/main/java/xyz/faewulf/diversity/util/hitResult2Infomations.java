@@ -15,9 +15,9 @@ import net.minecraft.world.entity.OwnableEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.ZombieVillager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
@@ -27,7 +27,7 @@ import net.minecraft.world.level.block.BeehiveBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HopperBlock;
 import net.minecraft.world.level.block.entity.*;
-import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerData;
+import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -118,7 +118,7 @@ public class hitResult2Infomations {
 
         //trial spawner
         if (blockEntity instanceof TrialSpawnerBlockEntity trialSpawnerBlockEntity && showInfo) {
-            TrialSpawnerData trialSpawnerData = trialSpawnerBlockEntity.getTrialSpawner().getData();
+            TrialSpawnerStateData trialSpawnerData = trialSpawnerBlockEntity.getTrialSpawner().getStateData();
             if (!trialSpawnerData.isCooldownFinished((ServerLevel) world)) {
                 long cooldown = ((TrialSpawnerDataMixin) trialSpawnerData).getCooldownEndsAt();
                 result.append(Component.literal(" ⌛" + Converter.tick2Time(cooldown - world.getGameTime())).withStyle(ChatFormatting.RED));

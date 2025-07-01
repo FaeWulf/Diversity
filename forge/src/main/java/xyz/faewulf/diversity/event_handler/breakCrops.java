@@ -2,7 +2,7 @@ package xyz.faewulf.diversity.event_handler;
 
 
 import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.event.xpCrops;

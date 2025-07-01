@@ -1,7 +1,6 @@
 package xyz.faewulf.diversity.mixin.curse.edibleEndStone;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,8 +22,8 @@ import java.util.Collections;
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
 
-    public ServerPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
 
     @Inject(method = "tick", at = @At(value = "TAIL"))

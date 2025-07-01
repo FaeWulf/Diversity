@@ -1,8 +1,8 @@
 package xyz.faewulf.diversity.mixin.entity.featherOnBrush;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,15 +25,13 @@ public class ChickenEntityMixin implements ICustomChickenEntity {
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:featherCoolDown", this.diversity_Multiloader$featherCoolDown);
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:featherCoolDown", this.diversity_Multiloader$featherCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:featherCoolDown")) {
-            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown").orElse(0);
-        }
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$featherCoolDown = valueInput.getInt("diversity:featherCoolDown").orElse(0);
     }
 
     @Override

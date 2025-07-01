@@ -1,11 +1,12 @@
 package xyz.faewulf.diversity.mixin.general.shulkerBoxLabel;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -48,15 +49,13 @@ public class DisplayEntityMixins implements ICustomDisplayEntity {
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:type", this.diversity_Multiloader$type);
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:type", this.diversity_Multiloader$type);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:type")) {
-            this.diversity_Multiloader$type = nbt.getInt("diversity:type").orElse(0);
-        }
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$type = valueInput.getInt("diversity:type").orElse(0);
     }
 
     @Override

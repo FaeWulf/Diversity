@@ -1,8 +1,6 @@
 package xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat;
 
 import com.mojang.authlib.GameProfile;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -11,9 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,12 +22,9 @@ public abstract class serverPlayerMixin extends Player {
     @Unique
     private int diversity_Multiloader$spyGlassHUDcooldown = 0;
 
-    public serverPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public serverPlayerMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
-
-    @Shadow
-    public abstract void sendSystemMessage(@NotNull Component message);
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {

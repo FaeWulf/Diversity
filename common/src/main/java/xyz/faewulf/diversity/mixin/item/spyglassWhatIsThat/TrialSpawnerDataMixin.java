@@ -1,10 +1,10 @@
 package xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat;
 
-import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerData;
+import net.minecraft.world.level.block.entity.trialspawner.TrialSpawnerStateData;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(TrialSpawnerData.class)
+@Mixin(TrialSpawnerStateData.class)
 public interface TrialSpawnerDataMixin {
     @Accessor
     long getCooldownEndsAt();

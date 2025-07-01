@@ -1,14 +1,14 @@
 package xyz.faewulf.diversity.mixin.core.PseudoBlockEntity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -69,16 +69,16 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
         if (this.diversity_type != null)
-            nbt.putString("diversity:pseudoType", this.diversity_type);
+            valueOutput.putString("diversity:pseudoType", this.diversity_type);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:pseudoType")) {
-            this.diversity_type = nbt.getString("diversity:pseudoType").orElse("");
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_type = valueInput.getString("diversity:pseudoType").orElse(null);
 
+        if (this.diversity_type != null) {
             //based on the type, set all the relative variable using PseudoBlockEntityBuilder
             PseudoBlockEntityBuilder builder = PseudoBlockEntities.PseudoBlockEntityList.get(this.diversity_type);
 

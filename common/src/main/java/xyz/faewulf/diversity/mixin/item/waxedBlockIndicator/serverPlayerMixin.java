@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -12,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -26,12 +26,12 @@ public abstract class serverPlayerMixin extends Player {
     @Unique
     private int diversity_SpyglassUseTime = 0;
 
-    public serverPlayerMixin(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public serverPlayerMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
 
     @Shadow
-    public abstract ServerLevel serverLevel();
+    public abstract @NotNull ServerLevel level();
 
     @Inject(method = "tick", at = @At("HEAD"))
     private void tickInject(CallbackInfo ci) {
@@ -50,7 +50,7 @@ public abstract class serverPlayerMixin extends Player {
                 BlockPos minPos = new BlockPos(playerPos.getX() - radius, playerPos.getY() - radius, playerPos.getZ() - radius);
                 BlockPos maxPos = new BlockPos(playerPos.getX() + radius, playerPos.getY() + radius, playerPos.getZ() + radius);
                 for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-                    Block currentBlock = this.serverLevel().getBlockState(pos).getBlock();
+                    Block currentBlock = this.level().getBlockState(pos).getBlock();
 
                     if (currentBlock.getName().getString().toLowerCase().contains("waxed")) {
                         for (int i = 0; i < 10; i++) {
@@ -93,7 +93,7 @@ public abstract class serverPlayerMixin extends Player {
                                     break;
                             }
 
-                            this.serverLevel().sendParticles(ParticleTypes.WAX_ON, x, y, z, 1, 0, 0, 0, 0);
+                            this.level().sendParticles(ParticleTypes.WAX_ON, x, y, z, 1, 0, 0, 0, 0);
                         }
                     }
                 }

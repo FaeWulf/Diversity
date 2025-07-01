@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.general.invisibleItemFrame;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -9,6 +8,8 @@ import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,15 +50,13 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putBoolean("isInvisible", this.diversity_Multiloader$isInvisible);
+    private void addAdditionalSaveDataInject(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putBoolean("isInvisible", this.diversity_Multiloader$isInvisible);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("isInvisible")) {
-            this.diversity_Multiloader$isInvisible = nbt.getBoolean("isInvisible").orElse(false);
-        }
+    private void readAdditionalSaveDataInject(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$isInvisible = valueInput.getBooleanOr("isInvisible", false);
     }
 
     @Override

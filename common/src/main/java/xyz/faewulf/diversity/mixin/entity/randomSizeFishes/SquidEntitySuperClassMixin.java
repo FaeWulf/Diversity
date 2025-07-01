@@ -1,7 +1,8 @@
 package xyz.faewulf.diversity.mixin.entity.randomSizeFishes;
 
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,21 +13,17 @@ import xyz.faewulf.diversity.inter.entity.ICustomSquidEntity;
 public class SquidEntitySuperClassMixin {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
+    private void addAdditionalSaveDataInject(ValueOutput valueOutput, CallbackInfo ci) {
         if ((Object) this instanceof ICustomSquidEntity iCustomSquidEntity) {
-            nbt.putFloat("diversity:Size", iCustomSquidEntity.diversity_Multiloader$getSize());
+            valueOutput.putFloat("diversity:Size", iCustomSquidEntity.diversity_Multiloader$getSize());
         }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
+    private void readAdditionalSaveDataInject(ValueInput valueInput, CallbackInfo ci) {
         if ((Object) this instanceof ICustomSquidEntity iCustomSquidEntity) {
-            if (nbt.contains("diversity:Size")) {
-                iCustomSquidEntity.diversity_Multiloader$setSize(nbt.getFloat("diversity:Size").orElse(1f));
-            }
+            iCustomSquidEntity.diversity_Multiloader$setSize(valueInput.getFloatOr("diversity:Size", 1f));
             iCustomSquidEntity.diversity_Multiloader$reCalculateSize();
         }
     }
-
-
 }

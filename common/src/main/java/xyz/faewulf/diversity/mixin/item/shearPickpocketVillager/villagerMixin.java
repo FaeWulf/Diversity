@@ -1,9 +1,7 @@
 package xyz.faewulf.diversity.mixin.item.shearPickpocketVillager;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -12,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ReputationEventHandler;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -20,8 +17,11 @@ import net.minecraft.world.entity.npc.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,24 +30,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.util.CustomLootTables;
-import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.lib.util.entity.EntityUtils;
 
 @Mixin(Villager.class)
 public abstract class villagerMixin extends AbstractVillager implements ReputationEventHandler, VillagerDataHolder {
-
-    @Shadow
-    public abstract VillagerData getVillagerData();
-
-    @Shadow
-    public abstract void handleEntityEvent(byte id);
-
-    @Shadow
-    public abstract Brain<Villager> getBrain();
-
-    @Shadow
-    public abstract void setVillagerData(VillagerData data);
 
     @Unique
     private int Diversity$pickpocket_cooldown = 0;
@@ -55,6 +43,69 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
     public villagerMixin(EntityType<? extends AbstractVillager> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Unique
+    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
+        switch (name) {
+            case "armorer" -> {
+                return CustomLootTables.PICKPOCKET_ARMORER;
+            }
+            case "butcher" -> {
+                return CustomLootTables.PICKPOCKET_BUTCHER;
+            }
+            case "cartographer" -> {
+                return CustomLootTables.PICKPOCKET_CARTOGRAPHER;
+            }
+            case "cleric" -> {
+                return CustomLootTables.PICKPOCKET_CLERIC;
+            }
+            case "farmer" -> {
+                return CustomLootTables.PICKPOCKET_FARMER;
+            }
+            case "fisherman" -> {
+                return CustomLootTables.PICKPOCKET_FISHERMAN;
+            }
+            case "fletcher" -> {
+                return CustomLootTables.PICKPOCKET_FLETCHER;
+            }
+            case "leatherworker" -> {
+                return CustomLootTables.PICKPOCKET_LEATHERWORKER;
+            }
+            case "librarian" -> {
+                return CustomLootTables.PICKPOCKET_LIBRARIAN;
+            }
+            case "mason" -> {
+                return CustomLootTables.PICKPOCKET_MASON;
+            }
+            case "nitwit" -> {
+                return CustomLootTables.PICKPOCKET_NITWIT;
+            }
+            case "shepherd" -> {
+                return CustomLootTables.PICKPOCKET_SHEPHERD;
+            }
+            case "toolsmith" -> {
+                return CustomLootTables.PICKPOCKET_TOOLSMITH;
+            }
+            case "weaponsmith" -> {
+                return CustomLootTables.PICKPOCKET_WEAPONSMITH;
+            }
+            default -> {
+                return CustomLootTables.PICKPOCKET_NONE;
+            }
+        }
+    }
+
+    @Shadow
+    public abstract @NotNull VillagerData getVillagerData();
+
+    @Shadow
+    public abstract void setVillagerData(@NotNull VillagerData data);
+
+    @Shadow
+    public abstract void handleEntityEvent(byte id);
+
+    @Shadow
+    public abstract @NotNull Brain<Villager> getBrain();
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickInject(CallbackInfo ci) {
@@ -164,83 +215,13 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         }
     }
 
-    @Unique
-    private boolean diversity$isEntity2BehindEntity1(LivingEntity entity1, LivingEntity entity2) {
-        // Todo: fix
-        // Villager's facing direction vector
-        Vec3 entity1ViewVector = entity1.getViewVector(1.0F);
-
-        // Vector from villager to player
-        Vec3 toEntity2 = entity2.position().subtract(entity1.position()).normalize();
-
-        // Calculate the angle between the two vectors
-        double dotProduct = entity1ViewVector.dot(toEntity2);
-        double angle = Math.acos(dotProduct);
-
-        // If angle is close to π (180 degrees), the player is behind the villager
-        return angle >= Math.PI / 2 && angle <= Math.PI;
-    }
-
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveDataInject(CompoundTag compound, CallbackInfo ci) {
-        compound.putInt("diversity:pickpocket_cooldown", Diversity$pickpocket_cooldown);
+    private void addAdditionalSaveDataInject(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:pickpocket_cooldown", Diversity$pickpocket_cooldown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveDataInject(CompoundTag compound, CallbackInfo ci) {
-        if (compound.contains("diversity:pickpocket_cooldown")) {
-            this.Diversity$pickpocket_cooldown = compound.getInt("diversity:pickpocket_cooldown").orElse(0);
-        }
-    }
-
-    @Unique
-    private static ResourceKey<LootTable> diversity_Multiloader$getPickPocketLootTable(String name) {
-        switch (name) {
-            case "armorer" -> {
-                return CustomLootTables.PICKPOCKET_ARMORER;
-            }
-            case "butcher" -> {
-                return CustomLootTables.PICKPOCKET_BUTCHER;
-            }
-            case "cartographer" -> {
-                return CustomLootTables.PICKPOCKET_CARTOGRAPHER;
-            }
-            case "cleric" -> {
-                return CustomLootTables.PICKPOCKET_CLERIC;
-            }
-            case "farmer" -> {
-                return CustomLootTables.PICKPOCKET_FARMER;
-            }
-            case "fisherman" -> {
-                return CustomLootTables.PICKPOCKET_FISHERMAN;
-            }
-            case "fletcher" -> {
-                return CustomLootTables.PICKPOCKET_FLETCHER;
-            }
-            case "leatherworker" -> {
-                return CustomLootTables.PICKPOCKET_LEATHERWORKER;
-            }
-            case "librarian" -> {
-                return CustomLootTables.PICKPOCKET_LIBRARIAN;
-            }
-            case "mason" -> {
-                return CustomLootTables.PICKPOCKET_MASON;
-            }
-            case "nitwit" -> {
-                return CustomLootTables.PICKPOCKET_NITWIT;
-            }
-            case "shepherd" -> {
-                return CustomLootTables.PICKPOCKET_SHEPHERD;
-            }
-            case "toolsmith" -> {
-                return CustomLootTables.PICKPOCKET_TOOLSMITH;
-            }
-            case "weaponsmith" -> {
-                return CustomLootTables.PICKPOCKET_WEAPONSMITH;
-            }
-            default -> {
-                return CustomLootTables.PICKPOCKET_NONE;
-            }
-        }
+    private void readAdditionalSaveDataInject(ValueInput valueInput, CallbackInfo ci) {
+        this.Diversity$pickpocket_cooldown = valueInput.getInt("diversity:pickpocket_cooldown").orElse(0);
     }
 }

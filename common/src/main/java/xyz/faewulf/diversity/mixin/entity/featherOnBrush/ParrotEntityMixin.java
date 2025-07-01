@@ -1,7 +1,5 @@
 package xyz.faewulf.diversity.mixin.entity.featherOnBrush;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -14,6 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,7 +25,7 @@ import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Parrot.class)
-public abstract class ParrotEntityMixin  extends ShoulderRidingEntity implements FlyingAnimal, ICustomParrotEntity {
+public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements FlyingAnimal, ICustomParrotEntity {
 
     @Unique
     private int diversity_Multiloader$featherCoolDown = 0;
@@ -71,15 +71,13 @@ public abstract class ParrotEntityMixin  extends ShoulderRidingEntity implements
 
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:featherCoolDown", this.diversity_Multiloader$featherCoolDown);
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:featherCoolDown", this.diversity_Multiloader$featherCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:featherCoolDown")) {
-            this.diversity_Multiloader$featherCoolDown = nbt.getInt("diversity:featherCoolDown").orElse(0);
-        }
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$featherCoolDown = valueInput.getInt("diversity:featherCoolDown").orElse(0);
     }
 
     @Override

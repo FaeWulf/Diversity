@@ -18,8 +18,9 @@ import static net.minecraft.world.level.block.WallSignBlock.FACING;
 
 @Mixin(ServerPlayer.class)
 public abstract class WallSign extends Player {
-    public WallSign(Level world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+
+    public WallSign(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
 
     @Inject(method = "openTextEdit", at = @At("HEAD"), cancellable = true)

@@ -1,11 +1,11 @@
 package xyz.faewulf.diversity.mixin.entity;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,15 +42,13 @@ public abstract class FoxBuryItems extends Animal implements ICustomFoxEntity {
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
-    private void addAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putInt("diversity:buryCooldown", this.diversity_Multiloader$BuryCoolDown);
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:buryCooldown", this.diversity_Multiloader$BuryCoolDown);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAdditionalSaveData(CompoundTag nbt, CallbackInfo ci) {
-        if (nbt.contains("diversity:buryCooldown")) {
-            this.diversity_Multiloader$BuryCoolDown = nbt.getInt("diversity:buryCooldown").orElse(0);
-        }
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$BuryCoolDown = valueInput.getInt("diversity:buryCooldown").orElse(0);
     }
 
     @Override
