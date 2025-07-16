@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.5.0] - 2025-7-2
+
+### Added
+
+- Support 1.21.6, 1.21.7
+
+### Changed
+
+- `Vacuum` and `Selective Vacuum` no longer affect non-stackable items.
+
+### Fixed
+
+- Unintentional item component override behavior of Bundle enchantments.
+- Fully fixed `faster rail` on forge/neoforge.
+- Fixed `bonemeal small flower` not working on forge/neoforge.
+- Fixed `bonemeal coral` not working on forge/neoforge.
+- Game crash if throw non-channeling trident into the sky pass y-340.
+
 ## [2.4.0] - 2025-4-7
 
 ### Added
