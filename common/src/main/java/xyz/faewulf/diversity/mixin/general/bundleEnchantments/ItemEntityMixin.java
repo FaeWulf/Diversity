@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.math.Fraction;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,7 +23,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.Constants;
+import xyz.faewulf.diversity.compat.MetalBundles.MetalBundleItemInvoker;
 import xyz.faewulf.diversity.inter.ICustomBundleVacuum;
+import xyz.faewulf.diversity.platform.Services;
+import xyz.faewulf.diversity.util.Utils;
 import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
@@ -31,9 +35,11 @@ import java.util.UUID;
 
 @Mixin(ItemEntity.class)
 public abstract class ItemEntityMixin extends Entity implements TraceableEntity {
-    @Shadow private int pickupDelay;
+    @Shadow
+    private int pickupDelay;
 
-    @Shadow @Nullable
+    @Shadow
+    @Nullable
     private UUID target;
 
     public ItemEntityMixin(EntityType<?> entityType, Level level) {
@@ -42,8 +48,20 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
     @Unique
     private static int diversity_Multiloader$getMaxSize(Level level, ItemStack itemStack) {
+
+        // Check if this the item is from metal bundles
+        // Then calculate max capacity from its weight fraction.
+        int originalSize = 64;
+
+        if (Services.PLATFORM.isModLoaded("metalbundles")) {
+            Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            originalSize = Utils.recoverCapacity(a, usedSpace);
+        }
+
+        // Vanilla bundle handle with capacity enchantment
         int value = EnchantHelper.getEnchantLevelFromItem(level, itemStack, Constants.MOD_ID, "capacity");
-        return 64 + value * 64;
+        return originalSize + value * 64;
     }
 
     //@Inject(method = "playerTouch", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;onItemPickup(Lnet/minecraft/world/entity/item/ItemEntity;)V"), cancellable = true)

@@ -4,7 +4,7 @@
   "compatibilityLevel": "JAVA_18",
   "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "EasyShulkerBoxes.BundleProviderMixin"
+    "EasyShulkerBoxes.BundleProviderMixin", "MetalBundles.MetalBundleItemInvoker"
   ],
   "injectors": {
     "defaultRequire": 1
