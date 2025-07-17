@@ -7,8 +7,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity_better_bundle.Constants;
-import xyz.faewulf.diversity_better_bundle.util.config.ModConfigs;
+import xyz.faewulf.diversity_better_bundle.platform.Services;
 import xyz.faewulf.diversity_better_bundle.registry.CustomEnchantment;
+import xyz.faewulf.diversity_better_bundle.util.config.ModConfigs;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,6 +57,20 @@ public class TagGroupLoaderMixin {
                 if (!ModConfigs.bundle_enchantment)
                     if (CustomEnchantment.bundle_enchantments.contains(name))
                         entryList3.remove(trackedEntry);
+            }
+        }
+
+        // In diversity:bundles enchantment tag
+        // Remove metal bundle item tag if metal bundle mod not loaded
+        List<TagLoader.EntryWithSource> entryList4 = tags.get(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bundles"));
+        if (entryList4 != null) {
+            List<TagLoader.EntryWithSource> tempList = entryList4.stream().toList();
+            for (TagLoader.EntryWithSource trackedEntry : tempList) {
+                String name = trackedEntry.entry().toString();
+
+                if (!Services.PLATFORM.isModLoaded("metalbundles"))
+                    if (name.contains("metalbundles"))
+                        entryList4.remove(trackedEntry);
             }
         }
     }
