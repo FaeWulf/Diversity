@@ -46,8 +46,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.Constants;
+import xyz.faewulf.diversity.compat.MetalBundles.MetalBundleItemInvoker;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
+import xyz.faewulf.diversity.platform.Services;
+import xyz.faewulf.diversity.util.Utils;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.lib.util.EnchantHelper;
@@ -351,6 +354,24 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             return false;
 
         return EnchantHelper.hasEnchantment(world, itemStack, Constants.MOD_ID, "refill");
+    }
+
+    @Unique
+    private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
+
+        // Check if this the item is from metal bundles
+        // Then calculate max capacity from its weight fraction.
+        int originalSize = 64;
+
+        if (Services.PLATFORM.isModLoaded("metalbundles")) {
+            Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            originalSize = Utils.recoverCapacity(a, usedSpace);
+        }
+
+        // Vanilla bundle handle with capacity enchantment
+        int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
+        return originalSize + value * 64;
     }
 
     @Override
