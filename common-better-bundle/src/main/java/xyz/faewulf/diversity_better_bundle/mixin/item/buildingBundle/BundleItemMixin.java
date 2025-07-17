@@ -34,6 +34,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.math.Fraction;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -41,11 +42,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity_better_bundle.Constants;
+import xyz.faewulf.diversity_better_bundle.compat.MetalBundles.MetalBundleItemInvoker;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleItem;
+import xyz.faewulf.diversity_better_bundle.platform.Services;
+import xyz.faewulf.diversity_better_bundle.util.Utils;
 import xyz.faewulf.diversity_better_bundle.util.config.ModConfigs;
 import xyz.faewulf.lib.util.Compare;
-import xyz.faewulf.lib.util.Converter;
 import xyz.faewulf.lib.util.EnchantHelper;
 
 import java.util.ArrayList;
@@ -144,7 +147,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     Item item = bundleContentsComponent.getItemUnsafe(i).getItem();
 
                     // if in blacklist then skip
-                    if (Compare.isHasTag(item, "diversity_better_bundle:bundle_place_mode_blacklist"))
+                    if (Compare.isHasTag(item, "diversity:bundle_place_mode_blacklist"))
                         continue;
 
                     if (item instanceof BlockItem) {
@@ -283,8 +286,20 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Unique
     private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
+
+        // Check if this the item is from metal bundles
+        // Then calculate max capacity from its weight fraction.
+        int originalSize = 64;
+
+        if (Services.PLATFORM.isModLoaded("metalbundles")) {
+            Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            originalSize = Utils.recoverCapacity(a, usedSpace);
+        }
+
+        // Vanilla bundle handle with capacity enchantment
         int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
-        return 64 + value * 64;
+        return originalSize + value * 64;
     }
 
     @Override
@@ -313,9 +328,5 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         itemStack.set(DataComponents.LORE, new ItemLore(new ArrayList<>() {{
             add(Component.literal("Mode: " + modeText).withStyle(ChatFormatting.GRAY));
         }}));
-
-
     }
-
-
 }

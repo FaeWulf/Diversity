@@ -34,6 +34,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.commons.lang3.math.Fraction;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -41,8 +42,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.Constants;
+import xyz.faewulf.diversity.compat.MetalBundles.MetalBundleItemInvoker;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
+import xyz.faewulf.diversity.platform.Services;
+import xyz.faewulf.diversity.util.Utils;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.lib.util.EnchantHelper;
@@ -282,8 +286,20 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Unique
     private int diversity_Multiloader$getMaxSize(Level world, ItemStack itemStack) {
+
+        // Check if this the item is from metal bundles
+        // Then calculate max capacity from its weight fraction.
+        int originalSize = 64;
+
+        if (Services.PLATFORM.isModLoaded("metalbundles")) {
+            Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            originalSize = Utils.recoverCapacity(a, usedSpace);
+        }
+
+        // Vanilla bundle handle with capacity enchantment
         int value = EnchantHelper.getEnchantLevelFromItem(world, itemStack, Constants.MOD_ID, "capacity");
-        return 64 + value * 64;
+        return originalSize + value * 64;
     }
 
     @Override

@@ -30,7 +30,6 @@ dependencies {
     compileOnly("com.electronwill.night-config:toml:3.6.0")
 
     implementation "maven.modrinth:faewulfslib:${faewulfs_lib_version}-neoforge,1.21.1"
-    //compileOnly "maven.modrinth:metal-bundles:${metal_bundles_version}-neoforge,1.21.1"
 }
 
 configurations {

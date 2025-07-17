@@ -3,12 +3,8 @@
     "translate": "enchantment.diversity.refill",
     "fallback": "Refill"
   },
-  "supported_items": [
-    "minecraft:bundle"
-  ],
-  "primary_items": [
-    "minecraft:bundle"
-  ],
+  "supported_items": "#diversity:bundles",
+  "primary_items": "#diversity:bundles",
   "weight": 1,
   "max_level": 1,
   "anvil_cost": 4,
