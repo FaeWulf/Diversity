@@ -3,9 +3,7 @@
   "package": "xyz.faewulf.diversity.compat",
   "compatibilityLevel": "JAVA_18",
   "refmap": "${mod_id}.refmap.json",
-  "mixins": [
-    "EasyShulkerBoxes.BundleProviderMixin"
-  ],
+  "mixins": ["EasyShulkerBoxes.BundleProviderMixin"],
   "injectors": {
     "defaultRequire": 1
   },
