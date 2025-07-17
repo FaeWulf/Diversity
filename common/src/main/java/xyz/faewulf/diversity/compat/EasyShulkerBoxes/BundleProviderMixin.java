@@ -35,7 +35,10 @@ public class BundleProviderMixin {
 
         int value = itemEnchantmentsComponent.getLevel(enchant);
 
-        return Fraction.getFraction(value + 1, 1);
+        Fraction candidate = Fraction.getFraction(value + 1, 1);
+
+        // return the larger of the two fractions
+        return candidate.compareTo(original) > 0 ? candidate : original;
     }
 
     @ModifyExpressionValue(method = "getMaxAmountToAdd", at = @At(value = "INVOKE", target = "Lfuzs/iteminteractions/api/v1/provider/impl/BundleProvider;getCapacityMultiplier()Lorg/apache/commons/lang3/math/Fraction;"))
@@ -51,6 +54,9 @@ public class BundleProviderMixin {
 
         int value = itemEnchantmentsComponent.getLevel(enchant);
 
-        return Fraction.getFraction(value + 1, 1);
+        Fraction candidate = Fraction.getFraction(value + 1, 1);
+
+        // return the larger of the two fractions
+        return candidate.compareTo(original) > 0 ? candidate : original;
     }
 }

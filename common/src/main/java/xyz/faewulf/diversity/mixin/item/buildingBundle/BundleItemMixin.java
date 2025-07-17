@@ -312,9 +312,5 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         itemStack.set(DataComponents.LORE, new ItemLore(new ArrayList<>() {{
             add(Component.literal("Mode: " + modeText).withStyle(ChatFormatting.GRAY));
         }}));
-
-
     }
-
-
 }
