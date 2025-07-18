@@ -1,12 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:bundle",
-    "metalbundles:leather_bundle",
-    "metalbundles:copper_bundle",
-    "metalbundles:iron_bundle",
-    "metalbundles:golden_bundle",
-    "metalbundles:diamond_bundle",
-    "metalbundles:netherite_bundle"
+    "#minecraft:bundles",
+    "#metalbundles:bundles"
   ]
 }
