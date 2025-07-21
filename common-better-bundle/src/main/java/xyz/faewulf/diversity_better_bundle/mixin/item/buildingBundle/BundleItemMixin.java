@@ -35,6 +35,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import xyz.faewulf.diversity_better_bundle.Constants;
 import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleItem;
 import xyz.faewulf.diversity_better_bundle.util.CustomEnchant;
 import xyz.faewulf.lib.util.Compare;
@@ -67,10 +68,22 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         super(settings);
     }
 
+    @Unique
+    private static int diversity_Multiloader$getMaxSize(ItemStack itemStack) {
+        // Check if this the item is from metal bundles
+        // Then calculate max capacity from its weight fraction.
+        int originalSize = 64;
+
+        // Vanilla bundle handle with capacity enchantment
+        int value = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, itemStack);
+
+        return originalSize + value * 64;
+    }
+
     @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
     private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         int usedSpace = getContentWeight(stack);
-        int maxValue = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, stack) * 64 + 64;
+        int maxValue = diversity_Multiloader$getMaxSize(stack);
 
         cir.setReturnValue((int) Math.floor(13f * usedSpace / maxValue));
         cir.cancel();
@@ -80,22 +93,20 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     //@ModifyConstant(method = "appendTooltip", constant = @Constant(intValue = 64, ordinal = 1))
     @ModifyExpressionValue(method = "appendHoverText", at = @At(value = "CONSTANT", args = "intValue=64", ordinal = 0))
     private int appendTooltipInject(int value, @Local(argsOnly = true) ItemStack stack) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, stack);
-        return Math.max(value, 64 + 64 * level);
+        //int level = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, stack);
+        return Math.max(value, diversity_Multiloader$getMaxSize(stack));
     }
 
     //modify max allowed items add to bundle
     @ModifyExpressionValue(method = "add", at = @At(value = "CONSTANT", args = "intValue=64"))
     private static int modifyMaxBundleValue(int original, @Local(ordinal = 0, argsOnly = true) ItemStack bundle) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, bundle);
-        return 64 + level * 64;
+        return diversity_Multiloader$getMaxSize(bundle);
     }
 
     //modify max allowed items add to bundle
     @ModifyExpressionValue(method = "overrideStackedOnOther", at = @At(value = "CONSTANT", args = "intValue=64"))
     private int modifyMaxBundleValue2(int original, @Local(ordinal = 0, argsOnly = true) ItemStack bundle) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, bundle);
-        return 64 + 64 * level;
+        return diversity_Multiloader$getMaxSize(bundle);
     }
 
     @ModifyExpressionValue(method = "add", at = @At(value = "INVOKE", target = "Ljava/util/Optional;isPresent()Z"))
@@ -205,7 +216,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                     Item item = itemStackListFromBundle.get(i).getItem();
 
                     // if in blacklist then skip
-                    if (Compare.isHasTag(item, "diversity_better_bundle:bundle_place_mode_blacklist"))
+                    if (Compare.isHasTag(item, Constants.MOD_ID + ":bundle_place_mode_blacklist"))
                         continue;
 
                     if (item instanceof BlockItem) {
@@ -341,7 +352,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         //int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight(), 64) - stackMultiplier;
         int usedSlotInBundle = getContentWeight(bundle);
 
-        final int maxBundleSize = 64 + 64 * EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, bundle);
+        final int maxBundleSize = diversity_Multiloader$getMaxSize(bundle);
 
         if (usedSlotInBundle >= maxBundleSize)
             return false;

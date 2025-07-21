@@ -24,7 +24,10 @@ public class BundleProviderMixin {
             return original;
 
         int value = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, containerStack);
-        return 64 + value * 64;
+        int candidate = 64 + value * 64;
+
+        // return the larger of the two fractions
+        return Math.max(candidate, original);
     }
 
     @ModifyExpressionValue(method = "createTooltipImageComponent", at = @At(value = "INVOKE", target = "Lfuzs/puzzlesapi/api/iteminteractions/v1/provider/BundleProvider;getCapacity()I"))
@@ -34,6 +37,9 @@ public class BundleProviderMixin {
             return original;
 
         int value = EnchantmentHelper.getItemEnchantmentLevel(CustomEnchant.CAPACITY, containerStack);
-        return 64 + value * 64;
+        int candidate = 64 + value * 64;
+
+        // return the larger of the two fractions
+        return Math.max(candidate, original);
     }
 }
