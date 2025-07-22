@@ -7,7 +7,7 @@
   "mixins": [
     "EnchantmentHelperMixin",
     "events.BlockItemMixin",
-    "events.BlockItemMixin",
+    "fabric.compat.CreativeModeTabsMixinForceLoadBundle",
     "fabric.compat.EnchancementCompat"
   ],
   "client": [],
