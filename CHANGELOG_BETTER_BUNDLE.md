@@ -15,5 +15,6 @@ Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree
 
 ### Fixed
 
-- Crashes in `1.20.1` version
+- Crashes in `1.20.1` version.
+- `Bundle` now shows properly in creative tab in version `fabric 1.20.1`. Including JEI, EMI,...
 - Version for `1.20.1` fabric now can run without unnecessary mods.
