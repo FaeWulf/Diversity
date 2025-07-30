@@ -36,11 +36,11 @@ public class invisibleItemFrame {
                 //if already invisible
                 ICustomItemFrame frame = (ICustomItemFrame) entity;
 
-                if (frame.multiLoader_1_20_1$getIsInvisible())
+                if (frame.diversity_Multiloader$getIsInvisible())
                     return InteractionResult.PASS;
 
                 //add tag
-                frame.multiLoader_1_20_1$setIsInvisible(true);
+                frame.diversity_Multiloader$setIsInvisible(true);
 
                 ItemFrame itemFrame = (ItemFrame) entity;
                 itemFrame.playSound(itemFrame.getAddItemSound(), 1.0f, 1.0f);

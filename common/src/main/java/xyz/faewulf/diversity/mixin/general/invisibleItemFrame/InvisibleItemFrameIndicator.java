@@ -34,7 +34,7 @@ public abstract class InvisibleItemFrameIndicator extends Entity {
             HangingEntity hangingEntity = ((HangingEntity) (Object) this);
 
             //if does't have the require tag
-            if (!((ICustomItemFrame) this).multiLoader_1_20_1$getIsInvisible())
+            if (!((ICustomItemFrame) this).diversity_Multiloader$getIsInvisible())
                 return;
 
             //if it is holding item the return

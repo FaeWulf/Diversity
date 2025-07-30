@@ -1,5 +1,41 @@
 # Changelog
 
+## [2.5.1] - 2025-7-22
+
+### Added
+
+- Fully compatibility with `Metal Bundles` mod.
+
+### Changed
+
+- `Vacuum` and `Selective Vacuum` now behave like normal pickup but with higher priority (items go to bundles first,
+  then inventory).
+- `Vacuum` and `Selective Vacuum` now prevent stack item surpass its max stack size.
+
+### Fixed
+
+- Crashes in `1.20.1` version
+- `Bundle` now shows properly in creative tab in version `fabric 1.20.1`. Including JEI, EMI,...
+- Version for `1.20.1` fabric now can run without unnecessary mods.
+
+## [2.5.0] - 2025-7-2
+
+### Added
+
+- Support 1.21.6, 1.21.7
+
+### Changed
+
+- `Vacuum` and `Selective Vacuum` no longer affect non-stackable items.
+
+### Fixed
+
+- Unintentional item component override behavior of Bundle enchantments.
+- Fully fixed `faster rail` on forge/neoforge.
+- Fixed `bonemeal small flower` not working on forge/neoforge.
+- Fixed `bonemeal coral` not working on forge/neoforge.
+- Game crash if throw non-channeling trident into the sky pass y-340.
+
 ## [2.4.0] - 2025-4-7
 
 ### Added
