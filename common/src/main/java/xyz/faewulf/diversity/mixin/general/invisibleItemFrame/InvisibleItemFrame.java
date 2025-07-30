@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(ItemFrame.class)
 public abstract class InvisibleItemFrame extends HangingEntity implements ICustomItemFrame {
@@ -29,6 +30,10 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     //add invisible if holding item
     @Inject(method = "setItem(Lnet/minecraft/world/item/ItemStack;Z)V", at = @At("TAIL"))
     private void setHeldItem(ItemStack value, boolean update, CallbackInfo ci) {
+
+        if (!ModConfigs.invisible_frame)
+            return;
+
         if (this.diversity_Multiloader$isInvisible)
             ((ItemFrame) (Object) this).setInvisible(true);
     }
@@ -36,6 +41,10 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     //remove invisible if no item holding
     @Inject(method = "removeFramedMap", at = @At("TAIL"))
     private void removeFromFrameMixin(ItemStack stack, CallbackInfo ci) {
+
+        if (!ModConfigs.invisible_frame)
+            return;
+
         if (this.diversity_Multiloader$isInvisible)
             ((ItemFrame) (Object) this).setInvisible(false);
     }
@@ -51,12 +60,13 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveDataInject(ValueOutput valueOutput, CallbackInfo ci) {
-        valueOutput.putBoolean("isInvisible", this.diversity_Multiloader$isInvisible);
+        valueOutput.putBoolean("diversity:isInvisible", this.diversity_Multiloader$isInvisible);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(ValueInput valueInput, CallbackInfo ci) {
         this.diversity_Multiloader$isInvisible = valueInput.getBooleanOr("isInvisible", false);
+        this.diversity_Multiloader$isInvisible = valueInput.getBooleanOr("diversity:isInvisible", false);
     }
 
     @Override
