@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomItemFrame;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(ItemFrame.class)
 public class InvisibleItemFrame implements ICustomItemFrame {
@@ -20,6 +21,10 @@ public class InvisibleItemFrame implements ICustomItemFrame {
     //add invisible if holding item
     @Inject(method = "setItem(Lnet/minecraft/world/item/ItemStack;Z)V", at = @At("TAIL"))
     private void setHeldItem(ItemStack value, boolean update, CallbackInfo ci) {
+
+        if (!ModConfigs.invisible_frame)
+            return;
+
         if (this.diversity_Multiloader$isInvisible)
             ((ItemFrame) (Object) this).setInvisible(true);
     }
@@ -27,6 +32,10 @@ public class InvisibleItemFrame implements ICustomItemFrame {
     //remove invisible if no item holding
     @Inject(method = "removeFramedMap", at = @At("TAIL"))
     private void removeFromFrameMixin(ItemStack stack, CallbackInfo ci) {
+
+        if (!ModConfigs.invisible_frame)
+            return;
+
         if (this.diversity_Multiloader$isInvisible)
             ((ItemFrame) (Object) this).setInvisible(false);
     }
@@ -42,13 +51,17 @@ public class InvisibleItemFrame implements ICustomItemFrame {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
-        nbt.putBoolean("isInvisible", this.diversity_Multiloader$isInvisible);
+        nbt.putBoolean("diversity:isInvisible", this.diversity_Multiloader$isInvisible);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveDataInject(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("isInvisible")) {
             this.diversity_Multiloader$isInvisible = nbt.getBoolean("isInvisible");
+        }
+
+        if (nbt.contains("diversity:isInvisible")) {
+            this.diversity_Multiloader$isInvisible = nbt.getBoolean("diversity:isInvisible");
         }
     }
 
