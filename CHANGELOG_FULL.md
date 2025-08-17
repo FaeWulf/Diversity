@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.5.2] - 2025-7-30
+
+### Fixed
+
+- Conflict issue with `Enchanting Vanilla`
+
 ## [2.5.1] - 2025-7-22
 
 ### Added

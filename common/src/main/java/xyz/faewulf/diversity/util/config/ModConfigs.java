@@ -7,6 +7,7 @@ import xyz.faewulf.lib.util.config.ModConfig;
 @ModConfig(mod_id = Constants.MOD_ID)
 public class ModConfigs {
 
+
     @Entry(category = "general", name = "Bigger radius bookshelf for enchanting table", require_restart = true, group = "Enchantments")
     public static boolean bigger_radius_bookshelf_for_enchantingTable = true;
 
@@ -31,13 +32,13 @@ public class ModConfigs {
     @Entry(category = "general", name = "Bonemeal coral fan/block", group = "Bonemeal")
     public static boolean bonemeal_coral_fan = true;
 
-    @Entry(category = "general", name = "Day counter", group = "Day counter")
+    @Entry(category = "general", name = "Day counter", group = "Day counter", info = "Display day counter message per <Day counter value> day(s) passed. Set to 0 to disable this.")
     public static int day_counter = 1;
 
-    @Entry(category = "general", name = "Ticks per day", group = "Day counter")
+    @Entry(category = "general", name = "Ticks per day", group = "Day counter", info = "Change daytime total tick; Only change if you know what you are doing.")
     public static int day_counter_tick_per_day = 24000;
 
-    @Entry(category = "general", name = "Message tick speed", group = "Day counter", require_restart = true)
+    @Entry(category = "general", name = "Message tick speed", group = "Day counter", require_restart = true, info = "Change the delay between each letter when printing the message. Smaller value, faster the message.")
     public static int day_counter_speed = 3;
 
     @Entry(category = "general", name = "Deepslate generator")
@@ -240,6 +241,9 @@ public class ModConfigs {
 
     @Entry(category = "compatibility", name = "Enchancement Compatibility Layer", require_restart = true)
     public static boolean enchancement_compat = true;
+
+    @Entry(category = "client", name = "Block day counter message", info = "This one doesn't affect server-side. Look for Day counter section to change this module server-side.")
+    public static boolean blacklist_day_counter = false;
 
     public enum weatherType {
         DISABLE, RAIN_ONLY, ALL_WEATHER
