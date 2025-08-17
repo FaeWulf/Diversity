@@ -9,7 +9,7 @@
     "defaultRequire": 1
   },
   "client": [
-    "AnvilMixin"
+    "AnvilMixin", "general.dayCounter.ClientPacketListenerMixin"
   ],
   "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }
