@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity;
 
-import net.minecraft.SharedConstants;
 import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.registry.CauldronInteractionRegister;
 import xyz.faewulf.diversity.util.config.ModConfigs;
@@ -24,7 +23,7 @@ public class CommonClass {
         //for debug/testing
         if (Services.PLATFORM.isDevelopmentEnvironment()) {
             GameTestHelper.register("xyz.faewulf.diversity.util.gameTests.entry");
-            SharedConstants.IS_RUNNING_IN_IDE = true;
+            //SharedConstants.IS_RUNNING_IN_IDE = true;
         }
 
         //load config, moved to util.mixinPlugin.ConditionalMixinPlugin method: onLoad()

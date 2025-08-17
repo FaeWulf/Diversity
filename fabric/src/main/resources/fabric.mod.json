@@ -19,6 +19,9 @@
     "main": [
       "xyz.faewulf.diversity.Diversity"
     ],
+    "client": [
+      "xyz.faewulf.diversity.DiversityClient"
+    ],
     "modmenu": [
       "xyz.faewulf.diversity.config.ModMenuIntegration"
     ]

@@ -4,25 +4,24 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.storage.WritableLevelData;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import java.util.List;
@@ -96,10 +95,19 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
                     playSound = false;
                 }
 
-                player.displayClientMessage(Component.literal(message.substring(0, cut_pos) + "_").withStyle(ChatFormatting.GOLD), true);
+                player.displayClientMessage(
+                        Component
+                                .literal(message.substring(0, cut_pos) + "_")
+                                .withStyle(ChatFormatting.GOLD)
+                                .withStyle(style -> style.withHoverEvent(
+                                        new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(Constants.MOD_ID + "_day-counter"))
+                                ))
+                        ,
+                        true
+                );
 
                 if (playSound)
-                    player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.5f, 1.4f);
+                    player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.1f, 1.4f);
             }
         }
     }
