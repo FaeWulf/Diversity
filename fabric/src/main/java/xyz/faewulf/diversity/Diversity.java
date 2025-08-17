@@ -17,6 +17,7 @@ public class Diversity implements ModInitializer {
         CommonClass.init();
 
         Constants.LOG.info("Init done");
+
     }
 
     private void loadCommand() {
