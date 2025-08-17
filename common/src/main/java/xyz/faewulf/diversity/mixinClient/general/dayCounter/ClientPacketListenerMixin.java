@@ -1,12 +1,6 @@
 package xyz.faewulf.diversity.mixinClient.general.dayCounter;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientCommonPacketListenerImpl;
 import net.minecraft.client.multiplayer.ClientPacketListener;
-import net.minecraft.client.multiplayer.CommonListenerCookie;
-import net.minecraft.network.Connection;
-import net.minecraft.network.TickablePacketListener;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -17,11 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(ClientPacketListener.class)
-public abstract class ClientPacketListenerMixin extends ClientCommonPacketListenerImpl implements ClientGamePacketListener, TickablePacketListener {
-    protected ClientPacketListenerMixin(Minecraft minecraft, Connection connection, CommonListenerCookie commonListenerCookie) {
-        super(minecraft, connection, commonListenerCookie);
-    }
-
+public abstract class ClientPacketListenerMixin {
     @Inject(method = "handleSoundEvent", at = @At("HEAD"), cancellable = true)
     private void handleSoundEventCancelDayCounterSoundInject(ClientboundSoundPacket packet, CallbackInfo ci) {
 

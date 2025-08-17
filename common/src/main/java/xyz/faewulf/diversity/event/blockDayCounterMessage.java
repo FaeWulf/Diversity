@@ -13,9 +13,10 @@ public class blockDayCounterMessage {
         if (message.getStyle().getHoverEvent() != null) {
             HoverEvent hover = message.getStyle().getHoverEvent();
 
-            if (hover.getAction() == HoverEvent.Action.SHOW_TEXT && hover.getValue(HoverEvent.Action.SHOW_TEXT) instanceof Component component) {
+            if (hover.getAction() == HoverEvent.Action.SHOW_TEXT) {
                 // Block day counter message
-                if (component.getString().equals(Constants.MOD_ID + "_day-counter")) {
+                Component component = hover.getValue(HoverEvent.Action.SHOW_TEXT);
+                if (component != null && component.getString().equals(Constants.MOD_ID + "_day-counter")) {
                     return false;
                 }
             }
