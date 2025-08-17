@@ -9,8 +9,8 @@ import xyz.faewulf.diversity.Constants;
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class useClockOnBlock {
     @SubscribeEvent
-    public static void onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static boolean onUseItemOnBlock(PlayerInteractEvent.RightClickBlock event) {
         InteractionResult interactionResult = xyz.faewulf.diversity.event.useClockOnBlock.run(event.getLevel(), event.getEntity(), event.getHand(), event.getHitVec());
-        event.setCancellationResult(interactionResult);
+        return interactionResult.consumesAction();
     }
 }

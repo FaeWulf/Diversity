@@ -9,9 +9,8 @@ import xyz.faewulf.diversity.Constants;
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class invisibleItemFrame {
     @SubscribeEvent
-    public static void onEntityUse(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onEntityUse(PlayerInteractEvent.EntityInteract event) {
         InteractionResult interactionResult = xyz.faewulf.diversity.event.invisibleItemFrame.run(event.getLevel(), event.getEntity(), event.getHand(), event.getTarget(), null);
-
-        event.setCancellationResult(interactionResult);
+        return interactionResult.consumesAction();
     }
 }

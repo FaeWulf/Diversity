@@ -9,8 +9,8 @@ import xyz.faewulf.diversity.Constants;
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID)
 public class changeBundleMode {
     @SubscribeEvent
-    public static void onPlayerLeftClockOnBlock(PlayerInteractEvent.LeftClickBlock event) {
+    public static boolean onPlayerLeftClockOnBlock(PlayerInteractEvent.LeftClickBlock event) {
         InteractionResult interactionResult = xyz.faewulf.diversity.event.changeBundleMode.run(event.getLevel(), event.getEntity(), event.getHand(), event.getPos(), event.getFace());
-        event.setCancellationResult(interactionResult);
+        return interactionResult.consumesAction();
     }
 }
