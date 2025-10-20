@@ -1,5 +1,11 @@
 # Changelog
 
+# [2.5.3] - 2025-8-13
+
+### Added
+
+- Client option to `Block day counter message` client-side only.
+
 ## [2.5.2] - 2025-7-30
 
 ### Fixed
