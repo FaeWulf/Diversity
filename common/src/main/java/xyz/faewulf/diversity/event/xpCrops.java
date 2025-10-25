@@ -15,7 +15,7 @@ public class xpCrops {
         if (!ModConfigs.xp_crops)
             return;
 
-        if (serverLevel.isClientSide)
+        if (serverLevel.isClientSide())
             return;
 
         if (serverLevel instanceof ServerLevel serverWorld) {

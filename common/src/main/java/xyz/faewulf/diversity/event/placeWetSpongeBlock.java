@@ -22,7 +22,7 @@ public class placeWetSpongeBlock {
         if (player == null)
             return;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
 
         Block block = world.getBlockState(blockPos).getBlock();

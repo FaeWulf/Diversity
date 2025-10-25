@@ -30,7 +30,7 @@ public abstract class ItemMixin implements FeatureElement, ItemLike {
         if (!ModConfigs.clock_shows_time)
             return;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
 
         if (this.asItem() == Items.CLOCK) {

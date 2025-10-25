@@ -15,7 +15,7 @@ public class CauldronInteractionRegister {
             return;
 
         CauldronInteraction.WATER.map().put(Items.FILLED_MAP, (blockState, level, blockPos, player, interactionHand, itemStack) -> {
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 ItemStack itemStack1 = new ItemStack(Items.MAP);
 
                 itemStack1.setCount(1);

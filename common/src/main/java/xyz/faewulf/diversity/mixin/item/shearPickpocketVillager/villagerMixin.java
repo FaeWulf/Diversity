@@ -115,7 +115,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void mobInteractInject(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (!ModConfigs.shear_can_pickpocket_villager || this.level().isClientSide)
+        if (!ModConfigs.shear_can_pickpocket_villager || this.level().isClientSide())
             return;
 
         ItemStack itemStack = player.getItemInHand(hand);
@@ -186,7 +186,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
             }
 
             //damage shear
-            player.getItemInHand(hand).hurtAndBreak(1, player, getSlotForHand(hand));
+            player.getItemInHand(hand).hurtAndBreak(1, player, hand.asEquipmentSlot());
 
             //sound effect
             this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.BUNDLE_DROP_CONTENTS, SoundSource.PLAYERS, 1.0f, 1.0f);

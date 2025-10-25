@@ -42,7 +42,7 @@ public class shearDefusesTnt {
 //            level.addFreshEntity(item1);
 
             player.swing(hand, true);
-            player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+            player.getItemInHand(hand).hurtAndBreak(1, player, hand.asEquipmentSlot());
             entity.playSound(SoundEvents.SHEEP_SHEAR, 1.0f, 1.0f);
 
             //game event

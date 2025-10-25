@@ -5,7 +5,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MaceItem;
 import net.minecraft.world.item.context.UseOnContext;
@@ -28,7 +27,7 @@ public abstract class maceRotateBlock extends Item {
         if (!ModConfigs.mace_rotate_block)
             return InteractionResult.PASS;
 
-        if (context.getLevel().isClientSide)
+        if (context.getLevel().isClientSide())
             return InteractionResult.PASS;
 
         if (context.getPlayer() instanceof ServerPlayer serverPlayerEntity) {
@@ -47,7 +46,7 @@ public abstract class maceRotateBlock extends Item {
                 context.getLevel().playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.IRON_TRAPDOOR_CLOSE, SoundSource.PLAYERS, 0.3f, 0.6f);
                 context.getLevel().playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.ITEM_FRAME_ROTATE_ITEM, SoundSource.PLAYERS, 0.7f, 0.6f);
 
-                context.getItemInHand().hurtAndBreak(1, serverPlayerEntity, LivingEntity.getSlotForHand(context.getHand()));
+                context.getItemInHand().hurtAndBreak(1, serverPlayerEntity, context.getHand().asEquipmentSlot());
                 context.getPlayer().swing(context.getHand(), true);
                 return InteractionResult.SUCCESS;
             }

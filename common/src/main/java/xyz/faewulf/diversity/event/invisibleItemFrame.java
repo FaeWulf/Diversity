@@ -30,7 +30,7 @@ public class invisibleItemFrame {
                 && hitResult == null
         ) {
 
-            if (!world.isClientSide) {
+            if (!world.isClientSide()) {
                 //if already invisible
                 ICustomItemFrame frame = (ICustomItemFrame) entity;
 

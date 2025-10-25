@@ -28,7 +28,7 @@ public class placeShulkerBlock {
         if (player == null || itemStack.isEmpty())
             return;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
 
         //ignore if sneaking

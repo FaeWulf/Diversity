@@ -21,7 +21,7 @@ public class changeBundleMode {
         if (!ModConfigs.bundle_place_mode)
             return InteractionResult.PASS;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.PASS;
 
         if (player instanceof ServerPlayer serverPlayer) {

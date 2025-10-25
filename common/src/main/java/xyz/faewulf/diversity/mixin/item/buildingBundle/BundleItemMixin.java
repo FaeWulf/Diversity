@@ -167,7 +167,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         if (!ModConfigs.bundle_place_mode)
             return;
 
-        if (!world.isClientSide && user instanceof ServerPlayer) {
+        if (!world.isClientSide() && user instanceof ServerPlayer) {
             if (diversity_Multiloader$getMode(user.getItemInHand(hand)) != 0) {
                 diversity_Multiloader$syncBundleContents((ServerPlayer) user);
                 cir.setReturnValue(InteractionResult.FAIL);
@@ -184,7 +184,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         Level world = context.getLevel();
         Player player = context.getPlayer();
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.PASS;
 
         ItemStack bundle = context.getItemInHand();
@@ -344,7 +344,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Unique
     private boolean diversity_Multiloader$isRefillable(Level world, ItemStack itemStack) {
-        if (world.isClientSide)
+        if (world.isClientSide())
             return false;
 
         return EnchantHelper.hasEnchantment(world, itemStack, Constants.MOD_ID, "refill");
@@ -373,7 +373,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         CustomData customData = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY);
 
-        if (customData.contains("diversity:mode"))
+        if (customData.copyTag().contains("diversity:mode"))
             return customData.copyTag().getInt("diversity:mode").orElse(0);
         return 0;
     }

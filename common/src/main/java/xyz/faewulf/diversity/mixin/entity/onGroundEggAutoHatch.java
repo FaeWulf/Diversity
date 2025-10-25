@@ -32,7 +32,7 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
         if (!ModConfigs.chicken_egg_despawn_tryhatch)
             return;
 
-        if (this.level().isClientSide)
+        if (this.level().isClientSide())
             return;
 
         if (this.getItem().getItem() == Items.EGG) {

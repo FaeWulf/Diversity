@@ -36,7 +36,7 @@ public abstract class TridentEntityMixin extends AbstractArrow {
         if (!ModConfigs.trident_call_thunder)
             return;
 
-        if (this.level().isClientSide)
+        if (this.level().isClientSide())
             return;
 
         // if not overworld

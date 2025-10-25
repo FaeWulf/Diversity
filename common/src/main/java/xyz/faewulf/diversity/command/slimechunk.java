@@ -42,7 +42,7 @@ public class slimechunk {
 
         Level world = serverPlayerEntity.level();
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return 0;
 
         ChunkPos chunkPos = new ChunkPos(serverPlayerEntity.blockPosition());

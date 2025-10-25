@@ -20,7 +20,7 @@ public class ItemFrame {
         if (!ModConfigs.click_through_itemframe)
             return;
 
-        if (player.level().isClientSide)
+        if (player.level().isClientSide())
             return;
 
         //cast type

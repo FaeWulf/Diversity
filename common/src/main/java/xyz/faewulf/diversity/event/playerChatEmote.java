@@ -21,7 +21,7 @@ public class playerChatEmote {
 
         Level world = sender.level();
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
 
         String content = String.valueOf(message.decoratedContent()).toLowerCase();

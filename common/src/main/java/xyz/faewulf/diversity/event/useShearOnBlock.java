@@ -26,7 +26,7 @@ public class useShearOnBlock {
         if (!ModConfigs.shear_prevent_growing)
             return InteractionResult.PASS;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.PASS;
 
         Item item = player.getItemInHand(hand).getItem();
@@ -49,7 +49,7 @@ public class useShearOnBlock {
                     if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist()) {
                         world.addFreshEntity(display);
                         world.playSound(null, pos, SoundEvents.GROWING_PLANT_CROP, SoundSource.PLAYERS, 1.0F, (1.0F + world.getRandom().nextFloat() * 0.2F) * 0.7F);
-                        player.getItemInHand(hand).hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
+                        player.getItemInHand(hand).hurtAndBreak(1, player, hand.asEquipmentSlot());
                     }
                 }
 

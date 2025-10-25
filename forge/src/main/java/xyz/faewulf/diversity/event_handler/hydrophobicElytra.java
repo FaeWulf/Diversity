@@ -9,7 +9,7 @@ import xyz.faewulf.diversity.Constants;
 public class hydrophobicElytra {
     @SubscribeEvent
     public static void onEntityElytra(TickEvent.PlayerTickEvent.Post event) {
-        if (event.player.isFallFlying())
-            xyz.faewulf.diversity.event.hydrophobicElytra.run(event.player);
+        if (event.player().isFallFlying())
+            xyz.faewulf.diversity.event.hydrophobicElytra.run(event.player());
     }
 }

@@ -43,13 +43,13 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         if (!ModConfigs.brushable_parrot_chicken)
             return;
 
-        if (player.level().isClientSide || diversity_Multiloader$featherCoolDown > 0)
+        if (player.level().isClientSide() || diversity_Multiloader$featherCoolDown > 0)
             return;
 
         if (this.isBaby() || !player.isShiftKeyDown() || player.getItemInHand(InteractionHand.MAIN_HAND).getItem() != Items.BRUSH)
             return;
 
-        player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, getSlotForHand(InteractionHand.MAIN_HAND));
+        player.getItemInHand(InteractionHand.MAIN_HAND).hurtAndBreak(1, player, InteractionHand.MAIN_HAND.asEquipmentSlot());
         this.playSound(SoundEvents.ITEM_FRAME_REMOVE_ITEM, 0.8f, 1.0f);
 
         ItemStack drops = new ItemStack(Items.FEATHER);

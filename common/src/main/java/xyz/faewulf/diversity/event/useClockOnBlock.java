@@ -32,7 +32,7 @@ public class useClockOnBlock {
         if (!ModConfigs.check_villager_schedule)
             return InteractionResult.PASS;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return InteractionResult.PASS;
 
         Item item = player.getItemInHand(hand).getItem();

@@ -41,7 +41,7 @@ public class explodeSniffer {
                 && acceptItems.contains(player.getItemInHand(hand).getItem())
                 && hitResult == null
         ) {
-            if (!world.isClientSide) {
+            if (!world.isClientSide()) {
 
 
                 //if already snort

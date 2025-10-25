@@ -18,7 +18,7 @@ public abstract class ConsumableMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
     private void eatFoodInject(Level level, LivingEntity livingEntity, ItemStack itemStack, CallbackInfoReturnable<ItemStack> cir) {
 
-        if (level.isClientSide)
+        if (level.isClientSide())
             return;
 
         if (!ModConfigs.endstone_is_cheese)

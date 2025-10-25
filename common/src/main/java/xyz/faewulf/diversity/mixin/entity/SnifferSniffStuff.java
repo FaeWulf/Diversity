@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
@@ -45,7 +46,7 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
         if (this.diversity_Multiloader$snortType == null)
             return;
 
-        if (this.level().isClientSide)
+        if (this.level().isClientSide())
             return;
 
         if (diversity_Multiloader$snortTimer >= 30) {
@@ -99,7 +100,8 @@ public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer
                                     Level.ExplosionInteraction.TRIGGER,
                                     ParticleTypes.GUST_EMITTER_SMALL,
                                     ParticleTypes.GUST_EMITTER_LARGE,
-                                    SoundEvents.WIND_CHARGE_BURST
+                                    WeightedList.of(),
+                                    SoundEvents.BREEZE_WIND_CHARGE_BURST
                             );
                         }
                     }

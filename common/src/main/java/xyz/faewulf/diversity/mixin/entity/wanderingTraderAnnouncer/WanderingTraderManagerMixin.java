@@ -21,7 +21,7 @@ public abstract class WanderingTraderManagerMixin implements CustomSpawner {
         if (!ModConfigs.wandering_trader_announcer)
             return;
 
-        if (world.isClientSide)
+        if (world.isClientSide())
             return;
 
         player.displayClientMessage(Component.literal("A wandering trader has arrived!").withStyle(ChatFormatting.BLUE), false);

@@ -19,12 +19,12 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 public class sneakingThroughSweetBerry {
 
     @Inject(method = "entityInside", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;makeStuckInBlock(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/phys/Vec3;)V", shift = At.Shift.AFTER), cancellable = true)
-    private void onEntityCollisionMixin(BlockState state, Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier p_405414_, CallbackInfo ci) {
+    private void onEntityCollisionMixin(BlockState state, Level level, BlockPos blockPos, Entity entity, InsideBlockEffectApplier insideBlockEffectApplier, boolean p_451767_, CallbackInfo ci) {
 
         if (!ModConfigs.softer_sweetBery)
             return;
 
-        if (!level.isClientSide && entity instanceof ServerPlayer serverPlayerEntity) {
+        if (!level.isClientSide() && entity instanceof ServerPlayer serverPlayerEntity) {
             if (serverPlayerEntity.isShiftKeyDown()) {
                 ci.cancel();
                 return;

@@ -50,7 +50,7 @@ public class emote {
 
         ServerPlayer player = context.getSource().getPlayerOrException();
         Level world = player.level();
-        if (world.isClientSide)
+        if (world.isClientSide())
             return 0;
         world.playSound(null, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);
         return 0;

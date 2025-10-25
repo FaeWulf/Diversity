@@ -23,7 +23,7 @@ public class InvisibleItemFrameIndicator {
 
         if (_this.getType() == EntityType.ITEM_FRAME || _this.getType() == EntityType.GLOW_ITEM_FRAME) {
 
-            if (_this.level().isClientSide)
+            if (_this.level().isClientSide())
                 return;
 
             //if does't have the require tag

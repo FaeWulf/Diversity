@@ -102,7 +102,7 @@ public abstract class TextDisplayMixin extends Entity implements PseudoBlockEnti
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickInject(CallbackInfo ci) {
 
-        if (this.diversity_type == null || this.level().isClientSide)
+        if (this.diversity_type == null || this.level().isClientSide())
             return;
 
         //for tick every 1sec

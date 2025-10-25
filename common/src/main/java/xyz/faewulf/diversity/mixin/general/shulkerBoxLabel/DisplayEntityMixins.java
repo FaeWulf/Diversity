@@ -29,7 +29,7 @@ public class DisplayEntityMixins implements ICustomDisplayEntity {
                 BlockPos blockPos = textDisplayEntity.blockPosition();
                 Level world = textDisplayEntity.level();
 
-                if (world.isClientSide)
+                if (world.isClientSide())
                     return;
 
                 BlockEntity blockEntity = world.getBlockEntity(blockPos);

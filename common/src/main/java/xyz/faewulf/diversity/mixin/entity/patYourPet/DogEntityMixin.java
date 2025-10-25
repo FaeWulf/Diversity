@@ -34,7 +34,7 @@ public abstract class DogEntityMixin {
 
         TamableAnimal tameableEntity = (TamableAnimal) (Object) this;
 
-        if (player.level().isClientSide)
+        if (player.level().isClientSide())
             return;
 
         //not tamed
