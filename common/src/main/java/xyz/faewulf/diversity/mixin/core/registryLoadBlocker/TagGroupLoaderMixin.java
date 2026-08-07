@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.mixin.core.registryLoadBlocker;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagLoader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,9 +20,9 @@ import java.util.Map;
 public class TagGroupLoaderMixin {
 
     @Inject(method = "build(Ljava/util/Map;)Ljava/util/Map;", at = @At(value = "INVOKE", target = "Ljava/util/Map;forEach(Ljava/util/function/BiConsumer;)V"))
-    private <T> void buildGroupMixin(Map<ResourceLocation, List<TagLoader.EntryWithSource>> tags, CallbackInfoReturnable<Map<ResourceLocation, Collection<T>>> cir) {
+    private <T> void buildGroupMixin(Map<Identifier, List<TagLoader.EntryWithSource>> tags, CallbackInfoReturnable<Map<Identifier, Collection<T>>> cir) {
         // In minecraft:non_treasure enchantment tag
-        List<TagLoader.EntryWithSource> entryList = tags.get(ResourceLocation.fromNamespaceAndPath("minecraft", "non_treasure"));
+        List<TagLoader.EntryWithSource> entryList = tags.get(Identifier.fromNamespaceAndPath("minecraft", "non_treasure"));
         if (entryList != null) {
             List<TagLoader.EntryWithSource> tempList = entryList.stream().toList();
             for (TagLoader.EntryWithSource trackedEntry : tempList) {
@@ -39,7 +39,7 @@ public class TagGroupLoaderMixin {
         }
 
         // In minecraft:treasure enchantment tag
-        List<TagLoader.EntryWithSource> entryList2 = tags.get(ResourceLocation.fromNamespaceAndPath("minecraft", "treasure"));
+        List<TagLoader.EntryWithSource> entryList2 = tags.get(Identifier.fromNamespaceAndPath("minecraft", "treasure"));
         if (entryList2 != null) {
             List<TagLoader.EntryWithSource> tempList = entryList2.stream().toList();
             for (TagLoader.EntryWithSource trackedEntry : tempList) {
@@ -56,7 +56,7 @@ public class TagGroupLoaderMixin {
         }
 
         // In diversity:leatherworker enchantment tag
-        List<TagLoader.EntryWithSource> entryList3 = tags.get(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "leatherworker"));
+        List<TagLoader.EntryWithSource> entryList3 = tags.get(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "leatherworker"));
         if (entryList3 != null) {
             List<TagLoader.EntryWithSource> tempList = entryList3.stream().toList();
             for (TagLoader.EntryWithSource trackedEntry : tempList) {
@@ -70,7 +70,7 @@ public class TagGroupLoaderMixin {
 
         // In diversity:bundles enchantment tag
         // Remove metal bundle item tag if metal bundle mod not loaded
-        List<TagLoader.EntryWithSource> entryList4 = tags.get(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "bundles"));
+        List<TagLoader.EntryWithSource> entryList4 = tags.get(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "bundles"));
         if (entryList4 != null) {
             List<TagLoader.EntryWithSource> tempList = entryList4.stream().toList();
             for (TagLoader.EntryWithSource trackedEntry : tempList) {

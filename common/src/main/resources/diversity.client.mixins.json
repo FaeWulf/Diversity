@@ -2,14 +2,14 @@
   "required": true,
   "package": "xyz.faewulf.diversity.mixinClient",
   "compatibilityLevel": "JAVA_18",
-  "refmap": "${mod_id}.refmap.json",
   "mixins": [
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "AnvilMixin", "general.dayCounter.ClientPacketListenerMixin"
+    "AnvilMixin",
+    "general.dayCounter.ClientPacketListenerMixin"
   ],
   "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }

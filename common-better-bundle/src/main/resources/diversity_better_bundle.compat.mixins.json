@@ -2,9 +2,9 @@
   "required": true,
   "package": "xyz.faewulf.diversity_better_bundle.compat",
   "compatibilityLevel": "JAVA_18",
-  "refmap": "${mod_id}.refmap.json",
   "mixins": [
-    "EasyShulkerBoxes.BundleProviderMixin", "MetalBundles.MetalBundleItemInvoker"
+    "EasyShulkerBoxes.BundleProviderMixin",
+    "MetalBundles.MetalBundleItemInvoker"
   ],
   "injectors": {
     "defaultRequire": 1

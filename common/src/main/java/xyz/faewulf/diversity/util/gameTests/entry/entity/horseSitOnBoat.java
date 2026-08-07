@@ -1,25 +1,23 @@
 package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
- 
+
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.camel.Camel;
-import net.minecraft.world.entity.animal.horse.Donkey;
-import net.minecraft.world.entity.animal.horse.Horse;
-import net.minecraft.world.entity.animal.horse.Mule;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.entity.vehicle.Raft;
+import net.minecraft.world.entity.animal.equine.Donkey;
+import net.minecraft.world.entity.animal.equine.Horse;
+import net.minecraft.world.entity.animal.equine.Mule;
+import net.minecraft.world.entity.vehicle.boat.Boat;
+import net.minecraft.world.entity.vehicle.boat.Raft;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 @TestGroup
 public class horseSitOnBoat {
 
-     
+
     public void test1(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
@@ -40,7 +38,7 @@ public class horseSitOnBoat {
                 }).thenSucceed();
     }
 
-     
+
     public void test2(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)

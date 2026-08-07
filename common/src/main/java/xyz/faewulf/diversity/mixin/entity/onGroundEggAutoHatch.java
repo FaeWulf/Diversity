@@ -1,12 +1,16 @@
 package xyz.faewulf.diversity.mixin.entity;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.animal.chicken.Chicken;
+import net.minecraft.world.entity.animal.chicken.ChickenVariant;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.EitherHolder;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,8 +18,11 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Mixin(ItemEntity.class)
 public abstract class onGroundEggAutoHatch extends Entity implements TraceableEntity {
@@ -35,7 +42,8 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
         if (this.level().isClientSide())
             return;
 
-        if (this.getItem().getItem() == Items.EGG) {
+        // If Item is Eggs (normal, blue, brown variant)
+        if (Compare.isHasTag(this.getItem().getItem(), String.valueOf(ItemTags.EGGS.location()))) {
 
             BlockState blockState = this.level().getBlockState(this.blockPosition().below());
 
@@ -60,6 +68,14 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
                         if (chickenEntity != null) {
                             chickenEntity.setAge(-24000);
                             chickenEntity.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+
+                            //Apply variant to chicken
+                            Optional var10000 = Optional.ofNullable((EitherHolder) this.getItem().get(DataComponents.CHICKEN_VARIANT)).flatMap((eitherHolder) -> eitherHolder.unwrap(this.registryAccess()));
+                            Objects.requireNonNull(chickenEntity);
+
+                            if (var10000.isPresent())
+                                chickenEntity.setVariant((Holder<ChickenVariant>) var10000.get());
+
                             if (!chickenEntity.fudgePositionAfterSizeChange(EMPTY_DIMENSIONS)) {
                                 break;
                             }

@@ -5,8 +5,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Shearable;
-import net.minecraft.world.entity.animal.AbstractGolem;
-import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.animal.golem.AbstractGolem;
+import net.minecraft.world.entity.animal.golem.SnowGolem;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -22,12 +22,12 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(SnowGolem.class)
 public abstract class SnowGolemMixin extends AbstractGolem implements Shearable, RangedAttackMob {
+    @Unique
+    private int diversity$coolDown = 0;
+
     protected SnowGolemMixin(EntityType<? extends AbstractGolem> entityType, Level level) {
         super(entityType, level);
     }
-
-    @Unique
-    private int diversity$coolDown = 0;
 
     @Inject(method = "aiStep", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;defaultBlockState()Lnet/minecraft/world/level/block/state/BlockState;"))
     private void aiStepInject(CallbackInfo ci) {

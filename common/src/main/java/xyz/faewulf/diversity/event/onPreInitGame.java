@@ -3,7 +3,7 @@ package xyz.faewulf.diversity.event;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
@@ -46,7 +46,7 @@ public class onPreInitGame {
 
                             Registry.register(
                                     BuiltInRegistries.TEST_FUNCTION,
-                                    ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, testName),
+                                    Identifier.fromNamespaceAndPath(Constants.MOD_ID, testName),
                                     (GameTestHelper helper) -> {
                                         try {
                                             method.invoke(aClass.getDeclaredConstructor().newInstance(), helper);

@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.mixin.core.recipeLoadBlocker;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
@@ -24,10 +24,10 @@ public abstract class RecipeManagerMixin extends SimplePreparableReloadListener<
     @Inject(
             method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Lnet/minecraft/world/item/crafting/RecipeMap;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/server/packs/resources/SimpleJsonResourceReloadListener;scanDirectory(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/resources/FileToIdConverter;Lcom/mojang/serialization/DynamicOps;Lcom/mojang/serialization/Codec;Ljava/util/Map;)V", shift = At.Shift.AFTER))
-    private void prepareInject(ResourceManager p_379845_, ProfilerFiller p_380058_, CallbackInfoReturnable<RecipeMap> cir, @Local SortedMap<ResourceLocation, Recipe<?>> sortedmap) {
+    private void prepareInject(ResourceManager p_379845_, ProfilerFiller p_380058_, CallbackInfoReturnable<RecipeMap> cir, @Local SortedMap<Identifier, Recipe<?>> sortedmap) {
         if (!ModConfigs.sus_sand_recipe) {
-            sortedmap.remove(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "suspicious_gravel"));
-            sortedmap.remove(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "suspicious_sand"));
+            sortedmap.remove(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "suspicious_gravel"));
+            sortedmap.remove(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "suspicious_sand"));
         }
     }
 }

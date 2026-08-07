@@ -42,7 +42,7 @@ public class emote {
     static private int play(CommandContext<CommandSourceStack> context, SoundEvent soundEvent) throws CommandSyntaxException {
 
         if (ModConfigs.permission_enable) {
-            if (!context.getSource().hasPermission(1)) {
+            if (!Commands.LEVEL_MODERATORS.check(context.getSource().permissions())) {
                 context.getSource().sendSuccess(() -> Component.literal("You don't have permission to use this command"), false);
                 return 0;
             }

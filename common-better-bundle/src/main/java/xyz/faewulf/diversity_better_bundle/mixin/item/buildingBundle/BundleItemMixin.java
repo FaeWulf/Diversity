@@ -6,7 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundContainerSetContentPacket;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -90,7 +90,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         AtomicInteger level = new AtomicInteger(0);
         t.keySet().forEach(enchantmentRegistryEntry -> {
             ItemEnchantments itemEnchantmentsComponent = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
-            if (enchantmentRegistryEntry.is(ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
+            if (enchantmentRegistryEntry.is(Identifier.fromNamespaceAndPath(Constants.MOD_ID, "capacity"))) {
                 level.set(itemEnchantmentsComponent.getLevel(enchantmentRegistryEntry));
             }
         });

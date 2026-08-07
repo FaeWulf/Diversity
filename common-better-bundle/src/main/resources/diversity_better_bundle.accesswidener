@@ -1,3 +1,4 @@
 accessWidener v2 named
 accessible method net/minecraft/world/item/component/BundleContents <init> (Ljava/util/List;Lorg/apache/commons/lang3/math/Fraction;I)V
-accessible class net/minecraft/world/entity/npc/VillagerTrades$EnchantBookForEmeralds
+accessible class net/minecraft/world/entity/npc/villager/VillagerTrades$EnchantBookForEmeralds
+

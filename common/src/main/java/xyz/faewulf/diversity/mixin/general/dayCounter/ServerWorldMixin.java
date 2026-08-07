@@ -3,8 +3,10 @@ package xyz.faewulf.diversity.mixin.general.dayCounter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -107,7 +109,8 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
                 );
 
                 if (playSound)
-                    player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.1f, 1.4f);
+                    //player.playNotifySound(SoundEvents.NOTE_BLOCK_HAT.value(), SoundSource.PLAYERS, 0.1f, 1.4f);
+                    player.connection.send(new ClientboundSoundPacket(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(SoundEvents.NOTE_BLOCK_HAT.value()), SoundSource.PLAYERS, player.getX(), player.getY(), player.getZ(), 0.1f, 1.4f, this.random.nextLong()));
             }
         }
     }

@@ -1,6 +1,6 @@
 package xyz.faewulf.diversity.mixin.entity.rabbitAutoBreedWithCarotPlant;
 
-import net.minecraft.world.entity.animal.Rabbit;
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -11,7 +11,7 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import static net.minecraft.world.entity.AgeableMob.getSpeedUpSecondsWhenFeeding;
 
-@Mixin(targets = "net.minecraft.world.entity.animal.Rabbit.RaidGardenGoal")
+@Mixin(targets = "net.minecraft.world.entity.animal.rabbit.Rabbit.RaidGardenGoal")
 public class EatCarrotCropGoalMixin {
 
     @Shadow

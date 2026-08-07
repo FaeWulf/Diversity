@@ -1,8 +1,8 @@
 package xyz.faewulf.diversity.mixin.general.bundleEnchantments;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.registry.CustomEnchantmentTags;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
-import static net.minecraft.world.entity.npc.VillagerTrades.TRADES;
+import static net.minecraft.world.entity.npc.villager.VillagerTrades.TRADES;
 
 @Mixin(VillagerTrades.class)
 public class VillagerTradesMixin {

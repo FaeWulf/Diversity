@@ -12,7 +12,7 @@ plugins {
 def additionalVariants = ["better-bundle"] // Add more as needed
 
 // Define base projects
-def baseProjects = ["fabric", "neoforge", "forge"]
+def baseProjects = ["fabric", "neoforge"]
 
 // Generate all project names dynamically
 def allProjects = baseProjects + additionalVariants.collectMany { variant ->

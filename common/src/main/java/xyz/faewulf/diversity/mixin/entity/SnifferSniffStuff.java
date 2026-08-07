@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xyz.faewulf.diversity.inter.ICustomSniffer;
 import xyz.faewulf.diversity.inter.typeSnort;
 
-import static net.minecraft.world.entity.projectile.windcharge.AbstractWindCharge.EXPLOSION_DAMAGE_CALCULATOR;
+import static net.minecraft.world.entity.projectile.hurtingprojectile.windcharge.AbstractWindCharge.EXPLOSION_DAMAGE_CALCULATOR;
 
 @Mixin(Sniffer.class)
 public abstract class SnifferSniffStuff extends Animal implements ICustomSniffer {

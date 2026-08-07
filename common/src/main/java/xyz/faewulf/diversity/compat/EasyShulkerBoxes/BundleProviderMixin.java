@@ -22,8 +22,10 @@ import xyz.faewulf.lib.util.mixinPlugin.ConditionalMixin;
 @Mixin(targets = "fuzs.iteminteractions.api.v1.provider.impl.BundleProvider")
 public class BundleProviderMixin {
 
-    @ModifyExpressionValue(method = "createTooltipImageComponent", at = @At(value = "INVOKE", target = "Lfuzs/iteminteractions/api/v1/provider/impl/BundleProvider;getCapacityMultiplier(Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;"))
-    private Fraction modifyGetCapacityFraction(Fraction original, @Local(argsOnly = true) ItemStack containerStack, @Local(argsOnly = true) Player player) {
+    @ModifyExpressionValue(method = "createTooltipImageComponent", at = @At(value = "INVOKE",
+            target = "Lfuzs/iteminteractions/api/v1/provider/impl/BundleProvider;getCapacityMultiplier(Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;"
+    ), require = 0)
+    private Fraction modifyGetCapacityFraction(Fraction original, ItemStack containerStack, Player player) {
 
         if (!ModConfigs.easy_shulker_box_compat)
             return original;
@@ -41,7 +43,7 @@ public class BundleProviderMixin {
         return candidate.compareTo(original) > 0 ? candidate : original;
     }
 
-    @ModifyExpressionValue(method = "getMaxAmountToAdd", at = @At(value = "INVOKE", target = "Lfuzs/iteminteractions/api/v1/provider/impl/BundleProvider;getCapacityMultiplier(Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;"))
+    @ModifyExpressionValue(method = "getMaxAmountToAdd", at = @At(value = "INVOKE", target = "Lfuzs/iteminteractions/api/v1/provider/impl/BundleProvider;getCapacityMultiplier(Lnet/minecraft/world/item/ItemStack;)Lorg/apache/commons/lang3/math/Fraction;"), require = 0)
     private Fraction modifyGetCapacityFraction2(Fraction original, @Local(argsOnly = true, ordinal = 0) ItemStack containerStack, @Local(argsOnly = true) Player player) {
 
         if (!ModConfigs.easy_shulker_box_compat)

@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.registry.CustomEnchantment;
+import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(value = RegistryDataLoader.class, priority = 1)
 public abstract class RegistryLoaderMixin {
@@ -22,11 +22,11 @@ public abstract class RegistryLoaderMixin {
     private static <E> void parseAndAddInject(WritableRegistry<E> registry, Decoder<E> decoder, RegistryOps<JsonElement> ops, ResourceKey<E> key, Resource resource, RegistrationInfo entryInfo, CallbackInfo ci) {
         if (key.registry().toString().equals("minecraft:enchantment")) {
             if (!ModConfigs.more_enchantment)
-                if (CustomEnchantment.small_protection.contains(key.location().toString()))
+                if (CustomEnchantment.small_protection.contains(key.identifier().toString()))
                     ci.cancel();
 
             if (!ModConfigs.bundle_enchantment)
-                if (CustomEnchantment.bundle_enchantments.contains(key.location().toString()))
+                if (CustomEnchantment.bundle_enchantments.contains(key.identifier().toString()))
                     ci.cancel();
 
         }

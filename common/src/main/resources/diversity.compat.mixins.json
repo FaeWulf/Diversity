@@ -2,8 +2,10 @@
   "required": true,
   "package": "xyz.faewulf.diversity.compat",
   "compatibilityLevel": "JAVA_18",
-  "refmap": "${mod_id}.refmap.json",
-  "mixins": ["EasyShulkerBoxes.BundleProviderMixin", "MetalBundles.MetalBundleItemInvoker"],
+  "mixins": [
+    "EasyShulkerBoxes.BundleProviderMixin",
+    "MetalBundles.MetalBundleItemInvoker"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
