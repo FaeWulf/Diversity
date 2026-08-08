@@ -1,0 +1,59 @@
+package xyz.faewulf.diversity.command;
+
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.animal.feline.CatSoundVariants;
+import net.minecraft.world.entity.animal.wolf.WolfSoundVariants;
+import net.minecraft.world.level.Level;
+import xyz.faewulf.diversity.util.config.ModConfigs;
+
+public class emote {
+    static public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
+
+        if (!ModConfigs.emote)
+            return;
+
+        dispatcher.register(
+                Commands.literal("emote")
+                        .requires(CommandSourceStack::isPlayer)
+                        .then(Commands.literal("meow")
+                        .executes(context -> emote.play(context, SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.CLASSIC).adultSounds().ambientSound().value()))
+                        )
+                        .then(Commands.literal("purr")
+                                .executes(context -> emote.play(context, SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.CLASSIC).adultSounds().purrSound().value()))
+                        )
+                        .then(Commands.literal("purreow")
+                                .executes(context -> emote.play(context, SoundEvents.CAT_SOUNDS.get(CatSoundVariants.SoundSet.CLASSIC).adultSounds().purreowSound().value()))
+                        )
+                        .then(Commands.literal("woof")
+                                .executes(context -> emote.play(context, SoundEvents.WOLF_SOUNDS.get(WolfSoundVariants.SoundSet.CLASSIC).adultSounds().ambientSound().value()))
+                        )
+        );
+
+    }
+
+    static private int play(CommandContext<CommandSourceStack> context, SoundEvent soundEvent) throws CommandSyntaxException {
+
+        if (ModConfigs.permission_enable) {
+            if (!Commands.LEVEL_MODERATORS.check(context.getSource().permissions())) {
+                context.getSource().sendSuccess(() -> Component.literal("You don't have permission to use this command"), false);
+                return 0;
+            }
+        }
+
+        ServerPlayer player = context.getSource().getPlayerOrException();
+        Level world = player.level();
+        if (world.isClientSide())
+            return 0;
+        world.playSound(null, player.blockPosition(), soundEvent, SoundSource.PLAYERS, 1.0f, 1.0f);
+        return 0;
+    }
+}

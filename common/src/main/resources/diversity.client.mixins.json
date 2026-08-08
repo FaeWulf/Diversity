@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "xyz.faewulf.diversity.mixinClient",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "AnvilMixin",
+    "general.dayCounter.ClientPacketListenerMixin"
+  ],
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
+}

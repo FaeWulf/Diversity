@@ -1,0 +1,57 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.diversity.backup_projectile_protection",
+    "fallback": "Backup Projectile Protection"
+  },
+  "effects": {
+    "minecraft:damage_protection": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 0.5,
+            "per_level_above_first": 0.5
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:damage_source_properties",
+          "predicate": {
+            "tags": [
+              {
+                "expected": true,
+                "id": "minecraft:is_projectile"
+              },
+              {
+                "expected": false,
+                "id": "minecraft:bypasses_invulnerability"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": [
+    "diversity:backup_protection",
+    "diversity:backup_blast_protection",
+    "diversity:backup_fire_protection",
+    "diversity:backup_projectile_protection",
+    "minecraft:projectile_protection"
+  ],
+  "max_cost": {
+    "base": 9,
+    "per_level_above_first": 6
+  },
+  "max_level": 4,
+  "min_cost": {
+    "base": 3,
+    "per_level_above_first": 6
+  },
+  "slots": [
+    "armor"
+  ],
+  "supported_items": "#minecraft:enchantable/armor",
+  "weight": 3
+}

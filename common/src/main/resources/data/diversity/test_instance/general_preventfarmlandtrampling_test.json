@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:function",
+  "environment": "minecraft:default",
+  "function": "diversity:general_preventfarmlandtrampling_test",
+  "structure": "diversity:default",
+  "max_ticks": 400,
+  "setup_ticks": 0,
+  "required": true,
+  "max_attempts": 3,
+  "required_successes": 1,
+  "sky_access": true
+}

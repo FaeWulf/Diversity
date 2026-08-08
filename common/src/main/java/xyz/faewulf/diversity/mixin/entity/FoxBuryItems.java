@@ -1,0 +1,63 @@
+package xyz.faewulf.diversity.mixin.entity;
+
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.fox.Fox;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.feature.entity.fox.BuryItemGoal;
+import xyz.faewulf.diversity.inter.entity.ICustomFoxEntity;
+import xyz.faewulf.diversity.util.config.ModConfigs;
+
+@Mixin(Fox.class)
+public abstract class FoxBuryItems extends Animal implements ICustomFoxEntity {
+
+    @Unique
+    private int diversity_Multiloader$BuryCoolDown = 0;
+
+    protected FoxBuryItems(EntityType<? extends Animal> entityType, Level world) {
+        super(entityType, world);
+    }
+
+    @Inject(method = "registerGoals", at = @At("TAIL"))
+    private void inJectInitGoal(CallbackInfo ci) {
+
+        if (!ModConfigs.fox_bury_items)
+            return;
+
+        this.goalSelector.addGoal(10, new BuryItemGoal((Fox) (Object) this, 0.9F, 16, 2));
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void injectTick(CallbackInfo ci) {
+        if (diversity_Multiloader$BuryCoolDown > 0) {
+            diversity_Multiloader$BuryCoolDown--;
+        }
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
+        valueOutput.putInt("diversity:buryCooldown", this.diversity_Multiloader$BuryCoolDown);
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
+        this.diversity_Multiloader$BuryCoolDown = valueInput.getInt("diversity:buryCooldown").orElse(0);
+    }
+
+    @Override
+    public int diversity_Multiloader$getBuryCoolDown() {
+        return diversity_Multiloader$BuryCoolDown;
+    }
+
+    @Override
+    public void diversity_Multiloader$setBuryCoolDown(int value) {
+        this.diversity_Multiloader$BuryCoolDown = value;
+    }
+}

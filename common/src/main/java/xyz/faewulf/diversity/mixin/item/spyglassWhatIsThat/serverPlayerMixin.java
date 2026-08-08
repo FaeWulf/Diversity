@@ -1,0 +1,105 @@
+package xyz.faewulf.diversity.mixin.item.spyglassWhatIsThat;
+
+import com.mojang.authlib.GameProfile;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.*;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.diversity.util.hitResult2Infomations;
+
+@Mixin(ServerPlayer.class)
+public abstract class serverPlayerMixin extends Player {
+    @Shadow
+    public abstract void sendSystemMessage(Component message, boolean overlay);
+
+    @Unique
+    private int diversity_Multiloader$spyGlassHUDcooldown = 0;
+
+    public serverPlayerMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tickInject(CallbackInfo ci) {
+
+        if (ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.DISABLE)
+            return;
+
+        Item handItem = this.getMainHandItem().getItem();
+        Item offHandItem = this.getOffhandItem().getItem();
+
+        if (handItem == Items.SPYGLASS || offHandItem == Items.SPYGLASS) {
+            if (diversity_Multiloader$spyGlassHUDcooldown != 20) {
+                diversity_Multiloader$spyGlassHUDcooldown++;
+                return;
+            }
+            diversity_Multiloader$spyGlassHUDcooldown = 0;
+
+            int distance = this.isScoping() ? ModConfigs.spyglass_what_is_that_zoom_distance : ModConfigs.spyglass_what_is_that_normal_distance;
+
+            HitResult hit = this.pick(distance, 0, false);
+
+            //raycast for entity
+            if (ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.ALL
+                    || ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.ENTITY_ONLY
+            ) {
+                Vec3 min = this.getEyePosition(0);
+                double sqrdDist = distance * distance;
+
+                if (hit != null) {
+                    sqrdDist = hit.getLocation().distanceToSqr(this.getEyePosition());
+                }
+
+                Vec3 vec3d2 = this.getViewVector(1.0F);
+                Vec3 max = min.add(vec3d2.x * distance, vec3d2.y * distance, vec3d2.z * distance);
+
+                AABB box = this.getBoundingBox().expandTowards(vec3d2.scale(distance)).inflate(1.0D, 1.0D, 1.0D);
+                EntityHitResult hitResult = ProjectileUtil.getEntityHitResult(this, min, max, box, this::isTargetable_diversity, sqrdDist);
+
+                if (hitResult != null)
+                    hit = hitResult;
+            }
+
+            if (hit == null)
+                return;
+
+            //raycast result entity
+            if (hit.getType() == HitResult.Type.ENTITY
+                    && ((
+                    ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.ALL
+                            || ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.ENTITY_ONLY
+            ))
+            ) {
+                EntityHitResult entityHitResult = (EntityHitResult) hit;
+                this.sendSystemMessage(hitResult2Infomations.parseLivingEntity(this.level(), this, entityHitResult.getEntity()), true);
+            }
+            //raycast block
+            else if (hit.getType() == HitResult.Type.BLOCK
+                    && ((
+                    ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.ALL
+                            || ModConfigs.spyglass_what_is_that == ModConfigs.inspectType.BLOCK_ONLY
+            ))
+            ) {
+                BlockHitResult blockHit = (BlockHitResult) hit;
+                this.sendSystemMessage(hitResult2Infomations.parseBlockState(this.level(), this, blockHit.getBlockPos()), true);
+            }
+        }
+    }
+
+    @Unique
+    private boolean isTargetable_diversity(Entity entity) {
+        return !entity.isSpectator() && entity.isPickable() && !entity.isInvisibleTo(this);
+    }
+}

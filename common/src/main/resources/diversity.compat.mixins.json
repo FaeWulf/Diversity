@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "xyz.faewulf.diversity.compat",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "EasyShulkerBoxes.BundleProviderMixin",
+    "MetalBundles.MetalBundleItemInvoker"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
+}

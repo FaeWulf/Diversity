@@ -1,0 +1,51 @@
+{
+    "schemaVersion": 1,
+    "id": "${mod_id}",
+    "version": "${version}",
+    "name": "${mod_name}",
+    "description": "${description}",
+    "authors": [
+        "${mod_author}"
+    ],
+    "contact": {
+        "homepage": "https://faewulf.xyz",
+        "sources": "https://github.com/FaeWulf/Diversity",
+        "issues": "https://github.com/FaeWulf/Diversity/issues"
+    },
+    "license": "${license}",
+    "icon": "${mod_id}.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "xyz.faewulf.diversity.Diversity"
+        ],
+        "client": [
+            "xyz.faewulf.diversity.DiversityClient"
+        ],
+        "modmenu": [
+            "xyz.faewulf.diversity.config.ModMenuIntegration"
+        ]
+    },
+    "custom": {
+        "modmenu": {
+            "links": {
+                "modmenu.discord": "https://faewulf.xyz/discord"
+            },
+            "update_checker": true
+        }
+    },
+    "mixins": [
+        "${mod_id}.compat.mixins.json",
+        "${mod_id}.client.mixins.json",
+        "${mod_id}.mixins.json",
+        "${mod_id}.fabric.mixins.json"
+    ],
+    "accessWidener": "${mod_id}.classtweaker",
+    "depends": {
+        "fabricloader": ">=${fabric_loader_version}",
+        "fabric-api": "*",
+        "faewulf_lib": ">=${faewulfs_lib_version}",
+        "minecraft": ">=${minecraft_version} <=${minecraft_version_max}",
+        "java": ">=${java_version}"
+    }
+}
