@@ -10,7 +10,7 @@ import xyz.faewulf.lib.util.mixinPlugin.ConditionalMixin;
 @ConditionalMixin(configClass = ModConfigs.class, fieldName = "no_level_limit_anvil")
 @Mixin(value = AnvilScreen.class)
 public abstract class AnvilMixin {
-    @ModifyExpressionValue(method = "renderLabels", at = @At(value = "CONSTANT", args = "intValue=40", ordinal = 0))
+    @ModifyExpressionValue(method = "extractLabels", at = @At(value = "CONSTANT", args = "intValue=40", ordinal = 0))
     private int modifyLevelLimit(int original) {
         if (ModConfigs.no_level_limit_anvil)
             return Integer.MAX_VALUE;

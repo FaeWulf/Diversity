@@ -42,6 +42,9 @@ public class ModConfigs {
     @Entry(category = "general", name = "Message tick speed", group = "Day counter", require_restart = true, info = "Change the delay between each letter when printing the message. Smaller value, faster the message.")
     public static int day_counter_speed = 3;
 
+    @Entry(category = "general", name = "Message respond", group = "Day counter", require_restart = true, info = "Message display, %s will be replace with day number.", hidden = true)
+    public static String day_counter_message_holder = "Day #%s has arrived!";
+
     @Entry(category = "general", name = "Deepslate generator")
     public static boolean deepslate_generator = true;
 

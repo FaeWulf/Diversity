@@ -35,14 +35,16 @@ public class explodeSniffer {
         if (!ModConfigs.explosive_sniffer)
             return InteractionResult.PASS;
 
+
         //if not mainhand
         if ((entity.getType() == EntityType.SNIFFER)
                 && hand == InteractionHand.MAIN_HAND
                 && acceptItems.contains(player.getItemInHand(hand).getItem())
-                && hitResult == null
+                //&& hitResult == null
         ) {
             if (!world.isClientSide()) {
 
+                System.out.println("hitreult: " + hitResult);
 
                 //if already snort
                 if (((ICustomSniffer) entity).diversity_Multiloader$getSnortType() != null)

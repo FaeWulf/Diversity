@@ -13,22 +13,5 @@ public class CauldronInteractionRegister {
 
         if (!ModConfigs.cauldron_washing_map)
             return;
-
-        CauldronInteraction.WATER.map().put(Items.FILLED_MAP, (blockState, level, blockPos, player, interactionHand, itemStack) -> {
-            if (!level.isClientSide()) {
-                ItemStack itemStack1 = new ItemStack(Items.MAP);
-
-                itemStack1.setCount(1);
-
-                itemStack.consume(1, player);
-
-                player.addItem(itemStack1);
-                player.awardStat(Stats.USE_CAULDRON);
-
-                LayeredCauldronBlock.lowerFillLevel(blockState, level, blockPos);
-            }
-
-            return InteractionResult.SUCCESS;
-        });
     }
 }

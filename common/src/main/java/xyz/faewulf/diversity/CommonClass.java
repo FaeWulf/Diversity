@@ -16,10 +16,8 @@ public class CommonClass {
 //            Constants.LOG.info("Hello to examplemod");
 //        }
 
+
         CauldronInteractionRegister.register();
-
-        ConfigHelper.register(xyz.faewulf.diversity.Constants.MOD_ID, ModConfigs.class);
-
 
         //for debug/testing
         if (Services.PLATFORM.isDevelopmentEnvironment()) {

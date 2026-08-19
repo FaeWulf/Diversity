@@ -15,8 +15,11 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.ServerLevelData;
 import net.minecraft.world.level.storage.WritableLevelData;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -47,11 +50,26 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
     @Shadow
     public abstract @NotNull List<ServerPlayer> players();
 
+    @Shadow
+    @Final
+    private boolean tickTime;
+
+    @Shadow
+    @Final
+    private ServerLevelData serverLevelData;
+
+    @Shadow
+    public abstract GameRules getGameRules();
+
     @Inject(method = "tickTime", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/ServerLevelData;setGameTime(J)V"))
     private void tickTimeInject(CallbackInfo ci) {
 
-        if (ModConfigs.day_counter <= 0)
+        if (ModConfigs.day_counter <= 0 || !this.tickTime)
             return;
+
+        if (!this.getGameRules().get(GameRules.ADVANCE_TIME)) {
+            return;
+        }
 
         if (this.dimensionType().hasSkyLight() && this.getOverworldClockTime() % ModConfigs.day_counter_tick_per_day == 0) {
 
@@ -60,8 +78,9 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
                 return;
 
             diversity_Multiloader$beginAnnounce = true;
-            begin_time = this.getOverworldClockTime();
-            String message = "Day #" + (this.getOverworldClockTime() / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
+            begin_time = this.getGameTime();
+            //String message = "Day #" + (this.getOverworldClockTime() / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
+            String message = ModConfigs.day_counter_message_holder.replaceAll("%s", String.valueOf((this.getOverworldClockTime() / ModConfigs.day_counter_tick_per_day + 1L)));
             end_time = begin_time + (long) message.length() * ModConfigs.day_counter_speed + 20 * 4;
         }
 
@@ -73,7 +92,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
         if (!diversity_Multiloader$beginAnnounce)
             return;
 
-        final long current_time = this.getOverworldClockTime();
+        final long current_time = this.getGameTime();
 
         if (current_time > end_time) {
             diversity_Multiloader$beginAnnounce = false;
@@ -81,7 +100,7 @@ public abstract class ServerWorldMixin extends Level implements WorldGenLevel {
         }
 
         if ((current_time - begin_time) % ModConfigs.day_counter_speed == 0) {
-            String message = "Day #" + (current_time / ModConfigs.day_counter_tick_per_day + 1L) + " has arrived!";
+            String message = ModConfigs.day_counter_message_holder.replaceAll("%s", String.valueOf((this.getOverworldClockTime() / ModConfigs.day_counter_tick_per_day + 1L)));
             for (ServerPlayer player : this.players()) {
 
                 boolean playSound = true;

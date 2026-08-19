@@ -28,7 +28,7 @@ public class shearDefusesTnt {
         //if not mainhand
         if ((entity.getType() == EntityType.TNT)
                 && hand == InteractionHand.MAIN_HAND
-                && hitResult == null
+                //&& hitResult == null
                 && level instanceof ServerLevel serverLevel
                 && Compare.isHasTag(item, "diversity:tnt_defuser")
         ) {

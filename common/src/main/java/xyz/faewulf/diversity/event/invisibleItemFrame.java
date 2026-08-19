@@ -21,13 +21,14 @@ public class invisibleItemFrame {
         if (!ModConfigs.invisible_frame)
             return InteractionResult.PASS;
 
+
         //if not item frame
         //if not mainhand
         if ((entity.getType() == EntityType.ITEM_FRAME || entity.getType() == EntityType.GLOW_ITEM_FRAME)
                 && hand == InteractionHand.MAIN_HAND
                 && player.getItemInHand(hand).getItem() == Items.GLASS_PANE
-                && player.isShiftKeyDown()
-                && hitResult == null
+                && player.isCrouching()
+                //&& hitResult == null
         ) {
 
             if (!world.isClientSide()) {

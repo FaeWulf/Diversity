@@ -1,4 +1,5 @@
-accessWidener v1 official
-accessible method net/minecraft/world/item/component/BundleContents <init> (Ljava/util/List;Lorg/apache/commons/lang3/math/Fraction;I)V
+classTweaker v1 official
+accessible method net/minecraft/world/item/component/BundleContents <init> (Ljava/util/List;I)V
 accessible class net/minecraft/world/entity/npc/villager/VillagerTrades$EnchantBookForEmeralds
-
+accessible class net/minecraft/resources/RegistryDataLoader$LoaderFactory
+accessible class net/minecraft/resources/RegistryLoadTask$PendingRegistration

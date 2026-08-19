@@ -1,6 +1,12 @@
 package xyz.faewulf.diversity.mixin.item.buildingBundle;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
+import com.sun.tools.jconsole.JConsoleContext;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import org.apache.commons.lang3.math.Fraction;
@@ -9,6 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
@@ -16,7 +23,7 @@ import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
 import java.util.List;
 
 @Mixin(BundleContents.Mutable.class)
-public abstract class BuilderMixin implements ICustomBundleContentBuilder {
+public abstract class BuilderMixin implements TooltipComponent, ICustomBundleContentBuilder {
 
     @Shadow
     @Final
@@ -29,9 +36,10 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
     private int diversity_Multiloader$maxSize = 64;
 
     @Inject(method = "getMaxAmountToAdd", at = @At("RETURN"), cancellable = true)
-    private void getMaxAllowedInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+    private void getMaxAllowedInject(Fraction itemWeight, CallbackInfoReturnable<Integer> cir) {
         //value = used value
-        int itemValue = Mth.mulAndTruncate(BundleContentComponentInvoker.getOccupancy(stack), 64);
+        //int itemValue = Mth.mulAndTruncate(BundleContentComponentInvoker.getOccupancy(stack), 64);
+        int itemValue = Mth.mulAndTruncate(itemWeight, 64);
 
         int usedSpace = Mth.mulAndTruncate(this.weight, 64);
         int freeSpace = diversity_Multiloader$maxSize - usedSpace;
@@ -55,6 +63,28 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
         //System.out.println("real: " + Math.max(freeSpace / itemValue, 0));
         //System.out.println("expected: " + cir.getReturnValue());
         cir.setReturnValue(Math.max(freeSpace / itemValue, 0));
+    }
+
+    @WrapOperation(method = "tryInsert", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 0))
+    private void tryInsertModifyAddListMethod(List<ItemStack> instance, int i, Object e, Operation<Void> original, @Local(name = "amountToAdd") int amountToAdd) {
+        if (e instanceof ItemStack mergedStack) {
+            int itemStackMaxSize = mergedStack.getMaxStackSize();
+            int itemStackCurrentCount = mergedStack.count();
+
+            while (itemStackCurrentCount > itemStackMaxSize) {
+
+                ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackMaxSize);
+                original.call(instance, i, itemStackPutIntoBundle);
+
+                itemStackCurrentCount -= itemStackMaxSize;
+            }
+
+            if (itemStackCurrentCount > 0) {
+                ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackCurrentCount);
+                original.call(instance, i, itemStackPutIntoBundle);
+            }
+
+        }
     }
 
     @Override

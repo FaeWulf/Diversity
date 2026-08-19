@@ -9,7 +9,8 @@
   },
   "client": [
     "AnvilMixin",
-    "general.dayCounter.ClientPacketListenerMixin"
+    "general.dayCounter.ClientPacketListenerMixin",
+    "item.BuilderBundle.ClientBundleTooltipMixin"
   ],
   "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }

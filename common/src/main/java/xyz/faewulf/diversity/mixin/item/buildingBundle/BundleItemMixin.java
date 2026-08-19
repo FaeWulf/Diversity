@@ -23,10 +23,7 @@ import net.minecraft.world.inventory.ClickAction;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.inventory.tooltip.BundleTooltip;
 import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BundleItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
@@ -48,6 +45,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.compat.MetalBundles.MetalBundleItemInvoker;
 import xyz.faewulf.diversity.inter.ICustomBundleContentBuilder;
+import xyz.faewulf.diversity.inter.ICustomBundleContents;
 import xyz.faewulf.diversity.inter.ICustomBundleItem;
 import xyz.faewulf.diversity.platform.Services;
 import xyz.faewulf.diversity.util.Utils;
@@ -79,7 +77,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight().getOrThrow(), 64);
         int maxValue = diversity_Multiloader$getMaxSize(stack);
 
-        cir.setReturnValue(usedSpace * 1f / maxValue);
+        //cir.setReturnValue(usedSpace * 1f / maxValue);
+        cir.setReturnValue(0.5f);
         cir.cancel();
     }
 
@@ -112,20 +111,22 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             BundleContents bundleContents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
 
             //override to List
-            List<ItemStack> itemStacks = new ArrayList<>();
-            bundleContents.items().forEach(itemStacks::add);
+            List<ItemStackTemplate> itemStacks = new ArrayList<>(bundleContents.items());
 
             //create new bundle content
-            BundleContents bundleContents1 = new BundleContents(itemStacks, Fraction.getFraction(usedSpace * 1f / maxValue), bundleContents.getSelectedItem());
+            BundleContents bundleContents1 = new BundleContents(itemStacks, bundleContents.getSelectedItemIndex());
+
+
+            ((ICustomBundleContents) (Object) bundleContents).diversity$setMaxSize(maxValue);
 
             //pass to client renderer
-            return Optional.ofNullable(bundleContents1).map(BundleTooltip::new);
+            return Optional.of(bundleContents).map(BundleTooltip::new);
         }
     }
 
     @Inject(method = "getBarWidth", at = @At(value = "RETURN"), cancellable = true)
     private void getBarWidthInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight().getOrThrow(), 64);
         int maxValue = diversity_Multiloader$getMaxSize(stack);
 
         cir.setReturnValue((int) Math.clamp(Math.floor(13f * usedSpace / maxValue), 1, 13));
@@ -134,7 +135,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
     @Inject(method = "getBarColor", at = @At(value = "RETURN"), cancellable = true)
     private void getBarColorInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+        int usedSpace = Mth.mulAndTruncate(stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight().getOrThrow(), 64);
         int maxValue = diversity_Multiloader$getMaxSize(stack);
 
         if (usedSpace >= maxValue) {
@@ -198,9 +199,10 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
                 //get all index that is blockItem
                 List<Integer> blockItemList = new ArrayList<>();
+
                 for (int i = 0; i < bundleContentsComponent.size(); i++) {
 
-                    Item item = bundleContentsComponent.getItemUnsafe(i).getItem();
+                    Item item = bundleContentsComponent.items().get(i).item().value();
 
                     // if in blacklist then skip
                     if (Compare.isHasTag(item, "diversity:bundle_place_mode_blacklist"))
@@ -218,7 +220,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                 int chosenIndex = diversity_Multiloader$getMode(bundle) == 2 ? blockItemList.get(serverPlayerEntity.getRandom().nextInt(blockItemList.size())) : blockItemList.getFirst();
 
                 //if blockItem
-                if (bundleContentsComponent.getItemUnsafe(chosenIndex).getItem() instanceof BlockItem blockItem) {
+                if (bundleContentsComponent.items().get(chosenIndex).item().value() instanceof BlockItem blockItem) {
 
                     //try to place it
                     InteractionResult actionResult = blockItem.useOn(context);
@@ -263,9 +265,8 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     private void diversity_Multiloader$removeItem(Player player, ItemStack bundleItem, BundleContents bundleContentsComponent, int index) {
         if (bundleContentsComponent.isEmpty() || bundleContentsComponent.size() < index + 1)
             return;
-
-        ItemStack itemStack = bundleContentsComponent.getItemUnsafe(index);
-        List<ItemStack> itemStacks = new ArrayList<>(bundleContentsComponent.itemCopyStream().toList());
+        ItemStack itemStack = bundleContentsComponent.items().get(index).create();
+        List<ItemStackTemplate> itemStacks = new ArrayList<>(bundleContentsComponent.items());
 
         if (itemStack.getCount() < 1)
             return;
@@ -274,7 +275,10 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             return;
 
         if (itemStack.getCount() > 1) {
-            itemStacks.get(index).shrink(1);
+            ItemStackTemplate selectedItemStackTemplate = itemStacks.get(index);
+
+            // reduce count - 1 to the original itemStack inside the bundle
+            itemStacks.set(index, selectedItemStackTemplate.withCount(selectedItemStackTemplate.count() - 1));
 
             bundleContentsComponent = new BundleContents(itemStacks);
             bundleItem.set(DataComponents.BUNDLE_CONTENTS, bundleContentsComponent);
@@ -289,7 +293,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         if (!isRefilled) {
             itemStacks.remove(index);
             //System.out.println(itemStacks);
-            player.displayClientMessage(Component.literal("Ran out of " + itemStack.getItem().getName().getString()), true);
+            player.sendOverlayMessage(Component.literal("Ran out of " + itemStack.getItem().getName(itemStack).getString()));
         }
 
         bundleContentsComponent = new BundleContents(itemStacks);
@@ -303,10 +307,10 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
     }
 
     @Unique
-    private boolean diversity_Multiloader$refill(Player player, ItemStack bundle, BundleContents bundleContentsComponent, List<ItemStack> itemStacks, int index) {
+    private boolean diversity_Multiloader$refill(Player player, ItemStack bundle, BundleContents bundleContentsComponent, List<ItemStackTemplate> itemStacks, int index) {
 
         Inventory playerInventory = player.getInventory();
-        int indexOfItemInInventory = playerInventory.findSlotMatchingItem(itemStacks.get(index));
+        int indexOfItemInInventory = playerInventory.findSlotMatchingItem(itemStacks.get(index).create());
 
         if (indexOfItemInInventory == -1)
             return false;
@@ -321,7 +325,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         //subtract 1 because there is 1 amount of the target item in the bundle we did not remove yet, if we remove
         //then target item will lose its position in the bundle -> no consistency
         //because of that, for the later we have to subtract 1 when increase amount of target item in the bundle
-        int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight(), 64) - stackMultiplier;
+        int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight().getOrThrow(), 64) - stackMultiplier;
 
         final int maxBundleSize = diversity_Multiloader$getMaxSize(player.level(), bundle);
 
@@ -336,7 +340,10 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
         itemStackWillPutInto.consume(numberOfItemWillPut, player);
 
         //because there is already 1 item in the bundle
-        itemStacks.get(index).grow(numberOfItemWillPut - 1);
+        ItemStackTemplate selectedItemStackTemplate = itemStacks.get(index);
+        // reduce count - 1 to the original itemStack inside the bundle
+        itemStacks.set(index, selectedItemStackTemplate.withCount(numberOfItemWillPut - 1));
+
         player.level().playSound(null, player.blockPosition(), SoundEvents.DECORATED_POT_INSERT, SoundSource.PLAYERS, 0.5f, 1.0f);
 
         return true;
@@ -359,7 +366,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
 
         if (Services.PLATFORM.isModLoaded("metalbundles")) {
             Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
-            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight().getOrThrow(), 64);
             originalSize = Utils.recoverCapacity(a, usedSpace);
         }
 

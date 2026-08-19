@@ -27,7 +27,7 @@ public abstract class BeaconBlockEntityMixin extends BlockEntity {
         return original;
     }
 
-    @ModifyVariable(method = "applyEffects", at = @At("STORE"), ordinal = 0)
+    @ModifyVariable(method = "applyEffects", at = @At("STORE"), name = "range")
     private static double applyEffectModifyRangeValue(double d, @Local(argsOnly = true) int beaconLevel) {
         if (beaconLevel > 4 && ModConfigs.beacon_extended) {
             int extraLayer = beaconLevel - 4;

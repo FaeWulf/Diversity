@@ -12,7 +12,7 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 public abstract class WorldMixin {
 
     @Shadow
-    public abstract long getDayTime();
+    public abstract long getOverworldClockTime();
 
     @Inject(method = "isBrightOutside", at = @At("RETURN"), cancellable = true)
     private void isDayInject(CallbackInfoReturnable<Boolean> cir) {
@@ -22,7 +22,7 @@ public abstract class WorldMixin {
             return;
 
         //if night
-        if (this.getDayTime() < 24000 && this.getDayTime() >= 12000) {
+        if (this.getOverworldClockTime() < 24000 && this.getOverworldClockTime() >= 12000) {
             cir.setReturnValue(false);
             cir.cancel();
         } else {
