@@ -6,18 +6,18 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Display;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
-import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.diversity.util.pseudoBlockEntityUtil;
+import xyz.faewulf.lib.util.Compare;
 
 public class useShearOnBlock {
     public static InteractionResult run(Level world, Player player, InteractionHand hand, BlockHitResult hitResult) {
@@ -43,7 +43,8 @@ public class useShearOnBlock {
                 Display display = PseudoBlockEntities.STOP_GROW.build(world);
 
                 BlockPos pos = hitResult.getBlockPos();
-                display.setPos(pos.getCenter().x, pos.getCenter().y, pos.getCenter().z);
+                Vec3 centerPos = Vec3.atCenterOf(pos);
+                display.setPos(centerPos.x, centerPos.y, centerPos.z);
 
                 if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
                     if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist()) {

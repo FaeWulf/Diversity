@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.ExperienceOrb;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
@@ -21,8 +20,8 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 
 import java.util.List;
 
@@ -85,7 +84,7 @@ public class rightClickCropBlocks {
                             if (age == maxAge) {
 
                                 //get loot
-                                Vec3 center = currentBlock.getCenter();
+                                Vec3 center = Vec3.atCenterOf(currentBlock);
                                 List<ItemStack> itemStacks = Block.getDrops(currentBlockState, serverLevel, currentBlock, null, player, mainHandItem);
 
                                 //drops xp

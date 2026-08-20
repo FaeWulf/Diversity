@@ -5,7 +5,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.animal.parrot.ShoulderRidingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +23,7 @@ import xyz.faewulf.diversity.inter.entity.ICustomParrotEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 
 @Mixin(Parrot.class)
-public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements FlyingAnimal, ICustomParrotEntity {
+public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements ICustomParrotEntity {
 
     @Unique
     private int diversity_Multiloader$featherCoolDown = 0;
@@ -33,9 +31,6 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
     protected ParrotEntityMixin(EntityType<? extends ShoulderRidingEntity> entityType, Level world) {
         super(entityType, world);
     }
-
-    @Shadow
-    public abstract boolean isBaby();
 
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void InjectInteractMod(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {

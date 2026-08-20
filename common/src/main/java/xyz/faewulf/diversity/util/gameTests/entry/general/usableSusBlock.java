@@ -2,7 +2,6 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
- 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Pose;
@@ -14,15 +13,13 @@ import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 @TestGroup
 public class usableSusBlock {
-     
+
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.usable_suspicious_block)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
 
         helper.setBlock(4, 1, 4, Blocks.SUSPICIOUS_SAND);

@@ -3,14 +3,12 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
-
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class xpCrops {
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.xp_crops)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
 
         for (int i = 0; i < 9; i++) {
@@ -30,14 +28,14 @@ public class xpCrops {
             }
         }
 
-        helper.setBlock(4, 0, 4, Blocks.COPPER_GRATE.defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
+        helper.setBlock(4, 0, 4, Blocks.COPPER_GRATE.asList().getFirst().defaultBlockState().setValue(BlockStateProperties.WATERLOGGED, true));
 
         helper.startSequence()
                 .thenExecute(() -> {
                     helper.setBlock(4, 1, 4, Blocks.WATER);
                 })
                 .thenExecuteAfter(20 * 5, () -> {
-                    List<ExperienceOrb> experienceOrb = helper.getEntities(EntityType.EXPERIENCE_ORB);
+                    List<ExperienceOrb> experienceOrb = helper.getEntities(EntityTypes.EXPERIENCE_ORB);
 
                     if (experienceOrb.isEmpty())
                         helper.fail(Component.literal("No xp orbs dropped"));

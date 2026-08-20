@@ -3,7 +3,7 @@ package xyz.faewulf.diversity.util.gameTests.entry.entity;
 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.animal.equine.Donkey;
 import net.minecraft.world.entity.animal.equine.Horse;
@@ -21,11 +21,11 @@ public class horseSitOnBoat {
     public void test1(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
-        Boat boat = helper.spawn(EntityType.ACACIA_BOAT, 4, 1, 4);
-        Horse horse = helper.spawn(EntityType.HORSE, 1, 2, 1);
-        Camel camel = helper.spawn(EntityType.CAMEL, 8, 2, 8);
+        Boat boat = helper.spawn(EntityTypes.ACACIA_BOAT, 4, 1, 4);
+        Horse horse = helper.spawn(EntityTypes.HORSE, 1, 2, 1);
+        Camel camel = helper.spawn(EntityTypes.CAMEL, 8, 2, 8);
 
         helper.startSequence()
                 .thenExecute(() -> {
@@ -42,11 +42,11 @@ public class horseSitOnBoat {
     public void test2(GameTestHelper helper) {
 
         if (!ModConfigs.horse_can_seat_on_boat)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
-        Raft boat = helper.spawn(EntityType.BAMBOO_RAFT, 4, 1, 4);
-        Donkey donkey = helper.spawn(EntityType.DONKEY, 1, 2, 1);
-        Mule mule = helper.spawn(EntityType.MULE, 8, 2, 8);
+        Raft boat = helper.spawn(EntityTypes.BAMBOO_RAFT, 4, 1, 4);
+        Donkey donkey = helper.spawn(EntityTypes.DONKEY, 1, 2, 1);
+        Mule mule = helper.spawn(EntityTypes.MULE, 8, 2, 8);
 
         helper.startSequence()
                 .thenExecute(() -> {

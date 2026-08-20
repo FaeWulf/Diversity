@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.animal.parrot.Parrot;
@@ -24,10 +24,10 @@ public class brushableParrotChicken {
     public void test_parrot(GameTestHelper helper) {
 
         if (!ModConfigs.brushable_parrot_chicken)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        Parrot parrot = helper.spawn(EntityType.PARROT, new BlockPos(4, 2, 4).getCenter());
+        Parrot parrot = helper.spawn(EntityTypes.PARROT, Vec3.atCenterOf(new BlockPos(4, 2, 4)));
         Vec3 location = parrot.position();
 
         ItemStack itemStack = new ItemStack(Items.BRUSH, 1);
@@ -52,10 +52,10 @@ public class brushableParrotChicken {
     public void test_chicken(GameTestHelper helper) {
 
         if (!ModConfigs.brushable_parrot_chicken)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        Chicken chicken = helper.spawn(EntityType.CHICKEN, new BlockPos(4, 2, 4).getCenter());
+        Chicken chicken = helper.spawn(EntityTypes.CHICKEN, Vec3.atCenterOf(new BlockPos(4, 2, 4)));
         Vec3 location = chicken.position();
 
         ItemStack itemStack = new ItemStack(Items.SHEARS, 1);

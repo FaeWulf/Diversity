@@ -5,15 +5,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
-import xyz.faewulf.lib.util.Compare;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 
 public class shearDefusesTnt {
     public static InteractionResult run(Level level, Player player, InteractionHand hand, Entity entity, HitResult hitResult) {
@@ -26,7 +25,7 @@ public class shearDefusesTnt {
         Item item = player.getItemInHand(hand).getItem();
 
         //if not mainhand
-        if ((entity.getType() == EntityType.TNT)
+        if ((entity.getType() == EntityTypes.TNT)
                 && hand == InteractionHand.MAIN_HAND
                 //&& hitResult == null
                 && level instanceof ServerLevel serverLevel

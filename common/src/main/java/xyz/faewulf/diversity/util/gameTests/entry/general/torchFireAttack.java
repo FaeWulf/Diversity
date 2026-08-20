@@ -5,7 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 @TestGroup
 public class torchFireAttack {
 
@@ -23,9 +21,9 @@ public class torchFireAttack {
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.torch_burn_target)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
-        Entity cow = helper.spawn(EntityType.COW, 1, 1, 1);
+        Entity cow = helper.spawn(EntityTypes.COW, 1, 1, 1);
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
         ItemStack itemStack = new ItemStack(Items.TORCH);
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);

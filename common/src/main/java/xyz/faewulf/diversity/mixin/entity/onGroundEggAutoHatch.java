@@ -1,6 +1,5 @@
 package xyz.faewulf.diversity.mixin.entity;
 
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -24,12 +23,12 @@ import java.util.Optional;
 
 @Mixin(ItemEntity.class)
 public abstract class onGroundEggAutoHatch extends Entity implements TraceableEntity {
+    @Unique
+    private static final EntityDimensions $$Diversity_ZERO_SIZED_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
+
     public onGroundEggAutoHatch(EntityType<?> type, Level world) {
         super(type, world);
     }
-
-    @Unique
-    private static final EntityDimensions $$Diversity_ZERO_SIZED_DIMENSIONS = EntityDimensions.fixed(0.0F, 0.0F);
 
     @Shadow
     public abstract ItemStack getItem();
@@ -63,7 +62,7 @@ public abstract class onGroundEggAutoHatch extends Entity implements TraceableEn
                     }
 
                     for (int j = 0; j < count_per_egg; j++) {
-                        Chicken chicken = EntityType.CHICKEN.create(this.level(), EntitySpawnReason.TRIGGERED);
+                        Chicken chicken = EntityTypes.CHICKEN.create(this.level(), EntitySpawnReason.TRIGGERED);
                         if (chicken != null) {
                             chicken.setAge(-24000);
                             chicken.snapTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);

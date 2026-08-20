@@ -5,7 +5,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.npc.villager.Villager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -20,9 +20,9 @@ public class glowBerryEffect {
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.glow_berry_glowing)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
-        Villager fox = helper.spawn(EntityType.VILLAGER, 4, 1, 4);
+        Villager fox = helper.spawn(EntityTypes.VILLAGER, 4, 1, 4);
 
         ItemStack itemStack = new ItemStack(Items.GLOW_BERRIES, 1);
         fox.setItemInHand(InteractionHand.MAIN_HAND, itemStack);

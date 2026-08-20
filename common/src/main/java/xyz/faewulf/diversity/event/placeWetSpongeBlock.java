@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import xyz.faewulf.diversity.Constants;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntities;
 import xyz.faewulf.diversity.feature.entity.pseudoBlockEntity.PseudoBlockEntity;
@@ -34,7 +35,7 @@ public class placeWetSpongeBlock {
                     return;
 
                 Display.TextDisplay w = PseudoBlockEntities.WET_SPONGE.build(player.level());
-                w.setPos(blockPos.getCenter());
+                w.setPos(Vec3.atCenterOf(blockPos));
 
                 if (w instanceof PseudoBlockEntity pseudoBlockEntity) {
                     if (!pseudoBlockEntity.diversity_Multiloader$isBlockEntityAlreadyExist())

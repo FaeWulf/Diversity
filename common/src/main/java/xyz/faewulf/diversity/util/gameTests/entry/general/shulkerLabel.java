@@ -3,12 +3,11 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
-
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Display;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -17,8 +16,6 @@ import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
-
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class shulkerLabel {
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.shulker_label)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
 
@@ -44,7 +41,7 @@ public class shulkerLabel {
                     helper.placeAt(player, itemStack, new BlockPos(4, 0, 4), Direction.UP);
                 })
                 .thenExecuteAfter(20, () -> {
-                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
+                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityTypes.TEXT_DISPLAY);
 
                     if (textDisplays.size() != 1)
                         helper.fail(Component.literal(textDisplays.toString()));
@@ -55,7 +52,7 @@ public class shulkerLabel {
                     helper.setBlock(4, 1, 4, Blocks.AIR);
                 })
                 .thenExecuteAfter(20, () -> {
-                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
+                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityTypes.TEXT_DISPLAY);
 
                     if (!textDisplays.isEmpty())
                         helper.fail(Component.literal("2nd test failed: break shulker not kill text entity"));
@@ -68,7 +65,7 @@ public class shulkerLabel {
                     helper.placeAt(player, itemStack, new BlockPos(4, 0, 4), Direction.UP);
                 })
                 .thenExecuteAfter(20, () -> {
-                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityType.TEXT_DISPLAY);
+                    List<Display.TextDisplay> textDisplays = helper.getEntities(EntityTypes.TEXT_DISPLAY);
 
                     if (!textDisplays.isEmpty())
                         helper.fail(Component.literal("3rd test failed: Sneak place not prevent spawn text entity"));

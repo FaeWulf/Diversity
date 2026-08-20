@@ -2,7 +2,6 @@ package xyz.faewulf.diversity.mixin.entity.preventSaddledMobMovement;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;

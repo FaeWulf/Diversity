@@ -5,7 +5,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -52,12 +52,12 @@ public class placeShulkerBlock {
                         blockPos.getX() + 0.7f, blockPos.getY() + 1.05f, blockPos.getZ() + 0.7f
                 );
 
-                List<Entity> entitiesWithinRadius = world.getEntitiesOfClass(Entity.class, box, entity -> entity.getType() == EntityType.TEXT_DISPLAY);
+                List<Entity> entitiesWithinRadius = world.getEntitiesOfClass(Entity.class, box, entity -> entity.getType() == EntityTypes.TEXT_DISPLAY);
 
                 if (!entitiesWithinRadius.isEmpty())
                     return;
 
-                Display.TextDisplay w = new Display.TextDisplay(EntityType.TEXT_DISPLAY, player.level());
+                Display.TextDisplay w = new Display.TextDisplay(EntityTypes.TEXT_DISPLAY, player.level());
 
                 w.setCustomName(text);
                 w.setCustomNameVisible(true);

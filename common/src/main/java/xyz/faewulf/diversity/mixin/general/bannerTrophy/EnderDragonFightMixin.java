@@ -36,7 +36,7 @@ public class EnderDragonFightMixin {
 
         if (!ModConfigs.banner_trohpy) return;
 
-        Vec3 pos = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)).getCenter();
+        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)));
 
         ItemStack eggTrophy = CustomBanner.enderEggBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
         eggTrophy.setCount(1);
@@ -50,7 +50,7 @@ public class EnderDragonFightMixin {
 
         if (!ModConfigs.banner_trohpy) return;
 
-        Vec3 pos = this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)).getCenter();
+        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)));
 
         ItemStack eggTrophy = CustomBanner.enderDragonBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
         eggTrophy.setCount(1);

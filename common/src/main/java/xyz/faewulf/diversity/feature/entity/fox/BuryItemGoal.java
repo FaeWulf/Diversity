@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
@@ -74,7 +74,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
                 this.fox.level().setBlockAndUpdate(this.blockPos.below(), susBlock);
                 this.fox.level().gameEvent(this.fox, GameEvent.BLOCK_CHANGE, this.blockPos.below());
 
-                this.fox.level().getBlockEntity(blockPos.below(), BlockEntityType.BRUSHABLE_BLOCK).ifPresent(
+                this.fox.level().getBlockEntity(blockPos.below(), BlockEntityTypes.BRUSHABLE_BLOCK).ifPresent(
                         blockEntity -> {
 
                             ItemStack itemStack = this.fox.getMainHandItem();
@@ -103,7 +103,7 @@ public class BuryItemGoal extends MoveToBlockGoal {
                     if (this.fox.level() instanceof ServerLevel serverWorld) {
 
                         BlockParticleOption blockStateParticleEffect = new BlockParticleOption(ParticleTypes.BLOCK, type == 1 ? Blocks.SAND.defaultBlockState() : Blocks.GRAVEL.defaultBlockState());
-                        Vec3 particlePos = this.blockPos.getCenter();
+                        Vec3 particlePos = Vec3.atCenterOf(this.blockPos);
                         serverWorld.sendParticles(blockStateParticleEffect, particlePos.x, particlePos.y - 0.4, particlePos.z, 10, 0.3, 0.1, 0.3, 1);
 
                         if (type == 1)

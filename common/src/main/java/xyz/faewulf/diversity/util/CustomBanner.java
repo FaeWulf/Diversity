@@ -1,10 +1,8 @@
 package xyz.faewulf.diversity.util;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.Unit;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -16,7 +14,7 @@ import net.minecraft.world.level.block.entity.BannerPatterns;
 
 public class CustomBanner {
     public static ItemStack wardenBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.LIGHT_BLUE_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.lightBlue());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.CURLY_BORDER, DyeColor.BLACK)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.CREEPER, DyeColor.LIGHT_BLUE)
@@ -34,7 +32,7 @@ public class CustomBanner {
     }
 
     public static ItemStack witherBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.RED_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.red());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.ORANGE)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.STRAIGHT_CROSS, DyeColor.BLACK)
@@ -53,7 +51,7 @@ public class CustomBanner {
     }
 
     public static ItemStack elderGuardianBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.PINK_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.pink());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.CIRCLE_MIDDLE, DyeColor.WHITE)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_HORIZONTAL, DyeColor.GRAY)
@@ -73,7 +71,7 @@ public class CustomBanner {
     }
 
     public static ItemStack enderDragonBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.black());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.HALF_HORIZONTAL_MIRROR, DyeColor.PURPLE)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.STRIPE_DOWNLEFT, DyeColor.PURPLE)
@@ -98,7 +96,7 @@ public class CustomBanner {
     }
 
     public static ItemStack enderEggBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.BLACK_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.black());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.BLACK)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.BLACK)
@@ -120,7 +118,7 @@ public class CustomBanner {
     }
 
     public static ItemStack heroBanner(HolderGetter<BannerPattern> bannerPatternLookup) {
-        ItemStack itemStack = new ItemStack(Items.WHITE_BANNER);
+        ItemStack itemStack = new ItemStack(Items.BANNER.white());
         BannerPatternLayers bannerPatternsComponent = new BannerPatternLayers.Builder()
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.RED)
                 .addIfRegistered(bannerPatternLookup, BannerPatterns.FLOWER, DyeColor.RED)

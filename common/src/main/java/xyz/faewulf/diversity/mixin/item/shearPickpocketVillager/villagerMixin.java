@@ -134,7 +134,7 @@ public abstract class villagerMixin extends AbstractVillager implements Reputati
         ) {
             String job = this.getVillagerData().profession().value().name().getString();
             int jobLevel = this.getVillagerData().level();
-            Vec3 blockPos = this.blockPosition().getCenter();
+            Vec3 blockPos = Vec3.atCenterOf(this.blockPosition());
             //System.out.println(job + " " + jobLevel);
 
             //generate loot

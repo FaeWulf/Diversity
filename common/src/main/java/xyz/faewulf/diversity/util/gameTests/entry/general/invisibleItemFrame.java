@@ -4,7 +4,7 @@ package xyz.faewulf.diversity.util.gameTests.entry.general;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -16,8 +16,6 @@ import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 import java.util.List;
 
 @TestGroup
@@ -26,12 +24,12 @@ public class invisibleItemFrame {
     public void test(GameTestHelper helper) {
 
         if (!ModConfigs.invisible_frame)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         helper.setBlock(4, 1, 3, Blocks.GLASS);
 
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        ItemFrame itemFrame = helper.spawn(EntityType.ITEM_FRAME, 4, 1, 4);
+        ItemFrame itemFrame = helper.spawn(EntityTypes.ITEM_FRAME, 4, 1, 4);
 
         ItemStack itemStack = new ItemStack(Items.GLASS_PANE, 2);
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -63,7 +61,7 @@ public class invisibleItemFrame {
                     player.attack(itemFrame);
                 })
                 .thenExecuteAfter(20 * 2, () -> {
-                    List<ItemEntity> itemEntities = helper.getEntities(EntityType.ITEM);
+                    List<ItemEntity> itemEntities = helper.getEntities(EntityTypes.ITEM);
 
                     boolean fail = true;
 

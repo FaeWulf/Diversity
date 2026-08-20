@@ -51,7 +51,7 @@ public class PseudoBlockEntities {
 
                                 t.discard();
                             } else {
-                                Vec3 center = pos.getCenter();
+                                Vec3 center = Vec3.atCenterOf(pos);
                                 world.sendParticles(ParticleTypes.CLOUD, center.x, center.y + 0.6, center.z, 3, 0.3, 0, 0.3, 0);
                             }
                         } else

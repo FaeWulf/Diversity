@@ -4,7 +4,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
@@ -24,11 +24,11 @@ public class invisibleItemFrame {
 
         //if not item frame
         //if not mainhand
-        if ((entity.getType() == EntityType.ITEM_FRAME || entity.getType() == EntityType.GLOW_ITEM_FRAME)
+        if ((entity.getType() == EntityTypes.ITEM_FRAME || entity.getType() == EntityTypes.GLOW_ITEM_FRAME)
                 && hand == InteractionHand.MAIN_HAND
                 && player.getItemInHand(hand).getItem() == Items.GLASS_PANE
                 && player.isCrouching()
-                //&& hitResult == null
+            //&& hitResult == null
         ) {
 
             if (!world.isClientSide()) {

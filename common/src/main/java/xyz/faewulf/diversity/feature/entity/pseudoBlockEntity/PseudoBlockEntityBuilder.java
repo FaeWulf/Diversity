@@ -1,7 +1,7 @@
 package xyz.faewulf.diversity.feature.entity.pseudoBlockEntity;
 
 import net.minecraft.world.entity.Display;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
@@ -22,7 +22,7 @@ public class PseudoBlockEntityBuilder {
     }
 
     public Display.TextDisplay build(Level level) {
-        Display.TextDisplay display = new Display.TextDisplay(EntityType.TEXT_DISPLAY, level);
+        Display.TextDisplay display = new Display.TextDisplay(EntityTypes.TEXT_DISPLAY, level);
 
         if (display instanceof PseudoBlockEntity pseudoBlockEntity) {
             pseudoBlockEntity.diversity_Multiloader$setEntityType(this.diversity_type);

@@ -7,6 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
@@ -77,7 +78,7 @@ public abstract class TridentEntityMixin extends AbstractArrow {
                         this.setPickupItemStack(itemStack);
 
                         //summon lightning
-                        LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(serverWorld, EntitySpawnReason.TRIGGERED);
+                        LightningBolt lightningBolt = EntityTypes.LIGHTNING_BOLT.create(serverWorld, EntitySpawnReason.TRIGGERED);
                         if (lightningBolt != null) {
                             lightningBolt.setPosRaw(this.getX(), this.getY(), this.getZ());
                             serverWorld.addFreshEntity(lightningBolt);

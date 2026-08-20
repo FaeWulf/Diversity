@@ -1,17 +1,14 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
- 
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 @TestGroup
 public class deepslateGenerator {
-     
+
     public void test_cobble(GameTestHelper helper) {
 
         helper.setBlock(4, 1, 4, Blocks.WATER);
@@ -19,7 +16,7 @@ public class deepslateGenerator {
         helper.setBlock(1, 2, 1, Blocks.LAVA);
 
         if (!ModConfigs.deepslate_generator)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         helper.runAfterDelay(20 * 5, () -> {
             helper.succeedIf(() -> {
@@ -29,11 +26,11 @@ public class deepslateGenerator {
         });
     }
 
-     
+
     public void test_deepslate(GameTestHelper helper) {
 
         if (!ModConfigs.deepslate_generator)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         helper.setBlock(4, 1, 4, Blocks.WATER);
         helper.setBlock(4, 3, 4, Blocks.LAVA);

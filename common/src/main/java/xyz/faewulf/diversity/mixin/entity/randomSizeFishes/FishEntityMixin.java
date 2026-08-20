@@ -2,10 +2,10 @@ package xyz.faewulf.diversity.mixin.entity.randomSizeFishes;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Bucketable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Bucketable;
 import net.minecraft.world.entity.animal.fish.AbstractFish;
 import net.minecraft.world.entity.animal.fish.Salmon;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;

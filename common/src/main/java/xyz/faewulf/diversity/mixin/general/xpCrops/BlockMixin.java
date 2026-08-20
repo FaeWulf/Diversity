@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +30,7 @@ public abstract class BlockMixin extends BlockBehaviour implements ItemLike {
         if (level instanceof ServerLevel serverWorld) {
             if (state.getBlock() instanceof CropBlock cropBlock) {
                 if (cropBlock.isMaxAge(state))
-                    ExperienceOrb.award(serverWorld, pos.getCenter(), serverWorld.getRandom().nextIntBetweenInclusive(0, 1));
+                    ExperienceOrb.award(serverWorld, Vec3.atCenterOf(pos), serverWorld.getRandom().nextIntBetweenInclusive(0, 1));
             }
         }
     }

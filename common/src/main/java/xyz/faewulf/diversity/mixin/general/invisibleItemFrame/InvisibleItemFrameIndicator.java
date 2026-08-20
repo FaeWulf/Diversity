@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.decoration.BlockAttachedEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import org.spongepowered.asm.mixin.Mixin;
@@ -21,7 +21,7 @@ public class InvisibleItemFrameIndicator {
     private void tick(CallbackInfo ci) {
         BlockAttachedEntity _this = ((BlockAttachedEntity) (Object) this);
 
-        if (_this.getType() == EntityType.ITEM_FRAME || _this.getType() == EntityType.GLOW_ITEM_FRAME) {
+        if (_this.getType() == EntityTypes.ITEM_FRAME || _this.getType() == EntityTypes.GLOW_ITEM_FRAME) {
 
             if (_this.level().isClientSide())
                 return;

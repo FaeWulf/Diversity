@@ -1,11 +1,10 @@
 package xyz.faewulf.diversity.util.gameTests.entry.general;
 
 import net.minecraft.core.BlockPos;
-
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
@@ -18,22 +17,20 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import xyz.faewulf.diversity.util.config.ModConfigs;
 import xyz.faewulf.lib.util.gameTests.TestGroup;
 
-import static xyz.faewulf.lib.api.v1.dev.GameTestHelper.DEFAULT;
-
 @TestGroup
 public class clickThroughItemFrame {
 
     public void test_itemFrame(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         helper.setBlock(4, 1, 3, Blocks.GLASS);
         helper.setBlock(3, 1, 3, Blocks.CHEST);
 
         Player player = helper.makeMockPlayer(GameType.SURVIVAL);
-        ItemFrame itemFrame_normalBlock = helper.spawn(EntityType.ITEM_FRAME, 4, 1, 4);
-        ItemFrame itemFrame_chest = helper.spawn(EntityType.ITEM_FRAME, 3, 1, 4);
+        ItemFrame itemFrame_normalBlock = helper.spawn(EntityTypes.ITEM_FRAME, 4, 1, 4);
+        ItemFrame itemFrame_chest = helper.spawn(EntityTypes.ITEM_FRAME, 3, 1, 4);
 
         ItemStack itemStack = new ItemStack(Items.GLASS_PANE, 64);
         player.setItemInHand(InteractionHand.MAIN_HAND, itemStack);
@@ -76,7 +73,7 @@ public class clickThroughItemFrame {
     public void test_sign(GameTestHelper helper) {
 
         if (!ModConfigs.click_through_itemframe)
-            helper.setBlock(8, 8, 8, Blocks.RED_CONCRETE);
+            helper.setBlock(8, 8, 8, Blocks.CONCRETE.red());
 
         helper.setBlock(4, 1, 5, Blocks.CHEST);
         helper.setBlock(4, 1, 4, Blocks.OAK_WALL_SIGN);

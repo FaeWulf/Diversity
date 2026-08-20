@@ -4,7 +4,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -37,10 +37,10 @@ public class explodeSniffer {
 
 
         //if not mainhand
-        if ((entity.getType() == EntityType.SNIFFER)
+        if ((entity.getType() == EntityTypes.SNIFFER)
                 && hand == InteractionHand.MAIN_HAND
                 && acceptItems.contains(player.getItemInHand(hand).getItem())
-                //&& hitResult == null
+            //&& hitResult == null
         ) {
             if (!world.isClientSide()) {
 
