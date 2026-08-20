@@ -51,7 +51,7 @@ public class ModConfigs {
     @Entry(category = "general", name = "Glow berry gives glow effect")
     public static boolean glow_berry_glowing = true;
 
-    @Entry(category = "general", name = "Wash filled map with Cauldron")
+    @Entry(category = "general", name = "Wash filled map with Cauldron", require_restart = true)
     public static boolean cauldron_washing_map = true;
 
     @Entry(category = "general", name = "Invisible item frame", group = "Item frame/Sign")

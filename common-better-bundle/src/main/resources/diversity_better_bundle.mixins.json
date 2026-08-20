@@ -6,15 +6,14 @@
   "mixins": [
     "core.increaseStackSize.DataComponentTypesMixin",
     "core.increaseStackSize.ItemStackMixin",
-    "core.registryLoadBlocker.RegistryLoaderMixin",
     "core.registryLoadBlocker.TagGroupLoaderMixin",
     "general.bundleEnchantments.ItemEntityMixin",
     "general.bundleEnchantments.VacuumBundleItemMixin",
-    "general.bundleEnchantments.VillagerTradesMixin",
     "item.buildingBundle.BlockItemInvoker",
     "item.buildingBundle.BlockItemMixin",
     "item.buildingBundle.BuilderMixin",
     "item.buildingBundle.BundleContentComponentInvoker",
+    "item.buildingBundle.BundleContentsMixin",
     "item.buildingBundle.BundleItemMixin",
     "item.buildingBundle.ItemStackMixin"
   ],

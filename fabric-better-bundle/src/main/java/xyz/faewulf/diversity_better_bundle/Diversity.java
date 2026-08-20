@@ -3,6 +3,7 @@ package xyz.faewulf.diversity_better_bundle;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import xyz.faewulf.diversity_better_bundle.event_handler.changeBundleMode;
+import xyz.faewulf.diversity_better_bundle.event_handler.datapackLoaderEvent;
 
 public class Diversity implements ModInitializer {
 
@@ -19,9 +20,8 @@ public class Diversity implements ModInitializer {
 
     private void loadEvent() {
         Constants.LOG.info("Register events...");
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            changeBundleMode.register();
-        });
+        changeBundleMode.register();
+        datapackLoaderEvent.run();
     }
 
 }

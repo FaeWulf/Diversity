@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.5.4] - 2025-10-29
+
+### Fixed
+
+- Crash when using with `Easy Shulker Boxes`
+
 ## [2.5.2] - 2025-7-30
 
 ### Fixed

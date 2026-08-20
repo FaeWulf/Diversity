@@ -65,6 +65,8 @@ public abstract class BuilderMixin implements TooltipComponent, ICustomBundleCon
         cir.setReturnValue(Math.max(freeSpace / itemValue, 0));
     }
 
+    //Avoid item put into bundle grow pass it's stack max size
+    //Example: insert 96 items with maxsize 64 -> turn into 32 + 64 each and put at the start of the bundle
     @WrapOperation(method = "tryInsert", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 0))
     private void tryInsertModifyAddListMethod(List<ItemStack> instance, int i, Object e, Operation<Void> original, @Local(name = "amountToAdd") int amountToAdd) {
         if (e instanceof ItemStack mergedStack) {

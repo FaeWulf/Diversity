@@ -37,6 +37,10 @@ import xyz.faewulf.lib.util.entity.EntityUtils;
 @Mixin(Villager.class)
 public abstract class villagerMixin extends AbstractVillager implements ReputationEventHandler, VillagerDataHolder {
 
+    //Todo: Tooltip overlay diaply chance when you about to pickpocket a villager
+    //Todo: announce when player pickpocketed villager
+    //Todo: named villager got ignore
+
     @Unique
     private int Diversity$pickpocket_cooldown = 0;
 
