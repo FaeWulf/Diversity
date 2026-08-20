@@ -26,7 +26,6 @@ public class CauldronInteractionMixin {
     @Inject(method = "bootStrap", at = @At("TAIL"))
     private static void bootStrapInject(CallbackInfo ci) {
 
-        //Todo: config should warn about restart the game
         if (!ModConfigs.cauldron_washing_map)
             return;
 

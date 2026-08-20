@@ -113,10 +113,6 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
             //override to List
             List<ItemStackTemplate> itemStacks = new ArrayList<>(bundleContents.items());
 
-            //create new bundle content
-            BundleContents bundleContents1 = new BundleContents(itemStacks, bundleContents.getSelectedItemIndex());
-
-
             ((ICustomBundleContents) (Object) bundleContents).diversity$setMaxSize(maxValue);
 
             //pass to client renderer

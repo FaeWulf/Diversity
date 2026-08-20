@@ -48,7 +48,7 @@ public class changeBundleMode {
                             default -> "Normal";
                         };
 
-                        serverPlayer.displayClientMessage(Component.literal("Changed mode to: " + modeText), true);
+                        serverPlayer.sendSystemMessage(Component.literal("Changed mode to: " + modeText), true);
                         world.playSound(null, serverPlayer.blockPosition(), SoundEvents.BUNDLE_INSERT, SoundSource.PLAYERS, 0.5f, 1.5f);
                         serverPlayer.getCooldowns().addCooldown(stack, 20);
 

@@ -8,6 +8,7 @@
     "defaultRequire": 1
   },
   "client": [
+    "item.BuilderBundle.ClientBundleTooltipMixin"
   ],
   "plugin": "xyz.faewulf.lib.util.mixinPlugin.ConditionalMixinPlugin"
 }

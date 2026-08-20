@@ -1,6 +1,10 @@
 package xyz.faewulf.diversity_better_bundle.mixin.item.buildingBundle;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.util.Mth;
+import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import org.apache.commons.lang3.math.Fraction;
@@ -16,7 +20,7 @@ import xyz.faewulf.diversity_better_bundle.inter.ICustomBundleContentBuilder;
 import java.util.List;
 
 @Mixin(BundleContents.Mutable.class)
-public abstract class BuilderMixin implements ICustomBundleContentBuilder {
+public abstract class BuilderMixin implements TooltipComponent, ICustomBundleContentBuilder {
 
     @Shadow
     @Final
@@ -29,9 +33,10 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
     private int diversity_Multiloader$maxSize = 64;
 
     @Inject(method = "getMaxAmountToAdd", at = @At("RETURN"), cancellable = true)
-    private void getMaxAllowedInject(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+    private void getMaxAllowedInject(Fraction itemWeight, CallbackInfoReturnable<Integer> cir) {
         //value = used value
-        int itemValue = Mth.mulAndTruncate(BundleContentComponentInvoker.getOccupancy(stack), 64);
+        //int itemValue = Mth.mulAndTruncate(BundleContentComponentInvoker.getOccupancy(stack), 64);
+        int itemValue = Mth.mulAndTruncate(itemWeight, 64);
 
         int usedSpace = Mth.mulAndTruncate(this.weight, 64);
         int freeSpace = diversity_Multiloader$maxSize - usedSpace;
@@ -57,6 +62,30 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
         cir.setReturnValue(Math.max(freeSpace / itemValue, 0));
     }
 
+    //Avoid item put into bundle grow pass it's stack max size
+    //Example: insert 96 items with maxsize 64 -> turn into 32 + 64 each and put at the start of the bundle
+    @WrapOperation(method = "tryInsert", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 0))
+    private void tryInsertModifyAddListMethod(List<ItemStack> instance, int i, Object e, Operation<Void> original, @Local(name = "amountToAdd") int amountToAdd) {
+        if (e instanceof ItemStack mergedStack) {
+            int itemStackMaxSize = mergedStack.getMaxStackSize();
+            int itemStackCurrentCount = mergedStack.count();
+
+            while (itemStackCurrentCount > itemStackMaxSize) {
+
+                ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackMaxSize);
+                original.call(instance, i, itemStackPutIntoBundle);
+
+                itemStackCurrentCount -= itemStackMaxSize;
+            }
+
+            if (itemStackCurrentCount > 0) {
+                ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackCurrentCount);
+                original.call(instance, i, itemStackPutIntoBundle);
+            }
+
+        }
+    }
+
     @Override
     public int diversity_Multiloader$getMaxSize() {
         return diversity_Multiloader$maxSize;
@@ -70,4 +99,3 @@ public abstract class BuilderMixin implements ICustomBundleContentBuilder {
         this.diversity_Multiloader$maxSize = maxSize;
     }
 }
-

@@ -1,0 +1,6 @@
+{
+    "pack": {
+        "description": "${mod_name}: Bundle Enchantments",
+        "pack_format": 8
+    }
+}

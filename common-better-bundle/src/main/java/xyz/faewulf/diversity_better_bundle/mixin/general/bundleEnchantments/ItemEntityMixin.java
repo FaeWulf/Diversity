@@ -12,6 +12,7 @@ import net.minecraft.world.entity.TraceableEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.math.Fraction;
@@ -55,7 +56,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
 
         if (Services.PLATFORM.isModLoaded("metalbundles")) {
             Fraction a = MetalBundleItemInvoker.getActualWeightInvoker(itemStack);
-            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight(), 64);
+            int usedSpace = Mth.mulAndTruncate(itemStack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY).weight().getOrThrow(), 64);
             originalSize = Utils.recoverCapacity(a, usedSpace);
         }
 
@@ -121,7 +122,7 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                 int stackMultiplier = 64 / itemstack.getMaxStackSize();
                 int realStackSizeOfTheItemWillPutInto = stackMultiplier * itemstack.getCount();
 
-                int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight(), 64);
+                int usedSlotInBundle = Mth.mulAndTruncate(bundleContentsComponent.weight().getOrThrow(), 64);
 
                 // Check if bundle already full
                 final int maxBundleSize = diversity_Multiloader$getMaxSize(this.level(), bundle);
@@ -137,50 +138,58 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                     continue;
 
                 // Put target itemStack into the bundle stacks
-                List<ItemStack> itemStacksInBundle = new ArrayList<>(bundleContentsComponent.itemCopyStream().toList());
+                List<ItemStackTemplate> itemStacksInBundle = new ArrayList<>(bundleContentsComponent.items());
 
                 // This loop is checking for existing same item already in bundle, then just increment it
                 // Then flip the flag hasInsert to pass the next step
                 boolean hasInsert = false;
-                for (ItemStack itemStackInBundle : itemStacksInBundle) {
 
-                    if (ItemStack.isSameItemSameComponents(itemStackInBundle, itemstack)) {
+                for (int i = 0; i < itemStacksInBundle.size(); i++) {
+                    ItemStackTemplate itemStackInBundle = itemStacksInBundle.get(i);
 
+                    if (ItemStack.isSameItemSameComponents(itemStackInBundle.create(), itemstack)) {
                         // Check if current stack already max then continue
-                        if (itemStackInBundle.getCount() >= itemStackInBundle.getMaxStackSize())
+                        if (itemStackInBundle.count() >= itemStackInBundle.getMaxStackSize())
                             continue;
 
                         // Prevent item stack grow higher than its maxStack
-                        int countInBundle = itemStackInBundle.getCount();
+                        int countInBundle = itemStackInBundle.count();
                         int maxSize = itemStackInBundle.getMaxStackSize();
 
                         if (countInBundle + numberOfItemWillPut > maxSize) {
                             int slotLeft = maxSize - countInBundle;
 
-                            int numberOfItemWillPutIntoCurrentBundle = numberOfItemWillPut;
+                            int numberOfItemWillPutIntoCurrentBundle = numberOfItemWillPut - slotLeft;
 
-                            numberOfItemWillPutIntoCurrentBundle -= slotLeft;
+                            // Update the existing stack in the list
+                            itemStacksInBundle.set(i, itemStackInBundle.withCount(countInBundle + slotLeft));
 
-                            itemStackInBundle.grow(slotLeft);
-
-                            // Insert new stack if the target stack is full, until no count left
+                            // Insert new stacks if the target stack is full, until no count left
                             while (numberOfItemWillPutIntoCurrentBundle > maxSize) {
                                 numberOfItemWillPutIntoCurrentBundle -= maxSize;
+
                                 ItemStack newItemStack = itemstack.copy();
                                 newItemStack.setCount(maxSize);
-                                itemStacksInBundle.add(newItemStack);
+
+                                itemStacksInBundle.add(
+                                        ItemStackTemplate.fromNonEmptyStack(newItemStack)
+                                );
                             }
 
-                            // last stack
+                            // Last stack
                             if (numberOfItemWillPutIntoCurrentBundle > 0) {
                                 ItemStack newItemStack = itemstack.copy();
                                 newItemStack.setCount(numberOfItemWillPutIntoCurrentBundle);
-                                itemStacksInBundle.add(newItemStack);
+                                itemStacksInBundle.add(ItemStackTemplate.fromNonEmptyStack(newItemStack));
                             }
-
                         } else {
-                            itemStackInBundle.grow(numberOfItemWillPut);
+                            // Update the existing stack in the list
+                            itemStacksInBundle.set(
+                                    i,
+                                    itemStackInBundle.withCount(countInBundle + numberOfItemWillPut)
+                            );
                         }
+
                         hasInsert = true;
                         break;
                     }
@@ -198,14 +207,14 @@ public abstract class ItemEntityMixin extends Entity implements TraceableEntity 
                         numberOfItemWillPutIntoCurrentBundle -= maxSize;
                         ItemStack newItemStack = itemstack.copy();
                         newItemStack.setCount(maxSize);
-                        itemStacksInBundle.add(newItemStack);
+                        itemStacksInBundle.add(ItemStackTemplate.fromNonEmptyStack(newItemStack));
                     }
 
                     // last stack
                     if (numberOfItemWillPutIntoCurrentBundle > 0) {
                         ItemStack newItemStack = itemstack.copy();
                         newItemStack.setCount(numberOfItemWillPutIntoCurrentBundle);
-                        itemStacksInBundle.add(newItemStack);
+                        itemStacksInBundle.add(ItemStackTemplate.fromNonEmptyStack(newItemStack));
                     }
 
                     hasInsert = true;
