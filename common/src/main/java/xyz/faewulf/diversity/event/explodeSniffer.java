@@ -8,6 +8,7 @@ import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import xyz.faewulf.diversity.inter.ICustomSniffer;
@@ -66,7 +67,7 @@ public class explodeSniffer {
                     ((ICustomSniffer) entity).diversity_Multiloader$setSnortType(typeSnort.GUN_POWDER);
 
 
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
 
                 player.getItemInHand(hand).consume(1, player);
                 entity.playSound(SoundEvents.BONE_MEAL_USE, 1.0f, 1.0f);

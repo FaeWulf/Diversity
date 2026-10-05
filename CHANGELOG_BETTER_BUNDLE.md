@@ -5,5 +5,10 @@ Or alternatively, visit [mod's github](https://github.com/FaeWulf/Diversity/tree
 
 ### Changed
 
-- Basic support for 26.x
-- Added more bugs to fix later. /s
+- Ported to Minecraft 26.3 for Fabric and NeoForge
+- Gradle 9.8.0, Fabric Loom 1.18.2, ModDevGradle 2.0.148, Fabric API 0.161.0+26.3, NeoForge 26.3.0.51-beta,
+  ModMenu 21.0.0
+
+### Fixed
+
+- Bundle stacking: oversized stacks are split correctly again

@@ -11,7 +11,7 @@ import xyz.faewulf.diversity.util.config.ModConfigs;
 
 import static net.minecraft.world.entity.AgeableMob.getSpeedUpSecondsWhenFeeding;
 
-@Mixin(targets = "net.minecraft.world.entity.animal.rabbit.Rabbit.RaidGardenGoal")
+@Mixin(targets = "net.minecraft.world.entity.animal.rabbit.Rabbit$RaidGardenGoal")
 public class EatCarrotCropGoalMixin {
 
     @Shadow

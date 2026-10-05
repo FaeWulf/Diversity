@@ -27,6 +27,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemLore;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -245,7 +246,7 @@ public abstract class BundleItemMixin extends Item implements ICustomBundleItem 
                                 0.8f
                         );
 
-                        player.swing(context.getHand(), true);
+                        player.swing(context.getHand(), SwingAnimation.DEFAULT, true);
                         player.awardStat(Stats.ITEM_USED.get(blockItem));
 
                         return InteractionResult.CONSUME;

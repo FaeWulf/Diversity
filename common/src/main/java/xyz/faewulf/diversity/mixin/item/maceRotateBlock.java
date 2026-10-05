@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MaceItem;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -47,7 +48,7 @@ public abstract class maceRotateBlock extends Item {
                 context.getLevel().playSound(null, hitPos.x, hitPos.y, hitPos.z, SoundEvents.ITEM_FRAME_ROTATE_ITEM, SoundSource.PLAYERS, 0.7f, 0.6f);
 
                 context.getItemInHand().hurtAndBreak(1, serverPlayerEntity, context.getHand().asEquipmentSlot());
-                context.getPlayer().swing(context.getHand(), true);
+                context.getPlayer().swing(context.getHand(), SwingAnimation.DEFAULT, true);
                 return InteractionResult.SUCCESS;
             }
         }

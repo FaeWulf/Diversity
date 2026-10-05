@@ -22,8 +22,8 @@ import xyz.faewulf.lib.util.EnchantHelper;
 @Mixin(FarmlandBlock.class)
 public class FarmlandMixin {
 
-    @Inject(method = "turnToDirt", at = @At("HEAD"), cancellable = true)
-    private static void setToDirtMixin(Entity entity, BlockState state, Level world, BlockPos pos, CallbackInfo ci) {
+    @Inject(method = "turnToBaseBlock", at = @At("HEAD"), cancellable = true)
+    private void setToDirtMixin(Entity entity, BlockState state, Level world, BlockPos pos, CallbackInfo ci) {
 
         if (!ModConfigs.prevent_farmland_trampling)
             return;

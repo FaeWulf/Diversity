@@ -8,7 +8,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.dimension.end.EnderDragonFight;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.feature.EndPodiumFeature;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -36,7 +35,7 @@ public class EnderDragonFightMixin {
 
         if (!ModConfigs.banner_trohpy) return;
 
-        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)));
+        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EnderDragonFight.getPodiumLocation(this.origin)));
 
         ItemStack eggTrophy = CustomBanner.enderEggBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
         eggTrophy.setCount(1);
@@ -50,7 +49,7 @@ public class EnderDragonFightMixin {
 
         if (!ModConfigs.banner_trohpy) return;
 
-        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EndPodiumFeature.getLocation(this.origin)));
+        Vec3 pos = Vec3.atCenterOf(this.level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, EnderDragonFight.getPodiumLocation(this.origin)));
 
         ItemStack eggTrophy = CustomBanner.enderDragonBanner(dragon.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN));
         eggTrophy.setCount(1);

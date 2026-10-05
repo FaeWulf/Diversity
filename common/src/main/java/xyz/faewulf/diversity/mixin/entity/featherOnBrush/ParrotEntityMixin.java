@@ -10,6 +10,7 @@ import net.minecraft.world.entity.animal.parrot.ShoulderRidingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -51,7 +52,7 @@ public abstract class ParrotEntityMixin extends ShoulderRidingEntity implements 
         drops.setCount(random.nextIntBetweenInclusive(1, 2));
         this.spawnAtLocation((ServerLevel) player.level(), drops);
 
-        player.swing(hand, true);
+        player.swing(hand, SwingAnimation.DEFAULT, true);
         diversity_Multiloader$featherCoolDown = 24000;
         cir.setReturnValue(InteractionResult.SUCCESS);
         cir.cancel();

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "diversity:suspicious_gravel"
+        "recipes": "diversity:suspicious_gravel"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
