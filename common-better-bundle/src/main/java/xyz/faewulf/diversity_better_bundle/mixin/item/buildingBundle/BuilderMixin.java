@@ -8,7 +8,6 @@ import net.minecraft.world.inventory.tooltip.TooltipComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BundleContents;
 import org.apache.commons.lang3.math.Fraction;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,10 +20,6 @@ import java.util.List;
 
 @Mixin(BundleContents.Mutable.class)
 public abstract class BuilderMixin implements TooltipComponent, ICustomBundleContentBuilder {
-
-    @Shadow
-    @Final
-    private List<ItemStack> items;
 
     @Shadow
     private Fraction weight;
@@ -64,8 +59,8 @@ public abstract class BuilderMixin implements TooltipComponent, ICustomBundleCon
 
     //Avoid item put into bundle grow pass it's stack max size
     //Example: insert 96 items with maxsize 64 -> turn into 32 + 64 each and put at the start of the bundle
-    @WrapOperation(method = "tryInsert", at = @At(value = "INVOKE", target = "Ljava/util/List;add(ILjava/lang/Object;)V", ordinal = 0))
-    private void tryInsertModifyAddListMethod(List<ItemStack> instance, int i, Object e, Operation<Void> original, @Local(name = "amountToAdd") int amountToAdd) {
+    @WrapOperation(method = "tryInsert", at = @At(value = "INVOKE", target = "Ljava/util/List;addFirst(Ljava/lang/Object;)V", ordinal = 0))
+    private void tryInsertModifyAddListMethod(List<ItemStack> instance, Object e, Operation<Void> original, @Local(name = "amountToAdd") int amountToAdd) {
         if (e instanceof ItemStack mergedStack) {
             int itemStackMaxSize = mergedStack.getMaxStackSize();
             int itemStackCurrentCount = mergedStack.count();
@@ -73,14 +68,14 @@ public abstract class BuilderMixin implements TooltipComponent, ICustomBundleCon
             while (itemStackCurrentCount > itemStackMaxSize) {
 
                 ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackMaxSize);
-                original.call(instance, i, itemStackPutIntoBundle);
+                original.call(instance, itemStackPutIntoBundle);
 
                 itemStackCurrentCount -= itemStackMaxSize;
             }
 
             if (itemStackCurrentCount > 0) {
                 ItemStack itemStackPutIntoBundle = mergedStack.copyWithCount(itemStackCurrentCount);
-                original.call(instance, i, itemStackPutIntoBundle);
+                original.call(instance, itemStackPutIntoBundle);
             }
 
         }

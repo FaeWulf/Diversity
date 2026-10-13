@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,7 +83,7 @@ public class useClockOnBlock {
                 feedBack.append(" | Next: ")
                         .append(next);
 
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 //player.displayClientMessage(feedBack, true);
                 player.sendOverlayMessage(feedBack);
                 return InteractionResult.CONSUME;

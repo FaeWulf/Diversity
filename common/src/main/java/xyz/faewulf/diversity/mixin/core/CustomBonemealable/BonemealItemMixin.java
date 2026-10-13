@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BoneMealItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,6 +62,6 @@ public abstract class BonemealItemMixin extends Item {
     @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;levelEvent(ILnet/minecraft/core/BlockPos;I)V", ordinal = 0))
     private void useOnInject(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir) {
         if (context.getPlayer() != null)
-            context.getPlayer().swing(context.getHand(), true);
+            context.getPlayer().swing(context.getHand(), SwingAnimation.DEFAULT, true);
     }
 }

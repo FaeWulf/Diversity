@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "diversity:suspicious_sand"
+        "recipes": "diversity:suspicious_sand"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

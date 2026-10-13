@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Display;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -54,7 +55,7 @@ public class useShearOnBlock {
                     }
                 }
 
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
                 return InteractionResult.CONSUME;
             }
         }

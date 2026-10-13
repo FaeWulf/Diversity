@@ -18,16 +18,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CoralPlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.feature.CoralClawFeature;
-import net.minecraft.world.level.levelgen.feature.CoralFeature;
-import net.minecraft.world.level.levelgen.feature.CoralMushroomFeature;
-import net.minecraft.world.level.levelgen.feature.CoralTreeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.material.MapColor;
 import org.spongepowered.asm.mixin.Mixin;
 import xyz.faewulf.diversity.inter.ICustomBonemealable;
-import xyz.faewulf.lib.util.Compare;
+import xyz.faewulf.diversity.util.CoralPlacer;
 import xyz.faewulf.diversity.util.config.ModConfigs;
+import xyz.faewulf.lib.util.Compare;
 
 import java.util.Optional;
 
@@ -56,10 +52,10 @@ public class CoralMixin implements ICustomBonemealable {
 
     @Override
     public void Diversity$performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        CoralFeature coral = switch (level.getRandom().nextInt(3)) {
-            case 0 -> new CoralTreeFeature(NoneFeatureConfiguration.CODEC);
-            case 1 -> new CoralClawFeature(NoneFeatureConfiguration.CODEC);
-            default -> new CoralMushroomFeature(NoneFeatureConfiguration.CODEC);
+        CoralPlacer.Shape shape = switch (level.getRandom().nextInt(3)) {
+            case 0 -> CoralPlacer.Shape.TREE;
+            case 1 -> CoralPlacer.Shape.CLAW;
+            default -> CoralPlacer.Shape.MUSHROOM;
         };
 
         //get corresponding block based on the fan, use color map...
@@ -86,7 +82,7 @@ public class CoralMixin implements ICustomBonemealable {
 
         level.setBlock(pos, Blocks.WATER.defaultBlockState(), Block.UPDATE_NONE);
 
-        if (!((CoralFeatureInvoker) coral).generateCoral(level, level.getRandom(), pos, coralBlockMatchedColor)) {
+        if (!CoralPlacer.place(level, level.getRandom(), pos, coralBlockMatchedColor, shape)) {
             level.setBlock(pos, state, UPDATE_ALL);
         }
 

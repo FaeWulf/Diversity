@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
@@ -160,7 +161,7 @@ public class rightClickCropBlocks {
                 if (shouldConsumeAction) {
 
                     //swing hand
-                    player.swing(hand, true);
+                    player.swing(hand, SwingAnimation.DEFAULT, true);
                     return InteractionResult.CONSUME;
                 }
             }

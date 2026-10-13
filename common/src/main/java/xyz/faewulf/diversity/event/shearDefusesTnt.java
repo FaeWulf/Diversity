@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.HitResult;
@@ -40,7 +41,7 @@ public class shearDefusesTnt {
 //            item1.setDefaultPickUpDelay();
 //            level.addFreshEntity(item1);
 
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             player.getItemInHand(hand).hurtAndBreak(1, player, hand.asEquipmentSlot());
             entity.playSound(SoundEvents.SHEEP_SHEAR, 1.0f, 1.0f);
 

@@ -9,6 +9,7 @@ import net.minecraft.world.entity.animal.chicken.Chicken;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,7 +43,7 @@ public class ChickenEntitySuperClassMixin {
 
             ((ICustomChickenEntity) chickenEntity).diversity_Multiloader$setFeatherCoolDown(12000);
 
-            player.swing(hand, true);
+            player.swing(hand, SwingAnimation.DEFAULT, true);
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
         }

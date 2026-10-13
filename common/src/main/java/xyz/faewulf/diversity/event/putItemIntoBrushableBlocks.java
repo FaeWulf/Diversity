@@ -8,6 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BrushableBlockEntity;
@@ -63,7 +64,7 @@ public class putItemIntoBrushableBlocks {
 
                 ((ICustomBrushableBlockEntity) brushableBlockEntity).diversity_Multiloader$setItem(treasure);
 
-                player.swing(hand, true);
+                player.swing(hand, SwingAnimation.DEFAULT, true);
 
                 mainHand.consume(1, player);
                 world.playSound(null, player.blockPosition(), SoundEvents.SAND_PLACE, SoundSource.PLAYERS, 1.0f, 1.0f);
