@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.5] - 2026-8-21
+
+### Changed
+
+- Basic support for 26.x
+- Added more bugs to fix later. /s
+
 ## [2.5.4] - 2025-10-29
 
 ### Fixed
