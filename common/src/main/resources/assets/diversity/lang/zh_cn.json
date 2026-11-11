@@ -1,8 +1,8 @@
 {
-  "enchantment.diversity.backup_protection": "备用保护",
-  "enchantment.diversity.backup_blast_protection": "备用爆炸保护",
-  "enchantment.diversity.backup_fire_protection": "备用火焰保护",
-  "enchantment.diversity.backup_projectile_protection": "备用弹射物保护",
+  "enchantment.diversity.backup_protection": "简易保护",
+  "enchantment.diversity.backup_blast_protection": "简易爆炸保护",
+  "enchantment.diversity.backup_fire_protection": "简易火焰保护",
+  "enchantment.diversity.backup_projectile_protection": "简易弹射物保护",
   "enchantment.diversity.refill": "自动补货",
   "enchantment.diversity.capacity": "扩容",
   "enchantment.diversity.vacuum": "吸取",
